@@ -6,39 +6,15 @@ export default function Cart({ cart, increaseQty, decreaseQty, removeItem }) {
   const total = cart.reduce((acc, item) => acc + item.finalPrice * item.qty, 0);
 
   return (
-    <div
-      className="
-      bg-white rounded-3xl
-      p-6 shadow-lg
-    "
-    >
-      <h2
-        className="
-        text-3xl font-bold mb-8
-      "
-      >
-        Keranjang
-      </h2>
+    <div className="bg-white rounded-3xl p-6 shadow-lg">
+      <h2 className=" text-3xl font-bold mb-8"> Keranjang </h2>
 
       <div className="space-y-6">
         {cart.map((item) => (
-          <div
-            key={item.id + item.addons}
-            className="
-              border-b pb-5
-              flex gap-4
-            "
-          >
+          <div key={item.id + item.addons} className="border-b pb-5 flex gap-4">
             {/* IMAGE */}
 
-            <img
-              src={item.image}
-              className="
-                w-24 h-24
-                object-cover
-                rounded-2xl
-              "
-            />
+            <img src={item.image} className=" w-24 h-24 object-cover rounded-2xl"/>
 
             {/* CONTENT */}
 
