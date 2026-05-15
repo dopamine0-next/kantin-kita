@@ -1,0 +1,35 @@
+# Dependencies
+node_modules
+dist
+build
+
+# Next.js build output
+.next
+out
+
+# Environment variables
+.env*
+
+# Git and OS metadata
+.git
+.svn
+.hg
+.DS_Store
+Thumbs.db
+
+# Lock files (biar gak berantakan kalau kena auto-format)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Public assets
+public/
+
+# Static logs
+*.log
+
+# Coverage reports (jika pakai testing)
+coverage/
+
+# Typescript build info
+*.tsbuildinfo
