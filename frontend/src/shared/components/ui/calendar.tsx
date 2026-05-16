@@ -6,8 +6,8 @@ import { type DayButton, DayPicker, type Locale, getDefaultClassNames } from 're
 import { ArrowDownIcon, ArrowLeftIcon, ArrowRightIcon } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
 
-import { Button, buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import { Button, buttonVariants } from '@/shared/components/ui/button'
 
 function Calendar({
   className,

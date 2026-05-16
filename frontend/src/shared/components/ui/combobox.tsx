@@ -6,14 +6,14 @@ import { Combobox as ComboboxPrimitive } from '@base-ui/react'
 import { ArrowDown01Icon, Cancel01Icon, Tick02Icon } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
 
-import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
+import { Button } from '@/shared/components/ui/button'
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
-} from '@/components/ui/input-group'
-import { cn } from '@/lib/utils'
+} from '@/shared/components/ui/input-group'
 
 const Combobox = ComboboxPrimitive.Root
 
