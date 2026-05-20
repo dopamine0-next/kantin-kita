@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { useRouter } from "next/navigation"
 import { Star, Clock, MapPin, BadgePercent } from "lucide-react"
 import { motion } from "motion/react"
 import { Badge } from "@/components/ui/badge"
@@ -24,11 +25,21 @@ export interface StallCardProps {
 }
 
 export function StallCard({ stall, index = 0, onClick }: StallCardProps) {
+  const router = useRouter()
+
   // Determine if a promo exists
   const displayPromo = stall.promoText || (stall.promos && stall.promos.length > 0 ? stall.promos[0] : null)
   
   // Format walk time
   const formattedWalkTime = typeof stall.walkTime === "number" ? `${stall.walkTime} mnt` : stall.walkTime
+
+  const handleClick = () => {
+    if (onClick) {
+      onClick()
+    } else {
+      router.push(`/restaurant/${stall.id}`)
+    }
+  }
 
   return (
     <motion.div
@@ -36,9 +47,10 @@ export function StallCard({ stall, index = 0, onClick }: StallCardProps) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.25, delay: index * 0.05 }}
-      onClick={onClick}
+      onClick={handleClick}
       className="flex items-start gap-3.5 p-3 rounded-2xl border border-muted/30 bg-card/40 backdrop-blur-md hover:border-primary/20 hover:shadow-md hover:shadow-primary/[0.02] active:scale-[0.99] transition-all duration-300 group cursor-pointer"
     >
+
       {/* Stall Image */}
       <div className="relative size-16.5 rounded-xl overflow-hidden shrink-0 shadow-inner">
         <img

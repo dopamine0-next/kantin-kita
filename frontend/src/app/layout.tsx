@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Figtree, Geist, Geist_Mono } from 'next/font/google'
 
 import { cn } from '@/lib/utils'
+import { FloatingCheckoutButton } from '@/components/ui/floating-checkout-button'
 
 import './globals.css'
 
@@ -39,7 +40,11 @@ export default function RootLayout({
         figtree.variable
       )}
     >
-      <body className="flex min-h-full flex-col">{children}</body>
+      <body className="flex min-h-full flex-col">
+        {children}
+        <FloatingCheckoutButton />
+      </body>
     </html>
   )
 }
+

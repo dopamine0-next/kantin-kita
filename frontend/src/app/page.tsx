@@ -8,6 +8,7 @@ import { Categories } from "@/components/homepage/categories"
 import { PromoItems, FoodItem } from "@/components/homepage/promo-items"
 import { Restaurants } from "@/components/homepage/restaurants"
 import { BottomNav } from "@/components/homepage/bottom-nav"
+import { useCartStore } from "@/store/useCartStore"
 import { Sparkles, ShoppingBag, X } from "lucide-react"
 
 export default function Home() {
@@ -16,13 +17,22 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = React.useState("")
   const [selectedCategory, setSelectedCategory] = React.useState("all")
   const [activeTab, setActiveTab] = React.useState("home")
-  const [cartItems, setCartItems] = React.useState<FoodItem[]>([])
+  
+  // Zustand States
+  const items = useCartStore((state) => state.items)
+  const addToCart = useCartStore((state) => state.addToCart)
   
   // High-fidelity local toast
   const [toastMessage, setToastMessage] = React.useState<string | null>(null)
 
   const handleAddToCart = (item: FoodItem) => {
-    setCartItems((prev) => [...prev, item])
+    addToCart({
+      foodId: item.id,
+      name: item.name,
+      price: item.price,
+      image: item.image,
+      qty: 1
+    })
     setToastMessage(`✓ ${item.name} berhasil ditambahkan ke keranjang!`)
     
     // Auto hide toast
@@ -32,14 +42,15 @@ export default function Home() {
   }
 
   const handleCartClick = () => {
-    if (cartItems.length > 0) {
-      setToastMessage(`🛒 Anda memiliki ${cartItems.length} menu di keranjang Anda!`)
+    if (items.length > 0) {
+      setToastMessage(`🛒 Anda memiliki ${items.length} menu di keranjang Anda!`)
       setTimeout(() => setToastMessage(null), 4000)
     } else {
       setToastMessage("🛒 Keranjang belanja Anda masih kosong.")
       setTimeout(() => setToastMessage(null), 3000)
     }
   }
+
 
   return (
     <div className="relative max-w-md w-full min-h-screen bg-background border-x border-muted/50 mx-auto flex flex-col">
@@ -96,7 +107,7 @@ export default function Home() {
       <BottomNav
         activeTab={activeTab}
         setActiveTab={setActiveTab}
-        cartCount={cartItems.length}
+        cartCount={items.length}
         onCartClick={handleCartClick}
       />
     </div>

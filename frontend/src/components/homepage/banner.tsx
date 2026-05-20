@@ -44,6 +44,17 @@ export function Banner() {
     api.on("select", () => {
       setActiveIndex(api.selectedScrollSnap())
     })
+
+    // Setup automatic swiping every 3 seconds
+    const autoplayInterval = setInterval(() => {
+      if (api.canScrollNext()) {
+        api.scrollNext()
+      } else {
+        api.scrollTo(0) // Wrap around to the first slide
+      }
+    }, 3000)
+
+    return () => clearInterval(autoplayInterval)
   }, [api])
 
   return (

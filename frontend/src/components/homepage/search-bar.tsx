@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Search, SlidersHorizontal } from "lucide-react"
+import { Search } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { motion, AnimatePresence } from "motion/react"
@@ -82,15 +82,6 @@ export function SearchBar({ searchQuery, setSearchQuery }: SearchBarProps) {
           </button>
         )}
       </div>
-
-      {/* Filter Button */}
-      <Button
-        variant="outline"
-        size="icon"
-        className="size-11 rounded-2xl bg-primary text-primary-foreground border-none shadow-md hover:bg-primary/95 active:scale-95 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10"
-      >
-        <SlidersHorizontal className="size-4.5" />
-      </Button>
     </div>
   )
 }
