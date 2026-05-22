@@ -1,8 +1,8 @@
-"use client"
+'use client'
 
-import * as React from "react"
-import { Home, ClipboardList, ShoppingBag, Gift, User } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { ClipboardList, Gift, Home, ShoppingBag, User } from 'lucide-react'
+
+import { cn } from '@/lib/utils'
 
 interface BottomNavProps {
   activeTab: string
@@ -13,15 +13,15 @@ interface BottomNavProps {
 
 export function BottomNav({ activeTab, setActiveTab, cartCount, onCartClick }: BottomNavProps) {
   const tabs = [
-    { id: "home", label: "Beranda", icon: Home },
-    { id: "orders", label: "Pesanan", icon: ClipboardList },
-    { id: "cart", label: "Keranjang", icon: ShoppingBag, isCenter: true },
-    { id: "promo", label: "Promo", icon: Gift },
-    { id: "profile", label: "Saya", icon: User },
+    { id: 'home', label: 'Beranda', icon: Home },
+    { id: 'orders', label: 'Pesanan', icon: ClipboardList },
+    { id: 'cart', label: 'Keranjang', icon: ShoppingBag, isCenter: true },
+    { id: 'promo', label: 'Promo', icon: Gift },
+    { id: 'profile', label: 'Saya', icon: User },
   ]
 
   return (
-    <div className="absolute bottom-0 left-0 right-0 h-20 bg-background/80 backdrop-blur-xl border-t border-muted/30 shadow-2xl flex items-center justify-around px-4 z-40">
+    <div className="bg-background/80 border-muted/30 absolute right-0 bottom-0 left-0 z-40 flex h-20 items-center justify-around border-t px-4 shadow-2xl backdrop-blur-xl">
       {tabs.map((tab) => {
         const Icon = tab.icon
         const isActive = activeTab === tab.id
@@ -35,10 +35,10 @@ export function BottomNav({ activeTab, setActiveTab, cartCount, onCartClick }: B
                   onCartClick?.()
                 }}
                 className={cn(
-                  "size-14 rounded-full flex items-center justify-center text-white shadow-lg active:scale-95 transition-all duration-300",
-                  activeTab === "cart"
-                    ? "bg-primary shadow-primary/30"
-                    : "bg-primary/90 hover:bg-primary shadow-primary/20"
+                  'flex size-14 items-center justify-center rounded-full text-white shadow-lg transition-all duration-300 active:scale-95',
+                  activeTab === 'cart'
+                    ? 'bg-primary shadow-primary/30'
+                    : 'bg-primary/90 hover:bg-primary shadow-primary/20'
                 )}
                 aria-label="Keranjang Belanja"
               >
@@ -47,7 +47,7 @@ export function BottomNav({ activeTab, setActiveTab, cartCount, onCartClick }: B
 
               {/* Cart Count Badge */}
               {cartCount > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 bg-rose-500 text-white font-extrabold text-[10px] size-5 rounded-full flex items-center justify-center border-2 border-background animate-bounce shadow-md">
+                <span className="border-background absolute -top-1.5 -right-1.5 flex size-5 animate-bounce items-center justify-center rounded-full border-2 bg-rose-500 text-[10px] font-extrabold text-white shadow-md">
                   {cartCount}
                 </span>
               )}
@@ -59,15 +59,22 @@ export function BottomNav({ activeTab, setActiveTab, cartCount, onCartClick }: B
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className="flex flex-col items-center justify-center gap-1 flex-1 py-2 text-[10px] font-bold transition-all duration-300 active:scale-95 text-muted-foreground/80 hover:text-foreground"
+            className="text-muted-foreground/80 hover:text-foreground flex flex-1 flex-col items-center justify-center gap-1 py-2 text-[10px] font-bold transition-all duration-300 active:scale-95"
           >
             <Icon
               className={cn(
-                "size-5.5 transition-all duration-300",
-                isActive ? "text-primary scale-110 stroke-[2.5]" : "text-muted-foreground/60 stroke-[2]"
+                'size-5.5 transition-all duration-300',
+                isActive
+                  ? 'text-primary scale-110 stroke-[2.5]'
+                  : 'text-muted-foreground/60 stroke-[2]'
               )}
             />
-            <span className={cn("transition-colors duration-300", isActive ? "text-primary font-extrabold" : "font-semibold")}>
+            <span
+              className={cn(
+                'transition-colors duration-300',
+                isActive ? 'text-primary font-extrabold' : 'font-semibold'
+              )}
+            >
               {tab.label}
             </span>
           </button>
