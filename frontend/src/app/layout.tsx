@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
 import { Figtree, Geist, Geist_Mono } from 'next/font/google'
 
-import { cn } from '@/lib/utils'
+import { ThemeProvider } from '@/components/theme-provider'
 import { FloatingCheckoutButton } from '@/components/ui/floating-checkout-button'
+import { cn } from '@/lib/utils'
 
 import './globals.css'
 
@@ -30,7 +31,8 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="id"
+      suppressHydrationWarning
       className={cn(
         'h-full',
         'antialiased',
@@ -41,10 +43,16 @@ export default function RootLayout({
       )}
     >
       <body className="flex min-h-full flex-col">
-        {children}
-        <FloatingCheckoutButton />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+          <FloatingCheckoutButton />
+        </ThemeProvider>
       </body>
     </html>
   )
 }
-
