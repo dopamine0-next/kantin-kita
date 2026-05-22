@@ -27,7 +27,7 @@ const BANNER_PROMOS = [
     id: 3,
     title: "Camilan Sore Ceria",
     subtitle: "Pisang goreng keju crispy & kopi susu gula aren hangat.",
-    promoText: "FREE ONGKIR",
+    promoText: "DISKON S.D 30%",
     priceText: "Hanya Rp 15.000",
     bgGradient: "from-yellow-500 to-amber-600",
     image: "https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=400&q=80",

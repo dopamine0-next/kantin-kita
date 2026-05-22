@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { Header } from "@/components/homepage/header"
+import { PromoMarquee } from "@/components/homepage/promo-marquee"
 import { Banner } from "@/components/homepage/banner"
 import { SearchBar } from "@/components/homepage/search-bar"
 import { Categories } from "@/components/homepage/categories"
@@ -9,9 +10,11 @@ import { PromoItems, FoodItem } from "@/components/homepage/promo-items"
 import { Restaurants } from "@/components/homepage/restaurants"
 import { BottomNav } from "@/components/homepage/bottom-nav"
 import { useCartStore } from "@/store/useCartStore"
+import { useRouter } from "next/navigation"
 import { Sparkles, ShoppingBag, X } from "lucide-react"
 
 export default function Home() {
+  const router = useRouter()
   // App States
   const [activeMode, setActiveMode] = React.useState<"dine-in" | "pickup">("dine-in")
   const [searchQuery, setSearchQuery] = React.useState("")
@@ -33,22 +36,11 @@ export default function Home() {
       image: item.image,
       qty: 1
     })
-    setToastMessage(`✓ ${item.name} berhasil ditambahkan ke keranjang!`)
-    
-    // Auto hide toast
-    setTimeout(() => {
-      setToastMessage(null)
-    }, 3000)
+    router.push("/checkout")
   }
 
   const handleCartClick = () => {
-    if (items.length > 0) {
-      setToastMessage(`🛒 Anda memiliki ${items.length} menu di keranjang Anda!`)
-      setTimeout(() => setToastMessage(null), 4000)
-    } else {
-      setToastMessage("🛒 Keranjang belanja Anda masih kosong.")
-      setTimeout(() => setToastMessage(null), 3000)
-    }
+    router.push("/checkout")
   }
 
 
@@ -62,6 +54,9 @@ export default function Home() {
           <div className="flex flex-col gap-4 animate-fade-in">
             {/* Header section (avatar, mode switch) */}
             <Header activeMode={activeMode} setActiveMode={setActiveMode} />
+
+            {/* Infinite scrolling promo marquee */}
+            <PromoMarquee />
 
             {/* Promo Banner carousel */}
             <Banner />

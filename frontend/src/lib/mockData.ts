@@ -27,6 +27,7 @@ export interface RestaurantDetail {
   operationalHours: string
   categories: string[]
   menus: MenuItem[]
+  block: "Blok A" | "Blok B"
 }
 
 export const MOCK_RESTAURANTS_DETAILS: Record<string, RestaurantDetail> = {
@@ -39,11 +40,12 @@ export const MOCK_RESTAURANTS_DETAILS: Record<string, RestaurantDetail> = {
     walkTime: 8,
     distance: "50m",
     isOpen: true,
-    promos: ["Diskon 20%", "Gratis Ongkir", "Cepat Saji"],
+    promos: ["Diskon 20%", "Menu Populer", "Cepat Saji"],
     image: "https://images.unsplash.com/photo-1541832676-9b763b0239ab?auto=format&fit=crop&w=400&q=80",
     bannerImage: "https://images.unsplash.com/photo-1541832676-9b763b0239ab?auto=format&fit=crop&w=800&q=80",
-    address: "Kantin Kita Utama, Stall No. 1, Lantai Dasar",
+    address: "Blok A, Kantin Kita Utama",
     operationalHours: "09:00 - 20:00",
+    block: "Blok A",
     categories: ["Soto & Sup", "Bakso", "Camilan", "Minuman"],
     menus: [
       {
@@ -138,8 +140,9 @@ export const MOCK_RESTAURANTS_DETAILS: Record<string, RestaurantDetail> = {
     promos: ["Diskon 30%", "Voucher Rp 5rb", "Geprek Spesial"],
     image: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=400&q=80",
     bannerImage: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=800&q=80",
-    address: "Kantin Kita Utama, Stall No. 2, Lantai Dasar",
+    address: "Blok B, Kantin Kita Utama",
     operationalHours: "10:00 - 21:00",
+    block: "Blok B",
     categories: ["Paket Geprek", "A la Carte", "Minuman"],
     menus: [
       {
@@ -212,8 +215,9 @@ export const MOCK_RESTAURANTS_DETAILS: Record<string, RestaurantDetail> = {
     promos: ["Beli 1 Gratis 1", "Es Kopi Susu Murah", "Cemilan Hemat"],
     image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80",
     bannerImage: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=800&q=80",
-    address: "Kantin Kita Utama, Stall No. 3, Lantai Dasar",
+    address: "Blok A, Kantin Kita Utama",
     operationalHours: "08:00 - 22:00",
+    block: "Blok A",
     categories: ["Coffee", "Toast & Roti", "Non-Coffee"],
     menus: [
       {
@@ -288,8 +292,9 @@ export const MOCK_RESTAURANTS_DETAILS: Record<string, RestaurantDetail> = {
     promos: ["Diskon Spesial 15%", "Seafood Segar"],
     image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=400&q=80",
     bannerImage: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=800&q=80",
-    address: "Kantin Kita Utama, Stall No. 4, Lantai Dasar",
+    address: "Blok B, Kantin Kita Utama",
     operationalHours: "11:00 - 21:30",
+    block: "Blok B",
     categories: ["Ikan Bakar", "Seafood Tumis", "Paket Nasi"],
     menus: [
       {
@@ -339,8 +344,9 @@ export const MOCK_RESTAURANTS_DETAILS: Record<string, RestaurantDetail> = {
     promos: ["Diskon 25%", "Pangsit Gratis"],
     image: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=400&q=80",
     bannerImage: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=800&q=80",
-    address: "Kantin Kita Utama, Stall No. 5, Lantai Dasar",
+    address: "Blok A, Kantin Kita Utama",
     operationalHours: "08:30 - 19:30",
+    block: "Blok A",
     categories: ["Mie Ayam", "Bakso & Pangsit", "Minuman"],
     menus: [
       {

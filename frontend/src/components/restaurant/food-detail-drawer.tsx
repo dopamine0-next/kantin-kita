@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { useCartStore } from "@/store/useCartStore"
+import { useRouter } from "next/navigation"
 import { MenuItem } from "@/lib/mockData"
 import {
   Drawer,
@@ -57,6 +58,7 @@ export function FoodDetailDrawer({
   onAddedToCart,
 }: FoodDetailDrawerProps) {
   const addToCart = useCartStore((state) => state.addToCart)
+  const router = useRouter()
 
   const [qty, setQty] = React.useState(1)
   const [selectedVariant, setSelectedVariant] = React.useState<string>("")
@@ -144,6 +146,7 @@ export function FoodDetailDrawer({
     const detailsStr = details.length > 0 ? ` (${details.join(", ")})` : ""
     onAddedToCart(`✓ ${qty}x ${item.name}${detailsStr} ditambahkan ke keranjang!`)
     onClose()
+    router.push("/checkout")
   }
 
   return (

@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { StallCard } from "@/components/search-list/stall-card"
+import { useAuthStore } from "@/store/useAuthStore"
 
 export interface Restaurant {
   id: string
@@ -14,6 +15,7 @@ export interface Restaurant {
   isOpen: boolean
   promoText?: string
   image: string
+  block?: "Blok A" | "Blok B"
 }
 
 export const MOCK_RESTAURANTS: Restaurant[] = [
@@ -28,6 +30,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     isOpen: true,
     promoText: "Diskon 20%",
     image: "https://images.unsplash.com/photo-1541832676-9b763b0239ab?auto=format&fit=crop&w=150&q=80",
+    block: "Blok A",
   },
   {
     id: "stall-2",
@@ -38,8 +41,9 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     walkTime: "3 mnt",
     distance: "70m",
     isOpen: true,
-    promoText: "Gratis Ongkir",
+    promoText: "Diskon 30%",
     image: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=150&q=80",
+    block: "Blok B",
   },
   {
     id: "stall-3",
@@ -52,6 +56,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     isOpen: true,
     promoText: "Combo Hemat",
     image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=150&q=80",
+    block: "Blok A",
   },
   {
     id: "stall-4",
@@ -63,22 +68,45 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     distance: "120m",
     isOpen: false,
     image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=150&q=80",
+    block: "Blok B",
   },
 ]
 
 export function Restaurants() {
+  const user = useAuthStore((state) => state.user)
+  const activeLocation = user ? user.location : "Blok A"
+  const [showAll, setShowAll] = React.useState(false)
+
+  const filtered = showAll 
+    ? MOCK_RESTAURANTS 
+    : MOCK_RESTAURANTS.filter((stall) => stall.block === activeLocation)
+
   return (
     <div className="flex flex-col gap-3 px-4 pt-3 pb-8">
       {/* Section Header */}
       <div className="flex items-center justify-between">
-        <h2 className="text-base font-bold text-foreground tracking-tight">Kios Kantin Terdekat</h2>
-        <span className="text-xs text-primary font-semibold hover:underline cursor-pointer">Lihat Semua</span>
+        <h2 className="text-base font-bold text-foreground tracking-tight">
+          {showAll ? "Semua Kios Kantin (Blok A & B)" : `Kios Terdekat di ${activeLocation}`}
+        </h2>
+        <button
+          onClick={() => setShowAll(!showAll)}
+          className="text-xs text-primary font-black hover:underline cursor-pointer uppercase tracking-wider text-[10px]"
+        >
+          {showAll ? `Filter ${activeLocation}` : "Lihat Semua"}
+        </button>
       </div>
 
       {/* Vertical List of Canteen Stalls */}
       <div className="flex flex-col gap-3.5">
-        {MOCK_RESTAURANTS.map((stall, idx) => (
-          <StallCard key={stall.id} stall={stall} index={idx} />
+        {filtered.map((stall, idx) => (
+          <StallCard 
+            key={stall.id} 
+            stall={{ 
+              ...stall, 
+              distance: stall.block || "Blok A" 
+            }} 
+            index={idx} 
+          />
         ))}
       </div>
     </div>

@@ -10,10 +10,11 @@ export const STALLS_DATABASE: StallRestaurant[] = [
     walkTime: 8,
     distance: "50m",
     isOpen: true,
-    promos: ["Diskon 20%", "Gratis Ongkir", "Cepat Saji"],
+    promos: ["Diskon 20%", "Menu Populer", "Cepat Saji"],
     cheapestItemPrice: 15000,
     isInstant: true,
     image: "https://images.unsplash.com/photo-1541832676-9b763b0239ab?auto=format&fit=crop&w=400&q=80",
+    block: "Blok A",
   },
   {
     id: "stall-2",
@@ -28,6 +29,7 @@ export const STALLS_DATABASE: StallRestaurant[] = [
     cheapestItemPrice: 14000,
     isInstant: false,
     image: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=400&q=80",
+    block: "Blok B",
   },
   {
     id: "stall-3",
@@ -42,6 +44,7 @@ export const STALLS_DATABASE: StallRestaurant[] = [
     cheapestItemPrice: 10000,
     isInstant: true,
     image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80",
+    block: "Blok A",
   },
   {
     id: "stall-4",
@@ -52,10 +55,11 @@ export const STALLS_DATABASE: StallRestaurant[] = [
     walkTime: 18,
     distance: "120m",
     isOpen: true,
-    promos: ["Diskon Spesial 15%", " Seafood Segar"],
+    promos: ["Diskon Spesial 15%", "Seafood Segar"],
     cheapestItemPrice: 28000,
     isInstant: false,
     image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=400&q=80",
+    block: "Blok B",
   },
   {
     id: "stall-5",
@@ -70,12 +74,12 @@ export const STALLS_DATABASE: StallRestaurant[] = [
     cheapestItemPrice: 15000,
     isInstant: true,
     image: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=400&q=80",
+    block: "Blok A",
   }
 ]
 
 export const FILTER_BADGES: FilterBadge[] = [
   { id: "under-30", label: "Di bawah Rp 30rb" },
   { id: "instant", label: "Penyajian Instan (<10 mnt)" },
-  { id: "rating-high", label: "Rating 4.8+" },
-  { id: "gratis-ongkir", label: "Gratis Ongkir" }
+  { id: "rating-high", label: "Rating 4.8+" }
 ]

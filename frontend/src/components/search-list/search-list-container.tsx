@@ -65,9 +65,6 @@ export default function SearchListContainer({ initialQuery }: SearchListContaine
       if (selectedFilters.includes("rating-high") && stall.rating < 4.8) {
         return false
       }
-      if (selectedFilters.includes("gratis-ongkir") && !stall.promos.includes("Gratis Ongkir")) {
-        return false
-      }
 
       return true
     })
@@ -112,7 +109,14 @@ export default function SearchListContainer({ initialQuery }: SearchListContaine
           {filteredStalls.length > 0 ? (
             <div className="flex flex-col gap-4">
               {filteredStalls.map((stall, idx) => (
-                <StallCard key={stall.id} stall={stall} index={idx} />
+                <StallCard 
+                  key={stall.id} 
+                  stall={{ 
+                    ...stall, 
+                    distance: stall.block || "Blok A" 
+                  }} 
+                  index={idx} 
+                />
               ))}
             </div>
           ) : (

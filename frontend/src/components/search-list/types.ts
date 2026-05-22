@@ -11,6 +11,7 @@ export interface StallRestaurant {
   cheapestItemPrice: number // for "Di bawah 30rb" filter
   isInstant: boolean // for "Instant (<10 mnt)" filter
   image: string
+  block?: "Blok A" | "Blok B"
 }
 
 export interface FilterBadge {
