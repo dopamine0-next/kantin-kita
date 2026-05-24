@@ -12,6 +12,8 @@ import { FoodItem, PromoItems } from '@/components/homepage/promo-items'
 import { PromoMarquee } from '@/components/homepage/promo-marquee'
 import { Restaurants } from '@/components/homepage/restaurants'
 import { SearchBar } from '@/components/homepage/search-bar'
+import { OrdersContainer } from '@/components/orders/orders-container'
+import { ProfileContainer } from '@/components/profile/profile-container'
 import { useCartStore } from '@/store/useCartStore'
 
 export default function HomeClient() {
@@ -37,7 +39,7 @@ export default function HomeClient() {
       {/* Scrollable Container */}
       <div className="no-scrollbar flex-1 overflow-y-auto pt-2 pb-24">
         {/* Main App Content based on selected active bottom tab */}
-        {activeTab === 'home' ? (
+        {activeTab === 'home' && (
           <div className="animate-fade-in flex flex-col gap-4">
             {/* Header section (avatar, mode switch) */}
             <Header activeMode={activeMode} setActiveMode={setActiveMode} />
@@ -63,7 +65,13 @@ export default function HomeClient() {
             {/* List of nearby stalls */}
             <Restaurants />
           </div>
-        ) : (
+        )}
+
+        {activeTab === 'orders' && <OrdersContainer />}
+
+        {activeTab === 'profile' && <ProfileContainer />}
+
+        {activeTab !== 'home' && activeTab !== 'orders' && activeTab !== 'profile' && (
           // Secondary Tabs Placeholder (Beautiful aesthetic card content)
           <div className="flex h-[60vh] animate-pulse flex-col items-center justify-center px-6 text-center">
             <div className="bg-primary/10 text-primary mb-4 flex size-16 items-center justify-center rounded-full">
