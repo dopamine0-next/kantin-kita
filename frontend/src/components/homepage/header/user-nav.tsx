@@ -2,80 +2,39 @@
 
 import { useEffect, useState } from 'react'
 
-import { Bell, LogIn, Moon, Sun, Wallet } from 'lucide-react'
+import { Bell, Moon, Sun, User } from 'lucide-react'
 import { useTheme } from 'next-themes'
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
-import { useAuthStore } from '@/store/useAuthStore'
 
-interface UserNavProps {
-  onOpenLogin: () => void
-  onOpenProfile: () => void
-}
-
-export function UserNav({ onOpenLogin, onOpenProfile }: UserNavProps) {
-  const { user } = useAuthStore()
+export function UserNav() {
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
-  // useEffect only runs on the client, so now we can safely show the UI
   useEffect(() => {
     setMounted(true)
   }, [])
-
-  const getInitials = (name: string) => {
-    return name
-      .split(' ')
-      .map((n) => n[0])
-      .join('')
-      .substring(0, 2)
-  }
 
   if (!mounted) return null
 
   return (
     <div className="flex items-center justify-between">
-      {user ? (
-        <div onClick={onOpenProfile} className="group flex cursor-pointer items-center gap-3">
-          <Avatar className="border-primary/25 size-11 border-2 shadow-sm transition-transform duration-300 group-hover:scale-105">
-            <AvatarImage src={user.avatar} alt={user.name} />
-            <AvatarFallback className="bg-primary/10 text-primary text-xs font-black">
-              {getInitials(user.name)}
-            </AvatarFallback>
-          </Avatar>
-          <div className="flex flex-col">
-            <span className="text-muted-foreground/80 text-[10px] font-medium">
-              Selamat datang,
-            </span>
-            <span className="text-foreground group-hover:text-primary flex items-center gap-1 text-sm font-black tracking-tight transition-colors">
-              {user.name} <span className="animate-bounce">👋</span>
-            </span>
-            <span className="text-primary gap-0.8 mt-0.5 flex items-center text-[10px] font-extrabold">
-              <Wallet className="size-3.2" />
-              <span>Rp {user.saldo.toLocaleString('id-ID')}</span>
-            </span>
-          </div>
+      <div className="group flex items-center gap-3">
+        <Avatar className="border-primary/25 bg-primary/10 flex size-11 items-center justify-center border-2 shadow-sm">
+          <AvatarFallback className="bg-transparent">
+            <User className="text-primary size-5" />
+          </AvatarFallback>
+        </Avatar>
+        <div className="flex flex-col">
+          <span className="text-muted-foreground/80 text-[10px] font-medium">
+            Hallo,
+          </span>
+          <span className="text-foreground flex items-center gap-1 text-sm font-black tracking-tight">
+            Pengguna <span className="animate-bounce">👋</span>
+          </span>
         </div>
-      ) : (
-        <div className="flex items-center gap-3">
-          <Avatar className="border-muted bg-muted flex size-11 items-center justify-center border">
-            <AvatarFallback className="bg-muted text-muted-foreground/70 text-xs font-semibold">
-              ?
-            </AvatarFallback>
-          </Avatar>
-          <div className="flex flex-col">
-            <span className="text-muted-foreground/80 text-[10px] font-medium">Silakan masuk,</span>
-            <button
-              onClick={onOpenLogin}
-              className="text-primary flex items-center gap-0.5 text-left text-xs font-black hover:underline"
-            >
-              <span>Masuk Akun</span>
-              <LogIn className="size-3 stroke-[2.5]" />
-            </button>
-          </div>
-        </div>
-      )}
+      </div>
 
       <div className="flex items-center gap-2">
         <Button
