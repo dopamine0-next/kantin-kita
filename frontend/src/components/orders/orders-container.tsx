@@ -1,5 +1,6 @@
-import { ClipboardList } from 'lucide-react'
+'use client'
 
+import { ClipboardList } from 'lucide-react'
 import { OrderCard } from '@/components/orders/order-card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
