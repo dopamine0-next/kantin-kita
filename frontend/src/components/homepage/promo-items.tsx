@@ -119,8 +119,7 @@ export function PromoItems({ selectedCategory }: PromoItemsProps) {
                 {/* Promo Badge floating top-left */}
                 {food.badgeText && (
                   <Badge
-                    variant={food.badgeVariant}
-                    className="absolute top-2 left-2 rounded-lg border-none px-2 py-0.5 text-[9px] font-extrabold tracking-wider"
+                    className="absolute top-2 left-2 rounded-lg border-none bg-slate-700 px-2 py-0.5 text-[9px] font-extrabold tracking-wider text-white shadow-sm hover:bg-slate-800"
                   >
                     {food.badgeText}
                   </Badge>
@@ -146,8 +145,8 @@ export function PromoItems({ selectedCategory }: PromoItemsProps) {
                 </div>
 
                 {/* Pricing Action */}
-                <div className="mt-0.5 flex items-center justify-between">
-                  <div className="flex flex-col">
+                <div className="mt-3 flex items-center justify-between">
+                  <div className="flex flex-col gap-0.5">
                     {food.originalPrice && (
                       <span className="text-muted-foreground/60 text-[10px] leading-none font-medium line-through">
                         {formatRupiah(food.originalPrice)}

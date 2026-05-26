@@ -76,7 +76,7 @@ export function StallCard({ stall, index = 0, onClick }: StallCardProps) {
               {stall.name}
             </h3>
             {stall.isOpen && displayPromo && !stall.promos && (
-              <Badge className="flex shrink-0 items-center gap-0.5 rounded-lg border-none bg-emerald-500/10 px-1.5 py-0.5 text-[9px] font-bold text-emerald-600 hover:bg-emerald-500/15">
+              <Badge className="flex shrink-0 items-center gap-0.5 rounded-lg border-none bg-slate-700 px-1.5 py-0.5 text-[9px] font-bold text-white shadow-sm hover:bg-slate-800">
                 <BadgePercent className="size-3" />
                 <span>{displayPromo}</span>
               </Badge>
@@ -116,7 +116,7 @@ export function StallCard({ stall, index = 0, onClick }: StallCardProps) {
             {stall.promos.map((promo, pIdx) => (
               <Badge
                 key={pIdx}
-                className="gap-0.8 flex items-center rounded-lg border-none bg-emerald-500/10 px-2 py-0.5 text-[9px] font-bold text-emerald-600 hover:bg-emerald-500/15"
+                className="gap-0.8 flex items-center rounded-lg border-none bg-slate-700 px-2 py-0.5 text-[9px] font-bold text-white shadow-sm hover:bg-slate-800"
               >
                 <BadgePercent className="size-3" />
                 <span>{promo}</span>

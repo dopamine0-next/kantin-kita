@@ -312,13 +312,16 @@ export default function SearchClient() {
 
               {filteredResults.length > 0 ? (
                 <div className="flex flex-col gap-3">
-                  {filteredResults.map((food) => (
-                    <Card
+                  {filteredResults.map((food, idx) => (
+                    <motion.div
                       key={food.id}
-                      className="border-muted/30 hover:border-primary/20 bg-card/60 group flex overflow-hidden rounded-2xl border shadow-sm backdrop-blur-md transition-all duration-300"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.2, delay: idx * 0.05 }}
+                      className="border-muted/30 hover:border-primary/20 bg-card/60 group flex flex-row items-center overflow-hidden rounded-2xl border shadow-sm backdrop-blur-md transition-all duration-300"
                     >
                       {/* Left side Image */}
-                      <div className="relative size-24 shrink-0 overflow-hidden">
+                      <div className="relative size-24 shrink-0 overflow-hidden bg-muted">
                         <img
                           src={food.image}
                           alt={food.name}
@@ -327,7 +330,7 @@ export default function SearchClient() {
                       </div>
 
                       {/* Right side Details */}
-                      <div className="flex min-w-0 flex-1 flex-col justify-between p-3">
+                      <div className="flex min-w-0 flex-1 flex-col justify-between py-2 px-3">
                         <div className="flex flex-col gap-0.5">
                           <h4 className="text-foreground group-hover:text-primary line-clamp-1 text-xs leading-snug font-bold tracking-tight transition-colors">
                             {food.name}
@@ -338,9 +341,9 @@ export default function SearchClient() {
                         </div>
 
                         {/* Rating, prep and pricing row */}
-                        <div className="mt-1 flex items-center justify-between">
-                          <div className="flex flex-col gap-0.5">
-                            <div className="text-muted-foreground/80 flex items-center gap-2 text-[10px] font-semibold">
+                        <div className="mt-2 flex items-center justify-between">
+                          <div className="flex flex-col gap-1">
+                            <div className="text-muted-foreground/80 flex items-center gap-1.5 text-[9px] font-semibold">
                               <span className="flex items-center gap-0.5 text-amber-500">
                                 <Star className="size-3 fill-amber-500 stroke-none" />
                                 <span className="text-foreground">{food.rating}</span>
@@ -348,7 +351,7 @@ export default function SearchClient() {
                               <span>•</span>
                               <span>{food.prepTime}</span>
                             </div>
-                            <span className="text-primary mt-1 text-xs leading-none font-extrabold tracking-tight">
+                            <span className="text-primary text-xs leading-none font-extrabold tracking-tight">
                               {formatRupiah(food.price)}
                             </span>
                           </div>
@@ -356,13 +359,13 @@ export default function SearchClient() {
                           <Button
                             onClick={() => handleAddToCart(food.name)}
                             size="icon"
-                            className="bg-primary text-primary-foreground hover:bg-primary/95 size-8 shrink-0 rounded-xl border-none shadow-md transition-all duration-300 active:scale-90"
+                            className="bg-slate-700 text-white hover:bg-slate-800 size-7 shrink-0 rounded-lg border-none shadow-none transition-all duration-300"
                           >
-                            <Plus className="size-4" />
+                            <Plus className="size-4 stroke-[3]" />
                           </Button>
                         </div>
                       </div>
-                    </Card>
+                    </motion.div>
                   ))}
                 </div>
               ) : (

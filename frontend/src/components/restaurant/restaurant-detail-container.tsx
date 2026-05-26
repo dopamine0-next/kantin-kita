@@ -164,69 +164,69 @@ export default function RestaurantDetailContainer({
       {/* 2. Overlapping Stacked Card (Glassmorphic Dribbble Style) */}
       <div className="bg-card/90 border-muted/30 relative z-10 mx-4 -mt-14 flex flex-col gap-3.5 rounded-[24px] border p-4.5 shadow-2xl backdrop-blur-xl">
         {/* Name and Status */}
-        <div className="flex items-start justify-between gap-2">
+          <div className="flex items-start justify-between gap-2">
           <div className="flex flex-col gap-0.5">
             <h1 className="text-foreground text-lg leading-tight font-black tracking-tight">
-              {restaurant.name}
-            </h1>
+                {restaurant.name}
+              </h1>
             <p className="text-muted-foreground/80 text-[10px] font-medium">{restaurant.cuisine}</p>
+            </div>
+
+            <Badge
+              className={cn(
+              'py-0.8 shrink-0 rounded-lg border-none px-2 text-[9px] font-bold',
+                restaurant.isOpen
+                ? 'bg-slate-700 text-white'
+                : 'bg-rose-500/10 text-rose-600'
+              )}
+            >
+              {restaurant.isOpen ? 'Buka' : 'Tutup'}
+            </Badge>
           </div>
 
-          <Badge
-            className={cn(
-              'py-0.8 shrink-0 rounded-lg border-none px-2 text-[9px] font-bold',
-              restaurant.isOpen
-                ? 'bg-emerald-500/10 text-emerald-600'
-                : 'bg-rose-500/10 text-rose-600'
-            )}
-          >
-            {restaurant.isOpen ? 'Buka' : 'Tutup'}
-          </Badge>
-        </div>
-
-        {/* Stats Row */}
+          {/* Stats Row */}
         <div className="border-muted/20 text-muted-foreground/85 flex items-center justify-between border-y py-2.5 text-[10px] font-bold">
-          {/* Rating */}
+            {/* Rating */}
           <div className="gap-0.8 flex items-center text-amber-500">
             <Star className="size-4 fill-amber-500 stroke-none" />
             <span className="text-foreground">{restaurant.rating}</span>
             <span className="text-muted-foreground/50 font-medium">
               ({restaurant.reviewsCount} Ulasan)
-            </span>
-          </div>
+              </span>
+            </div>
 
           <div className="bg-muted-foreground/30 size-1 rounded-full" />
 
-          {/* Time */}
+            {/* Time */}
           <div className="flex items-center gap-1 font-semibold">
             <Clock className="text-muted-foreground size-3.5" />
-            <span>{restaurant.walkTime} mnt</span>
-          </div>
+              <span>{restaurant.walkTime} mnt</span>
+            </div>
 
           <div className="bg-muted-foreground/30 size-1 rounded-full" />
 
-          {/* Distance */}
+            {/* Distance */}
           <div className="flex items-center gap-1 font-semibold">
             <MapPin className="text-muted-foreground size-3.5" />
-            <span>{restaurant.distance}</span>
+              <span>{restaurant.distance}</span>
+            </div>
           </div>
-        </div>
 
-        {/* Promos Row */}
-        {restaurant.promos.length > 0 && (
+          {/* Promos Row */}
+          {restaurant.promos.length > 0 && (
           <div className="no-scrollbar flex items-center gap-2 overflow-x-auto pt-0.5">
-            {restaurant.promos.map((promo, idx) => (
-              <Badge
-                key={idx}
-                className="py-0.8 gap-0.8 flex shrink-0 items-center rounded-lg border-none bg-emerald-500/10 px-2 text-[9px] font-extrabold whitespace-nowrap text-emerald-600 hover:bg-emerald-500/12"
-              >
+              {restaurant.promos.map((promo, idx) => (
+                <Badge
+                  key={idx}
+                className="py-0.8 gap-0.8 flex shrink-0 items-center rounded-lg border-none bg-slate-700 px-2 text-[9px] font-extrabold whitespace-nowrap text-white hover:bg-slate-800"
+                >
                 <BadgePercent className="size-3.5" />
-                <span>{promo}</span>
-              </Badge>
-            ))}
-          </div>
-        )}
-      </div>
+                  <span>{promo}</span>
+                </Badge>
+              ))}
+            </div>
+          )}
+        </div>
 
       {/* 3. Search Menu Box */}
       <div className="mt-5 px-4">
@@ -280,7 +280,56 @@ export default function RestaurantDetailContainer({
         ))}
       </div>
 
-      {/* 5. Food Menu Lists grouped by categories */}
+      {/* 5. Menu Terlaris (2x2 Grid) */}
+      {!searchQuery && selectedCategory === 'Semua' && restaurant.menus.filter((m) => m.isPopular).length > 0 && (
+        <div className="mt-6 px-4">
+          <div className="mb-3 flex items-center justify-between">
+            <h2 className="text-foreground flex items-center gap-1.5 text-sm font-black tracking-tight">
+              <Sparkles className="size-4 fill-amber-500 text-amber-500" />
+              Menu Terlaris
+            </h2>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            {restaurant.menus
+              .filter((m) => m.isPopular)
+              .slice(0, 4)
+              .map((item) => (
+                <motion.div
+                  key={`popular-${item.id}`}
+                  onClick={() => handleFoodClick(item)}
+                  className="border-muted/20 bg-card/30 hover:border-primary/20 flex cursor-pointer flex-col overflow-hidden rounded-2xl border transition-all duration-300 hover:shadow-md active:scale-[0.98]"
+                >
+                  <div className="relative aspect-square w-full shrink-0 overflow-hidden bg-muted">
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="size-full object-cover transition-transform duration-500 hover:scale-105"
+                    />
+                    <div className="absolute top-2 left-2 flex items-center gap-1 rounded-full bg-black/60 px-2 py-0.5 text-[9px] font-bold text-white backdrop-blur-md">
+                      <Star className="size-3 fill-amber-400 stroke-none text-amber-400" />
+                      {item.rating || 'Baru'}
+                    </div>
+                  </div>
+                  <div className="flex flex-1 flex-col justify-between p-2.5">
+                    <h3 className="text-foreground line-clamp-2 text-xs font-bold leading-snug tracking-tight">
+                      {item.name}
+                    </h3>
+                    <div className="mt-2 flex items-center justify-between">
+                      <span className="text-primary text-[11px] font-black">
+                        Rp {item.price.toLocaleString('id-ID')}
+                      </span>
+                      <div className="bg-slate-700 hover:bg-slate-800 flex size-6 shrink-0 items-center justify-center rounded-lg text-white shadow-sm transition-all active:scale-90">
+                        <Plus className="size-3 stroke-[3]" />
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+          </div>
+        </div>
+      )}
+
+      {/* 6. Food Menu Lists grouped by categories */}
       <div className="mt-5 flex flex-col gap-6 px-4">
         {Object.keys(groupedMenus).length > 0 ? (
           Object.entries(groupedMenus).map(([category, items]) => (
@@ -301,13 +350,22 @@ export default function RestaurantDetailContainer({
                     key={item.id}
                     layoutId={`food-card-${item.id}`}
                     onClick={() => handleFoodClick(item)}
-                    className="border-muted/20 bg-card/30 hover:border-primary/15 hover:bg-card/50 group flex cursor-pointer gap-3.5 rounded-2xl border p-3 transition-all duration-300 active:scale-[0.99]"
+                    className="border-muted/20 bg-card/30 hover:border-primary/15 hover:bg-card/50 group flex cursor-pointer gap-3 rounded-2xl border p-3 transition-all duration-300 active:scale-[0.99]"
                   >
+                    {/* Image Column */}
+                    <div className="relative size-20 shrink-0 overflow-hidden rounded-xl bg-muted">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </div>
+
                     {/* Details Column */}
-                    <div className="flex min-w-0 flex-1 flex-col justify-between">
+                    <div className="flex min-w-0 flex-1 flex-col justify-between py-0.5">
                       <div className="flex flex-col gap-0.5">
                         <div className="flex items-center gap-1.5">
-                          <h3 className="text-foreground group-hover:text-primary line-clamp-1 text-xs leading-snug font-black tracking-tight transition-colors">
+                          <h3 className="text-foreground group-hover:text-primary line-clamp-1 text-xs leading-snug font-bold tracking-tight transition-colors">
                             {item.name}
                           </h3>
                           {item.isPopular && (
@@ -322,28 +380,19 @@ export default function RestaurantDetailContainer({
                         </p>
                       </div>
 
-                      <div className="text-foreground mt-2.5 flex items-center gap-2 text-[11px] font-black">
-                        <span>Rp {item.price.toLocaleString('id-ID')}</span>
-                        {item.rating && (
-                          <div className="flex items-center gap-0.5 text-[9px] font-bold text-amber-500">
-                            <Star className="size-3 fill-amber-500 stroke-none" />
-                            <span>{item.rating}</span>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Image Column */}
-                    <div className="bg-muted relative size-20 shrink-0 overflow-hidden rounded-xl shadow-inner">
-                      <img
-                        src={item.image}
-                        alt={item.name}
-                        className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-
-                      {/* Interactive Add Indicator button */}
-                      <div className="bg-primary hover:bg-primary/95 absolute right-1 bottom-1 flex size-6.5 items-center justify-center rounded-lg text-white shadow-lg transition-transform active:scale-90">
-                        <Plus className="size-3.5 stroke-[3]" />
+                      <div className="mt-2 flex items-center justify-between">
+                        <div className="text-foreground flex items-center gap-2 text-[11px] font-black">
+                          <span>Rp {item.price.toLocaleString('id-ID')}</span>
+                          {item.rating && (
+                            <div className="flex items-center gap-0.5 text-[9px] font-bold text-amber-500">
+                              <Star className="size-3 fill-amber-500 stroke-none" />
+                              <span>{item.rating}</span>
+                            </div>
+                          )}
+                        </div>
+                        <div className="bg-slate-700 hover:bg-slate-800 flex size-7 shrink-0 items-center justify-center rounded-lg text-white transition-all">
+                          <Plus className="size-4 stroke-[3]" />
+                        </div>
                       </div>
                     </div>
                   </motion.div>

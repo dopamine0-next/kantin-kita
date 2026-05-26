@@ -1,13 +1,11 @@
 import type { Metadata } from 'next'
-import { Figtree, Geist, Geist_Mono } from 'next/font/google'
+import { Geist, Geist_Mono } from 'next/font/google'
 
 import { ThemeProvider } from '@/components/theme-provider'
 import { FloatingCheckoutButton } from '@/components/ui/floating-checkout-button'
 import { cn } from '@/lib/utils'
 
 import './globals.css'
-
-const figtree = Figtree({ subsets: ['latin'], variable: '--font-sans' })
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -39,7 +37,7 @@ export default function RootLayout({
         geistSans.variable,
         geistMono.variable,
         'font-sans',
-        figtree.variable
+        '[--font-sans:Helvetica_Neue,Helvetica,Arial,sans-serif]'
       )}
     >
       <body className="flex min-h-full flex-col">
