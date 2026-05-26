@@ -7,6 +7,7 @@ import { formatRupiah } from '@/lib/utils'
 
 export interface FoodItem {
   id: string
+  restaurantId: string
   name: string
   category: string
   price: number
@@ -21,6 +22,7 @@ export interface FoodItem {
 export const MOCK_PROMO_FOODS: FoodItem[] = [
   {
     id: 'promo-1',
+    restaurantId: 'stall-1',
     name: 'Nasi Goreng Gila Kebon Sirih',
     category: 'nasi',
     price: 16000,
@@ -34,6 +36,7 @@ export const MOCK_PROMO_FOODS: FoodItem[] = [
   },
   {
     id: 'promo-2',
+    restaurantId: 'stall-1',
     name: 'Mie Ayam Pangsit Jamur',
     category: 'mie',
     price: 15000,
@@ -47,6 +50,7 @@ export const MOCK_PROMO_FOODS: FoodItem[] = [
   },
   {
     id: 'promo-3',
+    restaurantId: 'stall-2',
     name: 'Ayam Geprek Mozzarella Melted',
     category: 'ayam',
     price: 18000,
@@ -60,6 +64,7 @@ export const MOCK_PROMO_FOODS: FoodItem[] = [
   },
   {
     id: 'promo-4',
+    restaurantId: 'stall-3',
     name: 'Es Kopi Susu Aren Double Shot',
     category: 'minuman',
     price: 10000,
@@ -101,7 +106,7 @@ export function PromoItems({ selectedCategory }: PromoItemsProps) {
       {/* Horizontal Cards Scroller */}
       <div className="no-scrollbar flex w-full gap-4 overflow-x-auto scroll-smooth px-4 py-2 select-none">
         {filteredFoods.map((food) => (
-          <Link key={food.id} href={`/restaurant/${food.id}`} className="shrink-0 outline-none">
+          <Link key={food.id} href={`/restaurant/${food.restaurantId}`} className="shrink-0 outline-none">
             <Card className="border-muted/30 bg-card/60 hover:border-muted-foreground/10 group w-48 overflow-hidden rounded-2xl border shadow-sm backdrop-blur-md transition-all duration-300 hover:shadow-md">
               {/* Card Media Wrapper */}
               <div className="relative h-28 w-full overflow-hidden">

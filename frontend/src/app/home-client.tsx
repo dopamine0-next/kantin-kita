@@ -32,11 +32,14 @@ export default function HomeClient() {
           {/* Header section (avatar, mode switch) */}
           <Header activeMode={activeMode} setActiveMode={setActiveMode} />
 
-          {/* Infinite scrolling promo marquee */}
-          <PromoMarquee />
+          {/* Group Marquee and Banner to remove gap between them */}
+          <div className="flex flex-col">
+            {/* Infinite scrolling promo marquee */}
+            <PromoMarquee />
 
-          {/* Promo Banner carousel */}
-          <Banner />
+            {/* Promo Banner carousel */}
+            <Banner />
+          </div>
 
           {/* Search Bar */}
           <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />

@@ -11,11 +11,10 @@ export function OrdersContainer() {
   const { orders, isLoading } = useOrders()
 
   const activeOrders = orders.filter(
-    (o) => o.status === 'pending' || o.status === 'processing' || o.status === 'ready'
+    (o) => o.status === 'pending' || o.status === 'processing'
   )
+  const readyOrders = orders.filter((o) => o.status === 'ready')
   const completedOrders = orders.filter((o) => o.status === 'completed')
-  const cancelledOrders = orders.filter((o) => o.status === 'cancelled')
-
   const renderList = (list: Order[], emptyMessage: string) => {
     if (isLoading) {
       return (
@@ -59,21 +58,21 @@ export function OrdersContainer() {
           <TabsTrigger value="active" className="rounded-md text-xs font-bold">
             Proses
           </TabsTrigger>
+          <TabsTrigger value="ready" className="rounded-md text-xs font-bold">
+            Siap Diambil
+          </TabsTrigger>
           <TabsTrigger value="completed" className="rounded-md text-xs font-bold">
             Selesai
-          </TabsTrigger>
-          <TabsTrigger value="cancelled" className="rounded-md text-xs font-bold">
-            Batal
           </TabsTrigger>
         </TabsList>
         <TabsContent value="active" className="mt-4">
           {renderList(activeOrders, 'Belum ada pesanan yang sedang diproses')}
         </TabsContent>
+        <TabsContent value="ready" className="mt-4">
+          {renderList(readyOrders, 'Belum ada pesanan yang siap diambil')}
+        </TabsContent>
         <TabsContent value="completed" className="mt-4">
           {renderList(completedOrders, 'Belum ada riwayat pesanan selesai')}
-        </TabsContent>
-        <TabsContent value="cancelled" className="mt-4">
-          {renderList(cancelledOrders, 'Tidak ada pesanan yang dibatalkan')}
         </TabsContent>
       </Tabs>
     </div>

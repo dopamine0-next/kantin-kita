@@ -7,10 +7,25 @@ import { useTheme } from 'next-themes'
 
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import { useOrders } from '@/hooks/use-orders'
 
 export function UserNav() {
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
+  const { orders } = useOrders()
+
+  // Filter for active notifications (e.g. not completed/cancelled yet)
+  const activeNotifications = orders.filter(
+    (o) => o.status === 'processing' || o.status === 'ready'
+  )
 
   useEffect(() => {
     setMounted(true)
@@ -51,19 +66,45 @@ export function UserNav() {
           )}
         </Button>
 
-        <div className="relative">
-          <Button
-            variant="outline"
-            size="icon"
-            className="border-muted/80 bg-background/50 hover:bg-muted size-10 rounded-full shadow-sm backdrop-blur-sm transition-all duration-300"
-          >
-            <Bell className="size-5" />
-          </Button>
-          <span className="absolute top-1 right-1 flex size-2.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-rose-500 opacity-75"></span>
-            <span className="relative inline-flex size-2.5 rounded-full bg-rose-500"></span>
-          </span>
-        </div>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <div className="relative">
+              <Button
+                variant="outline"
+                size="icon"
+                className="border-muted/80 bg-background/50 hover:bg-muted size-10 rounded-full shadow-sm backdrop-blur-sm transition-all duration-300 cursor-pointer"
+              >
+                <Bell className="size-5" />
+              </Button>
+              {activeNotifications.length > 0 && (
+                <span className="absolute top-1 right-1 flex size-2.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-rose-500 opacity-75"></span>
+                  <span className="relative inline-flex size-2.5 rounded-full bg-rose-500"></span>
+                </span>
+              )}
+            </div>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-64">
+            <DropdownMenuLabel>Notifikasi Pesanan</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            {activeNotifications.length === 0 ? (
+              <div className="py-4 px-2 text-center text-xs text-muted-foreground">
+                Tidak ada notifikasi pesanan baru.
+              </div>
+            ) : (
+              activeNotifications.map((order) => (
+                <DropdownMenuItem key={order.id} className="flex flex-col items-start gap-1 p-3">
+                  <span className="font-semibold text-xs">{order.restaurant_name}</span>
+                  <span className="text-muted-foreground text-[10px]">
+                    {order.status === 'processing'
+                      ? 'Pesanan Anda sedang diproses oleh restoran.'
+                      : 'Pesanan telah selesai dan siap diambil!'}
+                  </span>
+                </DropdownMenuItem>
+              ))
+            )}
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </div>
   )

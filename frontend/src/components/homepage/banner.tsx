@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 
 import { Badge } from '@/components/ui/badge'
 import { Carousel, type CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel'
@@ -7,6 +8,7 @@ import { Carousel, type CarouselApi, CarouselContent, CarouselItem } from '@/com
 const BANNER_PROMOS = [
   {
     id: 1,
+    restaurantId: 'stall-1',
     title: 'Spesial Combo Hemat',
     subtitle: 'Dapatkan paket nasi goreng spesial + es teh manis dingin!',
     promoText: 'DISKON 40%',
@@ -17,6 +19,7 @@ const BANNER_PROMOS = [
   },
   {
     id: 2,
+    restaurantId: 'stall-1',
     title: 'Soto Legendaris',
     subtitle: 'Soto Mbok Sri gurih, resep rahasia turun temurun.',
     promoText: 'HARI INI SAJA',
@@ -27,6 +30,7 @@ const BANNER_PROMOS = [
   },
   {
     id: 3,
+    restaurantId: 'stall-3',
     title: 'Camilan Sore Ceria',
     subtitle: 'Pisang goreng keju crispy & kopi susu gula aren hangat.',
     promoText: 'DISKON S.D 30%',
@@ -61,15 +65,15 @@ export function Banner() {
   }, [api])
 
   return (
-    <div className="flex flex-col gap-3 px-4 py-2">
+    <div className="flex flex-col gap-3 pb-2">
       <Carousel
         setApi={setApi}
-        className="border-muted/20 w-full overflow-hidden rounded-2xl border shadow-md"
+        className="w-full overflow-hidden shadow-sm"
       >
         <CarouselContent>
           {BANNER_PROMOS.map((promo) => (
             <CarouselItem key={promo.id}>
-              <div className="relative h-44 w-full overflow-hidden select-none">
+              <Link href={`/restaurant/${promo.restaurantId}`} className="relative block h-44 w-full overflow-hidden select-none">
                 {/* Background Food Image with Dark/Color overlay */}
                 <img
                   src={promo.image}
@@ -102,7 +106,7 @@ export function Banner() {
                     </span>
                   </div>
                 </div>
-              </div>
+              </Link>
             </CarouselItem>
           ))}
         </CarouselContent>

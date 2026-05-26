@@ -1,7 +1,9 @@
 import { Clock, Tag } from 'lucide-react'
 import { motion } from 'motion/react'
+import { useRouter } from 'next/navigation'
 
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import { Order, OrderStatus } from '@/services/order/order.types'
 
 const STATUS_MAP: Record<
@@ -29,6 +31,7 @@ export interface OrderCardProps {
 }
 
 export function OrderCard({ order, index = 0 }: OrderCardProps) {
+  const router = useRouter()
   const statusConfig = STATUS_MAP[order.status] || { label: order.status, variant: 'outline' }
 
   const dateStr = new Date(order.created_at).toLocaleDateString('id-ID', {
@@ -48,6 +51,7 @@ export function OrderCard({ order, index = 0 }: OrderCardProps) {
 
   return (
     <motion.div
+      onClick={() => router.push(`/orders/${order.id}`)}
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.95 }}
@@ -101,6 +105,21 @@ export function OrderCard({ order, index = 0 }: OrderCardProps) {
         <span className="text-xs font-semibold">Total Pembayaran</span>
         <span className="text-primary text-sm font-bold">{formatCurrency(order.total_amount)}</span>
       </div>
+
+      {/* Conditional Action Button */}
+      {order.status === 'ready' && (
+        <Button
+          size="sm"
+          className="mt-1 w-full rounded-xl font-bold"
+          onClick={(e) => {
+            e.stopPropagation()
+            // Simulating API call / toast
+            alert('Pesanan telah dikonfirmasi sudah diambil!')
+          }}
+        >
+          Konfirmasi Sudah Diambil
+        </Button>
+      )}
     </motion.div>
   )
 }
