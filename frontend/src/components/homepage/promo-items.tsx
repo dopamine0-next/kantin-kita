@@ -1,93 +1,29 @@
+'use client'
+
 import { Clock, Star } from 'lucide-react'
 import Link from 'next/link'
 
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
+import { usePromos } from '@/hooks/use-promos'
 import { formatRupiah } from '@/lib/utils'
-
-export interface FoodItem {
-  id: string
-  restaurantId: string
-  name: string
-  category: string
-  price: number
-  originalPrice?: number
-  rating: number
-  prepTime: string
-  badgeText?: string
-  badgeVariant?: 'default' | 'secondary' | 'destructive' | 'outline'
-  image: string
-}
-
-export const MOCK_PROMO_FOODS: FoodItem[] = [
-  {
-    id: 'promo-1',
-    restaurantId: 'stall-1',
-    name: 'Nasi Goreng Gila Kebon Sirih',
-    category: 'nasi',
-    price: 16000,
-    originalPrice: 20000,
-    rating: 4.8,
-    prepTime: '10-15 mnt',
-    badgeText: 'Diskon 20%',
-    badgeVariant: 'destructive',
-    image:
-      'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=300&q=80',
-  },
-  {
-    id: 'promo-2',
-    restaurantId: 'stall-1',
-    name: 'Mie Ayam Pangsit Jamur',
-    category: 'mie',
-    price: 15000,
-    originalPrice: 20000,
-    rating: 4.9,
-    prepTime: '8-12 mnt',
-    badgeText: 'Best Seller',
-    badgeVariant: 'default', // primary theme
-    image:
-      'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=300&q=80',
-  },
-  {
-    id: 'promo-3',
-    restaurantId: 'stall-2',
-    name: 'Ayam Geprek Mozzarella Melted',
-    category: 'ayam',
-    price: 18000,
-    originalPrice: 22000,
-    rating: 4.7,
-    prepTime: '12-18 mnt',
-    badgeText: 'Terlaris',
-    badgeVariant: 'secondary',
-    image:
-      'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=300&q=80',
-  },
-  {
-    id: 'promo-4',
-    restaurantId: 'stall-3',
-    name: 'Es Kopi Susu Aren Double Shot',
-    category: 'minuman',
-    price: 10000,
-    originalPrice: 13000,
-    rating: 4.9,
-    prepTime: '3-5 mnt',
-    badgeText: 'Beli 2 Gratis 1',
-    badgeVariant: 'default',
-    image:
-      'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=300&q=80',
-  },
-]
 
 interface PromoItemsProps {
   selectedCategory: string
 }
 
 export function PromoItems({ selectedCategory }: PromoItemsProps) {
+  const { promos, isLoading } = usePromos()
+
   // Filter foods by selected category (except if 'all')
   const filteredFoods =
     selectedCategory === 'all'
-      ? MOCK_PROMO_FOODS
-      : MOCK_PROMO_FOODS.filter((food) => food.category === selectedCategory)
+      ? promos
+      : promos.filter((food) => food.category === selectedCategory)
+
+  if (isLoading) {
+    return <div className="p-4">Loading promo...</div>
+  }
 
   if (filteredFoods.length === 0) return null
 
