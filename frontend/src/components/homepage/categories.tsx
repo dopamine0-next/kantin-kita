@@ -1,23 +1,7 @@
 'use client'
 
 import { cn } from '@/lib/utils'
-
-export interface Category {
-  id: string
-  name: string
-  emoji: string
-}
-
-export const FOOD_CATEGORIES: Category[] = [
-  { id: 'all', name: 'Semua', emoji: '🍽️' },
-  { id: 'nasi', name: 'Nasi', emoji: '🍚' },
-  { id: 'mie', name: 'Mie & Bakso', emoji: '🍜' },
-  { id: 'ayam', name: 'Ayam & Bebek', emoji: '🍗' },
-  { id: 'minuman', name: 'Minuman', emoji: '🥤' },
-  { id: 'camilan', name: 'Camilan', emoji: '🍟' },
-  { id: 'seafood', name: 'Seafood', emoji: '🐟' },
-  { id: 'manis', name: 'Pencuci Mulut', emoji: '🍰' },
-]
+import { useCategories } from '@/hooks/use-categories'
 
 interface CategoriesProps {
   selectedCategory: string
@@ -25,6 +9,8 @@ interface CategoriesProps {
 }
 
 export function Categories({ selectedCategory, setSelectedCategory }: CategoriesProps) {
+  const { categories, isLoading } = useCategories()
+
   return (
     <div className="flex flex-col gap-2 pt-2 pb-1">
       {/* Section title */}
@@ -37,24 +23,32 @@ export function Categories({ selectedCategory, setSelectedCategory }: Categories
 
       {/* Horizontal Scroll wrapper */}
       <div className="no-scrollbar flex w-full gap-3 overflow-x-auto scroll-smooth px-4 py-2 select-none">
-        {FOOD_CATEGORIES.map((category) => {
-          const isActive = selectedCategory === category.id
-          return (
-            <button
-              key={category.id}
-              onClick={() => setSelectedCategory(category.id)}
-              className={cn(
-                'flex items-center gap-2 rounded-2xl px-4 py-2.5 text-xs font-bold whitespace-nowrap transition-all duration-300 active:scale-95',
-                isActive
-                  ? 'bg-primary text-primary-foreground shadow-primary/20 scale-102 shadow-md'
-                  : 'bg-muted/40 hover:bg-muted text-muted-foreground/90 border-muted/30 border'
-              )}
-            >
-              <span className="text-base">{category.emoji}</span>
-              <span>{category.name}</span>
-            </button>
-          )
-        })}
+        {isLoading ? (
+            <div className="flex gap-3">
+              {[...Array(5)].map((_, i) => (
+                <div key={i} className="h-10 w-24 rounded-2xl bg-muted/40 animate-pulse" />
+              ))}
+            </div>
+        ) : (
+          categories.map((category) => {
+            const isActive = selectedCategory === category.id
+            return (
+              <button
+                key={category.id}
+                onClick={() => setSelectedCategory(category.id)}
+                className={cn(
+                  'flex items-center gap-2 rounded-2xl px-4 py-2.5 text-xs font-bold whitespace-nowrap transition-all duration-300 active:scale-95',
+                  isActive
+                    ? 'bg-primary text-primary-foreground shadow-primary/20 scale-102 shadow-md'
+                    : 'bg-muted/40 hover:bg-muted text-muted-foreground/90 border-muted/30 border'
+                )}
+              >
+                <span className="text-base">{category.emoji}</span>
+                <span>{category.name}</span>
+              </button>
+            )
+          })
+        )}
       </div>
     </div>
   )
