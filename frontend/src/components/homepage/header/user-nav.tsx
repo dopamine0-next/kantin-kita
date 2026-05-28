@@ -42,9 +42,7 @@ export function UserNav() {
           </AvatarFallback>
         </Avatar>
         <div className="flex flex-col">
-          <span className="text-muted-foreground/80 text-[10px] font-medium">
-            Hallo,
-          </span>
+          <span className="text-muted-foreground/80 text-[10px] font-medium">Hallo,</span>
           <span className="text-foreground flex items-center gap-1 text-sm font-black tracking-tight">
             Pengguna <span className="animate-bounce">👋</span>
           </span>
@@ -72,7 +70,7 @@ export function UserNav() {
               <Button
                 variant="outline"
                 size="icon"
-                className="border-muted/80 bg-background/50 hover:bg-muted size-10 rounded-full shadow-sm backdrop-blur-sm transition-all duration-300 cursor-pointer"
+                className="border-muted/80 bg-background/50 hover:bg-muted size-10 cursor-pointer rounded-full shadow-sm backdrop-blur-sm transition-all duration-300"
               >
                 <Bell className="size-5" />
               </Button>
@@ -88,13 +86,13 @@ export function UserNav() {
             <DropdownMenuLabel>Notifikasi Pesanan</DropdownMenuLabel>
             <DropdownMenuSeparator />
             {activeNotifications.length === 0 ? (
-              <div className="py-4 px-2 text-center text-xs text-muted-foreground">
+              <div className="text-muted-foreground px-2 py-4 text-center text-xs">
                 Tidak ada notifikasi pesanan baru.
               </div>
             ) : (
               activeNotifications.map((order) => (
                 <DropdownMenuItem key={order.id} className="flex flex-col items-start gap-1 p-3">
-                  <span className="font-semibold text-xs">{order.restaurant_name}</span>
+                  <span className="text-xs font-semibold">{order.restaurant_name}</span>
                   <span className="text-muted-foreground text-[10px]">
                     {order.status === 'processing'
                       ? 'Pesanan Anda sedang diproses oleh restoran.'

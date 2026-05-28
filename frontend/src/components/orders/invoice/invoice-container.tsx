@@ -4,9 +4,10 @@ import { AlertCircle, Loader2 } from 'lucide-react'
 import Link from 'next/link'
 
 import { useOrder } from '@/hooks/use-orders'
+
 import { InvoiceHeader } from './invoice-header'
-import { InvoiceStatus } from './invoice-status'
 import { InvoiceInfo } from './invoice-info'
+import { InvoiceStatus } from './invoice-status'
 import { InvoiceSummary } from './invoice-summary'
 
 interface InvoiceContainerProps {
@@ -20,7 +21,7 @@ export function InvoiceContainer({ orderId }: InvoiceContainerProps) {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div className="flex flex-col items-center gap-2">
-          <Loader2 className="size-10 text-primary animate-spin" />
+          <Loader2 className="text-primary size-10 animate-spin" />
           <h2 className="font-bold">Memuat Detail Pesanan...</h2>
         </div>
       </div>
@@ -31,7 +32,7 @@ export function InvoiceContainer({ orderId }: InvoiceContainerProps) {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div className="flex flex-col items-center gap-2">
-          <AlertCircle className="size-10 text-muted-foreground" />
+          <AlertCircle className="text-muted-foreground size-10" />
           <h2 className="font-bold">Pesanan tidak ditemukan</h2>
           <Link href="/orders" className="text-primary mt-2 text-sm underline">
             Kembali ke Riwayat
@@ -42,7 +43,7 @@ export function InvoiceContainer({ orderId }: InvoiceContainerProps) {
   }
 
   return (
-    <div className="bg-background flex min-h-screen w-full max-w-md flex-col mx-auto border-x border-muted/50 pb-10">
+    <div className="bg-background border-muted/50 mx-auto flex min-h-screen w-full max-w-md flex-col border-x pb-10">
       <InvoiceHeader />
 
       <div className="animate-fade-in flex flex-col gap-5 p-4">

@@ -1,4 +1,4 @@
-import RestaurantDetailContainer from "@/components/restaurant/restaurant-detail-container"
+import RestaurantDetailContainer from '@/components/restaurant/restaurant-detail-container'
 
 interface PageProps {
   params: Promise<{ id: string }>

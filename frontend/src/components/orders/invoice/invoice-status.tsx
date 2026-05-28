@@ -1,6 +1,7 @@
 'use client'
 
 import { ReceiptText } from 'lucide-react'
+
 import { Badge } from '@/components/ui/badge'
 
 interface InvoiceStatusProps {
@@ -17,11 +18,14 @@ const STATUS_MAP = {
 } as const
 
 export function InvoiceStatus({ orderId, status }: InvoiceStatusProps) {
-  const statusConfig = STATUS_MAP[status as keyof typeof STATUS_MAP] || { label: status, variant: 'outline' }
+  const statusConfig = STATUS_MAP[status as keyof typeof STATUS_MAP] || {
+    label: status,
+    variant: 'outline',
+  }
 
   return (
     <div className="flex flex-col items-center justify-center gap-3 py-4 text-center">
-      <div className="rounded-full bg-primary/20 p-4 text-primary">
+      <div className="bg-primary/20 text-primary rounded-full p-4">
         <ReceiptText className="size-10" />
       </div>
       <div className="flex flex-col gap-1">

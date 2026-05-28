@@ -51,7 +51,7 @@ export function RestaurantMenuList({
                 onClick={() => onFoodClick(item)}
                 className="border-muted/20 bg-card/30 hover:border-primary/15 hover:bg-card/50 group flex cursor-pointer gap-3 rounded-2xl border p-3 transition-all duration-300 active:scale-[0.99]"
               >
-                <div className="relative size-20 shrink-0 overflow-hidden rounded-xl bg-muted">
+                <div className="bg-muted relative size-20 shrink-0 overflow-hidden rounded-xl">
                   <img
                     src={item.image}
                     alt={item.name}
@@ -87,7 +87,7 @@ export function RestaurantMenuList({
                         </div>
                       )}
                     </div>
-                    <div className="bg-slate-700 hover:bg-slate-800 flex size-7 shrink-0 items-center justify-center rounded-lg text-white transition-all">
+                    <div className="flex size-7 shrink-0 items-center justify-center rounded-lg bg-slate-700 text-white transition-all hover:bg-slate-800">
                       <Plus className="size-4 stroke-[3]" />
                     </div>
                   </div>

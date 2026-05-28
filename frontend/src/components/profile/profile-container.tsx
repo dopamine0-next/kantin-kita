@@ -1,6 +1,16 @@
 'use client'
 
-import { ChevronRight, FileText, HelpCircle, Key, LogOut, Wallet, ReceiptText, Award, Crown } from 'lucide-react'
+import {
+  Award,
+  ChevronRight,
+  Crown,
+  FileText,
+  HelpCircle,
+  Key,
+  LogOut,
+  ReceiptText,
+  Wallet,
+} from 'lucide-react'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Card, CardContent } from '@/components/ui/card'
@@ -89,41 +99,48 @@ export function ProfileContainer() {
       {/* User Info Header (Redesigned) */}
       <div className="relative mb-6 flex flex-col items-center">
         {/* Background Decorative */}
-        <div className="absolute top-4 left-0 right-0 h-24 rounded-3xl bg-gradient-to-tr from-primary/20 via-primary/5 to-transparent" />
-        
-        <div className="relative z-10 pt-8 flex flex-col items-center gap-3 w-full">
-          <Avatar className="size-24 border-4 border-background shadow-sm">
+        <div className="from-primary/20 via-primary/5 absolute top-4 right-0 left-0 h-24 rounded-3xl bg-gradient-to-tr to-transparent" />
+
+        <div className="relative z-10 flex w-full flex-col items-center gap-3 pt-8">
+          <Avatar className="border-background size-24 border-4 shadow-sm">
             <AvatarImage src={user.avatar} alt={user.name} className="object-cover" />
-            <AvatarFallback className="text-2xl font-bold bg-primary text-primary-foreground">
+            <AvatarFallback className="bg-primary text-primary-foreground text-2xl font-bold">
               {user.name.charAt(0).toUpperCase()}
             </AvatarFallback>
           </Avatar>
-          
+
           <div className="flex flex-col items-center text-center">
             <h2 className="text-2xl font-extrabold tracking-tight">{user.name}</h2>
-            <div className="text-muted-foreground flex items-center gap-2 text-sm font-medium mt-1">
+            <div className="text-muted-foreground mt-1 flex items-center gap-2 text-sm font-medium">
               <span>NIM: {user.nim}</span>
-              <span className="size-1 rounded-full bg-muted-foreground/50" />
+              <span className="bg-muted-foreground/50 size-1 rounded-full" />
               <span>Semester {user.semester}</span>
             </div>
-            <div className="mt-3 bg-amber-500/10 text-amber-600 dark:text-amber-500 px-3 py-1.5 rounded-full text-xs font-bold inline-flex items-center gap-1.5">
-               <Crown className="size-3.5" />
-               Member Kantin Premium
+            <div className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-amber-500/10 px-3 py-1.5 text-xs font-bold text-amber-600 dark:text-amber-500">
+              <Crown className="size-3.5" />
+              Member Kantin Premium
             </div>
           </div>
         </div>
       </div>
 
       {/* Statistics Section */}
-      <div className="grid grid-cols-3 gap-3 mb-8">
+      <div className="mb-8 grid grid-cols-3 gap-3">
         {stats.map((stat, i) => (
-          <div key={i} className="flex flex-col items-center gap-2 rounded-2xl bg-card border border-muted/50 p-3 shadow-sm transition-all hover:bg-muted/50">
-            <div className={`flex size-10 items-center justify-center rounded-full ${stat.bgColor} ${stat.color}`}>
+          <div
+            key={i}
+            className="bg-card border-muted/50 hover:bg-muted/50 flex flex-col items-center gap-2 rounded-2xl border p-3 shadow-sm transition-all"
+          >
+            <div
+              className={`flex size-10 items-center justify-center rounded-full ${stat.bgColor} ${stat.color}`}
+            >
               <stat.icon className="size-5" />
             </div>
             <div className="flex flex-col items-center">
               <span className="text-lg font-black">{stat.value}</span>
-              <span className="text-[9px] font-bold text-muted-foreground uppercase tracking-wider">{stat.label}</span>
+              <span className="text-muted-foreground text-[9px] font-bold tracking-wider uppercase">
+                {stat.label}
+              </span>
             </div>
           </div>
         ))}

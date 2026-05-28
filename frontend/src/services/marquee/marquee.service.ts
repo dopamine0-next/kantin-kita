@@ -1,5 +1,5 @@
-import { MOCK_MARQUEE_API_RESPONSE } from './marquee.mock'
 import { mapMarqueeItem } from './marquee.mapper'
+import { MOCK_MARQUEE_API_RESPONSE } from './marquee.mock'
 import { MarqueeItem } from './marquee.types'
 
 export async function getMarqueeItems(): Promise<MarqueeItem[]> {

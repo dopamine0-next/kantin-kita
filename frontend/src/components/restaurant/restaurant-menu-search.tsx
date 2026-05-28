@@ -5,10 +5,7 @@ interface RestaurantMenuSearchProps {
   setSearchQuery: (query: string) => void
 }
 
-export function RestaurantMenuSearch({
-  searchQuery,
-  setSearchQuery,
-}: RestaurantMenuSearchProps) {
+export function RestaurantMenuSearch({ searchQuery, setSearchQuery }: RestaurantMenuSearchProps) {
   return (
     <div className="mt-5 px-4">
       <div className="bg-muted/40 border-muted/20 relative flex items-center rounded-xl border px-3 py-2">

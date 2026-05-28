@@ -1,5 +1,5 @@
-import { MOCK_RESTAURANT_API_RESPONSE } from './restaurant.mock'
 import { mapRestaurantItem } from './restaurant.mapper'
+import { MOCK_RESTAURANT_API_RESPONSE } from './restaurant.mock'
 import { RestaurantItem } from './restaurant.types'
 
 export async function getRestaurants(): Promise<RestaurantItem[]> {

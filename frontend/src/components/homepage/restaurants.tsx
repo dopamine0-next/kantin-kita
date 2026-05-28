@@ -2,8 +2,8 @@
 import { useState } from 'react'
 
 import { StallCard } from '@/components/search-list/stall-card'
-import { useAuthStore } from '@/store/useAuthStore'
 import { useRestaurants } from '@/hooks/use-restaurants'
+import { useAuthStore } from '@/store/useAuthStore'
 
 export function Restaurants() {
   const user = useAuthStore((state) => state.user)
@@ -33,7 +33,9 @@ export function Restaurants() {
       {/* Vertical List of Canteen Stalls */}
       <div className="flex flex-col gap-3.5">
         {isLoading ? (
-          <div className="p-4 text-sm text-center text-muted-foreground">Loading restaurants...</div>
+          <div className="text-muted-foreground p-4 text-center text-sm">
+            Loading restaurants...
+          </div>
         ) : (
           filtered.map((stall, idx) => (
             <StallCard

@@ -21,9 +21,7 @@ export function RestaurantInfoCard({ restaurant }: RestaurantInfoCardProps) {
         <Badge
           className={cn(
             'py-0.8 shrink-0 rounded-lg border-none px-2 text-[9px] font-bold',
-            restaurant.isOpen
-              ? 'bg-slate-700 text-white'
-              : 'bg-rose-500/10 text-rose-600'
+            restaurant.isOpen ? 'bg-slate-700 text-white' : 'bg-rose-500/10 text-rose-600'
           )}
         >
           {restaurant.isOpen ? 'Buka' : 'Tutup'}

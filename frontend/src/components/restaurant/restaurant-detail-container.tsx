@@ -6,6 +6,8 @@ import { X } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
 import { useRouter } from 'next/navigation'
 
+import { MOCK_RESTAURANTS_DETAILS, MenuItem } from '@/lib/mockData'
+
 import { FoodDetailDrawer } from './food-detail-drawer'
 import { RestaurantCategoryTabs } from './restaurant-category-tabs'
 import { RestaurantHero } from './restaurant-hero'
@@ -13,7 +15,6 @@ import { RestaurantInfoCard } from './restaurant-info-card'
 import { RestaurantMenuList } from './restaurant-menu-list'
 import { RestaurantMenuSearch } from './restaurant-menu-search'
 import { RestaurantPopularMenus } from './restaurant-popular-menus'
-import { MOCK_RESTAURANTS_DETAILS, MenuItem } from '@/lib/mockData'
 
 interface RestaurantDetailContainerProps {
   restaurantId: string
@@ -99,36 +100,30 @@ export default function RestaurantDetailContainer({
 
   return (
     <div className="bg-background border-muted/50 relative mx-auto flex min-h-screen w-full max-w-md flex-col border-x pb-24">
-      <RestaurantHero 
-        restaurant={restaurant} 
-        isFavorite={isFavorite} 
-        onToggleFavorite={() => setIsFavorite(!isFavorite)} 
+      <RestaurantHero
+        restaurant={restaurant}
+        isFavorite={isFavorite}
+        onToggleFavorite={() => setIsFavorite(!isFavorite)}
       />
 
       <RestaurantInfoCard restaurant={restaurant} />
 
-      <RestaurantMenuSearch 
-        searchQuery={searchQuery} 
-        setSearchQuery={setSearchQuery} 
-      />
+      <RestaurantMenuSearch searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
-      <RestaurantCategoryTabs 
-        categories={restaurant.categories} 
-        selectedCategory={selectedCategory} 
-        setSelectedCategory={setSelectedCategory} 
+      <RestaurantCategoryTabs
+        categories={restaurant.categories}
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
       />
 
       {!searchQuery && selectedCategory === 'Semua' && (
-        <RestaurantPopularMenus 
-          menus={restaurant.menus} 
-          onFoodClick={handleFoodClick} 
-        />
+        <RestaurantPopularMenus menus={restaurant.menus} onFoodClick={handleFoodClick} />
       )}
 
-      <RestaurantMenuList 
-        groupedMenus={groupedMenus} 
-        searchQuery={searchQuery} 
-        onFoodClick={handleFoodClick} 
+      <RestaurantMenuList
+        groupedMenus={groupedMenus}
+        searchQuery={searchQuery}
+        onFoodClick={handleFoodClick}
       />
 
       <AnimatePresence>

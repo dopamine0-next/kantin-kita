@@ -1,6 +1,7 @@
 'use client'
 
 import { ClipboardList } from 'lucide-react'
+
 import { OrderCard } from '@/components/orders/order-card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
@@ -10,9 +11,7 @@ import { Order } from '@/services/order/order.types'
 export function OrdersContainer() {
   const { orders, isLoading } = useOrders()
 
-  const activeOrders = orders.filter(
-    (o) => o.status === 'pending' || o.status === 'processing'
-  )
+  const activeOrders = orders.filter((o) => o.status === 'pending' || o.status === 'processing')
   const readyOrders = orders.filter((o) => o.status === 'ready')
   const completedOrders = orders.filter((o) => o.status === 'completed')
   const renderList = (list: Order[], emptyMessage: string) => {

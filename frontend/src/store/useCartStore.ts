@@ -1,4 +1,4 @@
-import { create } from "zustand"
+import { create } from 'zustand'
 
 export interface CartItem {
   id: string // Unique identifier for this line item
@@ -16,17 +16,17 @@ export interface CartItem {
 
 export interface Promo {
   code: string
-  discountType: "percentage" | "fixed"
+  discountType: 'percentage' | 'fixed'
   value: number
   description: string
 }
 
 interface CartStore {
   items: CartItem[]
-  activeMode: "dine-in" | "pickup"
+  activeMode: 'dine-in' | 'pickup'
   promoApplied: Promo | null
-  setActiveMode: (mode: "dine-in" | "pickup") => void
-  addToCart: (item: Omit<CartItem, "id" | "qty"> & { qty?: number }) => void
+  setActiveMode: (mode: 'dine-in' | 'pickup') => void
+  addToCart: (item: Omit<CartItem, 'id' | 'qty'> & { qty?: number }) => void
   updateQty: (id: string, qty: number) => void
   updateVariant: (id: string, variant: string) => void
   updateNote: (id: string, note: string) => void
@@ -36,7 +36,7 @@ interface CartStore {
 
 export const useCartStore = create<CartStore>((set) => ({
   items: [],
-  activeMode: "dine-in",
+  activeMode: 'dine-in',
   promoApplied: null,
 
   setActiveMode: (mode) => set({ activeMode: mode }),
@@ -44,7 +44,7 @@ export const useCartStore = create<CartStore>((set) => ({
   addToCart: (newItem) =>
     set((state) => {
       const qtyToAdd = newItem.qty || 1
-      
+
       // Find if item with same foodId, variant, note, level, and addons already exists
       const existingIndex = state.items.findIndex(
         (item) =>
@@ -88,24 +88,18 @@ export const useCartStore = create<CartStore>((set) => ({
       }
 
       return {
-        items: state.items.map((item) =>
-          item.id === id ? { ...item, qty } : item
-        ),
+        items: state.items.map((item) => (item.id === id ? { ...item, qty } : item)),
       }
     }),
 
   updateVariant: (id, variant) =>
     set((state) => ({
-      items: state.items.map((item) =>
-        item.id === id ? { ...item, variant } : item
-      ),
+      items: state.items.map((item) => (item.id === id ? { ...item, variant } : item)),
     })),
 
   updateNote: (id, note) =>
     set((state) => ({
-      items: state.items.map((item) =>
-        item.id === id ? { ...item, note } : item
-      ),
+      items: state.items.map((item) => (item.id === id ? { ...item, note } : item)),
     })),
 
   applyPromo: (promo) => set({ promoApplied: promo }),

@@ -12,5 +12,5 @@ export async function get_orders(): Promise<Order[]> {
 
 export async function get_order_by_id(id: string): Promise<Order | undefined> {
   const orders = await get_orders()
-  return orders.find(order => order.id === id)
+  return orders.find((order) => order.id === id)
 }

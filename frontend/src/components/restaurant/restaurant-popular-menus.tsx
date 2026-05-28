@@ -10,10 +10,7 @@ interface RestaurantPopularMenusProps {
   onFoodClick: (item: MenuItem) => void
 }
 
-export function RestaurantPopularMenus({
-  menus,
-  onFoodClick,
-}: RestaurantPopularMenusProps) {
+export function RestaurantPopularMenus({ menus, onFoodClick }: RestaurantPopularMenusProps) {
   const popularMenus = menus.filter((m) => m.isPopular).slice(0, 4)
 
   if (popularMenus.length === 0) return null
@@ -33,7 +30,7 @@ export function RestaurantPopularMenus({
             onClick={() => onFoodClick(item)}
             className="border-muted/20 bg-card/30 hover:border-primary/20 flex cursor-pointer flex-col overflow-hidden rounded-2xl border transition-all duration-300 hover:shadow-md active:scale-[0.98]"
           >
-            <div className="relative aspect-square w-full shrink-0 overflow-hidden bg-muted">
+            <div className="bg-muted relative aspect-square w-full shrink-0 overflow-hidden">
               <img
                 src={item.image}
                 alt={item.name}
@@ -45,14 +42,14 @@ export function RestaurantPopularMenus({
               </div>
             </div>
             <div className="flex flex-1 flex-col justify-between p-2.5">
-              <h3 className="text-foreground line-clamp-2 text-xs font-bold leading-snug tracking-tight">
+              <h3 className="text-foreground line-clamp-2 text-xs leading-snug font-bold tracking-tight">
                 {item.name}
               </h3>
               <div className="mt-2 flex items-center justify-between">
                 <span className="text-primary text-[11px] font-black">
                   Rp {item.price.toLocaleString('id-ID')}
                 </span>
-                <div className="bg-slate-700 hover:bg-slate-800 flex size-6 shrink-0 items-center justify-center rounded-lg text-white shadow-sm transition-all active:scale-90">
+                <div className="flex size-6 shrink-0 items-center justify-center rounded-lg bg-slate-700 text-white shadow-sm transition-all hover:bg-slate-800 active:scale-90">
                   <Plus className="size-3 stroke-[3]" />
                 </div>
               </div>

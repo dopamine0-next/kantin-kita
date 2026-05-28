@@ -321,7 +321,7 @@ export default function SearchClient() {
                       className="border-muted/30 hover:border-primary/20 bg-card/60 group flex flex-row items-center overflow-hidden rounded-2xl border shadow-sm backdrop-blur-md transition-all duration-300"
                     >
                       {/* Left side Image */}
-                      <div className="relative size-24 shrink-0 overflow-hidden bg-muted">
+                      <div className="bg-muted relative size-24 shrink-0 overflow-hidden">
                         <img
                           src={food.image}
                           alt={food.name}
@@ -330,7 +330,7 @@ export default function SearchClient() {
                       </div>
 
                       {/* Right side Details */}
-                      <div className="flex min-w-0 flex-1 flex-col justify-between py-2 px-3">
+                      <div className="flex min-w-0 flex-1 flex-col justify-between px-3 py-2">
                         <div className="flex flex-col gap-0.5">
                           <h4 className="text-foreground group-hover:text-primary line-clamp-1 text-xs leading-snug font-bold tracking-tight transition-colors">
                             {food.name}
@@ -359,7 +359,7 @@ export default function SearchClient() {
                           <Button
                             onClick={() => handleAddToCart(food.name)}
                             size="icon"
-                            className="bg-slate-700 text-white hover:bg-slate-800 size-7 shrink-0 rounded-lg border-none shadow-none transition-all duration-300"
+                            className="size-7 shrink-0 rounded-lg border-none bg-slate-700 text-white shadow-none transition-all duration-300 hover:bg-slate-800"
                           >
                             <Plus className="size-4 stroke-[3]" />
                           </Button>

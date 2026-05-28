@@ -1,6 +1,6 @@
 import useSWR from 'swr'
 
-import { get_orders, get_order_by_id } from '@/services/order/order.service'
+import { get_order_by_id, get_orders } from '@/services/order/order.service'
 import { Order } from '@/services/order/order.types'
 
 export function useOrders() {
@@ -14,9 +14,8 @@ export function useOrders() {
 }
 
 export function useOrder(id: string) {
-  const { data, error, isLoading } = useSWR<Order | undefined>(
-    id ? `order-${id}` : null,
-    () => get_order_by_id(id)
+  const { data, error, isLoading } = useSWR<Order | undefined>(id ? `order-${id}` : null, () =>
+    get_order_by_id(id)
   )
 
   return {

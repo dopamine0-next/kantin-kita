@@ -1,8 +1,8 @@
 'use client'
 
+import { ClipboardList, Home, User } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { ClipboardList, Home, User } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 
@@ -20,8 +20,7 @@ export function BottomNav() {
       {tabs.map((tab) => {
         const Icon = tab.icon
         // Simple pathname matching
-        const isActive =
-          tab.href === '/' ? pathname === '/' : pathname?.startsWith(tab.href)
+        const isActive = tab.href === '/' ? pathname === '/' : pathname?.startsWith(tab.href)
 
         return (
           <Link

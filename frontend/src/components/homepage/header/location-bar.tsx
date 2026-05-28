@@ -1,7 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { MapPin, Navigation, Check } from 'lucide-react'
+
+import { Check, MapPin, Navigation } from 'lucide-react'
 
 import {
   DropdownMenu,
@@ -9,6 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+
 import { ModeToggle } from './mode-toggle'
 
 const CAMPUS_LOCATIONS = [
@@ -21,9 +23,7 @@ function getDistance(lat1: number, lon1: number, lat2: number, lon2: number) {
   const p = 0.017453292519943295
   const c = Math.cos
   const a =
-    0.5 -
-    c((lat2 - lat1) * p) / 2 +
-    (c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p))) / 2
+    0.5 - c((lat2 - lat1) * p) / 2 + (c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p))) / 2
   return 12742 * Math.asin(Math.sqrt(a))
 }
 
@@ -74,19 +74,17 @@ export function LocationBar({ activeMode, setActiveMode }: LocationBarProps) {
       <div className="flex items-center justify-between text-xs">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <div className="text-muted-foreground flex cursor-pointer items-center gap-1.5 font-semibold hover:text-primary transition-colors">
+            <div className="text-muted-foreground hover:text-primary flex cursor-pointer items-center gap-1.5 font-semibold transition-colors">
               <MapPin className="text-primary size-3.5 shrink-0" />
-              <span className="text-foreground font-bold">
-                Kantin Kita - {selectedCampus.name}
-              </span>
+              <span className="text-foreground font-bold">Kantin Kita - {selectedCampus.name}</span>
             </div>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" className="w-56">
-            <DropdownMenuItem onClick={autoDetectLocation} className="font-semibold text-primary">
+            <DropdownMenuItem onClick={autoDetectLocation} className="text-primary font-semibold">
               <Navigation className={`mr-2 size-4 ${isLocating ? 'animate-pulse' : ''}`} />
               {isLocating ? 'Mencari Lokasi...' : 'Deteksi Otomatis'}
             </DropdownMenuItem>
-            <div className="my-1 h-px bg-border/50" />
+            <div className="bg-border/50 my-1 h-px" />
             {CAMPUS_LOCATIONS.map((campus) => (
               <DropdownMenuItem
                 key={campus.id}
@@ -94,7 +92,7 @@ export function LocationBar({ activeMode, setActiveMode }: LocationBarProps) {
                 className="flex items-center justify-between"
               >
                 <span>{campus.name}</span>
-                {selectedCampus.id === campus.id && <Check className="size-4 text-primary" />}
+                {selectedCampus.id === campus.id && <Check className="text-primary size-4" />}
               </DropdownMenuItem>
             ))}
           </DropdownMenuContent>
@@ -102,7 +100,7 @@ export function LocationBar({ activeMode, setActiveMode }: LocationBarProps) {
 
         <button
           onClick={autoDetectLocation}
-          className="text-primary flex items-center gap-1 text-[10px] font-extrabold tracking-wider uppercase hover:opacity-80 transition-opacity"
+          className="text-primary flex items-center gap-1 text-[10px] font-extrabold tracking-wider uppercase transition-opacity hover:opacity-80"
         >
           <Navigation className={`size-3 ${isLocating ? 'animate-spin' : ''}`} />
           Pilih Lokasi

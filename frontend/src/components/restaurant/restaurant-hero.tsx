@@ -12,11 +12,7 @@ interface RestaurantHeroProps {
   onToggleFavorite: () => void
 }
 
-export function RestaurantHero({
-  restaurant,
-  isFavorite,
-  onToggleFavorite,
-}: RestaurantHeroProps) {
+export function RestaurantHero({ restaurant, isFavorite, onToggleFavorite }: RestaurantHeroProps) {
   const router = useRouter()
 
   return (

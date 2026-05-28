@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
+
 import Link from 'next/link'
 
 import { Badge } from '@/components/ui/badge'
@@ -66,14 +67,14 @@ export function Banner() {
 
   return (
     <div className="flex flex-col gap-3 pb-2">
-      <Carousel
-        setApi={setApi}
-        className="w-full overflow-hidden shadow-sm"
-      >
+      <Carousel setApi={setApi} className="w-full overflow-hidden shadow-sm">
         <CarouselContent>
           {BANNER_PROMOS.map((promo) => (
             <CarouselItem key={promo.id}>
-              <Link href={`/restaurant/${promo.restaurantId}`} className="relative block h-44 w-full overflow-hidden select-none">
+              <Link
+                href={`/restaurant/${promo.restaurantId}`}
+                className="relative block h-44 w-full overflow-hidden select-none"
+              >
                 {/* Background Food Image with Dark/Color overlay */}
                 <img
                   src={promo.image}

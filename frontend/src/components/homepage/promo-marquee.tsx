@@ -8,7 +8,8 @@ export function PromoMarquee() {
   const { marqueeItems, isLoading } = useMarquee()
 
   // Jika loading atau kosong, kita bisa mereturn null atau skeleton
-  if (isLoading) return <div className="h-[40px] w-full bg-zinc-950 border-y border-zinc-900 animate-pulse" />
+  if (isLoading)
+    return <div className="h-[40px] w-full animate-pulse border-y border-zinc-900 bg-zinc-950" />
   if (marqueeItems.length === 0) return null
 
   // Duplicate the promo items to create a seamless infinite scroll loop

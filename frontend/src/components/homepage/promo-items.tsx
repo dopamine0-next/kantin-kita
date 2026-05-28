@@ -42,7 +42,11 @@ export function PromoItems({ selectedCategory }: PromoItemsProps) {
       {/* Horizontal Cards Scroller */}
       <div className="no-scrollbar flex w-full gap-4 overflow-x-auto scroll-smooth px-4 py-2 select-none">
         {filteredFoods.map((food) => (
-          <Link key={food.id} href={`/restaurant/${food.restaurantId}`} className="shrink-0 outline-none">
+          <Link
+            key={food.id}
+            href={`/restaurant/${food.restaurantId}`}
+            className="shrink-0 outline-none"
+          >
             <Card className="border-muted/30 bg-card/60 hover:border-muted-foreground/10 group w-48 overflow-hidden rounded-2xl border shadow-sm backdrop-blur-md transition-all duration-300 hover:shadow-md">
               {/* Card Media Wrapper */}
               <div className="relative h-28 w-full overflow-hidden">
@@ -54,9 +58,7 @@ export function PromoItems({ selectedCategory }: PromoItemsProps) {
 
                 {/* Promo Badge floating top-left */}
                 {food.badgeText && (
-                  <Badge
-                    className="absolute top-2 left-2 rounded-lg border-none bg-slate-700 px-2 py-0.5 text-[9px] font-extrabold tracking-wider text-white shadow-sm hover:bg-slate-800"
-                  >
+                  <Badge className="absolute top-2 left-2 rounded-lg border-none bg-slate-700 px-2 py-0.5 text-[9px] font-extrabold tracking-wider text-white shadow-sm hover:bg-slate-800">
                     {food.badgeText}
                   </Badge>
                 )}

@@ -1,7 +1,7 @@
 'use client'
 
-import { cn } from '@/lib/utils'
 import { useCategories } from '@/hooks/use-categories'
+import { cn } from '@/lib/utils'
 
 interface CategoriesProps {
   selectedCategory: string
@@ -24,11 +24,11 @@ export function Categories({ selectedCategory, setSelectedCategory }: Categories
       {/* Horizontal Scroll wrapper */}
       <div className="no-scrollbar flex w-full gap-3 overflow-x-auto scroll-smooth px-4 py-2 select-none">
         {isLoading ? (
-            <div className="flex gap-3">
-              {[...Array(5)].map((_, i) => (
-                <div key={i} className="h-10 w-24 rounded-2xl bg-muted/40 animate-pulse" />
-              ))}
-            </div>
+          <div className="flex gap-3">
+            {[...Array(5)].map((_, i) => (
+              <div key={i} className="bg-muted/40 h-10 w-24 animate-pulse rounded-2xl" />
+            ))}
+          </div>
         ) : (
           categories.map((category) => {
             const isActive = selectedCategory === category.id
