@@ -1,6 +1,6 @@
 'use client'
 
-import { ChevronRight, FileText, HelpCircle, Key, LogOut } from 'lucide-react'
+import { ChevronRight, FileText, HelpCircle, Key, LogOut, Wallet, ReceiptText, Award, Crown } from 'lucide-react'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Card, CardContent } from '@/components/ui/card'
@@ -16,6 +16,30 @@ export function ProfileContainer() {
       </div>
     )
   }
+
+  const stats = [
+    {
+      label: 'Pengeluaran',
+      value: '350k',
+      icon: Wallet,
+      color: 'text-emerald-500',
+      bgColor: 'bg-emerald-500/10',
+    },
+    {
+      label: 'Pesanan',
+      value: '24x',
+      icon: ReceiptText,
+      color: 'text-blue-500',
+      bgColor: 'bg-blue-500/10',
+    },
+    {
+      label: 'Poin Kantin',
+      value: '150',
+      icon: Award,
+      color: 'text-amber-500',
+      bgColor: 'bg-amber-500/10',
+    },
+  ]
 
   const menuItems = [
     {
@@ -58,32 +82,52 @@ export function ProfileContainer() {
 
   return (
     <div className="animate-fade-in flex min-h-full flex-col px-4 pt-4 pb-24">
-      <div className="mb-6">
+      <div className="mb-2">
         <h1 className="text-xl font-extrabold tracking-tight">Profil Saya</h1>
       </div>
 
-      {/* User Info Header */}
-      <Card className="bg-primary/5 mb-6 rounded-2xl border-none shadow-sm">
-        <CardContent className="flex items-center gap-4 p-5">
-          <Avatar className="border-primary/20 size-16 border-2">
+      {/* User Info Header (Redesigned) */}
+      <div className="relative mb-6 flex flex-col items-center">
+        {/* Background Decorative */}
+        <div className="absolute top-4 left-0 right-0 h-24 rounded-3xl bg-gradient-to-tr from-primary/20 via-primary/5 to-transparent" />
+        
+        <div className="relative z-10 pt-8 flex flex-col items-center gap-3 w-full">
+          <Avatar className="size-24 border-4 border-background shadow-sm">
             <AvatarImage src={user.avatar} alt={user.name} className="object-cover" />
-            <AvatarFallback className="text-lg font-bold">
+            <AvatarFallback className="text-2xl font-bold bg-primary text-primary-foreground">
               {user.name.charAt(0).toUpperCase()}
             </AvatarFallback>
           </Avatar>
-          <div className="flex flex-col">
-            <h2 className="text-foreground text-lg font-bold tracking-tight">{user.name}</h2>
-            <div className="text-muted-foreground mt-0.5 flex flex-col gap-0.5 text-xs font-medium">
-              <span className="flex items-center gap-1.5">
-                <span className="w-16">NIM</span>: {user.nim}
-              </span>
-              <span className="flex items-center gap-1.5">
-                <span className="w-16">Semester</span>: {user.semester}
-              </span>
+          
+          <div className="flex flex-col items-center text-center">
+            <h2 className="text-2xl font-extrabold tracking-tight">{user.name}</h2>
+            <div className="text-muted-foreground flex items-center gap-2 text-sm font-medium mt-1">
+              <span>NIM: {user.nim}</span>
+              <span className="size-1 rounded-full bg-muted-foreground/50" />
+              <span>Semester {user.semester}</span>
+            </div>
+            <div className="mt-3 bg-amber-500/10 text-amber-600 dark:text-amber-500 px-3 py-1.5 rounded-full text-xs font-bold inline-flex items-center gap-1.5">
+               <Crown className="size-3.5" />
+               Member Kantin Premium
             </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
+
+      {/* Statistics Section */}
+      <div className="grid grid-cols-3 gap-3 mb-8">
+        {stats.map((stat, i) => (
+          <div key={i} className="flex flex-col items-center gap-2 rounded-2xl bg-card border border-muted/50 p-3 shadow-sm transition-all hover:bg-muted/50">
+            <div className={`flex size-10 items-center justify-center rounded-full ${stat.bgColor} ${stat.color}`}>
+              <stat.icon className="size-5" />
+            </div>
+            <div className="flex flex-col items-center">
+              <span className="text-lg font-black">{stat.value}</span>
+              <span className="text-[9px] font-bold text-muted-foreground uppercase tracking-wider">{stat.label}</span>
+            </div>
+          </div>
+        ))}
+      </div>
 
       {/* Profile Menu List */}
       <div className="mb-4">
