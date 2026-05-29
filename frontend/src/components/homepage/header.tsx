@@ -1,13 +1,11 @@
-'use client'
-
-import { LocationBar } from './header/location-bar'
-import { UserNav } from './header/user-nav'
+import { LocationBar } from '@/components/homepage/header/location-bar'
+import { UserNav } from '@/components/homepage/header/user-nav'
 
 export function Header() {
   return (
-    <div className="flex flex-col gap-4.5 px-4 pt-6 pb-2">
+    <header className="flex flex-col gap-3 px-4 pt-4 pb-1">
       <UserNav />
       <LocationBar />
-    </div>
+    </header>
   )
 }

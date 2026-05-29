@@ -35,32 +35,32 @@ export function UserNav() {
 
   return (
     <div className="flex items-center justify-between">
-      <div className="group flex items-center gap-3">
-        <Avatar className="border-primary/25 bg-primary/10 flex size-11 items-center justify-center border-2 shadow-sm">
+      <div className="group flex items-center gap-2.5">
+        <Avatar className="bg-primary/10 flex size-9 items-center justify-center shadow-none">
           <AvatarFallback className="bg-transparent">
-            <User className="text-primary size-5" />
+            <User className="text-primary size-4" />
           </AvatarFallback>
         </Avatar>
         <div className="flex flex-col">
-          <span className="text-muted-foreground/80 text-[10px] font-medium">Hallo,</span>
-          <span className="text-foreground flex items-center gap-1 text-sm font-black tracking-tight">
+          <span className="text-muted-foreground text-[10px] font-medium leading-none">Hallo,</span>
+          <span className="text-foreground text-sm font-bold tracking-tight">
             Pengguna <span className="animate-bounce">👋</span>
           </span>
         </div>
       </div>
 
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1">
         <Button
-          variant="outline"
+          variant="ghost"
           size="icon"
           onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-          className="border-muted/80 bg-background/50 hover:bg-muted size-10 shrink-0 rounded-full shadow-sm backdrop-blur-sm transition-all duration-300"
+          className="size-9 shrink-0 rounded-full transition-all duration-300"
           aria-label="Toggle Night Mode"
         >
           {theme === 'dark' ? (
-            <Sun className="size-5 fill-amber-400/20 text-amber-500" />
+            <Sun className="size-4.5 text-amber-500" />
           ) : (
-            <Moon className="size-5 fill-indigo-50/20 text-indigo-600" />
+            <Moon className="size-4.5 text-indigo-600" />
           )}
         </Button>
 
@@ -68,16 +68,16 @@ export function UserNav() {
           <DropdownMenuTrigger asChild>
             <div className="relative">
               <Button
-                variant="outline"
+                variant="ghost"
                 size="icon"
-                className="border-muted/80 bg-background/50 hover:bg-muted size-10 cursor-pointer rounded-full shadow-sm backdrop-blur-sm transition-all duration-300"
+                className="size-9 cursor-pointer rounded-full transition-all duration-300"
               >
-                <Bell className="size-5" />
+                <Bell className="size-4.5" />
               </Button>
               {activeNotifications.length > 0 && (
-                <span className="absolute top-1 right-1 flex size-2.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-rose-500 opacity-75"></span>
-                  <span className="relative inline-flex size-2.5 rounded-full bg-rose-500"></span>
+                <span className="absolute top-2 right-2 flex size-1.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-destructive opacity-75"></span>
+                  <span className="relative inline-flex size-1.5 rounded-full bg-destructive"></span>
                 </span>
               )}
             </div>
@@ -93,7 +93,7 @@ export function UserNav() {
               activeNotifications.map((order) => (
                 <DropdownMenuItem key={order.id} className="flex flex-col items-start gap-1 p-3">
                   <span className="text-xs font-semibold">{order.restaurant_name}</span>
-                  <span className="text-muted-foreground text-[10px]">
+                  <span className="text-muted-foreground text-xs">
                     {order.status === 'processing'
                       ? 'Pesanan Anda sedang diproses oleh restoran.'
                       : 'Pesanan telah selesai dan siap diambil!'}

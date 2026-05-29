@@ -10,6 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { Button } from '@/components/ui/button'
 
 const CAMPUS_LOCATIONS = [
   { id: 'pusat', name: 'Unpam Pusat', lat: -6.3465, lng: 106.7416 },
@@ -63,13 +64,18 @@ export function LocationBar() {
   }
 
   return (
-    <div className="bg-card/45 border-muted/20 flex flex-col gap-3 rounded-[20px] border p-3.5 shadow-sm backdrop-blur-md">
-      <div className="flex items-center justify-between text-xs">
+    <div className="bg-muted/30 flex flex-col gap-3 rounded-xl p-3 shadow-none backdrop-blur-md">
+      <div className="flex items-center justify-between">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <div className="text-muted-foreground hover:text-primary flex cursor-pointer items-center gap-1.5 font-semibold transition-colors">
+            <div className="text-muted-foreground hover:text-primary flex cursor-pointer items-center gap-2 transition-colors">
               <MapPin className="text-primary size-3.5 shrink-0" />
-              <span className="text-foreground font-bold">Kantin Kita - {selectedCampus.name}</span>
+              <div className="flex flex-col">
+                <span className="text-muted-foreground text-[10px] leading-none font-medium uppercase tracking-wider">
+                  Lokasi Kampus
+                </span>
+                <span className="text-foreground text-xs font-bold">{selectedCampus.name}</span>
+              </div>
             </div>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" className="w-56">
@@ -91,13 +97,15 @@ export function LocationBar() {
           </DropdownMenuContent>
         </DropdownMenu>
 
-        <button
+        <Button
+          variant="ghost"
+          size="sm"
           onClick={autoDetectLocation}
-          className="text-primary flex items-center gap-1 text-[10px] font-extrabold tracking-wider uppercase transition-opacity hover:opacity-80"
+          className="text-primary h-auto p-0 text-xs font-bold hover:bg-transparent"
         >
-          <Navigation className={`size-3 ${isLocating ? 'animate-spin' : ''}`} />
-          Pilih Lokasi
-        </button>
+          <Navigation className={`mr-1 size-3 ${isLocating ? 'animate-spin' : ''}`} />
+          Ganti
+        </Button>
       </div>
     </div>
   )
