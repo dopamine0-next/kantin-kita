@@ -143,12 +143,12 @@ export default function RestaurantDetailContainer({
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="fixed right-4 bottom-24 left-4 z-50 mx-auto flex max-w-sm items-center justify-between rounded-xl border border-zinc-800 bg-zinc-900/95 px-4 py-3 text-xs font-bold text-white shadow-2xl backdrop-blur-md"
+            className="fixed right-4 bottom-24 left-4 z-50 mx-auto flex max-w-sm items-center justify-between rounded-xl border border-muted/30 bg-card/95 px-4 py-3 text-xs font-bold text-foreground shadow-2xl backdrop-blur-md"
           >
             <span className="flex-1 pr-2 leading-snug">{toastMessage}</span>
             <button
               onClick={() => setToastMessage(null)}
-              className="text-white/60 transition-colors hover:text-white"
+              className="text-muted-foreground transition-colors hover:text-foreground"
             >
               <X className="size-4" />
             </button>

@@ -32,6 +32,7 @@ interface CartStore {
   updateNote: (id: string, note: string) => void
   applyPromo: (promo: Promo | null) => void
   clearCart: () => void
+  removeItem: (id: string) => void
 }
 
 export const useCartStore = create<CartStore>((set) => ({
@@ -105,4 +106,9 @@ export const useCartStore = create<CartStore>((set) => ({
   applyPromo: (promo) => set({ promoApplied: promo }),
 
   clearCart: () => set({ items: [], promoApplied: null }),
+
+  removeItem: (id) =>
+    set((state) => ({
+      items: state.items.filter((item) => item.id !== id),
+    })),
 }))

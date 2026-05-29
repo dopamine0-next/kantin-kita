@@ -3,11 +3,13 @@ import { useEffect, useState } from 'react'
 import { Drawer, DrawerContent } from '@/components/ui/drawer'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { MenuItem } from '@/services/restaurant/restaurant.types'
+import { CartItem } from '@/store/useCartStore'
 import { FoodDetailInfo } from './food-detail/food-detail-info'
 import { FoodVariantForm } from './food-detail/food-variant-form'
 
 interface FoodDetailDrawerProps {
   item: MenuItem | null
+  initialCartItem?: CartItem
   isOpen: boolean
   initialStep?: 'info' | 'variant'
   onClose: () => void
@@ -16,6 +18,7 @@ interface FoodDetailDrawerProps {
 
 export function FoodDetailDrawer({ 
   item, 
+  initialCartItem,
   isOpen, 
   initialStep = 'info',
   onClose, 
@@ -55,6 +58,7 @@ export function FoodDetailDrawer({
         <DialogContent className="max-h-[85vh] overflow-y-auto w-[95%] sm:max-w-md rounded-[32px] sm:rounded-[32px] bg-background/95 backdrop-blur-xl border-muted/40 outline-none p-0">
           <FoodVariantForm 
             item={item} 
+            initialCartItem={initialCartItem}
             onBack={() => setStep('info')} 
             onClose={onClose} 
             onAddedToCart={onAddedToCart} 
