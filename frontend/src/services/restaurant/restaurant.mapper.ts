@@ -25,6 +25,7 @@ export function mapMenuItem(apiData: MenuItemApiResponse): MenuItem {
     image: apiData.image_url,
     category: apiData.category,
     variants: apiData.variants,
+    customizations: apiData.customizations,
     rating: apiData.rating,
     salesCount: apiData.sales_count,
     isPopular: apiData.is_popular,

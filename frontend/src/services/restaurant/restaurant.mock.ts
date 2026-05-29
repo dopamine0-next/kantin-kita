@@ -115,6 +115,28 @@ export const MOCK_RESTAURANTS_DETAILS_RESPONSE: Record<string, RestaurantDetailA
           'https://images.unsplash.com/photo-1529042410759-befb1204b468?auto=format&fit=crop&w=300&q=80',
         category: 'Bakso',
         variants: ['Mie Campur', 'Bihun Saja', 'Mie Kuning Saja', 'Tanpa Mie'],
+        customizations: [
+          {
+            title: 'Tingkat Kepedasan',
+            type: 'choice',
+            options: [
+              { label: 'Level 0 (Tidak Pedas)', price: 0 },
+              { label: 'Level 1 (Sedang)', price: 0 },
+              { label: 'Level 2 (Pedas)', price: 0 },
+              { label: 'Level 3 (Extra Pedas)', price: 2000 },
+            ]
+          },
+          {
+            title: 'Tambahan Ekstra',
+            type: 'multiple',
+            options: [
+              { name: 'Nasi Putih Ekstra', price: 5000 },
+              { name: 'Tahu & Tempe Goreng', price: 3000 },
+              { name: 'Telor Ceplok', price: 4000 },
+              { name: 'Kerupuk Udang', price: 2000 },
+            ]
+          }
+        ],
         rating: 4.9,
         sales_count: '800+ terjual',
         is_popular: true,
@@ -154,6 +176,26 @@ export const MOCK_RESTAURANTS_DETAILS_RESPONSE: Record<string, RestaurantDetailA
           'https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=300&q=80',
         category: 'Minuman',
         variants: ['Manis Sedang', 'Manis Maksimal', 'Tawar'],
+        customizations: [
+          {
+            title: 'Tingkat Kemanisan',
+            type: 'choice',
+            options: [
+              { label: 'Less Sugar (70%)', price: 0 },
+              { label: 'Normal Sugar (100%)', price: 0 },
+              { label: 'Extra Sugar', price: 2000 },
+            ]
+          },
+          {
+            title: 'Tambahan Ekstra',
+            type: 'multiple',
+            options: [
+              { name: 'Extra Espresso Shot', price: 5000 },
+              { name: 'Cincau / Grass Jelly', price: 2000 },
+              { name: 'Boba Pearls', price: 3000 },
+            ]
+          }
+        ],
         rating: 4.9,
         sales_count: '2k+ terjual',
       },

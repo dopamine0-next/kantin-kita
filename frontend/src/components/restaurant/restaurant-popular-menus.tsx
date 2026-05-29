@@ -7,7 +7,7 @@ import { MenuItem } from '@/services/restaurant/restaurant.types'
 
 interface RestaurantPopularMenusProps {
   menus: MenuItem[]
-  onFoodClick: (item: MenuItem) => void
+  onFoodClick: (item: MenuItem, step?: 'info' | 'variant') => void
 }
 
 export function RestaurantPopularMenus({ menus, onFoodClick }: RestaurantPopularMenusProps) {
@@ -49,7 +49,13 @@ export function RestaurantPopularMenus({ menus, onFoodClick }: RestaurantPopular
                 <span className="text-primary text-[11px] font-black">
                   Rp {item.price.toLocaleString('id-ID')}
                 </span>
-                <div className="flex size-6 shrink-0 items-center justify-center rounded-lg bg-slate-700 text-white shadow-sm transition-all hover:bg-slate-800 active:scale-90">
+                <div 
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    onFoodClick(item, 'variant')
+                  }}
+                  className="flex size-6 shrink-0 items-center justify-center rounded-lg bg-slate-700 text-white shadow-sm transition-all hover:bg-slate-800 active:scale-90"
+                >
                   <Plus className="size-3 stroke-[3]" />
                 </div>
               </div>

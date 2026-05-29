@@ -9,7 +9,7 @@ import { MenuItem } from '@/services/restaurant/restaurant.types'
 interface RestaurantMenuListProps {
   groupedMenus: Record<string, MenuItem[]>
   searchQuery: string
-  onFoodClick: (item: MenuItem) => void
+  onFoodClick: (item: MenuItem, step?: 'info' | 'variant') => void
 }
 
 export function RestaurantMenuList({
@@ -87,7 +87,13 @@ export function RestaurantMenuList({
                         </div>
                       )}
                     </div>
-                    <div className="flex size-7 shrink-0 items-center justify-center rounded-lg bg-slate-700 text-white transition-all hover:bg-slate-800">
+                    <div 
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        onFoodClick(item, 'variant')
+                      }}
+                      className="flex size-7 shrink-0 items-center justify-center rounded-lg bg-slate-700 text-white transition-all hover:bg-slate-800"
+                    >
                       <Plus className="size-4 stroke-[3]" />
                     </div>
                   </div>

@@ -26,6 +26,23 @@ export interface RestaurantItem {
   block?: 'Blok A' | 'Blok B'
 }
 
+export interface AddonOption {
+  name: string
+  price: number
+}
+
+export interface ChoiceOption {
+  label: string
+  price: number
+}
+
+export interface MenuCustomization {
+  title: string
+  type: 'choice' | 'multiple'
+  options: (ChoiceOption | AddonOption)[]
+  required?: boolean
+}
+
 export interface MenuItemApiResponse {
   id: string
   name: string
@@ -34,6 +51,7 @@ export interface MenuItemApiResponse {
   image_url: string
   category: string
   variants?: string[]
+  customizations?: MenuCustomization[]
   rating?: number
   sales_count?: string
   is_popular?: boolean
@@ -47,6 +65,7 @@ export interface MenuItem {
   image: string
   category: string
   variants?: string[]
+  customizations?: MenuCustomization[]
   rating?: number
   salesCount?: string
   isPopular?: boolean

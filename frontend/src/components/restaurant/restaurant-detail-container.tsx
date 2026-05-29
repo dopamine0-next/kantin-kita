@@ -28,6 +28,7 @@ export default function RestaurantDetailContainer({
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('Semua')
   const [selectedFood, setSelectedFood] = useState<MenuItem | null>(null)
+  const [drawerStep, setDrawerStep] = useState<'info' | 'variant'>('info')
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [isFavorite, setIsFavorite] = useState(false)
   const [toastMessage, setToastMessage] = useState<string | null>(null)
@@ -102,8 +103,9 @@ export default function RestaurantDetailContainer({
     }, 3000)
   }
 
-  const handleFoodClick = (item: MenuItem) => {
+  const handleFoodClick = (item: MenuItem, step: 'info' | 'variant' = 'info') => {
     setSelectedFood(item)
+    setDrawerStep(step)
     setIsDrawerOpen(true)
   }
 
@@ -157,6 +159,7 @@ export default function RestaurantDetailContainer({
       <FoodDetailDrawer
         item={selectedFood}
         isOpen={isDrawerOpen}
+        initialStep={drawerStep}
         onClose={() => setIsDrawerOpen(false)}
         onAddedToCart={handleItemAdded}
       />
