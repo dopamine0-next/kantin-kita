@@ -4,7 +4,7 @@ import { Plus, Search, Sparkles, Star } from 'lucide-react'
 import { motion } from 'motion/react'
 
 import { Badge } from '@/components/ui/badge'
-import { MenuItem } from '@/lib/mockData'
+import { MenuItem } from '@/services/restaurant/restaurant.types'
 
 interface RestaurantMenuListProps {
   groupedMenus: Record<string, MenuItem[]>

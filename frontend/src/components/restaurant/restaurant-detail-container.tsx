@@ -1,12 +1,13 @@
 'use client'
 
+import { useRestaurantDetail } from "@/hooks/use-restaurants"
 import { useMemo, useState } from 'react'
 
 import { X } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
 import { useRouter } from 'next/navigation'
 
-import { MOCK_RESTAURANTS_DETAILS, MenuItem } from '@/lib/mockData'
+import { MenuItem } from '@/services/restaurant/restaurant.types'
 
 import { FoodDetailDrawer } from './food-detail-drawer'
 import { RestaurantCategoryTabs } from './restaurant-category-tabs'
@@ -31,7 +32,7 @@ export default function RestaurantDetailContainer({
   const [isFavorite, setIsFavorite] = useState(false)
   const [toastMessage, setToastMessage] = useState<string | null>(null)
 
-  const restaurant = MOCK_RESTAURANTS_DETAILS[restaurantId]
+  const { restaurant, isLoading } = useRestaurantDetail(restaurantId)
 
   const filteredMenus = useMemo(() => {
     if (!restaurant) return []
@@ -65,6 +66,14 @@ export default function RestaurantDetailContainer({
 
     return Object.fromEntries(Object.entries(groups).filter(([_, items]) => items.length > 0))
   }, [filteredMenus, restaurant])
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-1 items-center justify-center p-6">
+        <div className="size-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+      </div>
+    )
+  }
 
   if (!restaurant) {
     return (

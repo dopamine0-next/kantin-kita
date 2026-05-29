@@ -31,7 +31,7 @@ import {
   DrawerTitle,
 } from '@/components/ui/drawer'
 import { Input } from '@/components/ui/input'
-import { MOCK_RESTAURANTS_DETAILS } from '@/lib/mockData'
+import { useRestaurantsDetails } from '@/hooks/use-restaurants'
 import { cn } from '@/lib/utils'
 import { CartItem, Promo, useCartStore } from '@/store/useCartStore'
 
@@ -117,7 +117,8 @@ export default function CheckoutContainer() {
   // Get food variants options dynamically from mock database to show in variant changer dropdown
   const getFoodVariants = (foodId: string): string[] => {
     // Traverse details database
-    for (const rest of Object.values(MOCK_RESTAURANTS_DETAILS)) {
+    const { restaurants: mockRestaurantsDetails } = useRestaurantsDetails()
+    for (const rest of Object.values(mockRestaurantsDetails || {})) {
       const found = rest.menus.find((menu) => menu.id === foodId)
       if (found && found.variants) return found.variants
     }

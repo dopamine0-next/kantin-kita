@@ -25,3 +25,45 @@ export interface RestaurantItem {
   image: string
   block?: 'Blok A' | 'Blok B'
 }
+
+export interface MenuItemApiResponse {
+  id: string
+  name: string
+  description: string
+  price: number
+  image_url: string
+  category: string
+  variants?: string[]
+  rating?: number
+  sales_count?: string
+  is_popular?: boolean
+}
+
+export interface MenuItem {
+  id: string
+  name: string
+  description: string
+  price: number
+  image: string
+  category: string
+  variants?: string[]
+  rating?: number
+  salesCount?: string
+  isPopular?: boolean
+}
+
+export interface RestaurantDetailApiResponse extends RestaurantApiResponse {
+  banner_image_url: string
+  address: string
+  operational_hours: string
+  categories: string[]
+  menus: MenuItemApiResponse[]
+}
+
+export interface RestaurantDetail extends RestaurantItem {
+  bannerImage: string
+  address: string
+  operationalHours: string
+  categories: string[]
+  menus: MenuItem[]
+}

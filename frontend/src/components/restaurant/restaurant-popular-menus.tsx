@@ -3,7 +3,7 @@
 import { Plus, Sparkles, Star } from 'lucide-react'
 import { motion } from 'motion/react'
 
-import { MenuItem } from '@/lib/mockData'
+import { MenuItem } from '@/services/restaurant/restaurant.types'
 
 interface RestaurantPopularMenusProps {
   menus: MenuItem[]

@@ -14,7 +14,7 @@ import {
   DrawerTitle,
 } from '@/components/ui/drawer'
 import { Textarea } from '@/components/ui/textarea'
-import { MenuItem } from '@/lib/mockData'
+import { MenuItem } from '@/services/restaurant/restaurant.types'
 import { cn } from '@/lib/utils'
 import { useCartStore } from '@/store/useCartStore'
 
