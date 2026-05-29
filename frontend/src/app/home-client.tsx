@@ -44,14 +44,28 @@ export default function HomeClient() {
           {/* Search Bar */}
           <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
-          {/* Horizontal food categories */}
-          <Categories
-            selectedCategory={selectedCategory}
-            setSelectedCategory={setSelectedCategory}
-          />
-
-          {/* Promo food items cards */}
-          <PromoItems selectedCategory={selectedCategory} />
+          {/* Unified Category & Promo Section */}
+          <section className="flex flex-col gap-1">
+            <div className="flex items-center justify-between px-4 pb-1">
+              <div className="flex flex-col">
+                <h2 className="text-foreground text-base font-black tracking-tight">Kategori & Promo</h2>
+                <p className="text-muted-foreground text-[10px] font-medium uppercase tracking-wider">
+                  Temukan promo terbaikmu
+                </p>
+              </div>
+              <span className="text-primary cursor-pointer text-xs font-bold hover:underline">
+                Lihat Semua
+              </span>
+            </div>
+            
+            <div className="flex flex-col gap-2">
+              <Categories
+                selectedCategory={selectedCategory}
+                setSelectedCategory={setSelectedCategory}
+              />
+              <PromoItems selectedCategory={selectedCategory} />
+            </div>
+          </section>
 
           {/* List of nearby stalls */}
           <Restaurants />

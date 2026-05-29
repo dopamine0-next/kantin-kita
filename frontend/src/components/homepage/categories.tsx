@@ -1,6 +1,7 @@
 'use client'
 
 import { useCategories } from '@/hooks/use-categories'
+import { Skeleton } from '@/components/ui/skeleton'
 import { cn } from '@/lib/utils'
 
 interface CategoriesProps {
@@ -12,21 +13,13 @@ export function Categories({ selectedCategory, setSelectedCategory }: Categories
   const { categories, isLoading } = useCategories()
 
   return (
-    <div className="flex flex-col gap-2 pt-2 pb-1">
-      {/* Section title */}
-      <div className="flex items-center justify-between px-4">
-        <h2 className="text-foreground text-base font-bold tracking-tight">Kategori Makanan</h2>
-        <span className="text-primary cursor-pointer text-xs font-semibold hover:underline">
-          Lihat Semua
-        </span>
-      </div>
-
+    <div className="flex flex-col">
       {/* Horizontal Scroll wrapper */}
-      <div className="no-scrollbar flex w-full gap-3 overflow-x-auto scroll-smooth px-4 py-2 select-none">
+      <div className="no-scrollbar flex w-full gap-2.5 overflow-x-auto scroll-smooth px-4 py-1 select-none">
         {isLoading ? (
-          <div className="flex gap-3">
+          <div className="flex gap-2.5">
             {[...Array(5)].map((_, i) => (
-              <div key={i} className="bg-muted/40 h-10 w-24 animate-pulse rounded-2xl" />
+              <Skeleton key={i} className="h-10 w-24 rounded-2xl" />
             ))}
           </div>
         ) : (

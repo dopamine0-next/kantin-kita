@@ -5,6 +5,7 @@ import Link from 'next/link'
 
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
+import { Skeleton } from '@/components/ui/skeleton'
 import { usePromos } from '@/hooks/use-promos'
 import { formatRupiah } from '@/lib/utils'
 
@@ -22,23 +23,19 @@ export function PromoItems({ selectedCategory }: PromoItemsProps) {
       : promos.filter((food) => food.category === selectedCategory)
 
   if (isLoading) {
-    return <div className="p-4">Loading promo...</div>
+    return (
+      <div className="no-scrollbar flex w-full gap-4 overflow-x-auto px-4 py-2">
+        {[...Array(3)].map((_, i) => (
+          <Skeleton key={i} className="h-48 w-48 rounded-2xl" />
+        ))}
+      </div>
+    )
   }
 
   if (filteredFoods.length === 0) return null
 
   return (
-    <div className="flex flex-col gap-2 pt-2 pb-1">
-      {/* Title */}
-      <div className="flex items-center justify-between px-4">
-        <h2 className="text-foreground text-base font-bold tracking-tight">
-          Promo Spesial Hari Ini
-        </h2>
-        <span className="text-primary cursor-pointer text-xs font-semibold hover:underline">
-          Lihat Semua
-        </span>
-      </div>
-
+    <div className="flex flex-col">
       {/* Horizontal Cards Scroller */}
       <div className="no-scrollbar flex w-full gap-4 overflow-x-auto scroll-smooth px-4 py-2 select-none">
         {filteredFoods.map((food) => (
