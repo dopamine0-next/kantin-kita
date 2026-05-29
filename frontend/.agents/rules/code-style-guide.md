@@ -45,8 +45,25 @@ trigger: always_on
 - component tidak boleh fetch langsung
 - component tidak boleh contain endpoint API
 - component tidak boleh contain mock data manual
-- gunakan shadcn/ui untuk seluruh UI component
-- hindari membuat custom UI jika sudah tersedia di shadcn/ui
+- **wajib gunakan shadcn/ui untuk seluruh UI component**
+- **jangan pernah membuat custom UI component jika sudah tersedia di shadcn/ui**
+- daftar shadcn/ui yang wajib digunakan jika tersedia:
+  - `Button`, `Input`, `Textarea`, `Select`, `Checkbox`, `RadioGroup`, `Switch`
+  - `Card`, `CardHeader`, `CardContent`, `CardFooter`
+  - `Dialog`, `Sheet`, `Drawer`, `AlertDialog`
+  - `DropdownMenu`, `ContextMenu`, `Menubar`
+  - `Tabs`, `Accordion`, `Collapsible`
+  - `Avatar`, `Badge`, `Separator`
+  - `Form`, `Label` (wajib pairing dengan form element)
+  - `Skeleton` untuk loading state
+  - `Alert` untuk error/info state
+  - `Table`, `ScrollArea`
+  - `Tooltip`, `Popover`, `HoverCard`
+  - `Progress`, `Slider`
+  - `NavigationMenu`, `Breadcrumb`, `Pagination`
+  - `Calendar`, `DatePicker`
+  - `Command`, `Combobox`
+  - `Toast` / `Sonner` untuk notifikasi
 - taruh sub-component di:
   ```txt
   components/(feature-name)
@@ -60,6 +77,72 @@ trigger: always_on
   - utils
   - services
   - constants
+
+---
+
+## STYLING & COLOR RULES
+
+- **wajib gunakan utility color dari shadcn/Tailwind design token**
+- **jangan pernah membuat custom utility class** seperti `text-10px`, `mt-3px`, `w-22px`, dll
+- **jangan pernah hardcode nilai pixel atau rem langsung sebagai class utility**
+- gunakan skala spacing bawaan Tailwind: `p-1`, `p-2`, `p-4`, `gap-2`, `mt-4`, dst
+- gunakan skala typography bawaan Tailwind: `text-xs`, `text-sm`, `text-base`, `text-lg`, `text-xl`, dst
+- gunakan skala color token shadcn/CSS variable:
+
+  ```css
+  /* Background */
+  bg-background
+  bg-card
+  bg-popover
+  bg-primary
+  bg-secondary
+  bg-muted
+  bg-accent
+  bg-destructive
+
+  /* Text */
+  text-foreground
+  text-card-foreground
+  text-popover-foreground
+  text-primary-foreground
+  text-secondary-foreground
+  text-muted-foreground
+  text-accent-foreground
+  text-destructive-foreground
+
+  /* Border */
+  border-border
+  border-input
+  border-ring
+
+  /* Ring */
+  ring-ring
+  ```
+
+- jika membutuhkan warna custom yang tidak ada di token shadcn, tambahkan di `tailwind.config.ts` dan `globals.css` menggunakan CSS variable:
+  ```css
+  /* globals.css */
+  :root {
+    --color-brand: 220 90% 56%;
+  }
+  .dark {
+    --color-brand: 220 80% 70%;
+  }
+  ```
+  ```ts
+  /* tailwind.config.ts */
+  theme: {
+    extend: {
+      colors: {
+        brand: 'hsl(var(--color-brand))',
+      },
+    },
+  }
+  ```
+- **jangan pernah gunakan inline style `style={{ color: '#fff' }}`** kecuali untuk dynamic value yang tidak mungkin ditulis sebagai class
+- **jangan pernah gunakan arbitrary Tailwind value** seperti `text-[10px]`, `w-[22px]`, `mt-[3px]` kecuali benar-benar terpaksa dan didokumentasikan alasannya
+- gunakan `cn()` dari `@/lib/utils` untuk conditional class merging
+- jangan gunakan string concatenation untuk class merging
 
 ---
 
@@ -321,3 +404,5 @@ export async function fetcher<T>(endpoint: string, options?: RequestInit): Promi
 - component harus reusable
 - seluruh architecture harus mudah scale
 - seluruh code harus siap menerima backend asli tanpa rewrite besar
+- **shadcn/ui adalah satu-satunya sumber UI component**
+- **color system sepenuhnya menggunakan token shadcn — tidak ada custom utility color**
