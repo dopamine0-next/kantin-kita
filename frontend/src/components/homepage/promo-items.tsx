@@ -44,7 +44,7 @@ export function PromoItems({ selectedCategory }: PromoItemsProps) {
             href={`/restaurant/${food.restaurantId}`}
             className="shrink-0 outline-none"
           >
-            <Card className="border-muted/30 bg-card/60 hover:border-muted-foreground/10 group w-48 overflow-hidden rounded-2xl border shadow-sm backdrop-blur-md transition-all duration-300 hover:shadow-md">
+            <Card className="border-muted/30 bg-card/60 hover:border-muted-foreground/10 group w-48 overflow-hidden rounded-2xl border p-0 gap-0 shadow-sm backdrop-blur-md transition-all duration-300 hover:shadow-md">
               {/* Card Media Wrapper */}
               <div className="relative h-28 w-full overflow-hidden">
                 <img
