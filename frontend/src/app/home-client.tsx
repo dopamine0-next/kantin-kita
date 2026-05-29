@@ -16,7 +16,6 @@ import { SearchBar } from '@/components/homepage/search-bar'
 export default function HomeClient() {
   const router = useRouter()
   // App States
-  const [activeMode, setActiveMode] = useState<'dine-in' | 'pickup'>('dine-in')
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('all')
 
@@ -24,18 +23,19 @@ export default function HomeClient() {
   const [toastMessage, setToastMessage] = useState<string | null>(null)
 
   return (
-    <div className="bg-background border-muted/50 relative mx-auto flex min-h-screen w-full max-w-md flex-col border-x">
+    <>
+      <PromoMarquee />
+
       {/* Scrollable Container */}
       <div className="no-scrollbar flex-1 overflow-y-auto pt-2 pb-24">
         {/* Main App Content */}
         <div className="animate-fade-in flex flex-col gap-4">
-          {/* Header section (avatar, mode switch) */}
-          <Header activeMode={activeMode} setActiveMode={setActiveMode} />
+          {/* Header section (avatar, location) */}
+          <Header />
 
           {/* Group Marquee and Banner to remove gap between them */}
           <div className="flex flex-col">
             {/* Infinite scrolling promo marquee */}
-            <PromoMarquee />
 
             {/* Promo Banner carousel */}
             <Banner />
@@ -73,6 +73,6 @@ export default function HomeClient() {
 
       {/* Bottom Tab Navigation Bar */}
       <BottomNav />
-    </div>
+    </>
   )
 }

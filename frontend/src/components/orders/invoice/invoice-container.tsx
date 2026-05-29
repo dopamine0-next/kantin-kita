@@ -43,7 +43,7 @@ export function InvoiceContainer({ orderId }: InvoiceContainerProps) {
   }
 
   return (
-    <div className="bg-background border-muted/50 mx-auto flex min-h-screen w-full max-w-md flex-col border-x pb-10">
+    <div className="flex flex-1 flex-col pb-10">
       <InvoiceHeader />
 
       <div className="animate-fade-in flex flex-col gap-5 p-4">

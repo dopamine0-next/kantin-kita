@@ -68,7 +68,7 @@ export default function RestaurantDetailContainer({
 
   if (!restaurant) {
     return (
-      <div className="bg-background border-muted/50 mx-auto flex min-h-screen w-full max-w-md flex-col items-center justify-center border-x p-6 text-center">
+      <div className="flex flex-1 flex-col items-center justify-center p-6 text-center">
         <div className="mb-4 flex size-16 animate-bounce items-center justify-center rounded-full bg-rose-500/10 text-rose-500">
           <X className="size-8" />
         </div>
@@ -99,7 +99,7 @@ export default function RestaurantDetailContainer({
   }
 
   return (
-    <div className="bg-background border-muted/50 relative mx-auto flex min-h-screen w-full max-w-md flex-col border-x pb-24">
+    <div className="flex flex-1 flex-col pb-24">
       <RestaurantHero
         restaurant={restaurant}
         isFavorite={isFavorite}

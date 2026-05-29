@@ -70,7 +70,7 @@ export default function SearchListContainer({ initialQuery }: SearchListContaine
   }, [searchQuery, selectedFilters])
 
   return (
-    <div className="bg-background border-muted/50 relative mx-auto flex min-h-screen w-full max-w-md flex-col border-x pb-6">
+    <div className="flex flex-1 flex-col pb-6">
       {/* Header Search Field */}
       <div className="bg-background/95 border-muted/30 sticky top-0 z-30 border-b px-4 pt-6 pb-3 backdrop-blur-md">
         <SearchHeader

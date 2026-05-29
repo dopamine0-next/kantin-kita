@@ -11,8 +11,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
-import { ModeToggle } from './mode-toggle'
-
 const CAMPUS_LOCATIONS = [
   { id: 'pusat', name: 'Unpam Pusat', lat: -6.3465, lng: 106.7416 },
   { id: 'viktor', name: 'Unpam Viktor', lat: -6.3424, lng: 106.702 },
@@ -27,12 +25,7 @@ function getDistance(lat1: number, lon1: number, lat2: number, lon2: number) {
   return 12742 * Math.asin(Math.sqrt(a))
 }
 
-interface LocationBarProps {
-  activeMode: 'dine-in' | 'pickup'
-  setActiveMode: (mode: 'dine-in' | 'pickup') => void
-}
-
-export function LocationBar({ activeMode, setActiveMode }: LocationBarProps) {
+export function LocationBar() {
   const [selectedCampus, setSelectedCampus] = useState(CAMPUS_LOCATIONS[0])
   const [isLocating, setIsLocating] = useState(false)
 
@@ -106,8 +99,6 @@ export function LocationBar({ activeMode, setActiveMode }: LocationBarProps) {
           Pilih Lokasi
         </button>
       </div>
-
-      <ModeToggle activeMode={activeMode} setActiveMode={setActiveMode} />
     </div>
   )
 }
