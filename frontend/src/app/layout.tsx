@@ -1,3 +1,4 @@
+import { ReactScan } from '@/components/react-scan'
 import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
 
@@ -33,6 +34,7 @@ export default function RootLayout({
         poppins.variable,
       )}
     >
+      <ReactScan />
       <body className="flex min-h-full flex-col font-sans">
         <ThemeProvider
           attribute="class"
