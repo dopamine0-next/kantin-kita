@@ -11,12 +11,14 @@ import {
   ReceiptText,
   Wallet,
 } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Card, CardContent } from '@/components/ui/card'
 import { useAuthStore } from '@/store/useAuthStore'
 
 export function ProfileContainer() {
+  const router = useRouter()
   const { user, logout } = useAuthStore()
 
   if (!user) {
@@ -66,8 +68,7 @@ export function ProfileContainer() {
       icon: HelpCircle,
       label: 'Bantuan (FAQ)',
       onClick: () => {
-        // Handle faq action
-        console.log('FAQ clicked')
+        router.push('/faq')
       },
     },
     {
@@ -75,8 +76,7 @@ export function ProfileContainer() {
       icon: FileText,
       label: 'Ketentuan Layanan',
       onClick: () => {
-        // Handle terms action
-        console.log('Terms clicked')
+        router.push('/terms')
       },
     },
     {
@@ -99,7 +99,7 @@ export function ProfileContainer() {
       {/* User Info Header (Redesigned) */}
       <div className="relative mb-6 flex flex-col items-center">
         {/* Background Decorative */}
-        <div className="from-primary/20 via-primary/5 absolute top-4 right-0 left-0 h-24 rounded-3xl bg-gradient-to-tr to-transparent" />
+        <div className="from-primary/20 via-primary/5 absolute top-4 right-0 left-0 h-24 rounded-3xl bg-linear-to-tr to-transparent" />
 
         <div className="relative z-10 flex w-full flex-col items-center gap-3 pt-8">
           <Avatar className="border-background size-24 border-4 shadow-sm">
