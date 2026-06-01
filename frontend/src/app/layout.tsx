@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
 
+import { AuthGuard } from '@/components/auth/auth-guard'
 import { ReactScan } from '@/components/react-scan'
 import { ThemeProvider } from '@/components/theme-provider'
 import { FloatingCheckoutButton } from '@/components/ui/floating-checkout-button'
@@ -39,7 +40,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div className="relative mx-auto flex min-h-screen w-full max-w-md flex-col">
-            {children}
+            <AuthGuard>{children}</AuthGuard>
             <FloatingCheckoutButton />
           </div>
         </ThemeProvider>

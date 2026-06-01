@@ -2,16 +2,19 @@
 
 import { useState } from 'react'
 
-import { Check, Loader2, MapPin, Navigation } from 'lucide-react'
+import { Check, MapPin, Navigation } from 'lucide-react'
+import { toast } from 'sonner'
 
-import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { Separator } from '@/components/ui/separator'
+import { Skeleton } from '@/components/ui/skeleton'
 import { useLocations } from '@/hooks/use-locations'
+import { cn } from '@/lib/utils'
 import { LocationItem } from '@/services/location/location.types'
 import { useAuthStore } from '@/store/useAuthStore'
 
@@ -39,7 +42,7 @@ export function LocationBar() {
 
   const autoDetectLocation = () => {
     if (!navigator.geolocation) {
-      alert('Geolocation tidak didukung oleh browser ini.')
+      toast.error('Geolocation tidak didukung oleh browser ini.')
       return
     }
 
@@ -62,45 +65,41 @@ export function LocationBar() {
 
         handleSelect(closestCampus)
         setIsLocating(false)
-        alert(`Lokasi Anda terdeteksi lebih dekat ke: ${closestCampus.name}`)
+        toast.success(`Lokasi Anda terdeteksi lebih dekat ke: ${closestCampus.name}`)
       },
       (error) => {
         console.error('Error getting location:', error)
-        alert('Gagal mendapatkan lokasi. Pastikan izin lokasi aktif.')
+        toast.error('Gagal mendapatkan lokasi. Pastikan izin lokasi aktif.')
         setIsLocating(false)
       }
     )
   }
 
   if (isLoading || !selectedCampus) {
-    return (
-      <div className="bg-muted/30 flex h-14 items-center justify-center rounded-xl p-3 backdrop-blur-md">
-        <Loader2 className="text-primary size-5 animate-spin" />
-      </div>
-    )
+    return <Skeleton className="h-14 w-full rounded-2xl" />
   }
 
   return (
-    <div className="bg-muted/30 flex flex-col gap-3 rounded-xl p-3 shadow-none backdrop-blur-md">
+    <div className="bg-card border-border/50 flex flex-col gap-4 rounded-2xl border p-5 shadow-sm">
       <div className="flex items-center justify-between">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <div className="text-muted-foreground hover:text-primary flex cursor-pointer items-center gap-2 transition-colors">
-              <MapPin className="text-primary size-3.5 shrink-0" />
-              <div className="flex flex-col">
-                <span className="text-muted-foreground text-xs leading-none font-medium tracking-wider uppercase">
+            <div className="text-muted-foreground hover:text-primary flex cursor-pointer items-center gap-3 transition-colors">
+              <MapPin className="text-primary size-4 shrink-0" />
+              <div className="flex flex-col gap-0.5">
+                <span className="text-muted-foreground text-xs leading-none font-semibold tracking-wider uppercase">
                   Lokasi Kampus
                 </span>
-                <span className="text-foreground text-xs font-bold">{selectedCampus.name}</span>
+                <span className="text-foreground text-sm font-semibold">{selectedCampus.name}</span>
               </div>
             </div>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" className="w-56">
             <DropdownMenuItem onClick={autoDetectLocation} className="text-primary font-semibold">
-              <Navigation className={`mr-2 size-4 ${isLocating ? 'animate-pulse' : ''}`} />
+              <Navigation className={cn('mr-2 size-3.5', isLocating && 'animate-pulse')} />
               {isLocating ? 'Mencari Lokasi...' : 'Deteksi Otomatis'}
             </DropdownMenuItem>
-            <div className="bg-border/50 my-1 h-px" />
+            <Separator className="my-1" />
             {locations.map((campus) => (
               <DropdownMenuItem
                 key={campus.id}
@@ -113,16 +112,6 @@ export function LocationBar() {
             ))}
           </DropdownMenuContent>
         </DropdownMenu>
-
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={autoDetectLocation}
-          className="text-primary h-auto p-0 text-xs font-bold hover:bg-transparent"
-        >
-          <Navigation className={`mr-1 size-3 ${isLocating ? 'animate-spin' : ''}`} />
-          Ganti
-        </Button>
       </div>
     </div>
   )

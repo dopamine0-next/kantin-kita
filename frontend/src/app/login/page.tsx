@@ -1,36 +1,51 @@
 'use client'
 
 import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 
-import { ChevronLeft, LogIn, Lock, User } from 'lucide-react'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { ChevronLeft, Lock, LogIn, User } from 'lucide-react'
 import { motion } from 'motion/react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { z } from 'zod'
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { AuthService } from '@/services/auth/auth.service'
 import { useAuthStore } from '@/store/useAuthStore'
 
+const loginSchema = z.object({
+  nim: z.string().regex(/^\d{12,15}$/, 'NIM harus 12-15 digit angka'),
+  password: z.string().min(6, 'Minimal 6 karakter'),
+})
+
+type LoginFormData = z.infer<typeof loginSchema>
+
 export default function LoginPage() {
   const router = useRouter()
   const login = useAuthStore((state) => state.login)
-  const [identifier, setIdentifier] = useState('')
-  const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+  })
+
+  const onSubmit = async (data: LoginFormData) => {
     setIsLoading(true)
     setError(null)
 
     try {
-      const response = await AuthService.login(identifier, password)
-      login(response.user)
+      const response = await AuthService.login(data.nim, data.password)
+      login(response.user, response.token)
       router.push('/')
-    } catch (err: any) {
-      setError(err.message || 'Terjadi kesalahan saat masuk.')
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Terjadi kesalahan saat masuk.')
     } finally {
       setIsLoading(false)
     }
@@ -52,22 +67,23 @@ export default function LoginPage() {
         </p>
       </div>
 
-      <form onSubmit={handleLogin} className="mt-10 flex flex-col gap-5">
+      <form onSubmit={handleSubmit(onSubmit)} className="mt-10 flex flex-col gap-5">
         <div className="flex flex-col gap-2">
           <label className="text-foreground pl-1 text-xs font-black tracking-wider uppercase">
-            NIM atau Nama Pengguna
+            NIM
           </label>
           <div className="relative">
             <User className="text-muted-foreground absolute top-1/2 left-4 size-4 -translate-y-1/2" />
             <Input
+              {...register('nim')}
               type="text"
               placeholder="Masukkan NIM Anda"
-              value={identifier}
-              onChange={(e) => setIdentifier(e.target.value)}
-              className="bg-muted/30 border-muted/50 h-13 rounded-2xl pl-11 text-sm font-medium focus:ring-primary/20"
-              required
+              className="bg-muted/30 border-muted/50 focus:ring-primary/20 h-13 rounded-2xl pl-11 text-sm font-medium"
             />
           </div>
+          {errors.nim && (
+            <p className="text-destructive pl-1 text-[11px] font-medium">{errors.nim.message}</p>
+          )}
         </div>
 
         <div className="flex flex-col gap-2">
@@ -82,14 +98,17 @@ export default function LoginPage() {
           <div className="relative">
             <Lock className="text-muted-foreground absolute top-1/2 left-4 size-4 -translate-y-1/2" />
             <Input
+              {...register('password')}
               type="password"
               placeholder="••••••••"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="bg-muted/30 border-muted/50 h-13 rounded-2xl pl-11 text-sm font-medium focus:ring-primary/20"
-              required
+              className="bg-muted/30 border-muted/50 focus:ring-primary/20 h-13 rounded-2xl pl-11 text-sm font-medium"
             />
           </div>
+          {errors.password && (
+            <p className="text-destructive pl-1 text-[11px] font-medium">
+              {errors.password.message}
+            </p>
+          )}
         </div>
 
         {error && (

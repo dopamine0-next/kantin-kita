@@ -1,61 +1,40 @@
 import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 
 export interface UserProfile {
+  id: string
   name: string
   avatar: string
   location: string
   locationId: string
   nim: string
   semester: number
+  role: string
 }
-
-export const MOCK_USERS: UserProfile[] = [
-  {
-    name: 'Marwah Hamzah',
-    avatar:
-      'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
-    location: 'Kantin Pusat',
-    locationId: 'l1',
-    nim: '1234567890',
-    semester: 5,
-  },
-  {
-    name: 'Budi Santoso',
-    avatar:
-      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80',
-    location: 'Kantin Teknik',
-    locationId: 'l2',
-    nim: '1234567891',
-    semester: 3,
-  },
-  {
-    name: 'Siti Rahma',
-    avatar:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80',
-    location: 'Kantin Pusat',
-    locationId: 'l1',
-    nim: '1234567892',
-    semester: 7,
-  },
-]
 
 interface AuthStore {
   user: UserProfile | null
-  login: (profile: UserProfile) => void
+  token: string | null
+  login: (user: UserProfile, token: string) => void
   logout: () => void
   updateLocation: (location: string, locationId: string) => void
 }
 
-export const useAuthStore = create<AuthStore>((set) => ({
-  // Set to null by default for real login flow
-  user: null,
+export const useAuthStore = create<AuthStore>()(
+  persist(
+    (set) => ({
+      user: null,
+      token: null,
 
-  login: (profile) => set({ user: profile }),
+      login: (user, token) => set({ user, token }),
 
-  logout: () => set({ user: null }),
+      logout: () => set({ user: null, token: null }),
 
-  updateLocation: (location, locationId) =>
-    set((state) => ({
-      user: state.user ? { ...state.user, location, locationId } : null,
-    })),
-}))
+      updateLocation: (location, locationId) =>
+        set((state) => ({
+          user: state.user ? { ...state.user, location, locationId } : null,
+        })),
+    }),
+    { name: 'kantin-kita-auth' }
+  )
+)

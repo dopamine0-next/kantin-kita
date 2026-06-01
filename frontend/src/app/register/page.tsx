@@ -1,59 +1,72 @@
 'use client'
 
 import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 
-import { ChevronLeft, UserPlus, Lock, User, IdCard, GraduationCap } from 'lucide-react'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { ChevronLeft, UserPlus } from 'lucide-react'
 import { motion } from 'motion/react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { z } from 'zod'
 
+import { RegisterFormFields } from '@/components/auth/register-form-fields'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { AuthService } from '@/services/auth/auth.service'
 import { useAuthStore } from '@/store/useAuthStore'
+
+const registerSchema = z
+  .object({
+    name: z.string().min(3, 'Minimal 3 karakter'),
+    nim: z.string().regex(/^\d{12,15}$/, 'NIM harus 12-15 digit angka'),
+    semester: z.coerce.number().min(1, 'Minimal semester 1').max(14, 'Maksimal semester 14'),
+    password: z.string().min(6, 'Minimal 6 karakter'),
+    confirmPassword: z.string(),
+  })
+  .refine((d) => d.password === d.confirmPassword, {
+    message: 'Konfirmasi password tidak cocok',
+    path: ['confirmPassword'],
+  })
+
+type RegisterFormData = z.infer<typeof registerSchema>
 
 export default function RegisterPage() {
   const router = useRouter()
   const login = useAuthStore((state) => state.login)
-  const [formData, setFormData] = useState({
-    name: '',
-    nim: '',
-    semester: '',
-    password: '',
-    confirmPassword: '',
-  })
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RegisterFormData>({
+    resolver: zodResolver(registerSchema),
+  })
+
+  const onSubmit = async (data: RegisterFormData) => {
     setIsLoading(true)
     setError(null)
 
-    if (formData.password !== formData.confirmPassword) {
-      setError('Konformasi kata sandi tidak cocok.')
-      setIsLoading(false)
-      return
-    }
-
     try {
-      const response = await AuthService.register(formData)
-      login(response.user)
+      const response = await AuthService.register({
+        name: data.name,
+        nim: data.nim,
+        password: data.password,
+        semester: data.semester,
+        locationId: 1,
+      })
+      login(response.user, response.token)
       router.push('/')
-    } catch (err: any) {
-      setError(err.message || 'Gagal mendaftarkan akun.')
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Gagal mendaftarkan akun.')
     } finally {
       setIsLoading(false)
     }
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-  }
-
   return (
     <div className="bg-background flex min-h-screen flex-col px-6 pt-12 pb-8">
-      {/* Back Button */}
       <Link href="/login">
         <button className="bg-muted/50 flex size-10 items-center justify-center rounded-full transition-colors active:scale-95">
           <ChevronLeft className="text-foreground size-6" />
@@ -67,98 +80,8 @@ export default function RegisterPage() {
         </p>
       </div>
 
-      <form onSubmit={handleRegister} className="mt-8 flex flex-col gap-4">
-        <div className="flex flex-col gap-1.5">
-          <label className="text-foreground pl-1 text-[10px] font-black tracking-wider uppercase">
-            Nama Lengkap
-          </label>
-          <div className="relative">
-            <User className="text-muted-foreground absolute top-1/2 left-4 size-4 -translate-y-1/2" />
-            <Input
-              name="name"
-              type="text"
-              placeholder="Contoh: Budi Santoso"
-              value={formData.name}
-              onChange={handleChange}
-              className="bg-muted/30 border-muted/50 h-12 rounded-2xl pl-11 text-sm font-medium focus:ring-primary/20"
-              required
-            />
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 gap-4">
-          <div className="flex flex-col gap-1.5">
-            <label className="text-foreground pl-1 text-[10px] font-black tracking-wider uppercase">
-              NIM
-            </label>
-            <div className="relative">
-              <IdCard className="text-muted-foreground absolute top-1/2 left-4 size-4 -translate-y-1/2" />
-              <Input
-                name="nim"
-                type="text"
-                placeholder="123456"
-                value={formData.nim}
-                onChange={handleChange}
-                className="bg-muted/30 border-muted/50 h-12 rounded-2xl pl-11 text-sm font-medium focus:ring-primary/20"
-                required
-              />
-            </div>
-          </div>
-          <div className="flex flex-col gap-1.5">
-            <label className="text-foreground pl-1 text-[10px] font-black tracking-wider uppercase">
-              Semester
-            </label>
-            <div className="relative">
-              <GraduationCap className="text-muted-foreground absolute top-1/2 left-4 size-4 -translate-y-1/2" />
-              <Input
-                name="semester"
-                type="number"
-                min="1"
-                placeholder="1"
-                value={formData.semester}
-                onChange={handleChange}
-                className="bg-muted/30 border-muted/50 h-12 rounded-2xl pl-11 text-sm font-medium focus:ring-primary/20"
-                required
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-1.5">
-          <label className="text-foreground pl-1 text-[10px] font-black tracking-wider uppercase">
-            Kata Sandi
-          </label>
-          <div className="relative">
-            <Lock className="text-muted-foreground absolute top-1/2 left-4 size-4 -translate-y-1/2" />
-            <Input
-              name="password"
-              type="password"
-              placeholder="••••••••"
-              value={formData.password}
-              onChange={handleChange}
-              className="bg-muted/30 border-muted/50 h-12 rounded-2xl pl-11 text-sm font-medium focus:ring-primary/20"
-              required
-            />
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-1.5">
-          <label className="text-foreground pl-1 text-[10px] font-black tracking-wider uppercase">
-            Konfirmasi Sandi
-          </label>
-          <div className="relative">
-            <Lock className="text-muted-foreground absolute top-1/2 left-4 size-4 -translate-y-1/2" />
-            <Input
-              name="confirmPassword"
-              type="password"
-              placeholder="••••••••"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              className="bg-muted/30 border-muted/50 h-12 rounded-2xl pl-11 text-sm font-medium focus:ring-primary/20"
-              required
-            />
-          </div>
-        </div>
+      <form onSubmit={handleSubmit(onSubmit)} className="mt-8 flex flex-col gap-4">
+        <RegisterFormFields register={register} errors={errors} />
 
         {error && (
           <motion.p
