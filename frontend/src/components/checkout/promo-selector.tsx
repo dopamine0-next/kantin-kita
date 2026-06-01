@@ -12,7 +12,7 @@ import {
   DrawerTitle,
 } from '@/components/ui/drawer'
 import { cn } from '@/lib/utils'
-import { Promo } from '@/store/useCartStore'
+import { Promo } from '@/services/voucher/voucher.types'
 
 interface PromoSelectorProps {
   promoApplied: Promo | null

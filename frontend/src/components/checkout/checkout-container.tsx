@@ -7,8 +7,9 @@ import { useRouter } from 'next/navigation'
 
 import { FoodDetailDrawer } from '@/components/restaurant/food-detail-drawer'
 import { useRestaurantsDetails } from '@/hooks/use-restaurants'
+import { useVouchers } from '@/hooks/use-vouchers'
 import { MenuItem } from '@/services/restaurant/restaurant.types'
-import { CartItem, Promo, useCartStore } from '@/store/useCartStore'
+import { CartItem, useCartStore } from '@/store/useCartStore'
 
 import { CartItemList } from './cart-item-list'
 import { CheckoutFooter } from './checkout-footer'
@@ -18,27 +19,6 @@ import { ModeSelector } from './mode-selector'
 import { PaymentSummary } from './payment-summary'
 import { PromoSelector } from './promo-selector'
 import { SuccessModal } from './success-modal'
-
-const MOCK_PROMOS: Promo[] = [
-  {
-    code: 'HEMAT20',
-    discountType: 'percentage',
-    value: 20,
-    description: 'Diskon 20% khusus makanan favoritmu (Maks. Rp 15.000)',
-  },
-  {
-    code: 'GOCENG',
-    discountType: 'fixed',
-    value: 5000,
-    description: 'Potongan harga langsung Rp 5.000 tanpa min. belanja',
-  },
-  {
-    code: 'DINEIN30',
-    discountType: 'percentage',
-    value: 30,
-    description: 'Hemat 30% khusus Makan di Tempat (Maks. Rp 20.000)',
-  },
-]
 
 export default function CheckoutContainer() {
   const router = useRouter()
@@ -54,6 +34,7 @@ export default function CheckoutContainer() {
   } = useCartStore()
 
   const { restaurants: mockRestaurantsDetails } = useRestaurantsDetails()
+  const { vouchers, isLoading: isVouchersLoading } = useVouchers()
 
   // State local for UI
   const [isPromoDrawerOpen, setIsPromoDrawerOpen] = useState(false)
@@ -76,14 +57,11 @@ export default function CheckoutContainer() {
 
   const discount = useMemo(() => {
     if (!promoApplied || subtotal === 0) return 0
-    if (promoApplied.discountType === 'fixed') {
-      return Math.min(promoApplied.value, subtotal)
-    } else {
-      const pctDiscount = (subtotal * promoApplied.value) / 100
-      // Caps for percentage discounts
-      const cap = promoApplied.code === 'DINEIN30' ? 20000 : 15000
-      return Math.min(pctDiscount, cap)
-    }
+
+    const pctDiscount = (subtotal * promoApplied.value) / 100
+    // Use maxDiscount from the promo if available, otherwise fallback to old hardcoded logic or no cap
+    const cap = promoApplied.maxDiscount || (promoApplied.code === 'DINEIN30' ? 20000 : 15000)
+    return Math.min(pctDiscount, cap)
   }, [promoApplied, subtotal])
 
   const total = Math.max(0, subtotal - discount + appFee)
@@ -153,7 +131,7 @@ export default function CheckoutContainer() {
             isDrawerOpen={isPromoDrawerOpen}
             onDrawerOpenChange={setIsPromoDrawerOpen}
             onApplyPromo={applyPromo}
-            promos={MOCK_PROMOS}
+            promos={vouchers}
           />
 
           <PaymentSummary

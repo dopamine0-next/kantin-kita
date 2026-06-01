@@ -1,5 +1,7 @@
 import { create } from 'zustand'
 
+import { Promo } from '@/services/voucher/voucher.types'
+
 export interface CartItem {
   id: string // Unique identifier for this line item
   foodId: string
@@ -12,13 +14,6 @@ export interface CartItem {
   level?: string
   levelPrice?: number
   addons?: { name: string; price: number }[]
-}
-
-export interface Promo {
-  code: string
-  discountType: 'percentage' | 'fixed'
-  value: number
-  description: string
 }
 
 interface CartStore {
