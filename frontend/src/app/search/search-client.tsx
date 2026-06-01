@@ -1,5 +1,5 @@
 'use client'
-import { MouseEvent, useMemo, useState } from 'react'
+import { MouseEvent, useState } from 'react'
 
 import {
   ArrowRight,
@@ -16,141 +16,24 @@ import { AnimatePresence, motion } from 'motion/react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
+import { usePopularSearches, useSearch } from '@/hooks/use-search'
 import { formatRupiah } from '@/lib/utils'
-
-// Food database for search results
-interface SearchFoodItem {
-  id: string
-  name: string
-  stall: string
-  category: string
-  price: number
-  rating: number
-  prepTime: string
-  image: string
-}
-
-const SEARCH_DATABASE: SearchFoodItem[] = [
-  {
-    id: 'search-1',
-    name: 'Nasi Goreng Gila Kebon Sirih',
-    stall: 'Dapur Selera Kita',
-    category: 'nasi',
-    price: 16000,
-    rating: 4.8,
-    prepTime: '10-15 mnt',
-    image:
-      'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=300&q=80',
-  },
-  {
-    id: 'search-2',
-    name: 'Mie Ayam Pangsit Jamur',
-    stall: 'Soto & Mie Ayam Pak Dadi',
-    category: 'mie',
-    price: 15000,
-    rating: 4.9,
-    prepTime: '8-12 mnt',
-    image:
-      'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=300&q=80',
-  },
-  {
-    id: 'search-3',
-    name: 'Ayam Geprek Mozzarella Melted',
-    stall: 'Ayam Geprek Gahar',
-    category: 'ayam',
-    price: 18000,
-    rating: 4.7,
-    prepTime: '12-18 mnt',
-    image:
-      'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=300&q=80',
-  },
-  {
-    id: 'search-4',
-    name: 'Es Kopi Susu Aren Double Shot',
-    stall: 'Kopi & Roti Bakar Kanto',
-    category: 'minuman',
-    price: 10000,
-    rating: 4.9,
-    prepTime: '3-5 mnt',
-    image:
-      'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=300&q=80',
-  },
-  {
-    id: 'search-5',
-    name: 'Soto Ayam Lamongan Asli',
-    stall: 'Soto & Bakso Mbok Sri',
-    category: 'nasi',
-    price: 15000,
-    rating: 4.8,
-    prepTime: '8-10 mnt',
-    image:
-      'https://images.unsplash.com/photo-1541832676-9b763b0239ab?auto=format&fit=crop&w=300&q=80',
-  },
-  {
-    id: 'search-6',
-    name: 'Bakso Sapi Urat Solo',
-    stall: 'Soto & Bakso Mbok Sri',
-    category: 'mie',
-    price: 18000,
-    rating: 4.7,
-    prepTime: '5-8 mnt',
-    image:
-      'https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=300&q=80',
-  },
-  {
-    id: 'search-7',
-    name: 'Roti Bakar Coklat Keju Crispy',
-    stall: 'Kopi & Roti Bakar Kanto',
-    category: 'camilan',
-    price: 12000,
-    rating: 4.9,
-    prepTime: '10 mnt',
-    image:
-      'https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=300&q=80',
-  },
-  {
-    id: 'search-8',
-    name: 'Es Teh Manis Jumbo Segar',
-    stall: 'Kopi & Roti Bakar Kanto',
-    category: 'minuman',
-    price: 4000,
-    rating: 4.9,
-    prepTime: '2 mnt',
-    image:
-      'https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=300&q=80',
-  },
-]
-
-const POPULAR_SEARCHES = [
-  'Geprek',
-  'Soto Lamongan',
-  'Kopi Aren',
-  'Nasi Goreng',
-  'Roti Bakar',
-  'Bakso',
-]
+import { SearchResult } from '@/services/search/search.types'
+import { useCartStore } from '@/store/useCartStore'
 
 export default function SearchClient() {
   const router = useRouter()
   const [searchQuery, setSearchQuery] = useState('')
   const [history, setHistory] = useState<string[]>(['Soto Ayam', 'Es Kopi Susu', 'Ayam Geprek'])
-  const [cartCount, setCartCount] = useState(0)
   const [toastMessage, setToastMessage] = useState<string | null>(null)
 
-  // Filter search results
-  const filteredResults = useMemo(() => {
-    if (!searchQuery.trim()) return []
-    return SEARCH_DATABASE.filter(
-      (food) =>
-        food.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        food.stall.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        food.category.toLowerCase().includes(searchQuery.toLowerCase())
-    )
-  }, [searchQuery])
+  const { addToCart, items } = useCartStore()
+  const cartCount = items.reduce((sum, item) => sum + item.qty, 0)
+
+  const { results: filteredResults, isLoading: isSearchLoading } = useSearch(searchQuery)
+  const { popularSearches } = usePopularSearches()
 
   const handleSearchSubmit = (query: string) => {
     const trimmed = query.trim()
@@ -175,9 +58,15 @@ export default function SearchClient() {
     setHistory([])
   }
 
-  const handleAddToCart = (foodName: string) => {
-    setCartCount((prev) => prev + 1)
-    setToastMessage(`✓ ${foodName} berhasil ditambahkan ke keranjang!`)
+  const handleAddToCart = (food: SearchResult) => {
+    addToCart({
+      foodId: food.id,
+      name: food.name,
+      price: food.price,
+      image: food.image,
+      qty: 1,
+    })
+    setToastMessage(`✓ ${food.name} berhasil ditambahkan ke keranjang!`)
     setTimeout(() => setToastMessage(null), 3000)
   }
 
@@ -282,7 +171,7 @@ export default function SearchClient() {
                   Pencarian Populer
                 </h3>
                 <div className="flex flex-wrap gap-2.5">
-                  {POPULAR_SEARCHES.map((tag, index) => (
+                  {popularSearches.map((tag, index) => (
                     <button
                       key={index}
                       onClick={() => handleSearchSubmit(tag)}
@@ -306,11 +195,13 @@ export default function SearchClient() {
             >
               <div className="flex items-center justify-between">
                 <span className="text-muted-foreground text-xs font-semibold">
-                  Menampilkan {filteredResults.length} hasil untuk &ldquo;{searchQuery}&rdquo;
+                  {isSearchLoading
+                    ? 'Mencari...'
+                    : `Menampilkan ${filteredResults.length} hasil untuk "${searchQuery}"`}
                 </span>
               </div>
 
-              {filteredResults.length > 0 ? (
+              {!isSearchLoading && filteredResults.length > 0 ? (
                 <div className="flex flex-col gap-3">
                   {filteredResults.map((food, idx) => (
                     <motion.div
@@ -357,7 +248,7 @@ export default function SearchClient() {
                           </div>
 
                           <Button
-                            onClick={() => handleAddToCart(food.name)}
+                            onClick={() => handleAddToCart(food)}
                             size="icon"
                             className="size-7 shrink-0 rounded-lg border-none bg-primary text-primary-foreground shadow-none transition-all duration-300 hover:bg-primary/90"
                           >
@@ -375,7 +266,7 @@ export default function SearchClient() {
                     <Sparkles className="text-muted-foreground/60 size-8" />
                   </div>
                   <h3 className="text-foreground text-sm font-bold">Menu Tidak Ditemukan</h3>
-                  <p className="text-muted-foreground mt-1.5 max-w-[200px] text-xs leading-relaxed">
+                  <p className="text-muted-foreground mt-1.5 max-w-50 text-xs leading-relaxed">
                     Coba ketik kata kunci lain seperti &ldquo;Soto&rdquo;, &ldquo;Geprek&rdquo;,
                     atau &ldquo;Kopi&rdquo;.
                   </p>
