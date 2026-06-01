@@ -47,8 +47,8 @@ interface AuthStore {
 }
 
 export const useAuthStore = create<AuthStore>((set) => ({
-  // Default to first mock user for a premium out-of-the-box experience
-  user: MOCK_USERS[0],
+  // Set to null by default for real login flow
+  user: null,
 
   login: (profile) => set({ user: profile }),
 

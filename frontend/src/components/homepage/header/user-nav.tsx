@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from 'react'
 
-import { Bell, Moon, Sun, User } from 'lucide-react'
+import { Bell, LogIn, Moon, Sun, User, LogOut, Settings } from 'lucide-react'
 import { useTheme } from 'next-themes'
+import Link from 'next/link'
 
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -16,11 +17,13 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { useOrders } from '@/hooks/use-orders'
+import { useAuthStore } from '@/store/useAuthStore'
 
 export function UserNav() {
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   const { orders } = useOrders()
+  const { user, logout } = useAuthStore()
 
   // Filter for active notifications (e.g. not completed/cancelled yet)
   const activeNotifications = orders.filter(
@@ -35,19 +38,62 @@ export function UserNav() {
 
   return (
     <div className="flex items-center justify-between">
-      <div className="group flex items-center gap-2.5">
-        <Avatar className="bg-primary/10 flex size-9 items-center justify-center shadow-none">
-          <AvatarFallback className="bg-transparent">
-            <User className="text-primary size-4" />
-          </AvatarFallback>
-        </Avatar>
-        <div className="flex flex-col">
-          <span className="text-muted-foreground text-xs leading-none font-medium">Hallo,</span>
-          <span className="text-foreground text-sm font-bold tracking-tight">
-            Pengguna <span className="animate-bounce">👋</span>
-          </span>
-        </div>
-      </div>
+      {user ? (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button className="group flex items-center gap-2.5 text-left outline-none">
+              <Avatar className="border-primary/20 size-9 border shadow-none transition-transform active:scale-95">
+                <AvatarImage src={user.avatar} alt={user.name} />
+                <AvatarFallback className="bg-primary/10 text-primary text-xs font-bold">
+                  {user.name.substring(0, 2).toUpperCase()}
+                </AvatarFallback>
+              </Avatar>
+              <div className="flex flex-col">
+                <span className="text-muted-foreground text-[10px] leading-none font-bold tracking-tight uppercase">
+                  Semester {user.semester}
+                </span>
+                <span className="text-foreground line-clamp-1 text-sm font-black tracking-tight">
+                  {user.name.split(' ')[0]} <span className="animate-bounce">👋</span>
+                </span>
+              </div>
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start" className="w-56 rounded-2xl p-2 shadow-xl">
+            <DropdownMenuLabel className="px-2 py-1.5 text-xs font-black text-muted-foreground uppercase tracking-widest">
+              Akun Saya
+            </DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem className="rounded-xl px-2 py-2 text-xs font-bold gap-2">
+              <User className="size-4" />
+              Lihat Profil
+            </DropdownMenuItem>
+            <DropdownMenuItem className="rounded-xl px-2 py-2 text-xs font-bold gap-2">
+              <Settings className="size-4" />
+              Pengaturan
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem
+              onClick={() => logout()}
+              className="text-destructive focus:text-destructive rounded-xl px-2 py-2 text-xs font-black gap-2"
+            >
+              <LogOut className="size-4" />
+              Keluar Akun
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      ) : (
+        <Link href="/login" className="group flex items-center gap-2.5 transition-opacity hover:opacity-80">
+          <Avatar className="bg-muted flex size-9 items-center justify-center shadow-none">
+            <AvatarFallback className="bg-transparent">
+              <User className="text-muted-foreground size-4" />
+            </AvatarFallback>
+          </Avatar>
+          <div className="flex flex-col">
+            <span className="text-muted-foreground text-xs leading-none font-medium">Belum Masuk,</span>
+            <span className="text-primary text-sm font-black tracking-tight">Masuk Sekarang</span>
+          </div>
+        </Link>
+      )}
 
       <div className="flex items-center gap-1">
         <Button

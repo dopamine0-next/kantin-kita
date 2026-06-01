@@ -10,6 +10,7 @@ import { FoodDetailDrawer } from '@/components/restaurant/food-detail-drawer'
 import { useRestaurantsDetails } from '@/hooks/use-restaurants'
 import { useVouchers } from '@/hooks/use-vouchers'
 import { MenuItem } from '@/services/restaurant/restaurant.types'
+import { useAuthStore } from '@/store/useAuthStore'
 import { CartItem, useCartStore } from '@/store/useCartStore'
 
 import { CartItemList } from './cart-item-list'
@@ -23,6 +24,15 @@ import { SuccessModal } from './success-modal'
 
 export default function CheckoutContainer() {
   const router = useRouter()
+  const user = useAuthStore((state) => state.user)
+
+  // Redirect to login if not logged in
+  useMemo(() => {
+    if (typeof window !== 'undefined' && !user) {
+      router.push('/login')
+    }
+  }, [user, router])
+
   const {
     items,
     activeMode,
