@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import Link from 'next/link'
 
 import { StallCard } from '@/components/search-list/stall-card'
 import { useRestaurants } from '@/hooks/use-restaurants'
@@ -8,26 +8,23 @@ import { useAuthStore } from '@/store/useAuthStore'
 export function Restaurants() {
   const user = useAuthStore((state) => state.user)
   const activeLocation = user ? user.location : 'Blok A'
-  const [showAll, setShowAll] = useState(false)
   const { restaurants, isLoading } = useRestaurants()
 
-  const filtered = showAll
-    ? restaurants
-    : restaurants.filter((stall) => stall.block === activeLocation)
+  const filtered = restaurants.filter((stall) => stall.block === activeLocation)
 
   return (
     <div className="flex flex-col gap-3 px-4 pt-3 pb-8">
       {/* Section Header */}
       <div className="flex items-center justify-between">
         <h2 className="text-foreground text-base font-bold tracking-tight">
-          {showAll ? 'Semua Kios Kantin (Blok A & B)' : `Kios Terdekat di ${activeLocation}`}
+          Kios Terdekat di {activeLocation}
         </h2>
-        <button
-          onClick={() => setShowAll(!showAll)}
-          className="text-primary cursor-pointer text-xs text-xs font-black tracking-wider uppercase hover:underline"
+        <Link
+          href="/search-list"
+          className="text-primary text-xs font-black uppercase tracking-wider hover:underline"
         >
-          {showAll ? `Filter ${activeLocation}` : 'Lihat Semua'}
-        </button>
+          Lihat Semua
+        </Link>
       </div>
 
       {/* Vertical List of Canteen Stalls */}
