@@ -3,8 +3,8 @@
 import { useMemo, useState } from 'react'
 
 import { X } from 'lucide-react'
-import { AnimatePresence, motion } from 'motion/react'
 import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 
 import { useRestaurantDetail } from '@/hooks/use-restaurants'
 import { MenuItem } from '@/services/restaurant/restaurant.types'
@@ -31,7 +31,6 @@ export default function RestaurantDetailContainer({
   const [drawerStep, setDrawerStep] = useState<'info' | 'variant'>('info')
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [isFavorite, setIsFavorite] = useState(false)
-  const [toastMessage, setToastMessage] = useState<string | null>(null)
 
   const { restaurant, isLoading } = useRestaurantDetail(restaurantId)
 
@@ -97,10 +96,7 @@ export default function RestaurantDetailContainer({
   }
 
   const handleItemAdded = (message: string) => {
-    setToastMessage(message)
-    setTimeout(() => {
-      setToastMessage(null)
-    }, 3000)
+    toast.success(message)
   }
 
   const handleFoodClick = (item: MenuItem, step: 'info' | 'variant' = 'info') => {
@@ -136,25 +132,6 @@ export default function RestaurantDetailContainer({
         searchQuery={searchQuery}
         onFoodClick={handleFoodClick}
       />
-
-      <AnimatePresence>
-        {toastMessage && (
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            className="border-muted/30 bg-card/95 text-foreground fixed right-4 bottom-24 left-4 z-50 mx-auto flex max-w-sm items-center justify-between rounded-xl border px-4 py-3 text-xs font-bold shadow-2xl backdrop-blur-md"
-          >
-            <span className="flex-1 pr-2 leading-snug">{toastMessage}</span>
-            <button
-              onClick={() => setToastMessage(null)}
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <X className="size-4" />
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       <FoodDetailDrawer
         item={selectedFood}

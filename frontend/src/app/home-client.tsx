@@ -1,7 +1,6 @@
 'use client'
 import { useState } from 'react'
 
-import { X } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
 import { Banner } from '@/components/homepage/banner'
@@ -18,9 +17,6 @@ export default function HomeClient() {
   // App States
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('all')
-
-  // High-fidelity local toast
-  const [toastMessage, setToastMessage] = useState<string | null>(null)
 
   return (
     <>
@@ -73,19 +69,6 @@ export default function HomeClient() {
           <Restaurants />
         </div>
       </div>
-
-      {/* High-Fidelity Floating Notification Toast */}
-      {toastMessage && (
-        <div className="animate-in slide-in-from-bottom border-border bg-popover/95 text-popover-foreground absolute right-4 bottom-24 left-4 z-50 flex items-center justify-between rounded-xl border px-4 py-3 text-xs font-bold shadow-2xl backdrop-blur-md duration-300">
-          <span className="flex-1 leading-snug">{toastMessage}</span>
-          <button
-            onClick={() => setToastMessage(null)}
-            className="text-popover-foreground/60 hover:text-popover-foreground ml-3 transition-colors"
-          >
-            <X className="size-4" />
-          </button>
-        </div>
-      )}
 
       {/* Bottom Tab Navigation Bar */}
       <BottomNav />

@@ -5,6 +5,7 @@ import { AuthGuard } from '@/components/auth/auth-guard'
 import { ReactScan } from '@/components/react-scan'
 import { ThemeProvider } from '@/components/theme-provider'
 import { FloatingCheckoutButton } from '@/components/ui/floating-checkout-button'
+import { Toaster } from '@/components/ui/sonner'
 import { cn } from '@/lib/utils'
 
 import './globals.css'
@@ -42,6 +43,7 @@ export default function RootLayout({
           <div className="relative mx-auto flex min-h-screen w-full max-w-md flex-col">
             <AuthGuard>{children}</AuthGuard>
             <FloatingCheckoutButton />
+            <Toaster />
           </div>
         </ThemeProvider>
       </body>

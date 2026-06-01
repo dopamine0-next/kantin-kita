@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from 'react'
 
-import { Bell, LogIn, Moon, Sun, User, LogOut, Settings } from 'lucide-react'
+import { Bell, LogIn, LogOut, Moon, Settings, Sun, User } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
+import { toast } from 'sonner'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
@@ -59,22 +60,25 @@ export function UserNav() {
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" className="w-56 rounded-2xl p-2 shadow-xl">
-            <DropdownMenuLabel className="px-2 py-1.5 text-xs font-black text-muted-foreground uppercase tracking-widest">
+            <DropdownMenuLabel className="text-muted-foreground px-2 py-1.5 text-xs font-black tracking-widest uppercase">
               Akun Saya
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="rounded-xl px-2 py-2 text-xs font-bold gap-2">
+            <DropdownMenuItem className="gap-2 rounded-xl px-2 py-2 text-xs font-bold">
               <User className="size-4" />
               Lihat Profil
             </DropdownMenuItem>
-            <DropdownMenuItem className="rounded-xl px-2 py-2 text-xs font-bold gap-2">
+            <DropdownMenuItem className="gap-2 rounded-xl px-2 py-2 text-xs font-bold">
               <Settings className="size-4" />
               Pengaturan
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem
-              onClick={() => logout()}
-              className="text-destructive focus:text-destructive rounded-xl px-2 py-2 text-xs font-black gap-2"
+              onClick={() => {
+                logout()
+                toast.success('Berhasil keluar.')
+              }}
+              className="text-destructive focus:text-destructive gap-2 rounded-xl px-2 py-2 text-xs font-black"
             >
               <LogOut className="size-4" />
               Keluar Akun
@@ -82,14 +86,19 @@ export function UserNav() {
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (
-        <Link href="/login" className="group flex items-center gap-2.5 transition-opacity hover:opacity-80">
+        <Link
+          href="/login"
+          className="group flex items-center gap-2.5 transition-opacity hover:opacity-80"
+        >
           <Avatar className="bg-muted flex size-9 items-center justify-center shadow-none">
             <AvatarFallback className="bg-transparent">
               <User className="text-muted-foreground size-4" />
             </AvatarFallback>
           </Avatar>
           <div className="flex flex-col">
-            <span className="text-muted-foreground text-xs leading-none font-medium">Belum Masuk,</span>
+            <span className="text-muted-foreground text-xs leading-none font-medium">
+              Belum Masuk,
+            </span>
             <span className="text-primary text-sm font-black tracking-tight">Masuk Sekarang</span>
           </div>
         </Link>

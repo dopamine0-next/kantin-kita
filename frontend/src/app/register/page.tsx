@@ -5,9 +5,9 @@ import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ChevronLeft, UserPlus } from 'lucide-react'
-import { motion } from 'motion/react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 import { z } from 'zod'
 
 import { RegisterFormFields } from '@/components/auth/register-form-fields'
@@ -34,7 +34,6 @@ export default function RegisterPage() {
   const router = useRouter()
   const login = useAuthStore((state) => state.login)
   const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
 
   const {
     register,
@@ -46,7 +45,6 @@ export default function RegisterPage() {
 
   const onSubmit = async (data: RegisterFormData) => {
     setIsLoading(true)
-    setError(null)
 
     try {
       const response = await AuthService.register({
@@ -59,7 +57,7 @@ export default function RegisterPage() {
       login(response.user, response.token)
       router.push('/')
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Gagal mendaftarkan akun.')
+      toast.error(err instanceof Error ? err.message : 'Gagal mendaftarkan akun.')
     } finally {
       setIsLoading(false)
     }
@@ -82,16 +80,6 @@ export default function RegisterPage() {
 
       <form onSubmit={handleSubmit(onSubmit)} className="mt-8 flex flex-col gap-4">
         <RegisterFormFields register={register} errors={errors} />
-
-        {error && (
-          <motion.p
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="bg-destructive/10 text-destructive rounded-xl p-3 text-center text-xs font-bold"
-          >
-            {error}
-          </motion.p>
-        )}
 
         <Button
           type="submit"

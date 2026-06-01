@@ -5,9 +5,9 @@ import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ChevronLeft, Lock, LogIn, User } from 'lucide-react'
-import { motion } from 'motion/react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 import { z } from 'zod'
 
 import { Button } from '@/components/ui/button'
@@ -26,7 +26,6 @@ export default function LoginPage() {
   const router = useRouter()
   const login = useAuthStore((state) => state.login)
   const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
 
   const {
     register,
@@ -38,14 +37,13 @@ export default function LoginPage() {
 
   const onSubmit = async (data: LoginFormData) => {
     setIsLoading(true)
-    setError(null)
 
     try {
       const response = await AuthService.login(data.nim, data.password)
       login(response.user, response.token)
       router.push('/')
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Terjadi kesalahan saat masuk.')
+      toast.error(err instanceof Error ? err.message : 'Terjadi kesalahan saat masuk.')
     } finally {
       setIsLoading(false)
     }
@@ -110,16 +108,6 @@ export default function LoginPage() {
             </p>
           )}
         </div>
-
-        {error && (
-          <motion.p
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="bg-destructive/10 text-destructive rounded-xl p-3 text-center text-xs font-bold"
-          >
-            {error}
-          </motion.p>
-        )}
 
         <Button
           type="submit"

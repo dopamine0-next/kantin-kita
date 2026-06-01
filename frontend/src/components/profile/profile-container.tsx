@@ -11,6 +11,7 @@ import {
   Sparkles,
 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { useAuthStore } from '@/store/useAuthStore'
@@ -77,6 +78,7 @@ export function ProfileContainer() {
       isDestructive: true,
       onClick: () => {
         logout()
+        toast.success('Berhasil keluar.')
       },
     },
   ]

@@ -2,9 +2,8 @@
 
 import { useMemo, useState } from 'react'
 
-import { X } from 'lucide-react'
-import { AnimatePresence, motion } from 'motion/react'
 import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 
 import { FoodDetailDrawer } from '@/components/restaurant/food-detail-drawer'
 import { useRestaurantsDetails } from '@/hooks/use-restaurants'
@@ -57,7 +56,6 @@ export default function CheckoutContainer() {
   const [selectedCartItem, setSelectedCartItem] = useState<CartItem | null>(null)
   const [selectedMenuItem, setSelectedMenuItem] = useState<MenuItem | null>(null)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
-  const [toastMessage, setToastMessage] = useState<string | null>(null)
 
   // Calculations
   const subtotal = useMemo(() => {
@@ -113,10 +111,7 @@ export default function CheckoutContainer() {
   }
 
   const handleItemUpdated = (message: string) => {
-    setToastMessage(message)
-    setTimeout(() => {
-      setToastMessage(null)
-    }, 3000)
+    toast.success(message)
   }
 
   return (
@@ -176,25 +171,6 @@ export default function CheckoutContainer() {
         onClose={() => setIsEditModalOpen(false)}
         onAddedToCart={handleItemUpdated}
       />
-
-      <AnimatePresence>
-        {toastMessage && (
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            className="border-muted/30 bg-card/95 text-foreground fixed right-4 bottom-24 left-4 z-50 mx-auto flex max-w-sm items-center justify-between rounded-xl border px-4 py-3 text-xs font-bold shadow-2xl backdrop-blur-md"
-          >
-            <span className="flex-1 pr-2 leading-snug">{toastMessage}</span>
-            <button
-              onClick={() => setToastMessage(null)}
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <X className="size-4" />
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   )
 }

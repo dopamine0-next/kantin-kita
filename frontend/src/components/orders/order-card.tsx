@@ -1,6 +1,7 @@
 import { Clock, Tag } from 'lucide-react'
 import { motion } from 'motion/react'
 import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -113,8 +114,7 @@ export function OrderCard({ order, index = 0 }: OrderCardProps) {
           className="mt-1 w-full rounded-xl font-bold"
           onClick={(e) => {
             e.stopPropagation()
-            // Simulating API call / toast
-            alert('Pesanan telah dikonfirmasi sudah diambil!')
+            toast.success('Pesanan telah dikonfirmasi sudah diambil!')
           }}
         >
           Konfirmasi Sudah Diambil

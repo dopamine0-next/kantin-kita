@@ -15,6 +15,7 @@ import {
 import { AnimatePresence, motion } from 'motion/react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -27,7 +28,6 @@ export default function SearchClient() {
   const router = useRouter()
   const [searchQuery, setSearchQuery] = useState('')
   const [history, setHistory] = useState<string[]>(['Soto Ayam', 'Es Kopi Susu', 'Ayam Geprek'])
-  const [toastMessage, setToastMessage] = useState<string | null>(null)
 
   const { addToCart, items } = useCartStore()
   const cartCount = items.reduce((sum, item) => sum + item.qty, 0)
@@ -66,8 +66,7 @@ export default function SearchClient() {
       image: food.image,
       qty: 1,
     })
-    setToastMessage(`✓ ${food.name} berhasil ditambahkan ke keranjang!`)
-    setTimeout(() => setToastMessage(null), 3000)
+    toast.success(`${food.name} berhasil ditambahkan ke keranjang!`)
   }
 
   return (
@@ -277,19 +276,6 @@ export default function SearchClient() {
         </AnimatePresence>
       </div>
 
-      {/* Floating toast notification */}
-      {toastMessage && (
-        <div className="animate-in slide-in-from-bottom border-border bg-popover/95 text-popover-foreground absolute right-4 bottom-6 left-4 z-50 flex items-center justify-between rounded-xl border px-4 py-3 text-xs font-bold shadow-2xl backdrop-blur-md duration-300">
-          <span className="flex-1 leading-snug">{toastMessage}</span>
-          <button
-            onClick={() => setToastMessage(null)}
-            className="text-popover-foreground/60 hover:text-popover-foreground ml-3"
-          >
-            <X className="size-4" />
-          </button>
-        </div>
-      )}
-
       {/* Floating cart indicator in corner if items exist */}
       {cartCount > 0 && (
         <div className="absolute right-6 bottom-6 z-40">
@@ -297,8 +283,7 @@ export default function SearchClient() {
             <Button
               className="bg-primary hover:bg-primary/90 text-primary-foreground size-12 rounded-full shadow-xl"
               onClick={() => {
-                setToastMessage(`🛒 Anda memiliki ${cartCount} item di keranjang belanja!`)
-                setTimeout(() => setToastMessage(null), 4000)
+                toast(`🛒 Anda memiliki ${cartCount} item di keranjang belanja!`)
               }}
             >
               <Plus className="size-5" />
