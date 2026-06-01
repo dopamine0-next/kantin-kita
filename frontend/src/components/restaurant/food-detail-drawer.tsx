@@ -1,9 +1,11 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { Drawer, DrawerContent } from '@/components/ui/drawer'
+
 import { Dialog, DialogContent } from '@/components/ui/dialog'
+import { Drawer, DrawerContent } from '@/components/ui/drawer'
 import { MenuItem } from '@/services/restaurant/restaurant.types'
 import { CartItem } from '@/store/useCartStore'
+
 import { FoodDetailInfo } from './food-detail/food-detail-info'
 import { FoodVariantForm } from './food-detail/food-variant-form'
 
@@ -16,13 +18,13 @@ interface FoodDetailDrawerProps {
   onAddedToCart: (message: string) => void
 }
 
-export function FoodDetailDrawer({ 
-  item, 
+export function FoodDetailDrawer({
+  item,
   initialCartItem,
-  isOpen, 
+  isOpen,
   initialStep = 'info',
-  onClose, 
-  onAddedToCart 
+  onClose,
+  onAddedToCart,
 }: FoodDetailDrawerProps) {
   const [step, setStep] = useState<'info' | 'variant'>(initialStep)
 
@@ -36,8 +38,8 @@ export function FoodDetailDrawer({
 
   return (
     <>
-      <Drawer 
-        open={isOpen && step === 'info'} 
+      <Drawer
+        open={isOpen && step === 'info'}
         onOpenChange={(open) => {
           if (!open && step === 'info') onClose()
         }}
@@ -47,21 +49,21 @@ export function FoodDetailDrawer({
         </DrawerContent>
       </Drawer>
 
-      <Dialog 
-        open={isOpen && step === 'variant'} 
+      <Dialog
+        open={isOpen && step === 'variant'}
         onOpenChange={(open) => {
           if (!open) {
             onClose()
           }
         }}
       >
-        <DialogContent className="max-h-[85vh] overflow-y-auto w-[95%] sm:max-w-md rounded-4xl sm:rounded-4xl bg-background/95 backdrop-blur-xl border-muted/40 outline-none p-0">
-          <FoodVariantForm 
-            item={item} 
+        <DialogContent className="bg-background/95 border-muted/40 max-h-[85vh] w-[95%] overflow-y-auto rounded-4xl p-0 backdrop-blur-xl outline-none sm:max-w-md sm:rounded-4xl">
+          <FoodVariantForm
+            item={item}
             initialCartItem={initialCartItem}
-            onBack={() => setStep('info')} 
-            onClose={onClose} 
-            onAddedToCart={onAddedToCart} 
+            onBack={() => setStep('info')}
+            onClose={onClose}
+            onAddedToCart={onAddedToCart}
           />
         </DialogContent>
       </Dialog>

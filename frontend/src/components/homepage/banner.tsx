@@ -32,7 +32,7 @@ export function Banner() {
   if (isLoading) {
     return (
       <div className="px-4 py-2">
-        <div className="h-44 w-full animate-pulse rounded-2xl bg-muted/20" />
+        <div className="bg-muted/20 h-44 w-full animate-pulse rounded-2xl" />
       </div>
     )
   }
@@ -40,7 +40,7 @@ export function Banner() {
   if (banners.length === 0) return null
 
   return (
-    <div className="flex flex-col gap-3 pb-2 pt-1 overflow-visible">
+    <div className="flex flex-col gap-3 overflow-visible pt-1 pb-2">
       {/* Stacked Carousel Container */}
       <div className="relative flex h-48 w-full items-center justify-center">
         {banners.map((item, index) => (
@@ -73,4 +73,3 @@ export function Banner() {
     </div>
   )
 }
-

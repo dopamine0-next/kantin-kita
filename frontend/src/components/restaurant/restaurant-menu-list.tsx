@@ -38,9 +38,7 @@ export function RestaurantMenuList({
           <h2 className="text-foreground flex items-center gap-1.5 pl-1 text-xs font-black tracking-wider uppercase">
             <span className="bg-primary size-1.5 rounded-full" />
             {category}
-            <span className="text-muted-foreground/60 text-xs font-medium">
-              ({items.length})
-            </span>
+            <span className="text-muted-foreground/60 text-xs font-medium">({items.length})</span>
           </h2>
 
           <div className="flex flex-col gap-3">
@@ -87,12 +85,12 @@ export function RestaurantMenuList({
                         </div>
                       )}
                     </div>
-                    <div 
+                    <div
                       onClick={(e) => {
                         e.stopPropagation()
                         onFoodClick(item, 'variant')
                       }}
-                      className="flex size-7 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground transition-all hover:bg-primary/90"
+                      className="bg-primary text-primary-foreground hover:bg-primary/90 flex size-7 shrink-0 items-center justify-center rounded-lg transition-all"
                     >
                       <Plus className="size-4 stroke-[3]" />
                     </div>

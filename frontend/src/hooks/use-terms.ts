@@ -1,4 +1,5 @@
 import useSWR from 'swr'
+
 import { getTerms } from '@/services/terms/terms.service'
 
 export function useTerms() {

@@ -1,4 +1,5 @@
 import useSWR from 'swr'
+
 import { getFAQs } from '@/services/faq/faq.service'
 
 export function useFAQs() {

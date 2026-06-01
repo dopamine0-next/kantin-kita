@@ -1,8 +1,8 @@
-import { Info, Star, ShoppingBag } from 'lucide-react'
+import { Info, ShoppingBag, Star } from 'lucide-react'
 import { motion } from 'motion/react'
 
 import { Button } from '@/components/ui/button'
-import { DrawerHeader, DrawerTitle, DrawerDescription } from '@/components/ui/drawer'
+import { DrawerDescription, DrawerHeader, DrawerTitle } from '@/components/ui/drawer'
 import { MenuItem } from '@/services/restaurant/restaurant.types'
 
 interface FoodDetailInfoProps {
@@ -50,11 +50,11 @@ export function FoodDetailInfo({ item, onProceed }: FoodDetailInfoProps) {
           </div>
         )}
 
-        <div className="mt-8 border-t border-muted/30 pt-4">
+        <div className="border-muted/30 mt-8 border-t pt-4">
           <motion.div whileTap={{ scale: 0.98 }}>
             <Button
               onClick={onProceed}
-              className="bg-primary flex h-10.5 w-full items-center justify-center gap-2 rounded-2xl text-xs font-extrabold tracking-wide text-primary-foreground shadow-lg shadow-primary/20 hover:bg-primary/95 hover:shadow-primary/30"
+              className="bg-primary text-primary-foreground shadow-primary/20 hover:bg-primary/95 hover:shadow-primary/30 flex h-10.5 w-full items-center justify-center gap-2 rounded-2xl text-xs font-extrabold tracking-wide shadow-lg"
             >
               <ShoppingBag className="size-4" />
               <span>Pesan Sekarang</span>

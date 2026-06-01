@@ -21,7 +21,9 @@ export function RestaurantInfoCard({ restaurant }: RestaurantInfoCardProps) {
         <Badge
           className={cn(
             'py-0.8 shrink-0 rounded-lg border-none px-2 text-xs font-bold',
-            restaurant.isOpen ? 'bg-primary text-primary-foreground' : 'bg-destructive/10 text-destructive'
+            restaurant.isOpen
+              ? 'bg-primary text-primary-foreground'
+              : 'bg-destructive/10 text-destructive'
           )}
         >
           {restaurant.isOpen ? 'Buka' : 'Tutup'}
@@ -57,7 +59,7 @@ export function RestaurantInfoCard({ restaurant }: RestaurantInfoCardProps) {
           {restaurant.promos.map((promo: string, idx: number) => (
             <Badge
               key={idx}
-              className="py-0.8 gap-0.8 flex shrink-0 items-center rounded-lg border-none bg-primary px-2 text-xs font-extrabold whitespace-nowrap text-primary-foreground hover:bg-primary/90"
+              className="py-0.8 gap-0.8 bg-primary text-primary-foreground hover:bg-primary/90 flex shrink-0 items-center rounded-lg border-none px-2 text-xs font-extrabold whitespace-nowrap"
             >
               <BadgePercent className="size-3.5" />
               <span>{promo}</span>

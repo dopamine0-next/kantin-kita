@@ -2,6 +2,7 @@
 
 import { CheckCircle2 } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
+
 import { Button } from '@/components/ui/button'
 
 interface SuccessModalProps {
@@ -75,7 +76,7 @@ export function SuccessModal({
 
             <Button
               onClick={onFinish}
-              className="bg-primary shadow-primary/10 hover:bg-primary/95 mt-6 h-11 w-full rounded-xl text-xs font-extrabold text-primary-foreground shadow-md"
+              className="bg-primary shadow-primary/10 hover:bg-primary/95 text-primary-foreground mt-6 h-11 w-full rounded-xl text-xs font-extrabold shadow-md"
             >
               Kembali ke Beranda
             </Button>

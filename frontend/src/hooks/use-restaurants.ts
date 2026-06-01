@@ -1,5 +1,10 @@
 import useSWR from 'swr'
-import { getRestaurants, getRestaurantDetail, getRestaurantsDetails } from '@/services/restaurant/restaurant.service'
+
+import {
+  getRestaurantDetail,
+  getRestaurants,
+  getRestaurantsDetails,
+} from '@/services/restaurant/restaurant.service'
 
 export function useRestaurants() {
   const { data, error, isLoading } = useSWR('restaurants', getRestaurants)
@@ -12,8 +17,10 @@ export function useRestaurants() {
 }
 
 export function useRestaurantDetail(id: string) {
-  const { data, error, isLoading } = useSWR(id ? `restaurant-${id}` : null, () => getRestaurantDetail(id))
-  
+  const { data, error, isLoading } = useSWR(id ? `restaurant-${id}` : null, () =>
+    getRestaurantDetail(id)
+  )
+
   return {
     restaurant: data,
     error,
@@ -23,7 +30,7 @@ export function useRestaurantDetail(id: string) {
 
 export function useRestaurantsDetails() {
   const { data, error, isLoading } = useSWR('restaurants-details', getRestaurantsDetails)
-  
+
   return {
     restaurants: data,
     error,

@@ -4,13 +4,13 @@ import { useEffect, useState } from 'react'
 
 import { Check, MapPin, Navigation } from 'lucide-react'
 
+import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { Button } from '@/components/ui/button'
 
 const CAMPUS_LOCATIONS = [
   { id: 'pusat', name: 'Unpam Pusat', lat: -6.3465, lng: 106.7416 },
@@ -71,7 +71,7 @@ export function LocationBar() {
             <div className="text-muted-foreground hover:text-primary flex cursor-pointer items-center gap-2 transition-colors">
               <MapPin className="text-primary size-3.5 shrink-0" />
               <div className="flex flex-col">
-                <span className="text-muted-foreground text-xs leading-none font-medium uppercase tracking-wider">
+                <span className="text-muted-foreground text-xs leading-none font-medium tracking-wider uppercase">
                   Lokasi Kampus
                 </span>
                 <span className="text-foreground text-xs font-bold">{selectedCampus.name}</span>

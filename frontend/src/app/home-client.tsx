@@ -48,8 +48,10 @@ export default function HomeClient() {
           <section className="flex flex-col gap-1">
             <div className="flex items-center justify-between px-4 pb-1">
               <div className="flex flex-col">
-                <h2 className="text-foreground text-base font-black tracking-tight">Kategori & Promo</h2>
-                <p className="text-muted-foreground text-xs font-medium uppercase tracking-wider">
+                <h2 className="text-foreground text-base font-black tracking-tight">
+                  Kategori & Promo
+                </h2>
+                <p className="text-muted-foreground text-xs font-medium tracking-wider uppercase">
                   Temukan promo terbaikmu
                 </p>
               </div>
@@ -57,7 +59,7 @@ export default function HomeClient() {
                 Lihat Semua
               </span>
             </div>
-            
+
             <div className="flex flex-col gap-2">
               <Categories
                 selectedCategory={selectedCategory}
@@ -74,11 +76,11 @@ export default function HomeClient() {
 
       {/* High-Fidelity Floating Notification Toast */}
       {toastMessage && (
-        <div className="animate-in slide-in-from-bottom absolute right-4 bottom-24 left-4 z-50 flex items-center justify-between rounded-xl border border-border bg-popover/95 px-4 py-3 text-xs font-bold text-popover-foreground shadow-2xl backdrop-blur-md duration-300">
+        <div className="animate-in slide-in-from-bottom border-border bg-popover/95 text-popover-foreground absolute right-4 bottom-24 left-4 z-50 flex items-center justify-between rounded-xl border px-4 py-3 text-xs font-bold shadow-2xl backdrop-blur-md duration-300">
           <span className="flex-1 leading-snug">{toastMessage}</span>
           <button
             onClick={() => setToastMessage(null)}
-            className="text-popover-foreground/60 transition-colors hover:text-popover-foreground ml-3"
+            className="text-popover-foreground/60 hover:text-popover-foreground ml-3 transition-colors"
           >
             <X className="size-4" />
           </button>

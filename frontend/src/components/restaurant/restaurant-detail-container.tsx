@@ -1,12 +1,12 @@
 'use client'
 
-import { useRestaurantDetail } from "@/hooks/use-restaurants"
 import { useMemo, useState } from 'react'
 
 import { X } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
 import { useRouter } from 'next/navigation'
 
+import { useRestaurantDetail } from '@/hooks/use-restaurants'
 import { MenuItem } from '@/services/restaurant/restaurant.types'
 
 import { FoodDetailDrawer } from './food-detail-drawer'
@@ -71,7 +71,7 @@ export default function RestaurantDetailContainer({
   if (isLoading) {
     return (
       <div className="flex flex-1 items-center justify-center p-6">
-        <div className="size-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+        <div className="border-primary size-8 animate-spin rounded-full border-4 border-t-transparent" />
       </div>
     )
   }
@@ -79,7 +79,7 @@ export default function RestaurantDetailContainer({
   if (!restaurant) {
     return (
       <div className="flex flex-1 flex-col items-center justify-center p-6 text-center">
-        <div className="mb-4 flex size-16 animate-bounce items-center justify-center rounded-full bg-destructive/10 text-destructive">
+        <div className="bg-destructive/10 text-destructive mb-4 flex size-16 animate-bounce items-center justify-center rounded-full">
           <X className="size-8" />
         </div>
         <h2 className="text-foreground text-lg font-black">Kios Tidak Ditemukan</h2>
@@ -88,7 +88,7 @@ export default function RestaurantDetailContainer({
         </p>
         <button
           onClick={() => router.push('/')}
-          className="bg-primary hover:bg-primary/95 mt-6 rounded-xl px-5 py-2.5 text-xs font-black text-primary-foreground shadow-md"
+          className="bg-primary hover:bg-primary/95 text-primary-foreground mt-6 rounded-xl px-5 py-2.5 text-xs font-black shadow-md"
         >
           Kembali ke Beranda
         </button>
@@ -143,12 +143,12 @@ export default function RestaurantDetailContainer({
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="fixed right-4 bottom-24 left-4 z-50 mx-auto flex max-w-sm items-center justify-between rounded-xl border border-muted/30 bg-card/95 px-4 py-3 text-xs font-bold text-foreground shadow-2xl backdrop-blur-md"
+            className="border-muted/30 bg-card/95 text-foreground fixed right-4 bottom-24 left-4 z-50 mx-auto flex max-w-sm items-center justify-between rounded-xl border px-4 py-3 text-xs font-bold shadow-2xl backdrop-blur-md"
           >
             <span className="flex-1 pr-2 leading-snug">{toastMessage}</span>
             <button
               onClick={() => setToastMessage(null)}
-              className="text-muted-foreground transition-colors hover:text-foreground"
+              className="text-muted-foreground hover:text-foreground transition-colors"
             >
               <X className="size-4" />
             </button>

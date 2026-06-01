@@ -124,7 +124,7 @@ export const MOCK_RESTAURANTS_DETAILS_RESPONSE: Record<string, RestaurantDetailA
               { label: 'Level 1 (Sedang)', price: 0 },
               { label: 'Level 2 (Pedas)', price: 0 },
               { label: 'Level 3 (Extra Pedas)', price: 2000 },
-            ]
+            ],
           },
           {
             title: 'Tambahan Ekstra',
@@ -134,8 +134,8 @@ export const MOCK_RESTAURANTS_DETAILS_RESPONSE: Record<string, RestaurantDetailA
               { name: 'Tahu & Tempe Goreng', price: 3000 },
               { name: 'Telor Ceplok', price: 4000 },
               { name: 'Kerupuk Udang', price: 2000 },
-            ]
-          }
+            ],
+          },
         ],
         rating: 4.9,
         sales_count: '800+ terjual',
@@ -184,7 +184,7 @@ export const MOCK_RESTAURANTS_DETAILS_RESPONSE: Record<string, RestaurantDetailA
               { label: 'Less Sugar (70%)', price: 0 },
               { label: 'Normal Sugar (100%)', price: 0 },
               { label: 'Extra Sugar', price: 2000 },
-            ]
+            ],
           },
           {
             title: 'Tambahan Ekstra',
@@ -193,8 +193,8 @@ export const MOCK_RESTAURANTS_DETAILS_RESPONSE: Record<string, RestaurantDetailA
               { name: 'Extra Espresso Shot', price: 5000 },
               { name: 'Cincau / Grass Jelly', price: 2000 },
               { name: 'Boba Pearls', price: 3000 },
-            ]
-          }
+            ],
+          },
         ],
         rating: 4.9,
         sales_count: '2k+ terjual',
@@ -270,8 +270,8 @@ export const MOCK_RESTAURANTS_DETAILS_RESPONSE: Record<string, RestaurantDetailA
           'https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=300&q=80',
         category: 'Paket Geprek',
         rating: 4.7,
-        sales_count: '850+ terjual'
-      }
+        sales_count: '850+ terjual',
+      },
     ],
-  }
+  },
 }

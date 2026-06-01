@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, PanInfo } from 'motion/react'
+import { PanInfo, motion } from 'motion/react'
 import Link from 'next/link'
 
 import { BannerItem as BannerItemType } from '@/services/banner/banner.types'

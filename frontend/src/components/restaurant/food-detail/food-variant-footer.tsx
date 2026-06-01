@@ -2,6 +2,7 @@
 
 import { Minus, Plus, ShoppingBag } from 'lucide-react'
 import { motion } from 'motion/react'
+
 import { Button } from '@/components/ui/button'
 
 interface FoodVariantFooterProps {
@@ -22,7 +23,7 @@ export function FoodVariantFooter({
   return (
     <div className="border-muted/30 mt-6 flex flex-col gap-4 border-t pt-4">
       <div className="flex items-center justify-between">
-        <span className="text-xs font-black tracking-wider uppercase text-foreground">
+        <span className="text-foreground text-xs font-black tracking-wider uppercase">
           Jumlah Pesanan
         </span>
         <div className="bg-muted/40 border-muted/20 flex shrink-0 items-center gap-1.5 rounded-2xl border p-1">
@@ -47,7 +48,7 @@ export function FoodVariantFooter({
       <motion.div whileTap={{ scale: 0.98 }} className="w-full">
         <Button
           onClick={onAddToCart}
-          className="bg-primary flex h-11 w-full items-center justify-center gap-2 rounded-2xl text-xs font-extrabold tracking-wide text-primary-foreground shadow-lg shadow-primary/20 hover:bg-primary/95 hover:shadow-primary/30"
+          className="bg-primary text-primary-foreground shadow-primary/20 hover:bg-primary/95 hover:shadow-primary/30 flex h-11 w-full items-center justify-center gap-2 rounded-2xl text-xs font-extrabold tracking-wide shadow-lg"
         >
           <ShoppingBag className="size-4" />
           <span>Masukkan • Rp {totalPrice.toLocaleString('id-ID')}</span>

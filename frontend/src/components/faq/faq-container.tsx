@@ -2,30 +2,31 @@
 
 import { ChevronLeft } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
-import { useFAQs } from '@/hooks/use-faqs'
 import { Skeleton } from '@/components/ui/skeleton'
+import { useFAQs } from '@/hooks/use-faqs'
 
 export function FAQContainer() {
   const router = useRouter()
   const { faqs, isLoading } = useFAQs()
 
   return (
-    <div className="flex flex-1 flex-col bg-background">
+    <div className="bg-background flex flex-1 flex-col">
       {/* Header */}
-      <div className="sticky top-0 z-10 flex items-center gap-4 bg-background/80 px-4 py-4 backdrop-blur-md">
+      <div className="bg-background/80 sticky top-0 z-10 flex items-center gap-4 px-4 py-4 backdrop-blur-md">
         <button
           onClick={() => router.back()}
-          className="flex size-10 items-center justify-center rounded-full border border-muted/20 bg-card hover:bg-muted/10"
+          className="border-muted/20 bg-card hover:bg-muted/10 flex size-10 items-center justify-center rounded-full border"
         >
-          <ChevronLeft className="size-6 text-foreground" />
+          <ChevronLeft className="text-foreground size-6" />
         </button>
-        <h1 className="text-lg font-black tracking-tight text-foreground">Pertanyaan Populer</h1>
+        <h1 className="text-foreground text-lg font-black tracking-tight">Pertanyaan Populer</h1>
       </div>
 
       <div className="px-4 py-2">
@@ -39,10 +40,10 @@ export function FAQContainer() {
           <Accordion type="single" collapsible className="w-full">
             {faqs.map((faq) => (
               <AccordionItem key={faq.id} value={faq.id} className="border-muted/20">
-                <AccordionTrigger className="text-left text-sm font-bold text-foreground hover:no-underline">
+                <AccordionTrigger className="text-foreground text-left text-sm font-bold hover:no-underline">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-xs leading-relaxed text-muted-foreground">
+                <AccordionContent className="text-muted-foreground text-xs leading-relaxed">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>

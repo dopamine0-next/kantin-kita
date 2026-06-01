@@ -44,7 +44,7 @@ export function PromoItems({ selectedCategory }: PromoItemsProps) {
             href={`/restaurant/${food.restaurantId}`}
             className="shrink-0 outline-none"
           >
-            <Card className="border-muted/30 bg-card/60 hover:border-muted-foreground/10 group w-48 overflow-hidden rounded-2xl border p-0 gap-0 shadow-sm backdrop-blur-md transition-all duration-300 hover:shadow-md">
+            <Card className="border-muted/30 bg-card/60 hover:border-muted-foreground/10 group w-48 gap-0 overflow-hidden rounded-2xl border p-0 shadow-sm backdrop-blur-md transition-all duration-300 hover:shadow-md">
               {/* Card Media Wrapper */}
               <div className="relative h-28 w-full overflow-hidden">
                 <img
@@ -55,13 +55,13 @@ export function PromoItems({ selectedCategory }: PromoItemsProps) {
 
                 {/* Promo Badge floating top-left */}
                 {food.badgeText && (
-                  <Badge className="absolute top-2 left-2 rounded-lg border-none bg-primary px-2 py-0.5 text-xs font-extrabold tracking-wider text-primary-foreground shadow-sm hover:bg-primary/90">
+                  <Badge className="bg-primary text-primary-foreground hover:bg-primary/90 absolute top-2 left-2 rounded-lg border-none px-2 py-0.5 text-xs font-extrabold tracking-wider shadow-sm">
                     {food.badgeText}
                   </Badge>
                 )}
 
                 {/* Rating floating top-right */}
-                <div className="absolute top-2 right-2 flex items-center gap-0.5 rounded-lg bg-secondary/80 px-1.5 py-0.5 text-xs font-bold text-amber-500 backdrop-blur-md">
+                <div className="bg-secondary/80 absolute top-2 right-2 flex items-center gap-0.5 rounded-lg px-1.5 py-0.5 text-xs font-bold text-amber-500 backdrop-blur-md">
                   <Star className="size-3 fill-amber-500 stroke-none" />
                   <span>{food.rating}</span>
                 </div>

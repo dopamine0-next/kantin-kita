@@ -21,7 +21,7 @@ export function Restaurants() {
         </h2>
         <Link
           href="/search-list"
-          className="text-primary text-xs font-black uppercase tracking-wider hover:underline"
+          className="text-primary text-xs font-black tracking-wider uppercase hover:underline"
         >
           Lihat Semua
         </Link>

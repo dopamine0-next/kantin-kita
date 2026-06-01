@@ -1,27 +1,29 @@
 'use client'
 
+import ReactMarkdown from 'react-markdown'
+
 import { ChevronLeft } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { useTerms } from '@/hooks/use-terms'
+
 import { Skeleton } from '@/components/ui/skeleton'
+import { useTerms } from '@/hooks/use-terms'
 
 export function TermsContainer() {
   const router = useRouter()
   const { terms, isLoading } = useTerms()
 
   return (
-    <div className="flex flex-1 flex-col bg-background">
+    <div className="bg-background flex flex-1 flex-col">
       {/* Header */}
-      <div className="sticky top-0 z-10 flex items-center gap-4 bg-background/80 px-4 py-4 backdrop-blur-md">
+      <div className="bg-background/80 sticky top-0 z-10 flex items-center gap-4 px-4 py-4 backdrop-blur-md">
         <button
           onClick={() => router.back()}
-          className="flex size-10 items-center justify-center rounded-full border border-muted/20 bg-card hover:bg-muted/10"
+          className="border-muted/20 bg-card hover:bg-muted/10 flex size-10 items-center justify-center rounded-full border"
         >
-          <ChevronLeft className="size-6 text-foreground" />
+          <ChevronLeft className="text-foreground size-6" />
         </button>
-        <h1 className="text-lg font-black tracking-tight text-foreground">Ketentuan Layanan</h1>
+        <h1 className="text-foreground text-lg font-black tracking-tight">Ketentuan Layanan</h1>
       </div>
 
       <div className="px-5 py-2">
@@ -38,7 +40,7 @@ export function TermsContainer() {
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{terms.content}</ReactMarkdown>
           </article>
         ) : (
-          <div className="py-20 text-center text-sm text-muted-foreground">
+          <div className="text-muted-foreground py-20 text-center text-sm">
             Ketentuan tidak ditemukan.
           </div>
         )}

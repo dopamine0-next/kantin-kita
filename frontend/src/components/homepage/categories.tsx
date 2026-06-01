@@ -1,7 +1,7 @@
 'use client'
 
-import { useCategories } from '@/hooks/use-categories'
 import { Skeleton } from '@/components/ui/skeleton'
+import { useCategories } from '@/hooks/use-categories'
 import { cn } from '@/lib/utils'
 
 interface CategoriesProps {

@@ -27,7 +27,7 @@ export function RestaurantHero({ restaurant, isFavorite, onToggleFavorite }: Res
         <motion.button
           whileTap={{ scale: 0.9 }}
           onClick={() => router.back()}
-          className="flex size-9 items-center justify-center rounded-full border border-primary-foreground/10 bg-secondary/40 text-primary-foreground backdrop-blur-md transition-colors active:bg-secondary/60"
+          className="border-primary-foreground/10 bg-secondary/40 text-primary-foreground active:bg-secondary/60 flex size-9 items-center justify-center rounded-full border backdrop-blur-md transition-colors"
           aria-label="Kembali"
         >
           <ChevronLeft className="mr-0.5 size-5" />
@@ -38,7 +38,7 @@ export function RestaurantHero({ restaurant, isFavorite, onToggleFavorite }: Res
             whileTap={{ scale: 0.9 }}
             onClick={onToggleFavorite}
             className={cn(
-              'flex size-9 items-center justify-center rounded-full border border-primary-foreground/10 bg-secondary/40 backdrop-blur-md transition-colors active:bg-secondary/60',
+              'border-primary-foreground/10 bg-secondary/40 active:bg-secondary/60 flex size-9 items-center justify-center rounded-full border backdrop-blur-md transition-colors',
               isFavorite ? 'text-destructive' : 'text-primary-foreground'
             )}
             aria-label="Favoritkan"
@@ -48,7 +48,7 @@ export function RestaurantHero({ restaurant, isFavorite, onToggleFavorite }: Res
 
           <motion.button
             whileTap={{ scale: 0.9 }}
-            className="flex size-9 items-center justify-center rounded-full border border-primary-foreground/10 bg-secondary/40 text-primary-foreground backdrop-blur-md transition-colors active:bg-secondary/60"
+            className="border-primary-foreground/10 bg-secondary/40 text-primary-foreground active:bg-secondary/60 flex size-9 items-center justify-center rounded-full border backdrop-blur-md transition-colors"
             aria-label="Bagikan"
           >
             <Share2 className="size-4.5" />

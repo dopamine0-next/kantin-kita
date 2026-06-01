@@ -1,4 +1,11 @@
-import { MenuItem, MenuItemApiResponse, RestaurantApiResponse, RestaurantDetail, RestaurantDetailApiResponse, RestaurantItem } from './restaurant.types'
+import {
+  MenuItem,
+  MenuItemApiResponse,
+  RestaurantApiResponse,
+  RestaurantDetail,
+  RestaurantDetailApiResponse,
+  RestaurantItem,
+} from './restaurant.types'
 
 export function mapRestaurantItem(apiData: RestaurantApiResponse): RestaurantItem {
   return {

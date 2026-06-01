@@ -35,9 +35,7 @@ export function LoginDrawer({ isOpen, onClose }: LoginDrawerProps) {
           <DrawerHeader className="px-0 pt-0 text-left">
             <div className="text-primary mb-1 flex items-center gap-2">
               <LogIn className="size-5" />
-              <span className="text-xs font-black tracking-wider uppercase">
-                Pilih Akun Demo
-              </span>
+              <span className="text-xs font-black tracking-wider uppercase">Pilih Akun Demo</span>
             </div>
             <DrawerTitle className="text-foreground text-base font-black tracking-tight">
               Masuk ke KantinKita
@@ -100,7 +98,7 @@ export function LoginDrawer({ isOpen, onClose }: LoginDrawerProps) {
                   </div>
 
                   {/* Connect Indicator Icon */}
-                  <div className="bg-muted/60 text-muted-foreground group-hover:bg-primary flex size-8 items-center justify-center rounded-full transition-all duration-300 group-hover:text-primary-foreground">
+                  <div className="bg-muted/60 text-muted-foreground group-hover:bg-primary group-hover:text-primary-foreground flex size-8 items-center justify-center rounded-full transition-all duration-300">
                     <User className="size-4" />
                   </div>
                 </motion.button>

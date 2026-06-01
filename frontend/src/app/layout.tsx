@@ -1,7 +1,7 @@
-import { ReactScan } from '@/components/react-scan'
 import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
 
+import { ReactScan } from '@/components/react-scan'
 import { ThemeProvider } from '@/components/theme-provider'
 import { FloatingCheckoutButton } from '@/components/ui/floating-checkout-button'
 import { cn } from '@/lib/utils'
@@ -28,11 +28,7 @@ export default function RootLayout({
     <html
       lang="id"
       suppressHydrationWarning
-      className={cn(
-        'h-full',
-        'antialiased',
-        poppins.variable,
-      )}
+      className={cn('h-full', 'antialiased', poppins.variable)}
     >
       <ReactScan />
       <body className="flex min-h-full flex-col font-sans">

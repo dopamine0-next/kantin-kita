@@ -1,4 +1,5 @@
 import useSWR from 'swr'
+
 import { getPopularSearches, getSearchResults } from '@/services/search/search.service'
 
 export function useSearch(query: string) {

@@ -2,6 +2,7 @@
 
 import { FileText, Minus, Plus, Settings2 } from 'lucide-react'
 import { motion } from 'motion/react'
+
 import { CartItem } from '@/store/useCartStore'
 
 interface CartItemListProps {
@@ -40,7 +41,7 @@ export function CartItemList({ items, onUpdateQty, onUpdateNote, onEditItem }: C
                   <h3 className="text-foreground line-clamp-1 text-xs leading-snug font-black">
                     {item.name}
                   </h3>
-                  
+
                   {/* Price and variant indicator (simplified as requested) */}
                   <div className="mt-1 flex items-center gap-1.5">
                     <span className="text-muted-foreground/60 text-xs font-semibold">

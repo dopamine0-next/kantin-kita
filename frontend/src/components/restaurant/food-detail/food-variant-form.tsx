@@ -1,12 +1,13 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
+
 import { ChevronLeft } from 'lucide-react'
 
 import { DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Textarea } from '@/components/ui/textarea'
-import { MenuItem, ChoiceOption, AddonOption } from '@/services/restaurant/restaurant.types'
-import { useCartStore, CartItem } from '@/store/useCartStore'
+import { AddonOption, ChoiceOption, MenuItem } from '@/services/restaurant/restaurant.types'
+import { CartItem, useCartStore } from '@/store/useCartStore'
 
 import { CustomizationOptions } from './customization-options'
 import { FoodVariantFooter } from './food-variant-footer'
@@ -20,12 +21,12 @@ interface FoodVariantFormProps {
   onAddedToCart: (message: string) => void
 }
 
-export function FoodVariantForm({ 
-  item, 
+export function FoodVariantForm({
+  item,
   initialCartItem,
-  onBack, 
-  onClose, 
-  onAddedToCart 
+  onBack,
+  onClose,
+  onAddedToCart,
 }: FoodVariantFormProps) {
   const addToCart = useCartStore((state) => state.addToCart)
   const removeItem = useCartStore((state) => state.removeItem)
@@ -42,23 +43,24 @@ export function FoodVariantForm({
       setSelectedVariant(item.variants && item.variants.length > 0 ? item.variants[0] : '')
       setNote('')
     }
-    
+
     // Initialize choices and addons from customizations
     const initialChoices: Record<string, string> = {}
     const initialAddons: Record<string, AddonOption[]> = {}
-    
-    item.customizations?.forEach(cust => {
+
+    item.customizations?.forEach((cust) => {
       if (cust.type === 'choice') {
         const savedChoice = initialCartItem?.level // Simplified for now as we only have one level in CartItem
         initialChoices[cust.title] = savedChoice || (cust.options[0] as ChoiceOption).label
       } else {
-        const savedAddons = initialCartItem?.addons?.filter(a => 
-          cust.options.some(opt => (opt as AddonOption).name === a.name)
-        ) || []
+        const savedAddons =
+          initialCartItem?.addons?.filter((a) =>
+            cust.options.some((opt) => (opt as AddonOption).name === a.name)
+          ) || []
         initialAddons[cust.title] = savedAddons as AddonOption[]
       }
     })
-    
+
     setSelectedChoices(initialChoices)
     setSelectedAddons(initialAddons)
   }, [item, initialCartItem])
@@ -79,24 +81,26 @@ export function FoodVariantForm({
   }
 
   const handleSelectChoice = (custTitle: string, label: string) => {
-    setSelectedChoices(prev => ({ ...prev, [custTitle]: label }))
+    setSelectedChoices((prev) => ({ ...prev, [custTitle]: label }))
   }
 
   // Calculate prices
   const choicesPrice = Object.entries(selectedChoices).reduce((sum, [title, label]) => {
-    const cust = item.customizations?.find(c => c.title === title)
-    const option = cust?.options.find(o => (o as ChoiceOption).label === label) as ChoiceOption
+    const cust = item.customizations?.find((c) => c.title === title)
+    const option = cust?.options.find((o) => (o as ChoiceOption).label === label) as ChoiceOption
     return sum + (option?.price || 0)
   }, 0)
 
-  const addonsPrice = Object.values(selectedAddons).flat().reduce((sum, a) => sum + a.price, 0)
-  
+  const addonsPrice = Object.values(selectedAddons)
+    .flat()
+    .reduce((sum, a) => sum + a.price, 0)
+
   const singleItemPrice = item.price + choicesPrice + addonsPrice
   const totalPrice = singleItemPrice * qty
 
   const handleAddToCart = () => {
     const allAddons = Object.values(selectedAddons).flat()
-    
+
     // If we are editing, remove the old one first
     if (initialCartItem) {
       removeItem(initialCartItem.id)
@@ -109,7 +113,7 @@ export function FoodVariantForm({
       image: item.image,
       variant: selectedVariant || undefined,
       // For legacy/simple compatibility we take the first choice if available as 'level'
-      level: Object.values(selectedChoices)[0], 
+      level: Object.values(selectedChoices)[0],
       levelPrice: choicesPrice,
       addons: allAddons.length > 0 ? allAddons : undefined,
       note: note.trim() || undefined,
@@ -118,7 +122,7 @@ export function FoodVariantForm({
 
     const details: string[] = []
     if (selectedVariant) details.push(selectedVariant)
-    Object.values(selectedChoices).forEach(c => details.push(c))
+    Object.values(selectedChoices).forEach((c) => details.push(c))
     if (allAddons.length > 0) details.push(`${allAddons.length} Ekstra`)
 
     const detailsStr = details.length > 0 ? ` (${details.join(', ')})` : ''
@@ -128,11 +132,11 @@ export function FoodVariantForm({
   }
 
   return (
-    <div className="no-scrollbar max-h-[85vh] overflow-y-auto px-5 pb-8 pt-6">
-      <DialogHeader className="px-0 pt-0 flex flex-row items-center gap-3 space-y-0 text-left">
-        <button 
-          onClick={onBack} 
-          className="bg-card text-muted-foreground flex shrink-0 size-8 items-center justify-center rounded-full border border-muted/30 shadow-sm"
+    <div className="no-scrollbar max-h-[85vh] overflow-y-auto px-5 pt-6 pb-8">
+      <DialogHeader className="flex flex-row items-center gap-3 space-y-0 px-0 pt-0 text-left">
+        <button
+          onClick={onBack}
+          className="bg-card text-muted-foreground border-muted/30 flex size-8 shrink-0 items-center justify-center rounded-full border shadow-sm"
         >
           <ChevronLeft className="size-4" />
         </button>
@@ -141,13 +145,13 @@ export function FoodVariantForm({
         </DialogTitle>
       </DialogHeader>
 
-      <VariantSelector 
-        variants={item.variants || []} 
-        selectedVariant={selectedVariant} 
-        onSelect={setSelectedVariant} 
+      <VariantSelector
+        variants={item.variants || []}
+        selectedVariant={selectedVariant}
+        onSelect={setSelectedVariant}
       />
 
-      <CustomizationOptions 
+      <CustomizationOptions
         customizations={item.customizations || []}
         selectedChoices={selectedChoices}
         selectedAddons={selectedAddons}
@@ -168,7 +172,7 @@ export function FoodVariantForm({
         />
       </div>
 
-      <FoodVariantFooter 
+      <FoodVariantFooter
         qty={qty}
         totalPrice={totalPrice}
         onIncrement={handleIncrement}
@@ -178,4 +182,3 @@ export function FoodVariantForm({
     </div>
   )
 }
-

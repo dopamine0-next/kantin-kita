@@ -61,7 +61,7 @@ export function StallCard({ stall, index = 0, onClick }: StallCardProps) {
         />
         {!stall.isOpen && (
           <div className="absolute inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-            <span className="text-xs font-extrabold tracking-widest text-primary-foreground uppercase">
+            <span className="text-primary-foreground text-xs font-extrabold tracking-widest uppercase">
               Tutup
             </span>
           </div>
@@ -76,7 +76,7 @@ export function StallCard({ stall, index = 0, onClick }: StallCardProps) {
               {stall.name}
             </h3>
             {stall.isOpen && displayPromo && !stall.promos && (
-              <Badge className="flex shrink-0 items-center gap-0.5 rounded-lg border-none bg-primary px-1.5 py-0.5 text-xs font-bold text-primary-foreground shadow-sm hover:bg-primary/90">
+              <Badge className="bg-primary text-primary-foreground hover:bg-primary/90 flex shrink-0 items-center gap-0.5 rounded-lg border-none px-1.5 py-0.5 text-xs font-bold shadow-sm">
                 <BadgePercent className="size-3" />
                 <span>{displayPromo}</span>
               </Badge>
@@ -116,7 +116,7 @@ export function StallCard({ stall, index = 0, onClick }: StallCardProps) {
             {stall.promos.map((promo, pIdx) => (
               <Badge
                 key={pIdx}
-                className="flex items-center gap-1 rounded-lg border-none bg-primary px-2 py-0.5 text-xs font-bold text-primary-foreground shadow-sm hover:bg-primary/90"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 flex items-center gap-1 rounded-lg border-none px-2 py-0.5 text-xs font-bold shadow-sm"
               >
                 <BadgePercent className="size-3" />
                 <span>{promo}</span>

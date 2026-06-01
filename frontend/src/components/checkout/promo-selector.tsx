@@ -2,6 +2,7 @@
 
 import { BadgePercent, ChevronRight, Ticket } from 'lucide-react'
 import { motion } from 'motion/react'
+
 import { Button } from '@/components/ui/button'
 import {
   Drawer,
@@ -54,9 +55,7 @@ export function PromoSelector({
           </div>
           <div className="flex flex-col text-left">
             <span className="text-xs font-black">
-              {promoApplied
-                ? `Promo ${promoApplied.code} Terpasang`
-                : 'Pakai Promo Lebih Hemat'}
+              {promoApplied ? `Promo ${promoApplied.code} Terpasang` : 'Pakai Promo Lebih Hemat'}
             </span>
             <span className="text-muted-foreground/80 text-xs font-medium">
               {promoApplied ? promoApplied.description : 'Ada voucher diskon s.d 30% menunggu'}
@@ -118,7 +117,7 @@ export function PromoSelector({
                         <span className="text-foreground flex items-center gap-1.5 text-xs font-black">
                           {promo.code}
                           {isSelected && (
-                            <span className="py-0.5 rounded-sm bg-emerald-500 px-1 text-xs font-extrabold tracking-wide text-primary-foreground uppercase">
+                            <span className="text-primary-foreground rounded-sm bg-emerald-500 px-1 py-0.5 text-xs font-extrabold tracking-wide uppercase">
                               Aktif
                             </span>
                           )}

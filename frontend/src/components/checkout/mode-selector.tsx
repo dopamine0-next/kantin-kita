@@ -2,6 +2,7 @@
 
 import { Info, ShoppingBag, Utensils } from 'lucide-react'
 import { motion } from 'motion/react'
+
 import { cn } from '@/lib/utils'
 
 interface ModeSelectorProps {

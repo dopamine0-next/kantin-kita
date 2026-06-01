@@ -132,7 +132,7 @@ export function ProfileDrawer({ isOpen, onOpenChange, onOpenLogin }: ProfileDraw
                 logout()
                 onOpenChange(false)
               }}
-              className="flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-destructive/20 bg-destructive/5 text-xs font-black text-destructive transition-colors hover:bg-destructive/10"
+              className="border-destructive/20 bg-destructive/5 text-destructive hover:bg-destructive/10 flex h-11 w-full items-center justify-center gap-2 rounded-xl border text-xs font-black transition-colors"
             >
               <LogOut className="size-4" />
               <span>Keluar Akun (Log Out)</span>
@@ -142,7 +142,7 @@ export function ProfileDrawer({ isOpen, onOpenChange, onOpenLogin }: ProfileDraw
           <DrawerFooter className="px-0 pt-4">
             <Button
               onClick={() => onOpenChange(false)}
-              className="bg-primary h-11 w-full rounded-xl text-xs font-extrabold text-primary-foreground"
+              className="bg-primary text-primary-foreground h-11 w-full rounded-xl text-xs font-extrabold"
             >
               Selesai
             </Button>
