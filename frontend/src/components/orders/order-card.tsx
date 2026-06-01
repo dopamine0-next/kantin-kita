@@ -78,13 +78,13 @@ export function OrderCard({ order, index = 0 }: OrderCardProps) {
               <h3 className="text-foreground hover:text-primary line-clamp-1 text-sm leading-snug font-bold tracking-tight transition-colors">
                 {order.restaurant_name}
               </h3>
-              <Badge variant={statusConfig.variant} className="shrink-0 transform-none text-[10px]">
+              <Badge variant={statusConfig.variant} className="shrink-0 transform-none text-xs">
                 {statusConfig.label}
               </Badge>
             </div>
 
             {/* Timestamp */}
-            <div className="text-muted-foreground/80 flex items-center gap-1 text-[10px] font-medium">
+            <div className="text-muted-foreground/80 flex items-center gap-1 text-xs font-medium">
               <Clock className="size-3" />
               {dateStr}
             </div>

@@ -17,7 +17,7 @@ export function EmptyCart() {
       </p>
       <button
         onClick={() => router.push('/')}
-        className="bg-primary hover:bg-primary/95 mt-6 rounded-xl px-5 py-2.5 text-xs font-black text-white shadow-md"
+        className="bg-primary hover:bg-primary/95 mt-6 rounded-xl px-5 py-2.5 text-xs font-black text-primary-foreground shadow-md"
       >
         Pesan Sekarang
       </button>

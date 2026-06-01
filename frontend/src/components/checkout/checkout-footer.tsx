@@ -17,7 +17,7 @@ export function CheckoutFooter({ total, isProcessing, onPay }: CheckoutFooterPro
         <Button
           onClick={onPay}
           disabled={isProcessing}
-          className="bg-primary shadow-primary/25 hover:bg-primary/95 disabled:bg-muted flex h-12.5 w-full items-center justify-center gap-2 rounded-2xl text-xs font-extrabold tracking-wider text-white shadow-lg"
+          className="bg-primary shadow-primary/25 hover:bg-primary/95 disabled:bg-muted flex h-12 w-full items-center justify-center gap-2 rounded-2xl text-xs font-extrabold tracking-wider text-primary-foreground shadow-lg"
         >
           <CreditCard className="size-4.5" />
           <span>

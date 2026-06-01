@@ -60,8 +60,8 @@ export function StallCard({ stall, index = 0, onClick }: StallCardProps) {
           className="size-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
         />
         {!stall.isOpen && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/60 backdrop-blur-[1px]">
-            <span className="text-[10px] font-extrabold tracking-widest text-white uppercase">
+          <div className="absolute inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+            <span className="text-xs font-extrabold tracking-widest text-primary-foreground uppercase">
               Tutup
             </span>
           </div>
@@ -76,19 +76,19 @@ export function StallCard({ stall, index = 0, onClick }: StallCardProps) {
               {stall.name}
             </h3>
             {stall.isOpen && displayPromo && !stall.promos && (
-              <Badge className="flex shrink-0 items-center gap-0.5 rounded-lg border-none bg-slate-700 px-1.5 py-0.5 text-[9px] font-bold text-white shadow-sm hover:bg-slate-800">
+              <Badge className="flex shrink-0 items-center gap-0.5 rounded-lg border-none bg-primary px-1.5 py-0.5 text-xs font-bold text-primary-foreground shadow-sm hover:bg-primary/90">
                 <BadgePercent className="size-3" />
                 <span>{displayPromo}</span>
               </Badge>
             )}
           </div>
-          <p className="text-muted-foreground/80 line-clamp-1 text-[10px] leading-snug font-medium">
+          <p className="text-muted-foreground/80 line-clamp-1 text-xs leading-snug font-medium">
             {stall.cuisine}
           </p>
         </div>
 
         {/* Badges and Walk stats */}
-        <div className="text-muted-foreground/80 mt-1 flex items-center gap-3.5 text-[10px] font-bold">
+        <div className="text-muted-foreground/80 mt-1 flex items-center gap-3.5 text-xs font-bold">
           {/* Rating */}
           <div className="flex shrink-0 items-center gap-0.5 text-amber-500">
             <Star className="size-3.5 fill-amber-500 stroke-none" />
@@ -116,7 +116,7 @@ export function StallCard({ stall, index = 0, onClick }: StallCardProps) {
             {stall.promos.map((promo, pIdx) => (
               <Badge
                 key={pIdx}
-                className="gap-0.8 flex items-center rounded-lg border-none bg-slate-700 px-2 py-0.5 text-[9px] font-bold text-white shadow-sm hover:bg-slate-800"
+                className="flex items-center gap-1 rounded-lg border-none bg-primary px-2 py-0.5 text-xs font-bold text-primary-foreground shadow-sm hover:bg-primary/90"
               >
                 <BadgePercent className="size-3" />
                 <span>{promo}</span>

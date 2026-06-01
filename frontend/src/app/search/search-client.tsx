@@ -244,7 +244,7 @@ export default function SearchClient() {
                       onClick={clearAllHistory}
                       variant="ghost"
                       size="sm"
-                      className="flex h-auto items-center gap-1 p-0 text-xs font-bold text-rose-500 hover:bg-transparent hover:text-rose-600"
+                      className="flex h-auto items-center gap-1 p-0 text-xs font-bold text-destructive hover:bg-transparent hover:text-destructive"
                     >
                       <Trash2 className="size-3" />
                       Hapus Semua
@@ -335,7 +335,7 @@ export default function SearchClient() {
                           <h4 className="text-foreground group-hover:text-primary line-clamp-1 text-xs leading-snug font-bold tracking-tight transition-colors">
                             {food.name}
                           </h4>
-                          <span className="text-muted-foreground line-clamp-1 text-[10px] leading-none font-medium">
+                          <span className="text-muted-foreground line-clamp-1 text-xs leading-none font-medium">
                             {food.stall}
                           </span>
                         </div>
@@ -343,7 +343,7 @@ export default function SearchClient() {
                         {/* Rating, prep and pricing row */}
                         <div className="mt-2 flex items-center justify-between">
                           <div className="flex flex-col gap-1">
-                            <div className="text-muted-foreground/80 flex items-center gap-1.5 text-[9px] font-semibold">
+                            <div className="text-muted-foreground/80 flex items-center gap-1.5 text-xs font-semibold">
                               <span className="flex items-center gap-0.5 text-amber-500">
                                 <Star className="size-3 fill-amber-500 stroke-none" />
                                 <span className="text-foreground">{food.rating}</span>
@@ -359,9 +359,9 @@ export default function SearchClient() {
                           <Button
                             onClick={() => handleAddToCart(food.name)}
                             size="icon"
-                            className="size-7 shrink-0 rounded-lg border-none bg-slate-700 text-white shadow-none transition-all duration-300 hover:bg-slate-800"
+                            className="size-7 shrink-0 rounded-lg border-none bg-primary text-primary-foreground shadow-none transition-all duration-300 hover:bg-primary/90"
                           >
-                            <Plus className="size-4 stroke-[3]" />
+                            <Plus className="size-4 stroke-2" />
                           </Button>
                         </div>
                       </div>
@@ -388,11 +388,11 @@ export default function SearchClient() {
 
       {/* Floating toast notification */}
       {toastMessage && (
-        <div className="animate-in slide-in-from-bottom absolute right-4 bottom-6 left-4 z-50 flex items-center justify-between rounded-xl border border-zinc-800 bg-zinc-900/95 px-4 py-3 text-xs font-bold text-white shadow-2xl backdrop-blur-md duration-300">
+        <div className="animate-in slide-in-from-bottom absolute right-4 bottom-6 left-4 z-50 flex items-center justify-between rounded-xl border border-border bg-popover/95 px-4 py-3 text-xs font-bold text-popover-foreground shadow-2xl backdrop-blur-md duration-300">
           <span className="flex-1 leading-snug">{toastMessage}</span>
           <button
             onClick={() => setToastMessage(null)}
-            className="ml-3 text-white/60 hover:text-white"
+            className="text-popover-foreground/60 hover:text-popover-foreground ml-3"
           >
             <X className="size-4" />
           </button>
@@ -404,7 +404,7 @@ export default function SearchClient() {
         <div className="absolute right-6 bottom-6 z-40">
           <div className="relative animate-bounce">
             <Button
-              className="bg-primary hover:bg-primary/90 size-12 rounded-full text-white shadow-xl"
+              className="bg-primary hover:bg-primary/90 size-12 rounded-full text-primary-foreground shadow-xl"
               onClick={() => {
                 setToastMessage(`🛒 Anda memiliki ${cartCount} item di keranjang belanja!`)
                 setTimeout(() => setToastMessage(null), 4000)
@@ -412,7 +412,7 @@ export default function SearchClient() {
             >
               <Plus className="size-5" />
             </Button>
-            <span className="border-background absolute -top-1 -right-1 flex size-5 items-center justify-center rounded-full border-2 bg-rose-500 text-[10px] font-extrabold text-white shadow-md">
+            <span className="border-background absolute -top-1 -right-1 flex size-5 items-center justify-center rounded-full border-2 bg-destructive text-xs font-extrabold text-destructive-foreground shadow-md">
               {cartCount}
             </span>
           </div>

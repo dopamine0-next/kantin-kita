@@ -58,7 +58,7 @@ export function PromoSelector({
                 ? `Promo ${promoApplied.code} Terpasang`
                 : 'Pakai Promo Lebih Hemat'}
             </span>
-            <span className="text-muted-foreground/80 text-[9px] font-medium">
+            <span className="text-muted-foreground/80 text-xs font-medium">
               {promoApplied ? promoApplied.description : 'Ada voucher diskon s.d 30% menunggu'}
             </span>
           </div>
@@ -75,7 +75,7 @@ export function PromoSelector({
       </motion.button>
 
       <Drawer open={isDrawerOpen} onOpenChange={onDrawerOpenChange}>
-        <DrawerContent className="bg-background/95 border-muted/40 mx-auto max-w-md overflow-hidden rounded-t-[32px] border-t backdrop-blur-xl outline-none">
+        <DrawerContent className="bg-background/95 border-muted/40 mx-auto max-w-md overflow-hidden rounded-t-3xl border-t backdrop-blur-xl outline-none">
           <div className="p-5 pb-8">
             <DrawerHeader className="px-0 pt-0 text-left">
               <DrawerTitle className="text-foreground text-base font-black tracking-tight">
@@ -118,12 +118,12 @@ export function PromoSelector({
                         <span className="text-foreground flex items-center gap-1.5 text-xs font-black">
                           {promo.code}
                           {isSelected && (
-                            <span className="py-0.2 rounded-sm bg-emerald-500 px-1 text-[8px] font-extrabold tracking-wide text-white uppercase">
+                            <span className="py-0.5 rounded-sm bg-emerald-500 px-1 text-xs font-extrabold tracking-wide text-primary-foreground uppercase">
                               Aktif
                             </span>
                           )}
                         </span>
-                        <span className="text-muted-foreground mt-1 text-[10px] leading-relaxed font-medium">
+                        <span className="text-muted-foreground mt-1 text-xs leading-relaxed font-medium">
                           {promo.description}
                         </span>
                       </div>

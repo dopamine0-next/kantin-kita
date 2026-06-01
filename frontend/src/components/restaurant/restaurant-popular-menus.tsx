@@ -36,8 +36,8 @@ export function RestaurantPopularMenus({ menus, onFoodClick }: RestaurantPopular
                 alt={item.name}
                 className="size-full object-cover transition-transform duration-500 hover:scale-105"
               />
-              <div className="absolute top-2 left-2 flex items-center gap-1 rounded-full bg-black/60 px-2 py-0.5 text-[9px] font-bold text-white backdrop-blur-md">
-                <Star className="size-3 fill-amber-400 stroke-none text-amber-400" />
+              <div className="absolute top-2 left-2 flex items-center gap-1 rounded-full bg-black/60 px-2 py-0.5 text-xs font-bold text-primary-foreground backdrop-blur-md">
+                <Star className="size-3 fill-amber-500 stroke-none text-amber-500" />
                 {item.rating || 'Baru'}
               </div>
             </div>
@@ -46,7 +46,7 @@ export function RestaurantPopularMenus({ menus, onFoodClick }: RestaurantPopular
                 {item.name}
               </h3>
               <div className="mt-2 flex items-center justify-between">
-                <span className="text-primary text-[11px] font-black">
+                <span className="text-primary text-xs font-black">
                   Rp {item.price.toLocaleString('id-ID')}
                 </span>
                 <div 
@@ -54,7 +54,7 @@ export function RestaurantPopularMenus({ menus, onFoodClick }: RestaurantPopular
                     e.stopPropagation()
                     onFoodClick(item, 'variant')
                   }}
-                  className="flex size-6 shrink-0 items-center justify-center rounded-lg bg-slate-700 text-white shadow-sm transition-all hover:bg-slate-800 active:scale-90"
+                  className="flex size-6 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-sm transition-all hover:bg-primary/90 active:scale-90"
                 >
                   <Plus className="size-3 stroke-[3]" />
                 </div>

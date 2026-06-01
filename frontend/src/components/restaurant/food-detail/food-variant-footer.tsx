@@ -47,7 +47,7 @@ export function FoodVariantFooter({
       <motion.div whileTap={{ scale: 0.98 }} className="w-full">
         <Button
           onClick={onAddToCart}
-          className="bg-primary flex h-11 w-full items-center justify-center gap-2 rounded-2xl text-xs font-extrabold tracking-wide text-white shadow-lg shadow-primary/20 hover:bg-primary/95 hover:shadow-primary/30"
+          className="bg-primary flex h-11 w-full items-center justify-center gap-2 rounded-2xl text-xs font-extrabold tracking-wide text-primary-foreground shadow-lg shadow-primary/20 hover:bg-primary/95 hover:shadow-primary/30"
         >
           <ShoppingBag className="size-4" />
           <span>Masukkan • Rp {totalPrice.toLocaleString('id-ID')}</span>

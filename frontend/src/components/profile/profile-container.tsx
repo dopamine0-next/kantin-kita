@@ -39,8 +39,8 @@ export function ProfileContainer() {
       label: 'Pesanan',
       value: '24x',
       icon: ReceiptText,
-      color: 'text-blue-500',
-      bgColor: 'bg-blue-500/10',
+      color: 'text-primary',
+      bgColor: 'bg-primary/10',
     },
     {
       label: 'Poin Kantin',
@@ -138,7 +138,7 @@ export function ProfileContainer() {
             </div>
             <div className="flex flex-col items-center">
               <span className="text-lg font-black">{stat.value}</span>
-              <span className="text-muted-foreground text-[9px] font-bold tracking-wider uppercase">
+              <span className="text-muted-foreground text-xs font-bold tracking-wider uppercase">
                 {stat.label}
               </span>
             </div>

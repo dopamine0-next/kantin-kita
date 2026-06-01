@@ -27,7 +27,7 @@ export function RestaurantHero({ restaurant, isFavorite, onToggleFavorite }: Res
         <motion.button
           whileTap={{ scale: 0.9 }}
           onClick={() => router.back()}
-          className="flex size-9 items-center justify-center rounded-full border border-white/10 bg-black/40 text-white backdrop-blur-md transition-colors active:bg-black/60"
+          className="flex size-9 items-center justify-center rounded-full border border-primary-foreground/10 bg-secondary/40 text-primary-foreground backdrop-blur-md transition-colors active:bg-secondary/60"
           aria-label="Kembali"
         >
           <ChevronLeft className="mr-0.5 size-5" />
@@ -38,17 +38,17 @@ export function RestaurantHero({ restaurant, isFavorite, onToggleFavorite }: Res
             whileTap={{ scale: 0.9 }}
             onClick={onToggleFavorite}
             className={cn(
-              'flex size-9 items-center justify-center rounded-full border border-white/10 bg-black/40 backdrop-blur-md transition-colors active:bg-black/60',
-              isFavorite ? 'text-rose-500' : 'text-white'
+              'flex size-9 items-center justify-center rounded-full border border-primary-foreground/10 bg-secondary/40 backdrop-blur-md transition-colors active:bg-secondary/60',
+              isFavorite ? 'text-destructive' : 'text-primary-foreground'
             )}
             aria-label="Favoritkan"
           >
-            <Heart className={cn('size-4.5', isFavorite ? 'fill-rose-500' : '')} />
+            <Heart className={cn('size-4.5', isFavorite ? 'fill-destructive' : '')} />
           </motion.button>
 
           <motion.button
             whileTap={{ scale: 0.9 }}
-            className="flex size-9 items-center justify-center rounded-full border border-white/10 bg-black/40 text-white backdrop-blur-md transition-colors active:bg-black/60"
+            className="flex size-9 items-center justify-center rounded-full border border-primary-foreground/10 bg-secondary/40 text-primary-foreground backdrop-blur-md transition-colors active:bg-secondary/60"
             aria-label="Bagikan"
           >
             <Share2 className="size-4.5" />

@@ -43,18 +43,18 @@ export function CartItemList({ items, onUpdateQty, onUpdateNote, onEditItem }: C
                   
                   {/* Price and variant indicator (simplified as requested) */}
                   <div className="mt-1 flex items-center gap-1.5">
-                    <span className="text-muted-foreground/60 text-[10px] font-semibold">
+                    <span className="text-muted-foreground/60 text-xs font-semibold">
                       Rp {item.price.toLocaleString('id-ID')}
                     </span>
                     {item.variant && (
-                      <span className="text-muted-foreground/40 text-[9px] font-medium italic">
+                      <span className="text-muted-foreground/40 text-xs font-medium italic">
                         • {item.variant}
                       </span>
                     )}
                   </div>
                 </div>
 
-                <div className="text-foreground mt-1 text-[10px] font-black">
+                <div className="text-foreground mt-1 text-xs font-black">
                   Subtotal: Rp {(item.price * item.qty).toLocaleString('id-ID')}
                 </div>
               </div>
@@ -63,7 +63,7 @@ export function CartItemList({ items, onUpdateQty, onUpdateNote, onEditItem }: C
               <div className="flex flex-col items-end justify-between gap-2">
                 <button
                   onClick={() => onEditItem(item)}
-                  className="bg-primary/5 text-primary hover:bg-primary/10 flex items-center gap-1 rounded-lg px-2 py-1 text-[9px] font-black transition-colors"
+                  className="bg-primary/5 text-primary hover:bg-primary/10 flex items-center gap-1 rounded-lg px-2 py-1 text-xs font-black transition-colors"
                 >
                   <Settings2 className="size-3" />
                   <span>Ubah</span>
@@ -98,7 +98,7 @@ export function CartItemList({ items, onUpdateQty, onUpdateNote, onEditItem }: C
                   placeholder="Tambah catatan rasa..."
                   value={item.note || ''}
                   onChange={(e) => onUpdateNote(item.id, e.target.value)}
-                  className="text-foreground placeholder:text-muted-foreground/45 w-full border-none bg-transparent py-0.5 text-[9px] font-bold focus:ring-0 focus:outline-none"
+                  className="text-foreground placeholder:text-muted-foreground/45 w-full border-none bg-transparent py-0.5 text-xs font-bold focus:ring-0 focus:outline-none"
                 />
               </div>
             </div>

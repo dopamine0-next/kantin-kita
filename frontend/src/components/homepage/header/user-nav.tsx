@@ -42,7 +42,7 @@ export function UserNav() {
           </AvatarFallback>
         </Avatar>
         <div className="flex flex-col">
-          <span className="text-muted-foreground text-[10px] font-medium leading-none">Hallo,</span>
+          <span className="text-muted-foreground text-xs font-medium leading-none">Hallo,</span>
           <span className="text-foreground text-sm font-bold tracking-tight">
             Pengguna <span className="animate-bounce">👋</span>
           </span>
@@ -60,7 +60,7 @@ export function UserNav() {
           {theme === 'dark' ? (
             <Sun className="size-4.5 text-amber-500" />
           ) : (
-            <Moon className="size-4.5 text-indigo-600" />
+            <Moon className="size-4.5 text-primary" />
           )}
         </Button>
 

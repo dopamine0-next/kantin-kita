@@ -79,7 +79,7 @@ export default function RestaurantDetailContainer({
   if (!restaurant) {
     return (
       <div className="flex flex-1 flex-col items-center justify-center p-6 text-center">
-        <div className="mb-4 flex size-16 animate-bounce items-center justify-center rounded-full bg-rose-500/10 text-rose-500">
+        <div className="mb-4 flex size-16 animate-bounce items-center justify-center rounded-full bg-destructive/10 text-destructive">
           <X className="size-8" />
         </div>
         <h2 className="text-foreground text-lg font-black">Kios Tidak Ditemukan</h2>
@@ -88,7 +88,7 @@ export default function RestaurantDetailContainer({
         </p>
         <button
           onClick={() => router.push('/')}
-          className="bg-primary hover:bg-primary/95 mt-6 rounded-xl px-5 py-2.5 text-xs font-black text-white shadow-md"
+          className="bg-primary hover:bg-primary/95 mt-6 rounded-xl px-5 py-2.5 text-xs font-black text-primary-foreground shadow-md"
         >
           Kembali ke Beranda
         </button>

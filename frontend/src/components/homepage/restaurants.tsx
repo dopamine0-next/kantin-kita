@@ -24,7 +24,7 @@ export function Restaurants() {
         </h2>
         <button
           onClick={() => setShowAll(!showAll)}
-          className="text-primary cursor-pointer text-xs text-[10px] font-black tracking-wider uppercase hover:underline"
+          className="text-primary cursor-pointer text-xs text-xs font-black tracking-wider uppercase hover:underline"
         >
           {showAll ? `Filter ${activeLocation}` : 'Lihat Semua'}
         </button>

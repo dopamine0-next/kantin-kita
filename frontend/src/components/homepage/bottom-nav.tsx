@@ -26,7 +26,7 @@ export function BottomNav() {
           <Link
             key={tab.href}
             href={tab.href}
-            className="text-muted-foreground/80 hover:text-foreground flex flex-1 flex-col items-center justify-center gap-1 py-2 text-[10px] font-bold transition-all duration-300 active:scale-95"
+            className="text-muted-foreground/80 hover:text-foreground flex flex-1 flex-col items-center justify-center gap-1 py-2 text-xs font-bold transition-all duration-300 active:scale-95"
           >
             <Icon
               className={cn(

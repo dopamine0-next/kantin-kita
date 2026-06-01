@@ -24,7 +24,7 @@ export function RestaurantMenuList({
           <Search className="text-muted-foreground/60 size-6" />
         </div>
         <h3 className="text-foreground text-xs font-black">Menu Tidak Ditemukan</h3>
-        <p className="text-muted-foreground mt-1 max-w-[200px] text-[10px] leading-relaxed">
+        <p className="text-muted-foreground mt-1 max-w-[200px] text-xs leading-relaxed">
           Tidak ada menu makanan/minuman yang cocok dengan pencarian &ldquo;{searchQuery}&rdquo;.
         </p>
       </div>
@@ -38,7 +38,7 @@ export function RestaurantMenuList({
           <h2 className="text-foreground flex items-center gap-1.5 pl-1 text-xs font-black tracking-wider uppercase">
             <span className="bg-primary size-1.5 rounded-full" />
             {category}
-            <span className="text-muted-foreground/60 text-[10px] font-medium">
+            <span className="text-muted-foreground/60 text-xs font-medium">
               ({items.length})
             </span>
           </h2>
@@ -66,22 +66,22 @@ export function RestaurantMenuList({
                         {item.name}
                       </h3>
                       {item.isPopular && (
-                        <Badge className="flex shrink-0 items-center gap-0.5 rounded-sm border-none bg-amber-500/10 px-1 text-[8px] font-black text-amber-600 hover:bg-amber-500/12">
+                        <Badge className="flex shrink-0 items-center gap-0.5 rounded-sm border-none bg-amber-500/10 px-1 text-xs font-black text-amber-600 hover:bg-amber-500/12">
                           <Sparkles className="size-2 fill-amber-500 stroke-none" />
                           <span>POPULER</span>
                         </Badge>
                       )}
                     </div>
-                    <p className="text-muted-foreground/75 mt-0.5 line-clamp-2 text-[10px] leading-relaxed font-medium">
+                    <p className="text-muted-foreground/75 mt-0.5 line-clamp-2 text-xs leading-relaxed font-medium">
                       {item.description}
                     </p>
                   </div>
 
                   <div className="mt-2 flex items-center justify-between">
-                    <div className="text-foreground flex items-center gap-2 text-[11px] font-black">
+                    <div className="text-foreground flex items-center gap-2 text-xs font-black">
                       <span>Rp {item.price.toLocaleString('id-ID')}</span>
                       {item.rating && (
-                        <div className="flex items-center gap-0.5 text-[9px] font-bold text-amber-500">
+                        <div className="flex items-center gap-0.5 text-xs font-bold text-amber-500">
                           <Star className="size-3 fill-amber-500 stroke-none" />
                           <span>{item.rating}</span>
                         </div>
@@ -92,7 +92,7 @@ export function RestaurantMenuList({
                         e.stopPropagation()
                         onFoodClick(item, 'variant')
                       }}
-                      className="flex size-7 shrink-0 items-center justify-center rounded-lg bg-slate-700 text-white transition-all hover:bg-slate-800"
+                      className="flex size-7 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground transition-all hover:bg-primary/90"
                     >
                       <Plus className="size-4 stroke-[3]" />
                     </div>

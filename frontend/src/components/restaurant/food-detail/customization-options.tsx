@@ -57,9 +57,9 @@ export function CustomizationOptions({
                       </span>
                     </div>
                     <span className={cn(
-                      'rounded-lg border px-2 py-0.5 text-[10px] font-black',
+                      'rounded-lg border px-2 py-0.5 text-xs font-black',
                       choice.price > 0 
-                        ? (isSelected ? 'border-amber-500/20 bg-amber-500/10 text-amber-600' : 'bg-muted/60 border-muted text-muted-foreground') 
+                          ? (isSelected ? 'border-primary/20 bg-primary/10 text-primary' : 'bg-muted/60 border-muted text-muted-foreground') 
                         : 'text-muted-foreground/40 border-transparent font-semibold'
                     )}>
                       {choice.price > 0 ? `+Rp ${choice.price.toLocaleString('id-ID')}` : 'Gratis'}
@@ -81,7 +81,7 @@ export function CustomizationOptions({
                     <div className="flex items-center gap-3">
                       <div className={cn(
                         'flex size-4 shrink-0 items-center justify-center rounded-md border transition-colors',
-                        isChecked ? 'border-primary bg-primary text-white' : 'border-muted-foreground/35 bg-transparent'
+                        isChecked ? 'border-primary bg-primary text-primary-foreground' : 'border-muted-foreground/35 bg-transparent'
                       )}>
                         {isChecked && <Check className="size-3 stroke-[4]" />}
                       </div>
@@ -93,7 +93,7 @@ export function CustomizationOptions({
                       </span>
                     </div>
                     <span className={cn(
-                      'rounded-lg border px-2 py-0.5 text-[10px] font-black',
+                      'rounded-lg border px-2 py-0.5 text-xs font-black',
                       isChecked ? 'bg-primary/10 border-primary/20 text-primary' : 'bg-muted/60 border-muted text-muted-foreground'
                     )}>
                       +Rp {addon.price.toLocaleString('id-ID')}

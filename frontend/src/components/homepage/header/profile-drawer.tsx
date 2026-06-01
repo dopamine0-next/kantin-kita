@@ -40,7 +40,7 @@ export function ProfileDrawer({ isOpen, onOpenChange, onOpenLogin }: ProfileDraw
 
   return (
     <Drawer open={isOpen} onOpenChange={onOpenChange}>
-      <DrawerContent className="bg-background/95 border-muted/40 mx-auto max-w-md overflow-hidden rounded-t-[32px] border-t backdrop-blur-xl outline-none">
+      <DrawerContent className="bg-background/95 border-muted/40 mx-auto max-w-md overflow-hidden rounded-t-3xl border-t backdrop-blur-xl outline-none">
         <div className="flex flex-col gap-5 p-5 pb-8">
           <DrawerHeader className="px-0 pt-0 text-left">
             <DrawerTitle className="text-foreground text-base font-black tracking-tight">
@@ -59,7 +59,7 @@ export function ProfileDrawer({ isOpen, onOpenChange, onOpenLogin }: ProfileDraw
             </Avatar>
             <div className="flex flex-col gap-0.5">
               <h3 className="text-foreground text-sm leading-tight font-black">{user.name}</h3>
-              <div className="text-primary mt-1 flex items-center gap-1 text-[10px] font-black">
+              <div className="text-primary mt-1 flex items-center gap-1 text-xs font-black">
                 <Wallet className="size-3.5 stroke-[2.5]" />
                 <span>Saldo: Rp {user.saldo.toLocaleString('id-ID')}</span>
               </div>
@@ -68,7 +68,7 @@ export function ProfileDrawer({ isOpen, onOpenChange, onOpenLogin }: ProfileDraw
 
           {/* Location Selector */}
           <div className="flex flex-col gap-2">
-            <h4 className="text-foreground pl-1 text-[10px] font-black tracking-wider uppercase">
+            <h4 className="text-foreground pl-1 text-xs font-black tracking-wider uppercase">
               Pilih Blok Resto
             </h4>
 
@@ -83,7 +83,7 @@ export function ProfileDrawer({ isOpen, onOpenChange, onOpenLogin }: ProfileDraw
                 )}
               >
                 <span className="text-sm font-black">Blok A</span>
-                <span className="text-[8px] leading-none font-medium opacity-80">
+                <span className="text-xs leading-none font-medium opacity-80">
                   Gedung Utama Barat
                 </span>
                 {user.location === 'Blok A' && (
@@ -101,7 +101,7 @@ export function ProfileDrawer({ isOpen, onOpenChange, onOpenLogin }: ProfileDraw
                 )}
               >
                 <span className="text-sm font-black">Blok B</span>
-                <span className="text-[8px] leading-none font-medium opacity-80">
+                <span className="text-xs leading-none font-medium opacity-80">
                   Gedung Utama Timur
                 </span>
                 {user.location === 'Blok B' && (
@@ -132,7 +132,7 @@ export function ProfileDrawer({ isOpen, onOpenChange, onOpenLogin }: ProfileDraw
                 logout()
                 onOpenChange(false)
               }}
-              className="flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-rose-500/20 bg-rose-500/5 text-xs font-black text-rose-600 transition-colors hover:bg-rose-500/10"
+              className="flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-destructive/20 bg-destructive/5 text-xs font-black text-destructive transition-colors hover:bg-destructive/10"
             >
               <LogOut className="size-4" />
               <span>Keluar Akun (Log Out)</span>
@@ -142,7 +142,7 @@ export function ProfileDrawer({ isOpen, onOpenChange, onOpenLogin }: ProfileDraw
           <DrawerFooter className="px-0 pt-4">
             <Button
               onClick={() => onOpenChange(false)}
-              className="bg-primary h-11 w-full rounded-xl text-xs font-extrabold text-white"
+              className="bg-primary h-11 w-full rounded-xl text-xs font-extrabold text-primary-foreground"
             >
               Selesai
             </Button>

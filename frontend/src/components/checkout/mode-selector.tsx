@@ -54,7 +54,7 @@ export function ModeSelector({ activeMode, onModeChange }: ModeSelectorProps) {
         </button>
       </div>
 
-      <div className="bg-primary/5 border-primary/10 text-primary/90 flex gap-2.5 rounded-xl border p-3 text-[10px] font-medium">
+      <div className="bg-primary/5 border-primary/10 text-primary/90 flex gap-2.5 rounded-xl border p-3 text-xs font-medium">
         <Info className="text-primary size-4 shrink-0" />
         <span>
           {activeMode === 'dine-in'

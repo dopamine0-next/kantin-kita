@@ -55,14 +55,14 @@ export function PromoItems({ selectedCategory }: PromoItemsProps) {
 
                 {/* Promo Badge floating top-left */}
                 {food.badgeText && (
-                  <Badge className="absolute top-2 left-2 rounded-lg border-none bg-slate-700 px-2 py-0.5 text-[9px] font-extrabold tracking-wider text-white shadow-sm hover:bg-slate-800">
+                  <Badge className="absolute top-2 left-2 rounded-lg border-none bg-primary px-2 py-0.5 text-xs font-extrabold tracking-wider text-primary-foreground shadow-sm hover:bg-primary/90">
                     {food.badgeText}
                   </Badge>
                 )}
 
                 {/* Rating floating top-right */}
-                <div className="absolute top-2 right-2 flex items-center gap-0.5 rounded-lg bg-black/55 px-1.5 py-0.5 text-[10px] font-bold text-amber-400 backdrop-blur-md">
-                  <Star className="size-3 fill-amber-400 stroke-none" />
+                <div className="absolute top-2 right-2 flex items-center gap-0.5 rounded-lg bg-secondary/80 px-1.5 py-0.5 text-xs font-bold text-amber-500 backdrop-blur-md">
+                  <Star className="size-3 fill-amber-500 stroke-none" />
                   <span>{food.rating}</span>
                 </div>
               </div>
@@ -73,7 +73,7 @@ export function PromoItems({ selectedCategory }: PromoItemsProps) {
                   <h3 className="text-foreground group-hover:text-primary line-clamp-1 text-xs leading-snug font-bold tracking-tight transition-colors">
                     {food.name}
                   </h3>
-                  <div className="text-muted-foreground/80 flex items-center gap-1 text-[10px] font-medium">
+                  <div className="text-muted-foreground/80 flex items-center gap-1 text-xs font-medium">
                     <Clock className="text-muted-foreground size-3" />
                     <span>{food.prepTime}</span>
                   </div>
@@ -83,7 +83,7 @@ export function PromoItems({ selectedCategory }: PromoItemsProps) {
                 <div className="mt-3 flex items-center justify-between">
                   <div className="flex flex-col gap-0.5">
                     {food.originalPrice && (
-                      <span className="text-muted-foreground/60 text-[10px] leading-none font-medium line-through">
+                      <span className="text-muted-foreground/60 text-xs leading-none font-medium line-through">
                         {formatRupiah(food.originalPrice)}
                       </span>
                     )}

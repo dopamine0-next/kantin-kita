@@ -30,12 +30,12 @@ export function LoginDrawer({ isOpen, onClose }: LoginDrawerProps) {
 
   return (
     <Drawer open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DrawerContent className="bg-background/95 border-muted/40 mx-auto max-w-md overflow-hidden rounded-t-[32px] border-t backdrop-blur-xl outline-none">
+      <DrawerContent className="bg-background/95 border-muted/40 mx-auto max-w-md overflow-hidden rounded-t-3xl border-t backdrop-blur-xl outline-none">
         <div className="p-5 pb-8">
           <DrawerHeader className="px-0 pt-0 text-left">
             <div className="text-primary mb-1 flex items-center gap-2">
               <LogIn className="size-5" />
-              <span className="text-[10px] font-black tracking-wider uppercase">
+              <span className="text-xs font-black tracking-wider uppercase">
                 Pilih Akun Demo
               </span>
             </div>
@@ -83,15 +83,15 @@ export function LoginDrawer({ isOpen, onClose }: LoginDrawerProps) {
                         {profile.name}
                       </h4>
 
-                      <div className="text-muted-foreground/80 mt-1 flex items-center gap-2.5 text-[9px] font-bold">
+                      <div className="text-muted-foreground/80 mt-1 flex items-center gap-2.5 text-xs font-bold">
                         {/* Saldo info */}
-                        <span className="gap-0.8 bg-primary/5 text-primary flex items-center rounded-md px-1.5 py-0.5">
-                          <Wallet className="size-3 stroke-[2.5]" />
+                        <span className="bg-primary/5 text-primary flex items-center gap-1 rounded-md px-1.5 py-0.5">
+                          <Wallet className="size-3 stroke-2" />
                           <span>Rp {profile.saldo.toLocaleString('id-ID')}</span>
                         </span>
 
                         {/* Location/Block info */}
-                        <span className="gap-0.8 bg-muted flex items-center rounded-md px-1.5 py-0.5">
+                        <span className="bg-muted flex items-center gap-1 rounded-md px-1.5 py-0.5">
                           <MapPin className="size-3" />
                           <span>{profile.location}</span>
                         </span>
@@ -100,7 +100,7 @@ export function LoginDrawer({ isOpen, onClose }: LoginDrawerProps) {
                   </div>
 
                   {/* Connect Indicator Icon */}
-                  <div className="bg-muted/60 text-muted-foreground group-hover:bg-primary flex size-8 items-center justify-center rounded-full transition-all duration-300 group-hover:text-white">
+                  <div className="bg-muted/60 text-muted-foreground group-hover:bg-primary flex size-8 items-center justify-center rounded-full transition-all duration-300 group-hover:text-primary-foreground">
                     <User className="size-4" />
                   </div>
                 </motion.button>

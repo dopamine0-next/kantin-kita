@@ -42,7 +42,7 @@ export function FoodDetailDrawer({
           if (!open && step === 'info') onClose()
         }}
       >
-        <DrawerContent className="bg-background/95 border-muted/40 mx-auto max-w-md overflow-hidden rounded-t-[32px] border-t backdrop-blur-xl outline-none">
+        <DrawerContent className="bg-background/95 border-muted/40 mx-auto max-w-md overflow-hidden rounded-t-3xl border-t backdrop-blur-xl outline-none">
           <FoodDetailInfo item={item} onProceed={() => setStep('variant')} />
         </DrawerContent>
       </Drawer>
@@ -55,7 +55,7 @@ export function FoodDetailDrawer({
           }
         }}
       >
-        <DialogContent className="max-h-[85vh] overflow-y-auto w-[95%] sm:max-w-md rounded-[32px] sm:rounded-[32px] bg-background/95 backdrop-blur-xl border-muted/40 outline-none p-0">
+        <DialogContent className="max-h-[85vh] overflow-y-auto w-[95%] sm:max-w-md rounded-4xl sm:rounded-4xl bg-background/95 backdrop-blur-xl border-muted/40 outline-none p-0">
           <FoodVariantForm 
             item={item} 
             initialCartItem={initialCartItem}

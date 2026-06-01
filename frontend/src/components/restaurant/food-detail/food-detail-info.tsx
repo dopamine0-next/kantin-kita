@@ -32,7 +32,7 @@ export function FoodDetailInfo({ item, onProceed }: FoodDetailInfoProps) {
             </DrawerTitle>
 
             {item.rating && (
-              <div className="gap-0.8 flex shrink-0 items-center rounded-lg bg-amber-500/10 px-2 py-0.5 text-[10px] font-extrabold text-amber-600">
+              <div className="flex shrink-0 items-center gap-1 rounded-lg bg-amber-500/10 px-2 py-0.5 text-xs font-extrabold text-amber-600">
                 <Star className="size-3.5 fill-amber-500 stroke-none" />
                 <span>{item.rating}</span>
               </div>
@@ -44,7 +44,7 @@ export function FoodDetailInfo({ item, onProceed }: FoodDetailInfoProps) {
         </DrawerHeader>
 
         {item.salesCount && (
-          <div className="text-muted-foreground bg-muted/30 border-muted/20 mt-1.5 flex max-w-max items-center gap-1.5 rounded-xl border px-2.5 py-1 text-[9px] font-bold">
+          <div className="text-muted-foreground bg-muted/30 border-muted/20 mt-1.5 flex max-w-max items-center gap-1.5 rounded-xl border px-2.5 py-1 text-xs font-bold">
             <Info className="text-muted-foreground/70 size-3" />
             <span>Alternatif Terlaris • {item.salesCount}</span>
           </div>
@@ -54,7 +54,7 @@ export function FoodDetailInfo({ item, onProceed }: FoodDetailInfoProps) {
           <motion.div whileTap={{ scale: 0.98 }}>
             <Button
               onClick={onProceed}
-              className="bg-primary flex h-10.5 w-full items-center justify-center gap-2 rounded-2xl text-xs font-extrabold tracking-wide text-white shadow-lg shadow-primary/20 hover:bg-primary/95 hover:shadow-primary/30"
+              className="bg-primary flex h-10.5 w-full items-center justify-center gap-2 rounded-2xl text-xs font-extrabold tracking-wide text-primary-foreground shadow-lg shadow-primary/20 hover:bg-primary/95 hover:shadow-primary/30"
             >
               <ShoppingBag className="size-4" />
               <span>Pesan Sekarang</span>
