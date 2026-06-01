@@ -1,21 +1,16 @@
 export interface BannerApiResponse {
   id: number
-  restaurant_id: string
-  title: string
-  subtitle: string
-  promo_text: string
-  price_text: string
-  bg_gradient: string
   image_url: string
+  title: string
+  restaurant_id: string
+  is_active: boolean
+  location_id: number | null
+  location_name: string | null
 }
 
 export interface BannerItem {
   id: number
-  restaurantId: string
-  title: string
-  subtitle: string
-  promoText: string
-  priceText: string
-  bgGradient: string
   image: string
+  title: string
+  restaurantId: string
 }

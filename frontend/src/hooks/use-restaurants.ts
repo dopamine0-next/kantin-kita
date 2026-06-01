@@ -5,9 +5,16 @@ import {
   getRestaurants,
   getRestaurantsDetails,
 } from '@/services/restaurant/restaurant.service'
+import { useAuthStore } from '@/store/useAuthStore'
 
 export function useRestaurants() {
-  const { data, error, isLoading } = useSWR('restaurants', getRestaurants)
+  const user = useAuthStore((state) => state.user)
+  const locationId = user?.locationId
+
+  const { data, error, isLoading } = useSWR(
+    locationId ? `restaurants-${locationId}` : 'restaurants',
+    () => getRestaurants(locationId)
+  )
 
   return {
     restaurants: data || [],
