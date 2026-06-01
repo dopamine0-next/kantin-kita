@@ -3,8 +3,8 @@ import { create } from 'zustand'
 export interface UserProfile {
   name: string
   avatar: string
-  saldo: number
-  location: 'Blok A' | 'Blok B'
+  location: string
+  locationId: string
   nim: string
   semester: number
 }
@@ -14,8 +14,8 @@ export const MOCK_USERS: UserProfile[] = [
     name: 'Marwah Hamzah',
     avatar:
       'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
-    saldo: 150000,
-    location: 'Blok A',
+    location: 'Kantin Pusat',
+    locationId: 'l1',
     nim: '1234567890',
     semester: 5,
   },
@@ -23,8 +23,8 @@ export const MOCK_USERS: UserProfile[] = [
     name: 'Budi Santoso',
     avatar:
       'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80',
-    saldo: 75000,
-    location: 'Blok B',
+    location: 'Kantin Teknik',
+    locationId: 'l2',
     nim: '1234567891',
     semester: 3,
   },
@@ -32,8 +32,8 @@ export const MOCK_USERS: UserProfile[] = [
     name: 'Siti Rahma',
     avatar:
       'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80',
-    saldo: 320000,
-    location: 'Blok A',
+    location: 'Kantin Pusat',
+    locationId: 'l1',
     nim: '1234567892',
     semester: 7,
   },
@@ -43,8 +43,7 @@ interface AuthStore {
   user: UserProfile | null
   login: (profile: UserProfile) => void
   logout: () => void
-  updateLocation: (location: 'Blok A' | 'Blok B') => void
-  deductSaldo: (amount: number) => boolean
+  updateLocation: (location: string, locationId: string) => void
 }
 
 export const useAuthStore = create<AuthStore>((set) => ({
@@ -55,25 +54,8 @@ export const useAuthStore = create<AuthStore>((set) => ({
 
   logout: () => set({ user: null }),
 
-  updateLocation: (location) =>
+  updateLocation: (location, locationId) =>
     set((state) => ({
-      user: state.user ? { ...state.user, location } : null,
+      user: state.user ? { ...state.user, location, locationId } : null,
     })),
-
-  deductSaldo: (amount) => {
-    let success = false
-    set((state) => {
-      if (state.user && state.user.saldo >= amount) {
-        success = true
-        return {
-          user: {
-            ...state.user,
-            saldo: state.user.saldo - amount,
-          },
-        }
-      }
-      return {}
-    })
-    return success
-  },
 }))

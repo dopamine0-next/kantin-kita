@@ -19,7 +19,10 @@ export function mapRestaurantItem(apiData: RestaurantApiResponse): RestaurantIte
     isOpen: apiData.is_open,
     promoText: apiData.promo_text,
     image: apiData.image_url,
-    block: apiData.block,
+    locationId: apiData.location_id,
+    cheapestPrice: apiData.cheapest_price,
+    isInstant: apiData.is_instant,
+    promos: apiData.promos,
   }
 }
 

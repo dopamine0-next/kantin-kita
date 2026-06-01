@@ -51,7 +51,7 @@ export function SuccessModal({
             <div className="bg-muted/35 border-muted/20 mt-5 flex w-full flex-col gap-2 rounded-xl border p-3.5 text-left">
               <div className="text-muted-foreground/85 flex items-center justify-between text-xs font-bold">
                 <span>Metode</span>
-                <span className="text-foreground font-black uppercase">Saldo KantinKita</span>
+                <span className="text-foreground font-black uppercase">Pembayaran Digital</span>
               </div>
 
               <div className="text-muted-foreground/85 flex items-center justify-between text-xs font-bold">

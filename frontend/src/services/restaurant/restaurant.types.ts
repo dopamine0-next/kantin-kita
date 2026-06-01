@@ -9,7 +9,10 @@ export interface RestaurantApiResponse {
   is_open: boolean
   promo_text?: string
   image_url: string
-  block?: 'Blok A' | 'Blok B'
+  location_id?: string
+  cheapest_price?: number
+  is_instant?: boolean
+  promos?: string[]
 }
 
 export interface RestaurantItem {
@@ -23,7 +26,10 @@ export interface RestaurantItem {
   isOpen: boolean
   promoText?: string
   image: string
-  block?: 'Blok A' | 'Blok B'
+  locationId?: string
+  cheapestPrice?: number
+  isInstant?: boolean
+  promos?: string[]
 }
 
 export interface AddonOption {

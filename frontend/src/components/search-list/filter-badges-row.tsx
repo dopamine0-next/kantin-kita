@@ -2,7 +2,11 @@
 
 import { Check } from 'lucide-react'
 
-import { FILTER_BADGES } from './constants'
+export const FILTER_BADGES = [
+  { id: 'under-30k', label: 'Harga < 30rb' },
+  { id: 'instant', label: 'Instant (<10 mnt)' },
+  { id: 'rating-high', label: 'Rating 4.8+' },
+]
 
 interface FilterBadgesRowProps {
   selectedFilters: string[]

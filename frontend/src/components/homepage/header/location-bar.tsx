@@ -1,8 +1,8 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
-import { Check, MapPin, Navigation } from 'lucide-react'
+import { Check, Loader2, MapPin, Navigation } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -11,12 +11,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-
-const CAMPUS_LOCATIONS = [
-  { id: 'pusat', name: 'Unpam Pusat', lat: -6.3465, lng: 106.7416 },
-  { id: 'viktor', name: 'Unpam Viktor', lat: -6.3424, lng: 106.702 },
-  { id: 'serang', name: 'Unpam Serang', lat: -6.12, lng: 106.15 },
-]
+import { useLocations } from '@/hooks/use-locations'
+import { LocationItem } from '@/services/location/location.types'
+import { useAuthStore } from '@/store/useAuthStore'
 
 function getDistance(lat1: number, lon1: number, lat2: number, lon2: number) {
   const p = 0.017453292519943295
@@ -27,8 +24,18 @@ function getDistance(lat1: number, lon1: number, lat2: number, lon2: number) {
 }
 
 export function LocationBar() {
-  const [selectedCampus, setSelectedCampus] = useState(CAMPUS_LOCATIONS[0])
+  const { user, updateLocation } = useAuthStore()
+  const { locations, isLoading } = useLocations()
   const [isLocating, setIsLocating] = useState(false)
+
+  const selectedCampus =
+    locations.find((c) => c.id === user?.locationId) ||
+    locations.find((c) => c.name === user?.location) ||
+    locations[0]
+
+  const handleSelect = (campus: LocationItem) => {
+    updateLocation(campus.name, campus.id)
+  }
 
   const autoDetectLocation = () => {
     if (!navigator.geolocation) {
@@ -36,14 +43,16 @@ export function LocationBar() {
       return
     }
 
+    if (locations.length === 0) return
+
     setIsLocating(true)
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords
-        let closestCampus = CAMPUS_LOCATIONS[0]
+        let closestCampus = locations[0]
         let minDistance = Infinity
 
-        CAMPUS_LOCATIONS.forEach((campus) => {
+        locations.forEach((campus) => {
           const dist = getDistance(latitude, longitude, campus.lat, campus.lng)
           if (dist < minDistance) {
             minDistance = dist
@@ -51,7 +60,7 @@ export function LocationBar() {
           }
         })
 
-        setSelectedCampus(closestCampus)
+        handleSelect(closestCampus)
         setIsLocating(false)
         alert(`Lokasi Anda terdeteksi lebih dekat ke: ${closestCampus.name}`)
       },
@@ -60,6 +69,14 @@ export function LocationBar() {
         alert('Gagal mendapatkan lokasi. Pastikan izin lokasi aktif.')
         setIsLocating(false)
       }
+    )
+  }
+
+  if (isLoading || !selectedCampus) {
+    return (
+      <div className="bg-muted/30 flex h-14 items-center justify-center rounded-xl p-3 backdrop-blur-md">
+        <Loader2 className="text-primary size-5 animate-spin" />
+      </div>
     )
   }
 
@@ -84,10 +101,10 @@ export function LocationBar() {
               {isLocating ? 'Mencari Lokasi...' : 'Deteksi Otomatis'}
             </DropdownMenuItem>
             <div className="bg-border/50 my-1 h-px" />
-            {CAMPUS_LOCATIONS.map((campus) => (
+            {locations.map((campus) => (
               <DropdownMenuItem
                 key={campus.id}
-                onClick={() => setSelectedCampus(campus)}
+                onClick={() => handleSelect(campus)}
                 className="flex items-center justify-between"
               >
                 <span>{campus.name}</span>

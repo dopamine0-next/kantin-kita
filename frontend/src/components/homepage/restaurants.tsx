@@ -7,17 +7,18 @@ import { useAuthStore } from '@/store/useAuthStore'
 
 export function Restaurants() {
   const user = useAuthStore((state) => state.user)
-  const activeLocation = user ? user.location : 'Blok A'
+  const activeLocationId = user ? user.locationId : 'l1'
+  const activeLocationName = user ? user.location : 'Kantin Pusat'
   const { restaurants, isLoading } = useRestaurants()
 
-  const filtered = restaurants.filter((stall) => stall.block === activeLocation)
+  const filtered = restaurants.filter((stall) => stall.locationId === activeLocationId)
 
   return (
     <div className="flex flex-col gap-3 px-4 pt-3 pb-8">
       {/* Section Header */}
       <div className="flex items-center justify-between">
         <h2 className="text-foreground text-base font-bold tracking-tight">
-          Kios Terdekat di {activeLocation}
+          Kios Terdekat di {activeLocationName}
         </h2>
         <Link
           href="/search-list"
@@ -39,7 +40,7 @@ export function Restaurants() {
               key={stall.id}
               stall={{
                 ...stall,
-                distance: stall.block || 'Blok A',
+                distance: stall.distance,
               }}
               index={idx}
             />

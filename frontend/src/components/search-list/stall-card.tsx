@@ -5,21 +5,10 @@ import { motion } from 'motion/react'
 import { useRouter } from 'next/navigation'
 
 import { Badge } from '@/components/ui/badge'
+import { RestaurantItem } from '@/services/restaurant/restaurant.types'
 
 export interface StallCardProps {
-  stall: {
-    id: string
-    name: string
-    cuisine: string
-    rating: number
-    reviewsCount: string
-    walkTime: number | string
-    distance: string
-    isOpen: boolean
-    image: string
-    promoText?: string
-    promos?: string[]
-  }
+  stall: RestaurantItem
   index?: number
   onClick?: () => void
 }
@@ -30,10 +19,6 @@ export function StallCard({ stall, index = 0, onClick }: StallCardProps) {
   // Determine if a promo exists
   const displayPromo =
     stall.promoText || (stall.promos && stall.promos.length > 0 ? stall.promos[0] : null)
-
-  // Format walk time
-  const formattedWalkTime =
-    typeof stall.walkTime === 'number' ? `${stall.walkTime} mnt` : stall.walkTime
 
   const handleClick = () => {
     if (onClick) {
@@ -100,7 +85,7 @@ export function StallCard({ stall, index = 0, onClick }: StallCardProps) {
           <div className="flex items-center gap-2 font-semibold">
             <span className="flex items-center gap-0.5">
               <Clock className="text-muted-foreground size-3" />
-              {formattedWalkTime}
+              {stall.walkTime}
             </span>
             <span className="bg-muted-foreground/30 size-1 rounded-full" />
             <span className="flex items-center gap-0.5">

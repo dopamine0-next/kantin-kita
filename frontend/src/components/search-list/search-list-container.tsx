@@ -5,7 +5,9 @@ import { Sparkles } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
 import { useRouter } from 'next/navigation'
 
-import { STALLS_DATABASE } from './constants'
+import { useRestaurants } from '@/hooks/use-restaurants'
+import { useAuthStore } from '@/store/useAuthStore'
+
 import { FilterBadgesRow } from './filter-badges-row'
 import { SearchHeader } from './search-header'
 import { StallCard } from './stall-card'
@@ -16,8 +18,11 @@ interface SearchListContainerProps {
 
 export default function SearchListContainer({ initialQuery }: SearchListContainerProps) {
   const router = useRouter()
+  const user = useAuthStore((state) => state.user)
   const [searchQuery, setSearchQuery] = useState(initialQuery)
   const [selectedFilters, setSelectedFilters] = useState<string[]>([])
+
+  const { restaurants, isLoading } = useRestaurants()
 
   // Keep internal state updated when URL query changes (via Server Component initialQuery prop)
   useEffect(() => {
@@ -43,9 +48,14 @@ export default function SearchListContainer({ initialQuery }: SearchListContaine
     router.push('/search-list')
   }
 
-  // Filter Stalls based on search query AND active filters
+  // Filter Stalls based on search query AND active filters AND location
   const filteredStalls = useMemo(() => {
-    return STALLS_DATABASE.filter((stall) => {
+    return restaurants.filter((stall) => {
+      // 0. Location Filter
+      if (user?.locationId && stall.locationId !== user.locationId) {
+        return false
+      }
+
       // 1. Text Search Filter (matches stall name or cuisine menu tags)
       const matchesSearch = searchQuery.trim()
         ? stall.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -55,7 +65,11 @@ export default function SearchListContainer({ initialQuery }: SearchListContaine
       if (!matchesSearch) return false
 
       // 2. Interactive Badges Filters
-      if (selectedFilters.includes('under-30') && stall.cheapestItemPrice >= 30000) {
+      if (
+        selectedFilters.includes('under-30') &&
+        stall.cheapestPrice &&
+        stall.cheapestPrice >= 30000
+      ) {
         return false
       }
       if (selectedFilters.includes('instant') && !stall.isInstant) {
@@ -67,7 +81,7 @@ export default function SearchListContainer({ initialQuery }: SearchListContaine
 
       return true
     })
-  }, [searchQuery, selectedFilters])
+  }, [restaurants, searchQuery, selectedFilters, user?.locationId])
 
   return (
     <div className="flex flex-1 flex-col pb-6">
@@ -103,14 +117,7 @@ export default function SearchListContainer({ initialQuery }: SearchListContaine
           {filteredStalls.length > 0 ? (
             <div className="flex flex-col gap-4">
               {filteredStalls.map((stall, idx) => (
-                <StallCard
-                  key={stall.id}
-                  stall={{
-                    ...stall,
-                    distance: stall.block || 'Blok A',
-                  }}
-                  index={idx}
-                />
+                <StallCard key={stall.id} stall={stall} index={idx} />
               ))}
             </div>
           ) : (

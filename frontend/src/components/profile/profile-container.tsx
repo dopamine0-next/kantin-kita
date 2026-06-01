@@ -8,8 +8,8 @@ import {
   HelpCircle,
   Key,
   LogOut,
+  MapPin,
   ReceiptText,
-  Wallet,
 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
@@ -31,9 +31,9 @@ export function ProfileContainer() {
 
   const stats = [
     {
-      label: 'Pengeluaran',
-      value: '350k',
-      icon: Wallet,
+      label: 'Lokasi Aktif',
+      value: user.location,
+      icon: MapPin,
       color: 'text-emerald-500',
       bgColor: 'bg-emerald-500/10',
     },
