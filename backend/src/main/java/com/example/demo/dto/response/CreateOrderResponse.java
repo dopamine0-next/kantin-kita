@@ -3,8 +3,6 @@ package com.example.demo.dto.response;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
-import java.util.UUID;
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -13,7 +11,7 @@ import java.util.UUID;
 public class CreateOrderResponse {
 
     @JsonProperty("order_id")
-    private UUID orderId;
+    private String orderId;
 
     @JsonProperty("order_number")
     private String orderNumber;

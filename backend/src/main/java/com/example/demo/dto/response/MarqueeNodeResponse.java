@@ -10,7 +10,7 @@ import lombok.*;
 @Builder
 public class MarqueeNodeResponse {
 
-    private Long id;
+    private String id;
     private String text;
     private Boolean isActive;
 

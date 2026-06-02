@@ -13,7 +13,7 @@ public class BannerService {
 
     private final BannerRepository bannerRepository;
 
-    public List<BannerResponse> getBanners(Integer locationId) {
+    public List<BannerResponse> getBanners(String locationId) {
         var banners = (locationId != null)
                 ? bannerRepository.findByIsActiveTrueAndLocationId(locationId)
                 : bannerRepository.findByIsActiveTrue();

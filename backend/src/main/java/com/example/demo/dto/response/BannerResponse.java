@@ -10,13 +10,13 @@ import lombok.*;
 @Builder
 public class BannerResponse {
 
-    private Long id;
+    private String id;
     private String imageUrl;
     private String title;
     private String linkUrl;
     private Boolean isActive;
     private String locationName;
-    private Integer locationId;
+    private String locationId;
 
     public static BannerResponse from(Banner banner) {
         return BannerResponse.builder()

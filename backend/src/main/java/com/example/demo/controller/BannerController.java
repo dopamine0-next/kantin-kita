@@ -17,7 +17,7 @@ public class BannerController {
 
     @GetMapping
     public ResponseEntity<List<BannerResponse>> getBanners(
-            @RequestParam(required = false) Integer locationId
+            @RequestParam(required = false) String locationId
     ) {
         return ResponseEntity.ok(bannerService.getBanners(locationId));
     }

@@ -5,12 +5,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.UUID;
 
 @Repository
-public interface MenuItemRepository extends JpaRepository<MenuItem, UUID> {
+public interface MenuItemRepository extends JpaRepository<MenuItem, String> {
 
     List<MenuItem> findByNameContainingIgnoreCase(String name);
 
-    List<MenuItem> findByRestaurantId(UUID restaurantId);
+    List<MenuItem> findByRestaurantId(String restaurantId);
 }

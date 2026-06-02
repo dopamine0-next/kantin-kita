@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +20,7 @@ public class RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
 
-    public List<RestaurantResponse> getRestaurants(Integer locationId, String search) {
+    public List<RestaurantResponse> getRestaurants(String locationId, String search) {
         List<Restaurant> restaurants;
 
         if (locationId != null && search != null) {
@@ -39,7 +38,7 @@ public class RestaurantService {
                 .toList();
     }
 
-    public RestaurantDetailResponse getRestaurantDetail(UUID id) {
+    public RestaurantDetailResponse getRestaurantDetail(String id) {
         Restaurant restaurant = restaurantRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Restaurant not found"));
 

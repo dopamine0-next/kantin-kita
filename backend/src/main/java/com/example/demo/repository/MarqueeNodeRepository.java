@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface MarqueeNodeRepository extends JpaRepository<MarqueeNode, Long> {
+public interface MarqueeNodeRepository extends JpaRepository<MarqueeNode, String> {
 
     List<MarqueeNode> findByIsActiveTrue();
 }

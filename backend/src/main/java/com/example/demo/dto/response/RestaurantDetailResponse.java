@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -16,7 +15,7 @@ import java.util.UUID;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RestaurantDetailResponse {
 
-    private UUID id;
+    private String id;
     private String name;
     private String cuisine;
     private Double rating;
@@ -39,7 +38,7 @@ public class RestaurantDetailResponse {
     private String imageUrl;
 
     @JsonProperty("location_id")
-    private Integer locationId;
+    private String locationId;
 
     @JsonProperty("cheapest_price")
     private Double cheapestPrice;

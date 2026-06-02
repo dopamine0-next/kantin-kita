@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -16,10 +15,10 @@ import java.util.UUID;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrderResponse {
 
-    private UUID id;
+    private String id;
 
     @JsonProperty("restaurant_id")
-    private UUID restaurantId;
+    private String restaurantId;
 
     @JsonProperty("restaurant_name")
     private String restaurantName;

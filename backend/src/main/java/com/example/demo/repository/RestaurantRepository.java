@@ -5,15 +5,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 @Repository
-public interface RestaurantRepository extends JpaRepository<Restaurant, UUID> {
+public interface RestaurantRepository extends JpaRepository<Restaurant, String> {
 
-    List<Restaurant> findByLocationId(Integer locationId);
+    List<Restaurant> findByLocationId(String locationId);
 
     List<Restaurant> findByNameContainingIgnoreCase(String name);
 
-    List<Restaurant> findByLocationIdAndNameContainingIgnoreCase(Integer locationId, String name);
+    List<Restaurant> findByLocationIdAndNameContainingIgnoreCase(String locationId, String name);
 }

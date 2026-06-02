@@ -23,5 +23,5 @@ public class RegisterRequest {
 
     private Integer semester;
 
-    private Integer locationId;
+    private String locationId;
 }

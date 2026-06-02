@@ -4,8 +4,6 @@ import com.example.demo.entity.User;
 import com.example.demo.entity.enums.Role;
 import lombok.*;
 
-import java.util.UUID;
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -13,14 +11,14 @@ import java.util.UUID;
 @Builder
 public class UserProfileResponse {
 
-    private UUID id;
+    private String id;
     private String name;
     private String nim;
     private String avatarUrl;
     private Integer semester;
     private Role role;
     private String locationName;
-    private Integer locationId;
+    private String locationId;
 
     public static UserProfileResponse from(User user) {
         return UserProfileResponse.builder()

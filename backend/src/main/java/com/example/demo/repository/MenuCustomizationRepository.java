@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MenuCustomizationRepository extends JpaRepository<MenuCustomization, Long> {
+public interface MenuCustomizationRepository extends JpaRepository<MenuCustomization, String> {
 }

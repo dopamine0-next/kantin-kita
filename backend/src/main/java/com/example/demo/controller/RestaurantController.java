@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/restaurants")
@@ -19,14 +18,14 @@ public class RestaurantController {
 
     @GetMapping
     public ResponseEntity<List<RestaurantResponse>> getRestaurants(
-            @RequestParam(required = false) Integer locationId,
+            @RequestParam(required = false) String locationId,
             @RequestParam(required = false) String search
     ) {
         return ResponseEntity.ok(restaurantService.getRestaurants(locationId, search));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<RestaurantDetailResponse> getRestaurantDetail(@PathVariable UUID id) {
+    public ResponseEntity<RestaurantDetailResponse> getRestaurantDetail(@PathVariable String id) {
         return ResponseEntity.ok(restaurantService.getRestaurantDetail(id));
     }
 }

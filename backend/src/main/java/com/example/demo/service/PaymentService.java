@@ -13,8 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.UUID;
-
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -32,7 +30,7 @@ public class PaymentService {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid callback token");
         }
 
-        Order order = orderRepository.findById(UUID.fromString(callback.getExternalId()))
+        Order order = orderRepository.findById(callback.getExternalId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Order not found"));
 
         switch (callback.getStatus()) {

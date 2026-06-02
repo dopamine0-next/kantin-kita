@@ -5,11 +5,11 @@ import com.example.demo.entity.enums.OrderStatus;
 import com.example.demo.entity.enums.PaymentStatus;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "orders")
@@ -21,8 +21,10 @@ import java.util.UUID;
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(generator = "nanoId")
+    @GenericGenerator(name = "nanoId", strategy = "com.example.demo.config.NanoIdGenerator")
+    @Column(length = 10)
+    private String id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)

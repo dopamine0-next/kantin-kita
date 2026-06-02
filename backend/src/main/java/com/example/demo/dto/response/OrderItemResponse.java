@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -17,7 +16,7 @@ import java.util.UUID;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrderItemResponse {
 
-    private UUID id;
+    private String id;
     private String name;
     private Integer quantity;
     private Double price;

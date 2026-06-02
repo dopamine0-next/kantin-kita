@@ -2,6 +2,7 @@ package com.example.demo.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "order_addons")
@@ -13,8 +14,10 @@ import lombok.*;
 public class OrderAddon {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "nanoId")
+    @GenericGenerator(name = "nanoId", strategy = "com.example.demo.config.NanoIdGenerator")
+    @Column(length = 10)
+    private String id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_item_id", nullable = false)

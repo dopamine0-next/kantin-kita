@@ -69,7 +69,7 @@ public class AuthService {
     }
 
     public UserProfileResponse getProfile(String userId) {
-        User user = userRepository.findById(java.util.UUID.fromString(userId))
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
         return UserProfileResponse.from(user);
     }

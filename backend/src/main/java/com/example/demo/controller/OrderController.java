@@ -11,7 +11,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/orders")
@@ -37,7 +36,7 @@ public class OrderController {
 
     @GetMapping("/{id}")
     public ResponseEntity<OrderResponse> getOrderDetail(
-            @PathVariable UUID id,
+            @PathVariable String id,
             Authentication authentication
     ) {
         String userId = (String) authentication.getPrincipal();

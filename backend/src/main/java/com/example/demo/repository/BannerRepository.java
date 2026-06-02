@@ -7,9 +7,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface BannerRepository extends JpaRepository<Banner, Long> {
+public interface BannerRepository extends JpaRepository<Banner, String> {
 
     List<Banner> findByIsActiveTrue();
 
-    List<Banner> findByIsActiveTrueAndLocationId(Integer locationId);
+    List<Banner> findByIsActiveTrueAndLocationId(String locationId);
 }

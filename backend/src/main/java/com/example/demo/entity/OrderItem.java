@@ -2,10 +2,10 @@ package com.example.demo.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "order_items")
@@ -17,8 +17,10 @@ import java.util.UUID;
 public class OrderItem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(generator = "nanoId")
+    @GenericGenerator(name = "nanoId", strategy = "com.example.demo.config.NanoIdGenerator")
+    @Column(length = 10)
+    private String id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false)

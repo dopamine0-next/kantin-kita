@@ -3,8 +3,7 @@ package com.example.demo.entity;
 import com.example.demo.entity.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.UUID;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "users")
@@ -16,8 +15,10 @@ import java.util.UUID;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(generator = "nanoId")
+    @GenericGenerator(name = "nanoId", strategy = "com.example.demo.config.NanoIdGenerator")
+    @Column(length = 10)
+    private String id;
 
     @Column(nullable = false)
     private String name;

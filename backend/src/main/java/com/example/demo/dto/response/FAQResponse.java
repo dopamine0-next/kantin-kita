@@ -10,7 +10,7 @@ import lombok.*;
 @Builder
 public class FAQResponse {
 
-    private Long id;
+    private String id;
     private String question;
     private String answer;
 

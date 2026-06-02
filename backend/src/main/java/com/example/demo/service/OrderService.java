@@ -19,7 +19,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Service
@@ -104,7 +107,7 @@ public class OrderService {
         double totalAmount = Math.max(0, subtotal - discount + appFee);
         String orderNumber = generateOrderNumber();
 
-        User userRef = userRepository.getReferenceById(UUID.fromString(userId));
+        User userRef = userRepository.getReferenceById(userId);
 
         Order order = Order.builder()
                 .user(userRef)
@@ -141,18 +144,18 @@ public class OrderService {
 
     @Transactional(readOnly = true)
     public List<OrderResponse> getUserOrders(String userId) {
-        return orderRepository.findByUserIdOrderByCreatedAtDesc(UUID.fromString(userId))
+        return orderRepository.findByUserIdOrderByCreatedAtDesc(userId)
                 .stream()
                 .map(OrderResponse::from)
                 .toList();
     }
 
     @Transactional(readOnly = true)
-    public OrderResponse getOrderDetail(UUID orderId, String userId) {
+    public OrderResponse getOrderDetail(String orderId, String userId) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Order not found"));
 
-        if (!order.getUser().getId().toString().equals(userId)) {
+        if (!order.getUser().getId().equals(userId)) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not your order");
         }
 
@@ -167,7 +170,7 @@ public class OrderService {
 
         try {
             Map<String, Object> params = new HashMap<>();
-            params.put("external_id", order.getId().toString());
+            params.put("external_id", order.getId());
             params.put("amount", order.getTotalAmount());
             params.put("description", "Pembayaran Order " + order.getOrderNumber());
             params.put("success_redirect_url", successRedirectUrl + order.getId());

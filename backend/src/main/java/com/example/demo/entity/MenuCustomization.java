@@ -3,6 +3,7 @@ package com.example.demo.entity;
 import com.example.demo.entity.enums.CustomizationType;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +18,10 @@ import java.util.List;
 public class MenuCustomization {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "nanoId")
+    @GenericGenerator(name = "nanoId", strategy = "com.example.demo.config.NanoIdGenerator")
+    @Column(length = 10)
+    private String id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "menu_item_id", nullable = false)

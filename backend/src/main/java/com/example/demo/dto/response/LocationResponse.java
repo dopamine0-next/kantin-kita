@@ -10,7 +10,7 @@ import lombok.*;
 @Builder
 public class LocationResponse {
 
-    private Integer id;
+    private String id;
     private String name;
     private String address;
     private Double latitude;

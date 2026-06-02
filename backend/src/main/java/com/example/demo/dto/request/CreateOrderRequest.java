@@ -6,7 +6,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -15,7 +14,7 @@ import java.util.UUID;
 public class CreateOrderRequest {
 
     @NotNull
-    private UUID restaurantId;
+    private String restaurantId;
 
     @NotEmpty
     @Valid
@@ -33,7 +32,7 @@ public class CreateOrderRequest {
     public static class CreateOrderItemRequest {
 
         @NotNull
-        private UUID menuItemId;
+        private String menuItemId;
 
         @NotNull
         private Integer qty;
