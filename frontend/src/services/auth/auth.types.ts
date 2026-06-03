@@ -19,7 +19,7 @@ export interface RegisterPayload {
   nim: string
   password: string
   semester: number
-  locationId: number
+  locationId?: number
 }
 
 export interface LoginPayload {

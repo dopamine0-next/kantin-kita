@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Banner } from '@/components/homepage/banner'
 import { BottomNav } from '@/components/homepage/bottom-nav'
@@ -9,11 +9,35 @@ import { PromoItems } from '@/components/homepage/promo-items'
 import { PromoMarquee } from '@/components/homepage/promo-marquee'
 import { Restaurants } from '@/components/homepage/restaurants'
 import { SearchBar } from '@/components/homepage/search-bar'
+import { locationService } from '@/services/location/location.service'
+import { useAuthStore } from '@/store/useAuthStore'
 
 export default function HomeClient() {
-  // App States
+  const { user, updateLocation } = useAuthStore()
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('all')
+
+  useEffect(() => {
+    if (user?.locationId || !navigator.geolocation) return
+
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        try {
+          const nearest = await locationService.getNearestLocation(
+            position.coords.latitude,
+            position.coords.longitude,
+          )
+          updateLocation(nearest.name, nearest.id)
+        } catch {
+          // silent — user can manually pick location later
+        }
+      },
+      () => {
+        // permission denied or error — silent
+      },
+      { timeout: 5000 },
+    )
+  }, [user?.locationId, updateLocation])
 
   return (
     <>

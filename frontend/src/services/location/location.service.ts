@@ -1,11 +1,16 @@
+import { fetcher } from '@/lib/fetcher'
+
 import { mapLocationApiResponseToItem } from './location.mapper'
-import { MOCK_LOCATIONS_RESPONSE } from './location.mock'
-import { LocationItem } from './location.types'
+import { LocationApiResponse, LocationItem } from './location.types'
 
 export const locationService = {
   getLocations: async (): Promise<LocationItem[]> => {
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 800))
-    return MOCK_LOCATIONS_RESPONSE.map(mapLocationApiResponseToItem)
+    const data = await fetcher<LocationApiResponse[]>('/locations')
+    return data.map(mapLocationApiResponseToItem)
+  },
+
+  getNearestLocation: async (lat: number, lng: number): Promise<LocationItem> => {
+    const data = await fetcher<LocationApiResponse>(`/locations/nearest?lat=${lat}&lng=${lng}`)
+    return mapLocationApiResponseToItem(data)
   },
 }

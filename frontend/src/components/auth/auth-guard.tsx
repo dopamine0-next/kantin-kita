@@ -10,11 +10,16 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
   const token = useAuthStore((state) => state.token)
   const pathname = usePathname()
   const router = useRouter()
-  const [hydrated, setHydrated] = useState(useAuthStore.persist.hasHydrated())
+  const [hydrated, setHydrated] = useState(false)
 
   useEffect(() => {
-    const unsub = useAuthStore.persist.onFinishHydration(() => setHydrated(true))
-    return unsub
+    if (useAuthStore.persist?.hasHydrated?.()) {
+      setHydrated(true)
+      return
+    }
+    const unsub = useAuthStore.persist?.onFinishHydration?.(() => setHydrated(true))
+    if (!useAuthStore.persist) setHydrated(true)
+    return () => unsub?.()
   }, [])
 
   const isAuthPage = pathname?.startsWith('/login') || pathname?.startsWith('/register')

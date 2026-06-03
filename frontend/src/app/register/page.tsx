@@ -55,7 +55,6 @@ export default function RegisterPage() {
         nim: data.nim,
         password: data.password,
         semester: data.semester,
-        locationId: 1,
       })
       login(response.user, response.token)
       router.push('/')

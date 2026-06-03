@@ -15,16 +15,9 @@ import { Separator } from '@/components/ui/separator'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useLocations } from '@/hooks/use-locations'
 import { cn } from '@/lib/utils'
+import { locationService } from '@/services/location/location.service'
 import { LocationItem } from '@/services/location/location.types'
 import { useAuthStore } from '@/store/useAuthStore'
-
-function getDistance(lat1: number, lon1: number, lat2: number, lon2: number) {
-  const p = 0.017453292519943295
-  const c = Math.cos
-  const a =
-    0.5 - c((lat2 - lat1) * p) / 2 + (c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p))) / 2
-  return 12742 * Math.asin(Math.sqrt(a))
-}
 
 export function LocationBar() {
   const { user, updateLocation } = useAuthStore()
@@ -46,32 +39,26 @@ export function LocationBar() {
       return
     }
 
-    if (locations.length === 0) return
-
     setIsLocating(true)
     navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const { latitude, longitude } = position.coords
-        let closestCampus = locations[0]
-        let minDistance = Infinity
-
-        locations.forEach((campus) => {
-          const dist = getDistance(latitude, longitude, campus.lat, campus.lng)
-          if (dist < minDistance) {
-            minDistance = dist
-            closestCampus = campus
-          }
-        })
-
-        handleSelect(closestCampus)
-        setIsLocating(false)
-        toast.success(`Lokasi Anda terdeteksi lebih dekat ke: ${closestCampus.name}`)
+      async (position) => {
+        try {
+          const nearest = await locationService.getNearestLocation(
+            position.coords.latitude,
+            position.coords.longitude,
+          )
+          handleSelect(nearest)
+          toast.success(`Lokasi Anda terdeteksi lebih dekat ke: ${nearest.name}`)
+        } catch {
+          toast.error('Gagal mendeteksi lokasi kampus terdekat.')
+        } finally {
+          setIsLocating(false)
+        }
       },
-      (error) => {
-        console.error('Error getting location:', error)
+      () => {
         toast.error('Gagal mendapatkan lokasi. Pastikan izin lokasi aktif.')
         setIsLocating(false)
-      }
+      },
     )
   }
 

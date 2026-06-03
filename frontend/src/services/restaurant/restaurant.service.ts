@@ -8,9 +8,13 @@ import {
   RestaurantItem,
 } from './restaurant.types'
 
-export async function getRestaurants(locationId?: string | null): Promise<RestaurantItem[]> {
-  const params = locationId ? `?locationId=${locationId}` : ''
-  const data = await fetcher<RestaurantApiResponse[]>(`/restaurants${params}`)
+export async function getRestaurants(locationId?: string | null, search?: string | null): Promise<RestaurantItem[]> {
+  const params = new URLSearchParams()
+  if (locationId) params.append('locationId', locationId)
+  if (search) params.append('search', search)
+  const queryString = params.toString()
+  const url = `/restaurants${queryString ? `?${queryString}` : ''}`
+  const data = await fetcher<RestaurantApiResponse[]>(url)
   return data.map(mapRestaurantItem)
 }
 
