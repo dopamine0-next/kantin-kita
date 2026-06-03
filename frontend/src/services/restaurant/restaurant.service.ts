@@ -8,7 +8,7 @@ import {
   RestaurantItem,
 } from './restaurant.types'
 
-export async function getRestaurants(locationId?: number | null): Promise<RestaurantItem[]> {
+export async function getRestaurants(locationId?: string | null): Promise<RestaurantItem[]> {
   const params = locationId ? `?locationId=${locationId}` : ''
   const data = await fetcher<RestaurantApiResponse[]>(`/restaurants${params}`)
   return data.map(mapRestaurantItem)

@@ -55,9 +55,9 @@ export function RestaurantInfoCard({ restaurant }: RestaurantInfoCardProps) {
         </div>
       </div>
 
-      {restaurant.promos?.length > 0 && (
+      {restaurant.promos && restaurant.promos.length > 0 && (
         <div className="no-scrollbar flex items-center gap-2 overflow-x-auto pt-0.5">
-          {restaurant.promos.map((promo: string, idx: number) => (
+          {restaurant.promos.map((promo, idx) => (
             <Badge
               key={idx}
               className="py-0.8 gap-0.8 bg-primary text-primary-foreground hover:bg-primary/90 flex shrink-0 items-center rounded-lg border-none px-2 text-xs font-extrabold whitespace-nowrap"

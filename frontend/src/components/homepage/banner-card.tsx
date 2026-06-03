@@ -71,7 +71,7 @@ export function BannerCard({ item, index, activeIndex, totalItems, onDragEnd }: 
       }}
     >
       <Link
-        href={`/restaurant/${item.restaurantId}`}
+        href={item.linkUrl}
         className="relative block size-full overflow-hidden rounded-2xl shadow-xl ring-1 ring-black/5"
       >
         <Image

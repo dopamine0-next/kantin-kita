@@ -19,7 +19,10 @@ const registerSchema = z
   .object({
     name: z.string().min(3, 'Minimal 3 karakter'),
     nim: z.string().regex(/^\d{12,15}$/, 'NIM harus 12-15 digit angka'),
-    semester: z.coerce.number().min(1, 'Minimal semester 1').max(14, 'Maksimal semester 14'),
+    semester: z
+      .number({ error: 'Semester harus diisi' })
+      .min(1, 'Minimal semester 1')
+      .max(14, 'Maksimal semester 14'),
     password: z.string().min(6, 'Minimal 6 karakter'),
     confirmPassword: z.string(),
   })

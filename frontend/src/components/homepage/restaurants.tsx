@@ -8,11 +8,11 @@ import { useAuthStore } from '@/store/useAuthStore'
 
 export function Restaurants() {
   const user = useAuthStore((state) => state.user)
-  const activeLocationId = user ? user.locationId : 'l1'
+  const activeLocationId = user ? String(user.locationId) : 'l1'
   const activeLocationName = user ? user.location : 'Kantin Pusat'
   const { restaurants, isLoading } = useRestaurants()
 
-  const filtered = restaurants.filter((stall) => stall.locationId === activeLocationId)
+  const filtered = restaurants.filter((stall) => String(stall.locationId) === activeLocationId)
 
   return (
     <div className="flex flex-col gap-3 px-4 pt-3 pb-8">

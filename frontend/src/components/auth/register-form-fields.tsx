@@ -65,7 +65,7 @@ export function RegisterFormFields({ register, errors }: Props) {
           <div className="relative">
             <GraduationCap className="text-muted-foreground absolute top-1/2 left-4 size-4 -translate-y-1/2" />
             <Input
-              {...register('semester')}
+              {...register('semester', { valueAsNumber: true })}
               type="number"
               min="1"
               placeholder="1"

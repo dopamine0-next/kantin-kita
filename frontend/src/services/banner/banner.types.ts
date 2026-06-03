@@ -1,16 +1,16 @@
 export interface BannerApiResponse {
-  id: number
-  image_url: string
-  title: string
-  restaurant_id: string
-  is_active: boolean
-  location_id: number | null
-  location_name: string | null
+  id: string
+  imageUrl: string
+  title: string | null
+  linkUrl: string | null
+  isActive: boolean
+  locationName: string | null
+  locationId: string | null
 }
 
 export interface BannerItem {
-  id: number
+  id: string
   image: string
   title: string
-  restaurantId: string
+  linkUrl: string
 }
