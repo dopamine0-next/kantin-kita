@@ -22,10 +22,11 @@ export default function SearchListContainer({ initialQuery }: SearchListContaine
   const [searchQuery, setSearchQuery] = useState(initialQuery)
   const [selectedFilters, setSelectedFilters] = useState<string[]>([])
 
-  const { restaurants, isLoading } = useRestaurants()
+  const { restaurants } = useRestaurants()
 
   // Keep internal state updated when URL query changes (via Server Component initialQuery prop)
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSearchQuery(initialQuery)
   }, [initialQuery])
 
@@ -81,7 +82,7 @@ export default function SearchListContainer({ initialQuery }: SearchListContaine
 
       return true
     })
-  }, [restaurants, searchQuery, selectedFilters, user?.locationId])
+  }, [restaurants, searchQuery, selectedFilters, user])
 
   return (
     <div className="flex flex-1 flex-col pb-6">

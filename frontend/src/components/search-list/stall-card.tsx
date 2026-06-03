@@ -2,6 +2,7 @@
 
 import { BadgePercent, Clock, MapPin, Star } from 'lucide-react'
 import { motion } from 'motion/react'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
 import { Badge } from '@/components/ui/badge'
@@ -39,10 +40,12 @@ export function StallCard({ stall, index = 0, onClick }: StallCardProps) {
     >
       {/* Stall Image */}
       <div className="relative size-16.5 shrink-0 overflow-hidden rounded-xl shadow-inner">
-        <img
+        <Image
           src={stall.image}
           alt={stall.name}
-          className="size-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+          fill
+          sizes="66px"
+          className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
         />
         {!stall.isOpen && (
           <div className="absolute inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm">

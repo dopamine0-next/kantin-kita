@@ -44,7 +44,7 @@ export default function CheckoutContainer() {
   } = useCartStore()
 
   const { restaurants: mockRestaurantsDetails } = useRestaurantsDetails()
-  const { vouchers, isLoading: isVouchersLoading } = useVouchers()
+  const { vouchers } = useVouchers()
 
   // State local for UI
   const [isPromoDrawerOpen, setIsPromoDrawerOpen] = useState(false)

@@ -1,5 +1,6 @@
-import { Clock, Tag } from 'lucide-react'
+import { Clock } from 'lucide-react'
 import { motion } from 'motion/react'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
@@ -62,13 +63,15 @@ export function OrderCard({ order, index = 0 }: OrderCardProps) {
       <div className="flex gap-3.5">
         {/* Restaurant Image */}
         <div className="relative size-14 shrink-0 overflow-hidden rounded-xl shadow-inner">
-          <img
+          <Image
             src={
               order.restaurant_image ||
               'https://images.unsplash.com/photo-1541832676-9b763b0239ab?auto=format&fit=crop&w=150&q=80'
             }
             alt={order.restaurant_name}
-            className="size-full object-cover object-center transition-transform duration-500 hover:scale-105"
+            fill
+            sizes="56px"
+            className="object-cover object-center transition-transform duration-500 hover:scale-105"
           />
         </div>
 

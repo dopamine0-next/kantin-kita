@@ -1,7 +1,5 @@
 'use client'
 
-import { Gift, Percent, Sparkles, TrendingUp } from 'lucide-react'
-
 import { useMarquee } from '@/hooks/use-marquee'
 
 export function PromoMarquee() {

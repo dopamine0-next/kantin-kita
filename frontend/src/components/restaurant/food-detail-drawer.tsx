@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { Drawer, DrawerContent } from '@/components/ui/drawer'
@@ -27,12 +27,6 @@ export function FoodDetailDrawer({
   onAddedToCart,
 }: FoodDetailDrawerProps) {
   const [step, setStep] = useState<'info' | 'variant'>(initialStep)
-
-  useEffect(() => {
-    if (isOpen) {
-      setStep(initialStep)
-    }
-  }, [isOpen, initialStep])
 
   if (!item) return null
 

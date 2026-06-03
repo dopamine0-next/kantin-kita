@@ -1,5 +1,6 @@
 import { Info, ShoppingBag, Star } from 'lucide-react'
 import { motion } from 'motion/react'
+import Image from 'next/image'
 
 import { Button } from '@/components/ui/button'
 import { DrawerDescription, DrawerHeader, DrawerTitle } from '@/components/ui/drawer'
@@ -15,7 +16,7 @@ export function FoodDetailInfo({ item, onProceed }: FoodDetailInfoProps) {
     <div className="no-scrollbar max-h-[85vh] overflow-y-auto pb-8">
       {/* Main Image Header */}
       <div className="relative h-56 w-full overflow-hidden">
-        <img src={item.image} alt={item.name} className="h-full w-full object-cover" />
+        <Image src={item.image} alt={item.name} fill sizes="100vw" className="object-cover" />
         <div className="from-background via-background/10 absolute inset-0 bg-gradient-to-t to-transparent" />
 
         {/* Price Badge */}

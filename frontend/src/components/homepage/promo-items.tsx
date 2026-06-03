@@ -1,6 +1,7 @@
 'use client'
 
 import { Clock, Star } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 
 import { Badge } from '@/components/ui/badge'
@@ -47,10 +48,12 @@ export function PromoItems({ selectedCategory }: PromoItemsProps) {
             <Card className="border-muted/30 bg-card/60 hover:border-muted-foreground/10 group w-48 gap-0 overflow-hidden rounded-2xl border p-0 shadow-sm backdrop-blur-md transition-all duration-300 hover:shadow-md">
               {/* Card Media Wrapper */}
               <div className="relative h-28 w-full overflow-hidden">
-                <img
+                <Image
                   src={food.image}
                   alt={food.name}
-                  className="size-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                  fill
+                  sizes="192px"
+                  className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
                 />
 
                 {/* Promo Badge floating top-left */}

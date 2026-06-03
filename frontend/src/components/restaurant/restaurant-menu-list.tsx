@@ -2,6 +2,7 @@
 
 import { Plus, Search, Sparkles, Star } from 'lucide-react'
 import { motion } from 'motion/react'
+import Image from 'next/image'
 
 import { Badge } from '@/components/ui/badge'
 import { MenuItem } from '@/services/restaurant/restaurant.types'
@@ -50,10 +51,12 @@ export function RestaurantMenuList({
                 className="border-muted/20 bg-card/30 hover:border-primary/15 hover:bg-card/50 group flex cursor-pointer gap-3 rounded-2xl border p-3 transition-all duration-300 active:scale-[0.99]"
               >
                 <div className="bg-muted relative size-20 shrink-0 overflow-hidden rounded-xl">
-                  <img
+                  <Image
                     src={item.image}
                     alt={item.name}
-                    className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    fill
+                    sizes="80px"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
 

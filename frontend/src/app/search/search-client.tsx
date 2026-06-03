@@ -1,18 +1,9 @@
 'use client'
 import { MouseEvent, useState } from 'react'
 
-import {
-  ArrowRight,
-  ChevronLeft,
-  Clock,
-  Plus,
-  Search,
-  Sparkles,
-  Star,
-  Trash2,
-  X,
-} from 'lucide-react'
+import { ChevronLeft, Clock, Plus, Search, Sparkles, Star, Trash2, X } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
@@ -212,10 +203,12 @@ export default function SearchClient() {
                     >
                       {/* Left side Image */}
                       <div className="bg-muted relative size-24 shrink-0 overflow-hidden">
-                        <img
+                        <Image
                           src={food.image}
                           alt={food.name}
-                          className="size-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                          fill
+                          sizes="96px"
+                          className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
                         />
                       </div>
 

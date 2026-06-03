@@ -1,8 +1,6 @@
 'use client'
 import { useState } from 'react'
 
-import { useRouter } from 'next/navigation'
-
 import { Banner } from '@/components/homepage/banner'
 import { BottomNav } from '@/components/homepage/bottom-nav'
 import { Categories } from '@/components/homepage/categories'
@@ -13,7 +11,6 @@ import { Restaurants } from '@/components/homepage/restaurants'
 import { SearchBar } from '@/components/homepage/search-bar'
 
 export default function HomeClient() {
-  const router = useRouter()
   // App States
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('all')

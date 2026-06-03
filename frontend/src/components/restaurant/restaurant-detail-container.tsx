@@ -64,7 +64,7 @@ export default function RestaurantDetailContainer({
       groups[item.category].push(item)
     })
 
-    return Object.fromEntries(Object.entries(groups).filter(([_, items]) => items.length > 0))
+    return Object.fromEntries(Object.entries(groups).filter(([, items]) => items.length > 0))
   }, [filteredMenus, restaurant])
 
   if (isLoading) {

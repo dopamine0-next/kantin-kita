@@ -2,9 +2,10 @@ import { BadgePercent, Clock, MapPin, Star } from 'lucide-react'
 
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
+import type { RestaurantDetail } from '@/services/restaurant/restaurant.types'
 
 interface RestaurantInfoCardProps {
-  restaurant: any
+  restaurant: RestaurantDetail
 }
 
 export function RestaurantInfoCard({ restaurant }: RestaurantInfoCardProps) {

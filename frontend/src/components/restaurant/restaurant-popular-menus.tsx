@@ -2,6 +2,7 @@
 
 import { Plus, Sparkles, Star } from 'lucide-react'
 import { motion } from 'motion/react'
+import Image from 'next/image'
 
 import { MenuItem } from '@/services/restaurant/restaurant.types'
 
@@ -31,10 +32,12 @@ export function RestaurantPopularMenus({ menus, onFoodClick }: RestaurantPopular
             className="border-muted/20 bg-card/30 hover:border-primary/20 flex cursor-pointer flex-col overflow-hidden rounded-2xl border transition-all duration-300 hover:shadow-md active:scale-[0.98]"
           >
             <div className="bg-muted relative aspect-square w-full shrink-0 overflow-hidden">
-              <img
+              <Image
                 src={item.image}
                 alt={item.name}
-                className="size-full object-cover transition-transform duration-500 hover:scale-105"
+                fill
+                sizes="50vw"
+                className="object-cover transition-transform duration-500 hover:scale-105"
               />
               <div className="text-primary-foreground absolute top-2 left-2 flex items-center gap-1 rounded-full bg-black/60 px-2 py-0.5 text-xs font-bold backdrop-blur-md">
                 <Star className="size-3 fill-amber-500 stroke-none text-amber-500" />

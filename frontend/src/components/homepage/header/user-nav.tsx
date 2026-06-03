@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 
-import { Bell, LogIn, LogOut, Moon, Settings, Sun, User } from 'lucide-react'
+import { Bell, LogOut, Moon, Settings, Sun, User } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
 import { toast } from 'sonner'
@@ -32,6 +32,7 @@ export function UserNav() {
   )
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true)
   }, [])
 

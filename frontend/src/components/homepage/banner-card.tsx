@@ -1,6 +1,7 @@
 'use client'
 
 import { PanInfo, motion } from 'motion/react'
+import Image from 'next/image'
 import Link from 'next/link'
 
 import { BannerItem as BannerItemType } from '@/services/banner/banner.types'
@@ -73,10 +74,12 @@ export function BannerCard({ item, index, activeIndex, totalItems, onDragEnd }: 
         href={`/restaurant/${item.restaurantId}`}
         className="relative block size-full overflow-hidden rounded-2xl shadow-xl ring-1 ring-black/5"
       >
-        <img
+        <Image
           src={item.image}
           alt={item.title}
-          className="size-full object-cover object-center transition-transform duration-700 active:scale-105"
+          fill
+          sizes="90vw"
+          className="object-cover object-center transition-transform duration-700 active:scale-105"
         />
       </Link>
     </motion.div>

@@ -2,12 +2,14 @@
 
 import { ChevronLeft, Heart, Share2 } from 'lucide-react'
 import { motion } from 'motion/react'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
 import { cn } from '@/lib/utils'
+import type { RestaurantDetail } from '@/services/restaurant/restaurant.types'
 
 interface RestaurantHeroProps {
-  restaurant: any
+  restaurant: RestaurantDetail
   isFavorite: boolean
   onToggleFavorite: () => void
 }
@@ -17,10 +19,13 @@ export function RestaurantHero({ restaurant, isFavorite, onToggleFavorite }: Res
 
   return (
     <div className="relative h-64 w-full shrink-0 overflow-hidden">
-      <img
+      <Image
         src={restaurant.bannerImage || restaurant.image}
         alt={restaurant.name}
-        className="size-full object-cover"
+        fill
+        sizes="100vw"
+        className="object-cover"
+        priority
       />
 
       <div className="absolute top-4 right-4 left-4 z-20 flex items-center justify-between">

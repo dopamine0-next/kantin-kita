@@ -39,6 +39,7 @@ export function FoodVariantForm({
 
   useEffect(() => {
     if (!initialCartItem) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setQty(1)
       setSelectedVariant(item.variants && item.variants.length > 0 ? item.variants[0] : '')
       setNote('')
@@ -50,7 +51,7 @@ export function FoodVariantForm({
 
     item.customizations?.forEach((cust) => {
       if (cust.type === 'choice') {
-        const savedChoice = initialCartItem?.level // Simplified for now as we only have one level in CartItem
+        const savedChoice = initialCartItem?.level
         initialChoices[cust.title] = savedChoice || (cust.options[0] as ChoiceOption).label
       } else {
         const savedAddons =

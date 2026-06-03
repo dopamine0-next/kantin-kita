@@ -5,7 +5,6 @@ import { Search } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
 import { useRouter } from 'next/navigation'
 
-import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
 interface SearchBarProps {
@@ -25,7 +24,7 @@ const PLACEHOLDERS = [
 export function SearchBar({ searchQuery, setSearchQuery }: SearchBarProps) {
   const router = useRouter()
   const [placeholderIndex, setPlaceholderIndex] = useState(0)
-  const [isFocused, setIsFocused] = useState(false)
+  const [isFocused] = useState(false)
 
   // Rotate placeholders every 3 seconds
   useEffect(() => {

@@ -2,6 +2,7 @@
 
 import { FileText, Minus, Plus, Settings2 } from 'lucide-react'
 import { motion } from 'motion/react'
+import Image from 'next/image'
 
 import { CartItem } from '@/store/useCartStore'
 
@@ -29,9 +30,11 @@ export function CartItemList({ items, onUpdateQty, onUpdateNote, onEditItem }: C
           >
             <div className="flex gap-3">
               {/* Thumbnail */}
-              <img
+              <Image
                 src={item.image}
                 alt={item.name}
+                width={56}
+                height={56}
                 className="size-14 shrink-0 rounded-xl object-cover"
               />
 

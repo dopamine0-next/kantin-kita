@@ -10,10 +10,9 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
   const token = useAuthStore((state) => state.token)
   const pathname = usePathname()
   const router = useRouter()
-  const [hydrated, setHydrated] = useState(false)
+  const [hydrated, setHydrated] = useState(useAuthStore.persist.hasHydrated())
 
   useEffect(() => {
-    setHydrated(useAuthStore.persist.hasHydrated())
     const unsub = useAuthStore.persist.onFinishHydration(() => setHydrated(true))
     return unsub
   }, [])
