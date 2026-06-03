@@ -8,9 +8,12 @@ import { useAuthStore } from '@/store/useAuthStore'
 
 export function Restaurants() {
   const user = useAuthStore((state) => state.user)
-  const activeLocationId = user ? String(user.locationId) : 'l1'
-  const activeLocationName = user ? user.location : 'Kantin Pusat'
   const { restaurants, isLoading } = useRestaurants()
+
+  if (!user) return null
+
+  const activeLocationId = String(user.locationId)
+  const activeLocationName = user.location
 
   const filtered = restaurants.filter((stall) => String(stall.locationId) === activeLocationId)
 
