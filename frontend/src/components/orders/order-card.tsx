@@ -1,23 +1,11 @@
-import { Clock } from 'lucide-react'
+import { Clock, ExternalLink } from 'lucide-react'
 import { motion } from 'motion/react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Order, OrderStatus } from '@/services/order/order.types'
-
-const STATUS_MAP: Record<
-  OrderStatus,
-  { label: string; variant: 'default' | 'secondary' | 'destructive' | 'outline' }
-> = {
-  pending: { label: 'Menunggu', variant: 'outline' },
-  processing: { label: 'Diproses', variant: 'secondary' },
-  ready: { label: 'Siap Diambil', variant: 'default' },
-  completed: { label: 'Selesai', variant: 'default' },
-  cancelled: { label: 'Dibatalkan', variant: 'destructive' },
-}
+import { Order } from '@/services/order/order.types'
 
 const formatCurrency = (val: number) => {
   return new Intl.NumberFormat('id-ID', {
@@ -34,7 +22,6 @@ export interface OrderCardProps {
 
 export function OrderCard({ order, index = 0 }: OrderCardProps) {
   const router = useRouter()
-  const statusConfig = STATUS_MAP[order.status] || { label: order.status, variant: 'outline' }
 
   const dateStr = new Date(order.created_at).toLocaleDateString('id-ID', {
     day: 'numeric',
@@ -82,9 +69,6 @@ export function OrderCard({ order, index = 0 }: OrderCardProps) {
               <h3 className="text-foreground hover:text-primary line-clamp-1 text-sm leading-snug font-bold tracking-tight transition-colors">
                 {order.restaurant_name}
               </h3>
-              <Badge variant={statusConfig.variant} className="shrink-0 transform-none text-xs">
-                {statusConfig.label}
-              </Badge>
             </div>
 
             {/* Timestamp */}
@@ -111,6 +95,19 @@ export function OrderCard({ order, index = 0 }: OrderCardProps) {
       </div>
 
       {/* Conditional Action Button */}
+      {order.status === 'pending' && order.payment_status === 'unpaid' && order.payment_url && (
+        <Button
+          size="sm"
+          className="mt-1 w-full rounded-xl font-bold"
+          onClick={(e) => {
+            e.stopPropagation()
+            window.location.href = order.payment_url!
+          }}
+        >
+          <ExternalLink className="mr-1 size-4" />
+          Bayar Sekarang
+        </Button>
+      )}
       {order.status === 'ready' && (
         <Button
           size="sm"
