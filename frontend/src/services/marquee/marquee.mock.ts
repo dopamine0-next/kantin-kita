@@ -1,34 +1,9 @@
 import { MarqueeApiResponse } from './marquee.types'
 
 export const MOCK_MARQUEE_API_RESPONSE: MarqueeApiResponse[] = [
-  {
-    id: 'mq-1',
-    icon_emoji: '🔥',
-    promo_text: 'Soto Mbok Sri: Diskon 20%',
-    color_class: 'text-amber-500',
-  },
-  {
-    id: 'mq-2',
-    icon_emoji: '🌶️',
-    promo_text: 'Ayam Geprek Gahar: Diskon 30%',
-    color_class: 'text-rose-500',
-  },
-  {
-    id: 'mq-3',
-    icon_emoji: '☕',
-    promo_text: 'Kopi Kanto: Combo Hemat',
-    color_class: 'text-amber-600',
-  },
-  {
-    id: 'mq-4',
-    icon_emoji: '🍜',
-    promo_text: 'Mie Ayam Pak Dadi: Diskon 25%',
-    color_class: 'text-yellow-500',
-  },
-  {
-    id: 'mq-5',
-    icon_emoji: '🍤',
-    promo_text: 'Seafood Selera Rasa: Diskon 15%',
-    color_class: 'text-cyan-500',
-  },
+  { id: 'mrq_001', text: '🍱 Promo spesial setiap hari! Diskon s.d 50%', isActive: true },
+  { id: 'mrq_002', text: '🎉 Gratis ongkir untuk area kantin!', isActive: true },
+  { id: 'mrq_003', text: '🔥 Ayam Geprek Bensu lagi viral! Coba sekarang', isActive: true },
+  { id: 'mrq_004', text: '☕ Kopi Kenangan buy 1 get 1 setiap jam 10 pagi', isActive: true },
+  { id: 'mrq_005', text: '📱 Pesan sekarang, bayar nanti pake Xendit', isActive: true },
 ]

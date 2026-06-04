@@ -43,7 +43,6 @@ export function PromoMarquee() {
             key={`${item.id}-${index}`}
             className="text-primary-foreground flex shrink-0 items-center gap-2 text-xs font-extrabold tracking-wider uppercase"
           >
-            <span className="text-xs">{item.icon}</span>
             <span>{item.text}</span>
             <span className="text-primary-foreground/40 mx-2">•</span>
           </div>

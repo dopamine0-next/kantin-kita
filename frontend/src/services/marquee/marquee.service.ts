@@ -1,9 +1,9 @@
+import { fetcher } from '@/lib/fetcher'
+
 import { mapMarqueeItem } from './marquee.mapper'
-import { MOCK_MARQUEE_API_RESPONSE } from './marquee.mock'
-import { MarqueeItem } from './marquee.types'
+import { MarqueeApiResponse, MarqueeItem } from './marquee.types'
 
 export async function getMarqueeItems(): Promise<MarqueeItem[]> {
-  // Simulate network delay
-  await new Promise((resolve) => setTimeout(resolve, 300))
-  return MOCK_MARQUEE_API_RESPONSE.map(mapMarqueeItem)
+  const data = await fetcher<MarqueeApiResponse[]>('/marquee')
+  return data.map(mapMarqueeItem)
 }

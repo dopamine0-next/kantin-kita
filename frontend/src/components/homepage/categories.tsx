@@ -36,7 +36,7 @@ export function Categories({ selectedCategory, setSelectedCategory }: Categories
                     : 'bg-muted/40 hover:bg-muted text-muted-foreground/90 border-muted/30 border'
                 )}
               >
-                <span className="text-base">{category.emoji}</span>
+                <span className="text-base">{category.iconUrl}</span>
                 <span>{category.name}</span>
               </button>
             )

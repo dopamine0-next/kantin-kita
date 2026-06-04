@@ -4,6 +4,7 @@ export function mapCategoryItem(data: CategoryApiResponse): CategoryItem {
   return {
     id: data.id,
     name: data.name,
-    emoji: data.emoji,
+    iconUrl: data.iconUrl ?? '',
+    priority: data.priority,
   }
 }

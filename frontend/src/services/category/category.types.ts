@@ -1,11 +1,13 @@
 export interface CategoryApiResponse {
   id: string
   name: string
-  emoji: string
+  iconUrl: string | null
+  priority: number | null
 }
 
 export interface CategoryItem {
   id: string
   name: string
-  emoji: string
+  iconUrl: string
+  priority: number | null
 }
