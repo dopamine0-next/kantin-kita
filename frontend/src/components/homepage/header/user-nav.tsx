@@ -2,10 +2,9 @@
 
 import { useEffect, useState } from 'react'
 
-import { Bell, LogOut, Moon, Settings, Sun, User } from 'lucide-react'
+import { Bell, Moon, Sun, User } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
-import { toast } from 'sonner'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
@@ -24,7 +23,7 @@ export function UserNav() {
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   const { orders } = useOrders()
-  const { user, logout } = useAuthStore()
+  const { user } = useAuthStore()
 
   // Filter for active notifications (e.g. not completed/cancelled yet)
   const activeNotifications = orders.filter(
@@ -41,57 +40,28 @@ export function UserNav() {
   return (
     <div className="flex items-center justify-between">
       {user ? (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <button className="group flex items-center gap-2.5 text-left outline-none">
-              <Avatar className="border-primary/20 size-9 border shadow-none transition-transform active:scale-95">
-                <AvatarImage
-                  src={
-                    user.avatar ||
-                    `https://api.dicebear.com/10.x/adventurer/svg?seed=${encodeURIComponent(user.name)}`
-                  }
-                  alt={user.name}
-                />
-                <AvatarFallback className="bg-primary/10 text-primary text-xs font-semibold">
-                  {user.name.substring(0, 2).toUpperCase()}
-                </AvatarFallback>
-              </Avatar>
-              <div className="flex flex-col">
-                <span className="text-muted-foreground text-[10px] leading-none font-semibold">
-                  Semester {user.semester}
-                </span>
-                <span className="text-foreground line-clamp-1 text-sm font-semibold">
-                  {user.name.split(' ')[0]} <span className="animate-bounce">👋</span>
-                </span>
-              </div>
-            </button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="start" className="w-56 rounded-2xl p-2 shadow-xl">
-            <DropdownMenuLabel className="text-muted-foreground px-2 py-1.5 text-xs font-semibold">
-              Akun Saya
-            </DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem className="gap-2 rounded-xl px-2 py-2 text-xs font-semibold">
-              <User className="size-4" />
-              Lihat Profil
-            </DropdownMenuItem>
-            <DropdownMenuItem className="gap-2 rounded-xl px-2 py-2 text-xs font-semibold">
-              <Settings className="size-4" />
-              Pengaturan
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onClick={() => {
-                logout()
-                toast.success('Berhasil keluar.')
-              }}
-              className="text-destructive focus:text-destructive gap-2 rounded-xl px-2 py-2 text-xs font-semibold"
-            >
-              <LogOut className="size-4" />
-              Keluar Akun
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <Link href="/profile" className="group flex items-center gap-2.5 text-left outline-none">
+          <Avatar className="border-primary/20 size-9 border shadow-none transition-transform active:scale-95">
+            <AvatarImage
+              src={
+                user.avatar ||
+                `https://api.dicebear.com/10.x/adventurer/svg?seed=${encodeURIComponent(user.name)}`
+              }
+              alt={user.name}
+            />
+            <AvatarFallback className="bg-primary/10 text-primary text-xs font-semibold">
+              {user.name.substring(0, 2).toUpperCase()}
+            </AvatarFallback>
+          </Avatar>
+          <div className="flex flex-col">
+            <span className="text-muted-foreground text-[10px] leading-none font-semibold">
+              Semester {user.semester}
+            </span>
+            <span className="text-foreground line-clamp-1 text-sm font-semibold">
+              {user.name.split(' ')[0]} <span className="animate-bounce">👋</span>
+            </span>
+          </div>
+        </Link>
       ) : (
         <Link
           href="/login"
