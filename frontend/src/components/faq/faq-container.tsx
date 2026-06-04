@@ -26,7 +26,7 @@ export function FAQContainer() {
         >
           <ChevronLeft className="text-foreground size-6" />
         </button>
-        <h1 className="text-foreground text-lg font-black tracking-tight">Pertanyaan Populer</h1>
+        <h1 className="text-foreground text-lg font-semibold">Pertanyaan Populer</h1>
       </div>
 
       <div className="px-4 py-2">
@@ -40,7 +40,7 @@ export function FAQContainer() {
           <Accordion type="single" collapsible className="w-full">
             {faqs.map((faq) => (
               <AccordionItem key={faq.id} value={faq.id} className="border-muted/20">
-                <AccordionTrigger className="text-foreground text-left text-sm font-bold hover:no-underline">
+                <AccordionTrigger className="text-foreground text-left text-sm font-semibold hover:no-underline">
                   {faq.question}
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground text-xs leading-relaxed">

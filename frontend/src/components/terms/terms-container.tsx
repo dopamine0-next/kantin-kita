@@ -23,7 +23,7 @@ export function TermsContainer() {
         >
           <ChevronLeft className="text-foreground size-6" />
         </button>
-        <h1 className="text-foreground text-lg font-black tracking-tight">Ketentuan Layanan</h1>
+        <h1 className="text-foreground text-lg font-semibold">Ketentuan Layanan</h1>
       </div>
 
       <div className="px-5 py-2">

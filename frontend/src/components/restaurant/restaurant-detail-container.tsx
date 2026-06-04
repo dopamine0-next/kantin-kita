@@ -81,13 +81,13 @@ export default function RestaurantDetailContainer({
         <div className="bg-destructive/10 text-destructive mb-4 flex size-16 animate-bounce items-center justify-center rounded-full">
           <X className="size-8" />
         </div>
-        <h2 className="text-foreground text-lg font-black">Kios Tidak Ditemukan</h2>
+        <h2 className="text-foreground text-lg font-semibold">Kios Tidak Ditemukan</h2>
         <p className="text-muted-foreground mt-2 max-w-[240px] text-xs leading-relaxed">
           Kios kantin dengan ID &ldquo;{restaurantId}&rdquo; tidak dapat ditemukan di database kami.
         </p>
         <button
           onClick={() => router.push('/')}
-          className="bg-primary hover:bg-primary/95 text-primary-foreground mt-6 rounded-xl px-5 py-2.5 text-xs font-black shadow-md"
+          className="bg-primary hover:bg-primary/95 text-primary-foreground mt-6 rounded-xl px-5 py-2.5 text-xs font-semibold shadow-md"
         >
           Kembali ke Beranda
         </button>

@@ -29,7 +29,7 @@ export function InvoiceInfo({
           </div>
           <div className="flex flex-col">
             <span className="text-muted-foreground text-xs font-semibold">Lokasi Ambil</span>
-            <span className="text-sm font-bold">{locationBlock}</span>
+            <span className="text-sm font-semibold">{locationBlock}</span>
           </div>
         </div>
         <div className="bg-border/50 h-px w-full" />
@@ -39,7 +39,7 @@ export function InvoiceInfo({
           </div>
           <div className="flex flex-col">
             <span className="text-muted-foreground text-xs font-semibold">Waktu Pesanan</span>
-            <span className="text-sm font-bold">{formattedDate} WIB</span>
+            <span className="text-sm font-semibold">{formattedDate} WIB</span>
           </div>
         </div>
       </CardContent>

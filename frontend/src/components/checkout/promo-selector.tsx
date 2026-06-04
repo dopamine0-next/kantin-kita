@@ -54,7 +54,7 @@ export function PromoSelector({
             <Ticket className="size-5" />
           </div>
           <div className="flex flex-col text-left">
-            <span className="text-xs font-black">
+            <span className="text-xs font-semibold">
               {promoApplied ? `Promo ${promoApplied.code} Terpasang` : 'Pakai Promo Lebih Hemat'}
             </span>
             <span className="text-muted-foreground/80 text-xs font-medium">
@@ -63,7 +63,7 @@ export function PromoSelector({
           </div>
         </div>
 
-        <div className="flex items-center gap-1 text-xs font-black">
+        <div className="flex items-center gap-1 text-xs font-semibold">
           {promoApplied ? (
             <span className="text-emerald-600">-Rp {discount.toLocaleString('id-ID')}</span>
           ) : (
@@ -77,7 +77,7 @@ export function PromoSelector({
         <DrawerContent className="bg-background/95 border-muted/40 mx-auto max-w-md overflow-hidden rounded-t-3xl border-t backdrop-blur-xl outline-none">
           <div className="p-5 pb-8">
             <DrawerHeader className="px-0 pt-0 text-left">
-              <DrawerTitle className="text-foreground text-base font-black tracking-tight">
+              <DrawerTitle className="text-foreground text-base font-semibold">
                 Voucher & Promo Hemat
               </DrawerTitle>
               <DrawerDescription className="text-muted-foreground/80 text-xs font-medium">
@@ -114,10 +114,10 @@ export function PromoSelector({
                         <BadgePercent className="size-5" />
                       </div>
                       <div className="flex flex-col">
-                        <span className="text-foreground flex items-center gap-1.5 text-xs font-black">
+                        <span className="text-foreground flex items-center gap-1.5 text-xs font-semibold">
                           {promo.code}
                           {isSelected && (
-                            <span className="text-primary-foreground rounded-sm bg-emerald-500 px-1 py-0.5 text-xs font-extrabold tracking-wide uppercase">
+                            <span className="text-primary-foreground rounded-sm bg-emerald-500 px-1 py-0.5 text-xs font-semibold">
                               Aktif
                             </span>
                           )}
@@ -140,7 +140,7 @@ export function PromoSelector({
               <Button
                 variant="outline"
                 onClick={() => onDrawerOpenChange(false)}
-                className="border-muted/30 h-11 w-full rounded-xl text-xs font-bold"
+                className="border-muted/30 h-11 w-full rounded-xl text-xs font-semibold"
               >
                 Tutup
               </Button>

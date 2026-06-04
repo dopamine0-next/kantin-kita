@@ -21,13 +21,10 @@ export function Restaurants() {
     <div className="flex flex-col gap-3 px-4 pt-3 pb-8">
       {/* Section Header */}
       <div className="flex items-center justify-between">
-        <h2 className="text-foreground text-base font-bold tracking-tight">
+        <h2 className="text-foreground text-base font-semibold">
           Kios Terdekat di {activeLocationName}
         </h2>
-        <Link
-          href="/search-list"
-          className="text-primary text-xs font-black tracking-wider uppercase hover:underline"
-        >
+        <Link href="/search-list" className="text-primary text-xs font-semibold hover:underline">
           Lihat Semua
         </Link>
       </div>
@@ -43,7 +40,7 @@ export function Restaurants() {
             <div className="bg-muted/40 mb-4 flex size-16 items-center justify-center rounded-full">
               <Store className="text-muted-foreground/60 size-8" />
             </div>
-            <h3 className="text-foreground text-sm font-bold">Belum Ada Kios Tersedia</h3>
+            <h3 className="text-foreground text-sm font-semibold">Belum Ada Kios Tersedia</h3>
             <p className="text-muted-foreground mt-1.5 max-w-60 text-xs leading-relaxed">
               Belum ada kios yang tersedia di {activeLocationName}. Coba lokasi lain atau kembali
               lagi nanti.

@@ -11,13 +11,13 @@ export function EmptyCart() {
       <div className="bg-primary/10 text-primary mb-4 flex size-16 items-center justify-center rounded-full">
         <ShoppingBag className="size-8" />
       </div>
-      <h2 className="text-foreground text-base font-black">Keranjang Anda Kosong</h2>
+      <h2 className="text-foreground text-base font-semibold">Keranjang Anda Kosong</h2>
       <p className="text-muted-foreground/80 mt-2 max-w-[240px] text-xs leading-relaxed">
         Silakan pilih menu lezat terlebih dahulu dari kios kantin terdekat Anda.
       </p>
       <button
         onClick={() => router.push('/')}
-        className="bg-primary hover:bg-primary/95 text-primary-foreground mt-6 rounded-xl px-5 py-2.5 text-xs font-black shadow-md"
+        className="bg-primary hover:bg-primary/95 text-primary-foreground mt-6 rounded-xl px-5 py-2.5 text-xs font-semibold shadow-md"
       >
         Pesan Sekarang
       </button>

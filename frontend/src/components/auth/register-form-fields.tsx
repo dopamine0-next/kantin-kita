@@ -23,9 +23,7 @@ export function RegisterFormFields({ register, errors }: Props) {
   return (
     <>
       <div className="flex flex-col gap-1.5">
-        <label className="text-foreground pl-1 text-[10px] font-black tracking-wider uppercase">
-          Nama Lengkap
-        </label>
+        <label className="text-foreground pl-1 text-[10px] font-semibold">Nama Lengkap</label>
         <div className="relative">
           <User className="text-muted-foreground absolute top-1/2 left-4 size-4 -translate-y-1/2" />
           <Input
@@ -42,9 +40,7 @@ export function RegisterFormFields({ register, errors }: Props) {
 
       <div className="grid grid-cols-2 gap-4">
         <div className="flex flex-col gap-1.5">
-          <label className="text-foreground pl-1 text-[10px] font-black tracking-wider uppercase">
-            NIM
-          </label>
+          <label className="text-foreground pl-1 text-[10px] font-semibold">NIM</label>
           <div className="relative">
             <IdCard className="text-muted-foreground absolute top-1/2 left-4 size-4 -translate-y-1/2" />
             <Input
@@ -59,9 +55,7 @@ export function RegisterFormFields({ register, errors }: Props) {
           )}
         </div>
         <div className="flex flex-col gap-1.5">
-          <label className="text-foreground pl-1 text-[10px] font-black tracking-wider uppercase">
-            Semester
-          </label>
+          <label className="text-foreground pl-1 text-[10px] font-semibold">Semester</label>
           <div className="relative">
             <GraduationCap className="text-muted-foreground absolute top-1/2 left-4 size-4 -translate-y-1/2" />
             <Input
@@ -81,9 +75,7 @@ export function RegisterFormFields({ register, errors }: Props) {
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <label className="text-foreground pl-1 text-[10px] font-black tracking-wider uppercase">
-          Kata Sandi
-        </label>
+        <label className="text-foreground pl-1 text-[10px] font-semibold">Kata Sandi</label>
         <div className="relative">
           <Lock className="text-muted-foreground absolute top-1/2 left-4 size-4 -translate-y-1/2" />
           <Input
@@ -99,9 +91,7 @@ export function RegisterFormFields({ register, errors }: Props) {
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <label className="text-foreground pl-1 text-[10px] font-black tracking-wider uppercase">
-          Konfirmasi Sandi
-        </label>
+        <label className="text-foreground pl-1 text-[10px] font-semibold">Konfirmasi Sandi</label>
         <div className="relative">
           <Lock className="text-muted-foreground absolute top-1/2 left-4 size-4 -translate-y-1/2" />
           <Input

@@ -59,7 +59,7 @@ export default function LoginPage() {
       </Link>
 
       <div className="mt-10 flex flex-col gap-2">
-        <h1 className="text-foreground text-3xl font-black tracking-tight">Selamat Datang!</h1>
+        <h1 className="text-foreground text-3xl font-semibold">Selamat Datang!</h1>
         <p className="text-muted-foreground text-sm font-medium">
           Masuk ke akun KantinKita untuk mulai memesan makanan favoritmu.
         </p>
@@ -67,9 +67,7 @@ export default function LoginPage() {
 
       <form onSubmit={handleSubmit(onSubmit)} className="mt-10 flex flex-col gap-5">
         <div className="flex flex-col gap-2">
-          <label className="text-foreground pl-1 text-xs font-black tracking-wider uppercase">
-            NIM
-          </label>
+          <label className="text-foreground pl-1 text-xs font-semibold">NIM</label>
           <div className="relative">
             <User className="text-muted-foreground absolute top-1/2 left-4 size-4 -translate-y-1/2" />
             <Input
@@ -86,10 +84,8 @@ export default function LoginPage() {
 
         <div className="flex flex-col gap-2">
           <div className="flex items-center justify-between pl-1">
-            <label className="text-foreground text-xs font-black tracking-wider uppercase">
-              Kata Sandi
-            </label>
-            <Link href="#" className="text-primary text-xs font-bold hover:underline">
+            <label className="text-foreground text-xs font-semibold">Kata Sandi</label>
+            <Link href="#" className="text-primary text-xs font-semibold hover:underline">
               Lupa Sandi?
             </Link>
           </div>
@@ -112,7 +108,7 @@ export default function LoginPage() {
         <Button
           type="submit"
           disabled={isLoading}
-          className="bg-primary shadow-primary/25 hover:bg-primary/95 mt-4 h-13 w-full rounded-2xl text-sm font-black tracking-wide shadow-lg"
+          className="bg-primary shadow-primary/25 hover:bg-primary/95 mt-4 h-13 w-full rounded-2xl text-sm font-semibold shadow-lg"
         >
           {isLoading ? (
             <div className="border-background size-5 animate-spin rounded-full border-2 border-t-transparent" />
@@ -128,7 +124,7 @@ export default function LoginPage() {
       <div className="mt-auto pt-8 text-center">
         <p className="text-muted-foreground text-xs font-medium">
           Belum punya akun?{' '}
-          <Link href="/register" className="text-primary font-black hover:underline">
+          <Link href="/register" className="text-primary font-semibold hover:underline">
             Daftar Di Sini
           </Link>
         </p>

@@ -11,7 +11,7 @@ export function PromoMarquee() {
   if (marqueeItems.length === 0)
     return (
       <div className="border-border bg-muted/50 flex h-10 w-full items-center justify-center border-y">
-        <span className="text-muted-foreground/60 text-xs font-semibold tracking-wide">
+        <span className="text-muted-foreground/60 text-xs font-semibold">
           Belum ada promo saat ini
         </span>
       </div>
@@ -48,7 +48,7 @@ export function PromoMarquee() {
         {duplicatedItems.map((item, index) => (
           <div
             key={`${item.id}-${index}`}
-            className="text-primary-foreground flex shrink-0 items-center gap-2 text-xs font-extrabold tracking-wider uppercase"
+            className="text-primary-foreground flex shrink-0 items-center gap-2 text-xs font-semibold"
           >
             <span>{item.text}</span>
             <span className="text-primary-foreground/40 mx-2">•</span>

@@ -107,7 +107,7 @@ export default function SearchListContainer({ initialQuery }: SearchListContaine
         {/* Menu Items Results */}
         {menuResults.length > 0 && (
           <div className="flex flex-col gap-3">
-            <h3 className="text-foreground text-xs font-bold tracking-wider uppercase">Menu</h3>
+            <h3 className="text-foreground text-xs font-semibold">Menu</h3>
             <div className="flex flex-col gap-2">
               {menuResults.map((menu, idx) => (
                 <MenuCard key={menu.id} menu={menu} index={idx} />
@@ -119,13 +119,11 @@ export default function SearchListContainer({ initialQuery }: SearchListContaine
         {/* Canteen Stalls / Restaurant List Results */}
         <div className="flex flex-col gap-3">
           <div className="flex items-center justify-between">
-            <h3 className="text-foreground text-xs font-bold tracking-wider uppercase">
-              Kios Kantin
-            </h3>
+            <h3 className="text-foreground text-xs font-semibold">Kios Kantin</h3>
             {selectedFilters.length > 0 && (
               <button
                 onClick={() => setSelectedFilters([])}
-                className="text-primary text-xs font-bold hover:underline"
+                className="text-primary text-xs font-semibold hover:underline"
               >
                 Reset Filter
               </button>
@@ -150,7 +148,9 @@ export default function SearchListContainer({ initialQuery }: SearchListContaine
                 <div className="bg-muted/40 mb-4 flex size-16 items-center justify-center rounded-full">
                   <Sparkles className="text-muted-foreground/60 animate-spin-slow size-8" />
                 </div>
-                <h3 className="text-foreground text-sm font-bold">Kios Kantin Tidak Ditemukan</h3>
+                <h3 className="text-foreground text-sm font-semibold">
+                  Kios Kantin Tidak Ditemukan
+                </h3>
                 <p className="text-muted-foreground mt-1.5 max-w-[220px] text-xs leading-relaxed">
                   Tidak ada kios yang cocok dengan filter atau kata kunci &ldquo;{searchQuery}
                   &rdquo; Anda. Silakan reset filter.

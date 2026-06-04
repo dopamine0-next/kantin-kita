@@ -13,15 +13,13 @@ export function RestaurantInfoCard({ restaurant }: RestaurantInfoCardProps) {
     <div className="bg-card/90 border-muted/30 relative z-10 mx-4 -mt-14 flex flex-col gap-3.5 rounded-3xl border p-4 shadow-2xl backdrop-blur-xl">
       <div className="flex items-start justify-between gap-2">
         <div className="flex flex-col gap-0.5">
-          <h1 className="text-foreground text-lg leading-tight font-black tracking-tight">
-            {restaurant.name}
-          </h1>
+          <h1 className="text-foreground text-lg leading-tight font-semibold">{restaurant.name}</h1>
           <p className="text-muted-foreground/80 text-xs font-medium">{restaurant.cuisine}</p>
         </div>
 
         <Badge
           className={cn(
-            'py-0.8 shrink-0 rounded-lg border-none px-2 text-xs font-bold',
+            'py-0.8 shrink-0 rounded-lg border-none px-2 text-xs font-semibold',
             restaurant.isOpen
               ? 'bg-primary text-primary-foreground'
               : 'bg-destructive/10 text-destructive'
@@ -31,7 +29,7 @@ export function RestaurantInfoCard({ restaurant }: RestaurantInfoCardProps) {
         </Badge>
       </div>
 
-      <div className="border-muted/20 text-muted-foreground/85 flex items-center justify-between border-y py-2.5 text-xs font-bold">
+      <div className="border-muted/20 text-muted-foreground/85 flex items-center justify-between border-y py-2.5 text-xs font-semibold">
         <div className="gap-0.8 flex items-center text-amber-500">
           <Star className="size-4 fill-amber-500 stroke-none" />
           <span className="text-foreground">{restaurant.rating}</span>
@@ -60,7 +58,7 @@ export function RestaurantInfoCard({ restaurant }: RestaurantInfoCardProps) {
           {restaurant.promos.map((promo, idx) => (
             <Badge
               key={idx}
-              className="py-0.8 gap-0.8 bg-primary text-primary-foreground hover:bg-primary/90 flex shrink-0 items-center rounded-lg border-none px-2 text-xs font-extrabold whitespace-nowrap"
+              className="py-0.8 gap-0.8 bg-primary text-primary-foreground hover:bg-primary/90 flex shrink-0 items-center rounded-lg border-none px-2 text-xs font-semibold whitespace-nowrap"
             >
               <BadgePercent className="size-3.5" />
               <span>{promo}</span>

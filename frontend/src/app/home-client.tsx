@@ -64,12 +64,8 @@ export default function HomeClient() {
           {/* Unified Category & Promo Section */}
           <section className="flex flex-col gap-1">
             <div className="px-4 pb-1">
-              <h2 className="text-foreground text-base font-black tracking-tight">
-                Kategori & Promo
-              </h2>
-              <p className="text-muted-foreground text-xs font-medium tracking-wider uppercase">
-                Temukan promo terbaikmu
-              </p>
+              <h2 className="text-foreground text-base font-semibold">Kategori & Promo</h2>
+              <p className="text-muted-foreground text-xs font-medium">Temukan promo terbaikmu</p>
             </div>
 
             <div className="flex flex-col gap-2">

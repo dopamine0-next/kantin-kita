@@ -16,9 +16,7 @@ interface CartItemListProps {
 export function CartItemList({ items, onUpdateQty, onUpdateNote, onEditItem }: CartItemListProps) {
   return (
     <div className="flex flex-col gap-3">
-      <h2 className="text-foreground pl-1 text-xs font-black tracking-wider uppercase">
-        Daftar Makanan & Minuman
-      </h2>
+      <h2 className="text-foreground pl-1 text-xs font-semibold">Daftar Makanan & Minuman</h2>
 
       <div className="flex flex-col gap-3">
         {items.map((item) => (
@@ -41,7 +39,7 @@ export function CartItemList({ items, onUpdateQty, onUpdateNote, onEditItem }: C
               {/* Info and price */}
               <div className="flex min-w-0 flex-1 flex-col justify-between">
                 <div className="flex flex-col">
-                  <h3 className="text-foreground line-clamp-1 text-xs leading-snug font-black">
+                  <h3 className="text-foreground line-clamp-1 text-xs leading-snug font-semibold">
                     {item.name}
                   </h3>
 
@@ -58,7 +56,7 @@ export function CartItemList({ items, onUpdateQty, onUpdateNote, onEditItem }: C
                   </div>
                 </div>
 
-                <div className="text-foreground mt-1 text-xs font-black">
+                <div className="text-foreground mt-1 text-xs font-semibold">
                   Subtotal: Rp {(item.price * item.qty).toLocaleString('id-ID')}
                 </div>
               </div>
@@ -67,7 +65,7 @@ export function CartItemList({ items, onUpdateQty, onUpdateNote, onEditItem }: C
               <div className="flex flex-col items-end justify-between gap-2">
                 <button
                   onClick={() => onEditItem(item)}
-                  className="bg-primary/5 text-primary hover:bg-primary/10 flex items-center gap-1 rounded-lg px-2 py-1 text-xs font-black transition-colors"
+                  className="bg-primary/5 text-primary hover:bg-primary/10 flex items-center gap-1 rounded-lg px-2 py-1 text-xs font-semibold transition-colors"
                 >
                   <Settings2 className="size-3" />
                   <span>Ubah</span>
@@ -80,7 +78,7 @@ export function CartItemList({ items, onUpdateQty, onUpdateNote, onEditItem }: C
                   >
                     <Minus className="size-2.5" />
                   </button>
-                  <span className="text-foreground w-5 text-center text-xs font-black">
+                  <span className="text-foreground w-5 text-center text-xs font-semibold">
                     {item.qty}
                   </span>
                   <button
@@ -102,7 +100,7 @@ export function CartItemList({ items, onUpdateQty, onUpdateNote, onEditItem }: C
                   placeholder="Tambah catatan rasa..."
                   value={item.note || ''}
                   onChange={(e) => onUpdateNote(item.id, e.target.value)}
-                  className="text-foreground placeholder:text-muted-foreground/45 w-full border-none bg-transparent py-0.5 text-xs font-bold focus:ring-0 focus:outline-none"
+                  className="text-foreground placeholder:text-muted-foreground/45 w-full border-none bg-transparent py-0.5 text-xs font-semibold focus:ring-0 focus:outline-none"
                 />
               </div>
             </div>

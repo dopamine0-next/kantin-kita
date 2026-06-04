@@ -90,13 +90,13 @@ export function ProfileContainer() {
             alt={user.name}
             className="object-cover"
           />
-          <AvatarFallback className="bg-primary text-primary-foreground text-2xl font-bold">
+          <AvatarFallback className="bg-primary text-primary-foreground text-2xl font-semibold">
             {user.name.charAt(0).toUpperCase()}
           </AvatarFallback>
         </Avatar>
 
         <div className="mt-3 flex flex-col items-center text-center">
-          <h2 className="text-2xl font-extrabold tracking-tight">{user.name}</h2>
+          <h2 className="text-2xl font-semibold">{user.name}</h2>
           <div className="text-muted-foreground mt-1 flex items-center gap-2 text-sm font-medium">
             <span>NIM: {user.nim}</span>
             <span className="bg-muted-foreground/50 size-1 rounded-full" />
@@ -110,19 +110,15 @@ export function ProfileContainer() {
         {stats.map((stat, i) => (
           <div key={i} className="flex flex-1 flex-col items-center gap-1 rounded-xl py-3">
             <stat.icon className="text-primary size-5" />
-            <span className="text-sm font-black">{stat.value}</span>
-            <span className="text-muted-foreground text-[10px] font-bold tracking-wider uppercase">
-              {stat.label}
-            </span>
+            <span className="text-sm font-semibold">{stat.value}</span>
+            <span className="text-muted-foreground text-[10px] font-semibold">{stat.label}</span>
           </div>
         ))}
       </div>
 
       {/* Menu */}
       <div className="mt-8 px-4">
-        <h3 className="text-foreground/60 mb-3 px-1 text-[11px] font-bold tracking-widest uppercase">
-          Pengaturan
-        </h3>
+        <h3 className="text-foreground/60 mb-3 px-1 text-[11px] font-semibold">Pengaturan</h3>
 
         <div className="bg-muted/40 overflow-hidden rounded-2xl">
           {menuItems.map((item, index) => {

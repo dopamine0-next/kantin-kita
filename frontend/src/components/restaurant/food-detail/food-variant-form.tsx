@@ -142,7 +142,7 @@ export function FoodVariantForm({
         >
           <ChevronLeft className="size-4" />
         </button>
-        <DialogTitle className="text-foreground text-lg leading-tight font-black tracking-tight">
+        <DialogTitle className="text-foreground text-lg leading-tight font-semibold">
           Pilihan Varian
         </DialogTitle>
       </DialogHeader>
@@ -162,9 +162,7 @@ export function FoodVariantForm({
       />
 
       <div className="mt-6">
-        <h4 className="text-foreground mb-2 text-xs font-black tracking-wider uppercase">
-          Catatan Khusus
-        </h4>
+        <h4 className="text-foreground mb-2 text-xs font-semibold">Catatan Khusus</h4>
         <Textarea
           placeholder="Contoh: Kuah dipisah, tidak pakai bawang..."
           value={note}

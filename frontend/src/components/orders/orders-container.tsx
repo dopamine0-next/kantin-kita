@@ -72,7 +72,7 @@ export function OrdersContainer() {
   return (
     <div className="animate-fade-in flex min-h-full flex-col p-4">
       <div className="mb-4">
-        <h1 className="text-xl font-extrabold tracking-tight">Riwayat Pesanan</h1>
+        <h1 className="text-xl font-semibold">Riwayat Pesanan</h1>
         <p className="text-muted-foreground text-sm font-medium">Lacak semua pesananmu di sini.</p>
       </div>
 
@@ -86,7 +86,7 @@ export function OrdersContainer() {
               <TabsTrigger
                 key={tab.value}
                 value={tab.value}
-                className="shrink-0 rounded-none px-3 py-2.5 text-xs font-bold group-data-horizontal/tabs:after:bottom-0"
+                className="shrink-0 rounded-none px-3 py-2.5 text-xs font-semibold group-data-horizontal/tabs:after:bottom-0"
               >
                 {tab.label}
               </TabsTrigger>

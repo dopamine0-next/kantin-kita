@@ -17,7 +17,7 @@ export function ModeSelector({ activeMode, onModeChange }: ModeSelectorProps) {
         <button
           onClick={() => onModeChange('dine-in')}
           className={cn(
-            'relative z-10 flex flex-1 items-center justify-center gap-2 rounded-xl py-3 text-xs font-bold transition-all duration-300',
+            'relative z-10 flex flex-1 items-center justify-center gap-2 rounded-xl py-3 text-xs font-semibold transition-all duration-300',
             activeMode === 'dine-in'
               ? 'text-primary-foreground'
               : 'text-muted-foreground/85 hover:text-foreground'
@@ -37,7 +37,7 @@ export function ModeSelector({ activeMode, onModeChange }: ModeSelectorProps) {
         <button
           onClick={() => onModeChange('pickup')}
           className={cn(
-            'relative z-10 flex flex-1 items-center justify-center gap-2 rounded-xl py-3 text-xs font-bold transition-all duration-300',
+            'relative z-10 flex flex-1 items-center justify-center gap-2 rounded-xl py-3 text-xs font-semibold transition-all duration-300',
             activeMode === 'pickup'
               ? 'text-primary-foreground'
               : 'text-muted-foreground/85 hover:text-foreground'

@@ -75,14 +75,12 @@ export default function SearchClient() {
         {history.length > 0 && (
           <div className="flex flex-col gap-2.5">
             <div className="flex items-center justify-between">
-              <h3 className="text-foreground text-xs font-bold tracking-wider uppercase">
-                Pencarian Terakhir
-              </h3>
+              <h3 className="text-foreground text-xs font-semibold">Pencarian Terakhir</h3>
               <Button
                 onClick={clearAllHistory}
                 variant="ghost"
                 size="sm"
-                className="text-destructive hover:text-destructive flex h-auto items-center gap-1 p-0 text-xs font-bold hover:bg-transparent"
+                className="text-destructive hover:text-destructive flex h-auto items-center gap-1 p-0 text-xs font-semibold hover:bg-transparent"
               >
                 <Trash2 className="size-3" />
                 Hapus Semua

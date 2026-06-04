@@ -40,7 +40,7 @@ export function MenuCard({ menu, index = 0 }: MenuCardProps) {
 
       <div className="flex min-w-0 flex-1 items-center justify-between gap-2">
         <div className="flex min-w-0 flex-col gap-0.5">
-          <h4 className="text-foreground group-hover:text-primary line-clamp-1 text-xs leading-snug font-bold tracking-tight transition-colors">
+          <h4 className="text-foreground group-hover:text-primary line-clamp-1 text-xs leading-snug font-semibold transition-colors">
             {menu.name}
           </h4>
           <span className="text-muted-foreground line-clamp-1 text-[11px] leading-none font-medium">
@@ -55,7 +55,7 @@ export function MenuCard({ menu, index = 0 }: MenuCardProps) {
             <span>{menu.prepTime}</span>
           </div>
         </div>
-        <span className="text-primary shrink-0 text-xs font-extrabold tracking-tight">
+        <span className="text-primary shrink-0 text-xs font-semibold">
           {formatRupiah(menu.price)}
         </span>
       </div>

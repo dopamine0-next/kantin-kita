@@ -17,7 +17,7 @@ export function CheckoutHeader() {
       >
         <ChevronLeft className="mr-0.5 size-5" />
       </motion.button>
-      <h1 className="text-foreground text-sm font-black tracking-tight">Konfirmasi Pembayaran</h1>
+      <h1 className="text-foreground text-sm font-semibold">Konfirmasi Pembayaran</h1>
       <div className="size-9" /> {/* Spacer */}
     </div>
   )

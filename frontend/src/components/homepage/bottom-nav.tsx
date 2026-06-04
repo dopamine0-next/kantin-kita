@@ -28,7 +28,7 @@ export function BottomNav() {
               key={tab.href}
               href={tab.href}
               className={cn(
-                'relative flex flex-1 flex-col items-center justify-center gap-1 py-2 text-xs font-bold transition-all active:scale-95',
+                'relative flex flex-1 flex-col items-center justify-center gap-1 py-2 text-xs font-semibold transition-all active:scale-95',
                 isActive ? 'text-primary' : 'text-muted-foreground/80 hover:text-foreground'
               )}
             >
@@ -44,7 +44,7 @@ export function BottomNav() {
                   isActive ? 'scale-110 stroke-[2.5]' : 'stroke-[2]'
                 )}
               />
-              <span className={cn(isActive ? 'font-extrabold' : 'font-semibold')}>{tab.label}</span>
+              <span className="font-semibold">{tab.label}</span>
             </Link>
           )
         })}

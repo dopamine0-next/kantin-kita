@@ -16,7 +16,7 @@ export function RestaurantCategoryTabs({
       <button
         onClick={() => setSelectedCategory('Semua')}
         className={cn(
-          'shrink-0 rounded-xl border px-3.5 py-2 text-xs font-bold whitespace-nowrap transition-all duration-300',
+          'shrink-0 rounded-xl border px-3.5 py-2 text-xs font-semibold whitespace-nowrap transition-all duration-300',
           selectedCategory === 'Semua'
             ? 'bg-primary border-primary shadow-primary/10 text-primary-foreground shadow-sm'
             : 'bg-card border-muted/20 text-muted-foreground hover:text-foreground'
@@ -30,7 +30,7 @@ export function RestaurantCategoryTabs({
           key={category}
           onClick={() => setSelectedCategory(category)}
           className={cn(
-            'shrink-0 rounded-xl border px-3.5 py-2 text-xs font-bold whitespace-nowrap transition-all duration-300',
+            'shrink-0 rounded-xl border px-3.5 py-2 text-xs font-semibold whitespace-nowrap transition-all duration-300',
             selectedCategory === category
               ? 'bg-primary border-primary shadow-primary/10 text-primary-foreground shadow-sm'
               : 'bg-card border-muted/20 text-muted-foreground hover:text-foreground'

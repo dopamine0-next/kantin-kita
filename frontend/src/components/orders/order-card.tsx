@@ -66,7 +66,7 @@ export function OrderCard({ order, index = 0 }: OrderCardProps) {
         <div className="flex h-full min-w-0 flex-1 flex-col justify-between gap-1">
           <div className="flex flex-col gap-0.5">
             <div className="flex items-center justify-between gap-1">
-              <h3 className="text-foreground hover:text-primary line-clamp-1 text-sm leading-snug font-bold tracking-tight transition-colors">
+              <h3 className="text-foreground hover:text-primary line-clamp-1 text-sm leading-snug font-semibold transition-colors">
                 {order.restaurant_name}
               </h3>
             </div>
@@ -91,14 +91,16 @@ export function OrderCard({ order, index = 0 }: OrderCardProps) {
       {/* Footer Total */}
       <div className="flex items-center justify-between">
         <span className="text-xs font-semibold">Total Pembayaran</span>
-        <span className="text-primary text-sm font-bold">{formatCurrency(order.total_amount)}</span>
+        <span className="text-primary text-sm font-semibold">
+          {formatCurrency(order.total_amount)}
+        </span>
       </div>
 
       {/* Conditional Action Button */}
       {order.status === 'pending' && order.payment_status === 'unpaid' && order.payment_url && (
         <Button
           size="sm"
-          className="mt-1 w-full rounded-xl font-bold"
+          className="mt-1 w-full rounded-xl font-semibold"
           onClick={(e) => {
             e.stopPropagation()
             window.location.href = order.payment_url!
@@ -111,7 +113,7 @@ export function OrderCard({ order, index = 0 }: OrderCardProps) {
       {order.status === 'ready' && (
         <Button
           size="sm"
-          className="mt-1 w-full rounded-xl font-bold"
+          className="mt-1 w-full rounded-xl font-semibold"
           onClick={(e) => {
             e.stopPropagation()
             toast.success('Pesanan telah dikonfirmasi sudah diambil!')

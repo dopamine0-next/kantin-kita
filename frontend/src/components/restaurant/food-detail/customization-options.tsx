@@ -30,9 +30,7 @@ export function CustomizationOptions({
     <>
       {customizations.map((cust) => (
         <div key={cust.title} className="mt-6">
-          <h4 className="text-foreground mb-3 text-xs font-black tracking-wider uppercase">
-            {cust.title}
-          </h4>
+          <h4 className="text-foreground mb-3 text-xs font-semibold">{cust.title}</h4>
           <div className="bg-card/25 border-muted/20 flex flex-col gap-2 rounded-2xl border p-3">
             {cust.options.map((opt) => {
               if (cust.type === 'choice') {
@@ -62,7 +60,7 @@ export function CustomizationOptions({
                       </div>
                       <span
                         className={cn(
-                          'text-xs font-bold transition-colors',
+                          'text-xs font-semibold transition-colors',
                           isSelected
                             ? 'text-primary'
                             : 'text-muted-foreground group-hover:text-foreground'
@@ -73,7 +71,7 @@ export function CustomizationOptions({
                     </div>
                     <span
                       className={cn(
-                        'rounded-lg border px-2 py-0.5 text-xs font-black',
+                        'rounded-lg border px-2 py-0.5 text-xs font-semibold',
                         choice.price > 0
                           ? isSelected
                             ? 'border-primary/20 bg-primary/10 text-primary'
@@ -112,7 +110,7 @@ export function CustomizationOptions({
                       </div>
                       <span
                         className={cn(
-                          'text-xs font-bold transition-colors',
+                          'text-xs font-semibold transition-colors',
                           isChecked
                             ? 'text-primary'
                             : 'text-muted-foreground group-hover:text-foreground'
@@ -123,7 +121,7 @@ export function CustomizationOptions({
                     </div>
                     <span
                       className={cn(
-                        'rounded-lg border px-2 py-0.5 text-xs font-black',
+                        'rounded-lg border px-2 py-0.5 text-xs font-semibold',
                         isChecked
                           ? 'bg-primary/10 border-primary/20 text-primary'
                           : 'bg-muted/60 border-muted text-muted-foreground'

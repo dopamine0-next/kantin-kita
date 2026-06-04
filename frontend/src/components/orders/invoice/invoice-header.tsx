@@ -9,7 +9,7 @@ export function InvoiceHeader() {
       <Link href="/orders" className="bg-muted/50 hover:bg-muted rounded-full p-2">
         <ArrowLeft className="size-5" />
       </Link>
-      <h1 className="text-base font-bold">Detail Pesanan</h1>
+      <h1 className="text-base font-semibold">Detail Pesanan</h1>
       <div className="w-9" /> {/* Spacer */}
     </div>
   )

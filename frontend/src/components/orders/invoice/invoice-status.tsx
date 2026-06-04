@@ -28,7 +28,7 @@ export function InvoiceStatus({ orderId, status, paymentStatus, paymentUrl }: In
         <ReceiptText className="size-10" />
       </div>
       <div className="flex flex-col gap-1">
-        <h2 className="text-xl font-black tracking-tight">Invoice Pesanan</h2>
+        <h2 className="text-xl font-semibold">Invoice Pesanan</h2>
         <p className="text-muted-foreground text-sm font-medium">ID: {orderId.toUpperCase()}</p>
       </div>
       <span className="text-muted-foreground mt-1 text-sm font-semibold">{label}</span>
@@ -36,7 +36,7 @@ export function InvoiceStatus({ orderId, status, paymentStatus, paymentUrl }: In
       {status === 'pending' && paymentStatus === 'unpaid' && paymentUrl && (
         <Button
           size="sm"
-          className="mt-3 w-full rounded-xl font-bold"
+          className="mt-3 w-full rounded-xl font-semibold"
           onClick={() => {
             window.location.href = paymentUrl
           }}

@@ -74,7 +74,7 @@ export default function RegisterPage() {
       </Link>
 
       <div className="mt-8 flex flex-col gap-2">
-        <h1 className="text-foreground text-3xl font-black tracking-tight">Buat Akun Baru</h1>
+        <h1 className="text-foreground text-3xl font-semibold">Buat Akun Baru</h1>
         <p className="text-muted-foreground text-sm font-medium">
           Bergabung dengan KantinKita untuk kemudahan pesan makan di kampus.
         </p>
@@ -86,7 +86,7 @@ export default function RegisterPage() {
         <Button
           type="submit"
           disabled={isLoading}
-          className="bg-primary shadow-primary/25 hover:bg-primary/95 mt-4 h-13 w-full rounded-2xl text-sm font-black tracking-wide shadow-lg"
+          className="bg-primary shadow-primary/25 hover:bg-primary/95 mt-4 h-13 w-full rounded-2xl text-sm font-semibold shadow-lg"
         >
           {isLoading ? (
             <div className="border-background size-5 animate-spin rounded-full border-2 border-t-transparent" />
@@ -102,7 +102,7 @@ export default function RegisterPage() {
       <div className="mt-8 text-center">
         <p className="text-muted-foreground text-xs font-medium">
           Sudah punya akun?{' '}
-          <Link href="/login" className="text-primary font-black hover:underline">
+          <Link href="/login" className="text-primary font-semibold hover:underline">
             Masuk Sekarang
           </Link>
         </p>

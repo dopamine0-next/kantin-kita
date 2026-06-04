@@ -19,7 +19,7 @@ export function RestaurantPopularMenus({ menus, onFoodClick }: RestaurantPopular
   return (
     <div className="mt-6 px-4">
       <div className="mb-3 flex items-center justify-between">
-        <h2 className="text-foreground flex items-center gap-1.5 text-sm font-black tracking-tight">
+        <h2 className="text-foreground flex items-center gap-1.5 text-sm font-semibold">
           <Sparkles className="size-4 fill-amber-500 text-amber-500" />
           Menu Terlaris
         </h2>
@@ -39,17 +39,17 @@ export function RestaurantPopularMenus({ menus, onFoodClick }: RestaurantPopular
                 sizes="50vw"
                 className="object-cover transition-transform duration-500 hover:scale-105"
               />
-              <div className="text-primary-foreground absolute top-2 left-2 flex items-center gap-1 rounded-full bg-black/60 px-2 py-0.5 text-xs font-bold backdrop-blur-md">
+              <div className="text-primary-foreground absolute top-2 left-2 flex items-center gap-1 rounded-full bg-black/60 px-2 py-0.5 text-xs font-semibold backdrop-blur-md">
                 <Star className="size-3 fill-amber-500 stroke-none text-amber-500" />
                 {item.rating || 'Baru'}
               </div>
             </div>
             <div className="flex flex-1 flex-col justify-between p-2.5">
-              <h3 className="text-foreground line-clamp-2 text-xs leading-snug font-bold tracking-tight">
+              <h3 className="text-foreground line-clamp-2 text-xs leading-snug font-semibold">
                 {item.name}
               </h3>
               <div className="mt-2 flex items-center justify-between">
-                <span className="text-primary text-xs font-black">
+                <span className="text-primary text-xs font-semibold">
                   Rp {item.price.toLocaleString('id-ID')}
                 </span>
                 <div

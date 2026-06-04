@@ -45,7 +45,7 @@ export function LocationBar() {
         try {
           const nearest = await locationService.getNearestLocation(
             position.coords.latitude,
-            position.coords.longitude,
+            position.coords.longitude
           )
           handleSelect(nearest)
           toast.success(`Lokasi Anda terdeteksi lebih dekat ke: ${nearest.name}`)
@@ -58,7 +58,7 @@ export function LocationBar() {
       () => {
         toast.error('Gagal mendapatkan lokasi. Pastikan izin lokasi aktif.')
         setIsLocating(false)
-      },
+      }
     )
   }
 
@@ -74,7 +74,7 @@ export function LocationBar() {
             <div className="text-muted-foreground hover:text-primary flex cursor-pointer items-center gap-3 transition-colors">
               <MapPin className="text-primary size-4 shrink-0" />
               <div className="flex flex-col gap-0.5">
-                <span className="text-muted-foreground text-xs leading-none font-semibold tracking-wider uppercase">
+                <span className="text-muted-foreground text-xs leading-none font-semibold">
                   Lokasi Kampus
                 </span>
                 <span className="text-foreground text-sm font-semibold">{selectedCampus.name}</span>

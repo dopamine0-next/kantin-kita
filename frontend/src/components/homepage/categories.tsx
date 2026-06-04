@@ -23,7 +23,7 @@ export function Categories({ selectedCategory, setSelectedCategory }: Categories
             ))}
           </div>
         ) : categories.length === 0 ? (
-          <div className="bg-muted/30 text-muted-foreground/60 inline-flex items-center gap-2 rounded-2xl px-4 py-2.5 text-xs font-bold">
+          <div className="bg-muted/30 text-muted-foreground/60 inline-flex items-center gap-2 rounded-2xl px-4 py-2.5 text-xs font-semibold">
             Belum ada kategori
           </div>
         ) : (
@@ -34,7 +34,7 @@ export function Categories({ selectedCategory, setSelectedCategory }: Categories
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
                 className={cn(
-                  'flex items-center gap-2 rounded-2xl px-4 py-2.5 text-xs font-bold whitespace-nowrap transition-all duration-300 active:scale-95',
+                  'flex items-center gap-2 rounded-2xl px-4 py-2.5 text-xs font-semibold whitespace-nowrap transition-all duration-300 active:scale-95',
                   isActive
                     ? 'bg-primary text-primary-foreground shadow-primary/20 scale-102 shadow-md'
                     : 'bg-muted/40 hover:bg-muted text-muted-foreground/90 border-muted/30 border'

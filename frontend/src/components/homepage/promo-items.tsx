@@ -71,13 +71,13 @@ export function PromoItems({ selectedCategory }: PromoItemsProps) {
 
                 {/* Promo Badge floating top-left */}
                 {food.badgeText && (
-                  <Badge className="bg-primary text-primary-foreground hover:bg-primary/90 absolute top-2 left-2 rounded-lg border-none px-2 py-0.5 text-xs font-extrabold tracking-wider shadow-sm">
+                  <Badge className="bg-primary text-primary-foreground hover:bg-primary/90 absolute top-2 left-2 rounded-lg border-none px-2 py-0.5 text-xs font-semibold shadow-sm">
                     {food.badgeText}
                   </Badge>
                 )}
 
                 {/* Rating floating top-right */}
-                <div className="bg-secondary/80 absolute top-2 right-2 flex items-center gap-0.5 rounded-lg px-1.5 py-0.5 text-xs font-bold text-amber-500 backdrop-blur-md">
+                <div className="bg-secondary/80 absolute top-2 right-2 flex items-center gap-0.5 rounded-lg px-1.5 py-0.5 text-xs font-semibold text-amber-500 backdrop-blur-md">
                   <Star className="size-3 fill-amber-500 stroke-none" />
                   <span>{food.rating}</span>
                 </div>
@@ -86,7 +86,7 @@ export function PromoItems({ selectedCategory }: PromoItemsProps) {
               {/* Card details */}
               <CardContent className="flex flex-col gap-1.5 p-3">
                 <div className="flex flex-col">
-                  <h3 className="text-foreground group-hover:text-primary line-clamp-1 text-xs leading-snug font-bold tracking-tight transition-colors">
+                  <h3 className="text-foreground group-hover:text-primary line-clamp-1 text-xs leading-snug font-semibold transition-colors">
                     {food.name}
                   </h3>
                   <div className="text-muted-foreground/80 flex items-center gap-1 text-xs font-medium">
@@ -103,7 +103,7 @@ export function PromoItems({ selectedCategory }: PromoItemsProps) {
                         {formatRupiah(food.originalPrice)}
                       </span>
                     )}
-                    <span className="text-primary text-sm leading-none font-extrabold tracking-tight">
+                    <span className="text-primary text-sm leading-none font-semibold">
                       {formatRupiah(food.price)}
                     </span>
                   </div>

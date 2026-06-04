@@ -22,7 +22,7 @@ export function FilterBadgesRow({ selectedFilters, onToggleFilter }: FilterBadge
           <button
             key={filter.id}
             onClick={() => onToggleFilter(filter.id)}
-            className={`flex items-center gap-1 rounded-full border px-3 py-1.5 text-xs font-bold whitespace-nowrap transition-all duration-300 active:scale-95 ${
+            className={`flex items-center gap-1 rounded-full border px-3 py-1.5 text-xs font-semibold whitespace-nowrap transition-all duration-300 active:scale-95 ${
               isSelected
                 ? 'bg-primary text-primary-foreground border-primary shadow-sm'
                 : 'bg-muted/30 hover:bg-muted text-muted-foreground border-muted/50'

@@ -52,30 +52,30 @@ export function UserNav() {
                   }
                   alt={user.name}
                 />
-                <AvatarFallback className="bg-primary/10 text-primary text-xs font-bold">
+                <AvatarFallback className="bg-primary/10 text-primary text-xs font-semibold">
                   {user.name.substring(0, 2).toUpperCase()}
                 </AvatarFallback>
               </Avatar>
               <div className="flex flex-col">
-                <span className="text-muted-foreground text-[10px] leading-none font-bold tracking-tight uppercase">
+                <span className="text-muted-foreground text-[10px] leading-none font-semibold">
                   Semester {user.semester}
                 </span>
-                <span className="text-foreground line-clamp-1 text-sm font-black tracking-tight">
+                <span className="text-foreground line-clamp-1 text-sm font-semibold">
                   {user.name.split(' ')[0]} <span className="animate-bounce">👋</span>
                 </span>
               </div>
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" className="w-56 rounded-2xl p-2 shadow-xl">
-            <DropdownMenuLabel className="text-muted-foreground px-2 py-1.5 text-xs font-black tracking-widest uppercase">
+            <DropdownMenuLabel className="text-muted-foreground px-2 py-1.5 text-xs font-semibold">
               Akun Saya
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="gap-2 rounded-xl px-2 py-2 text-xs font-bold">
+            <DropdownMenuItem className="gap-2 rounded-xl px-2 py-2 text-xs font-semibold">
               <User className="size-4" />
               Lihat Profil
             </DropdownMenuItem>
-            <DropdownMenuItem className="gap-2 rounded-xl px-2 py-2 text-xs font-bold">
+            <DropdownMenuItem className="gap-2 rounded-xl px-2 py-2 text-xs font-semibold">
               <Settings className="size-4" />
               Pengaturan
             </DropdownMenuItem>
@@ -85,7 +85,7 @@ export function UserNav() {
                 logout()
                 toast.success('Berhasil keluar.')
               }}
-              className="text-destructive focus:text-destructive gap-2 rounded-xl px-2 py-2 text-xs font-black"
+              className="text-destructive focus:text-destructive gap-2 rounded-xl px-2 py-2 text-xs font-semibold"
             >
               <LogOut className="size-4" />
               Keluar Akun
@@ -106,7 +106,7 @@ export function UserNav() {
             <span className="text-muted-foreground text-xs leading-none font-medium">
               Belum Masuk,
             </span>
-            <span className="text-primary text-sm font-black tracking-tight">Masuk Sekarang</span>
+            <span className="text-primary text-sm font-semibold">Masuk Sekarang</span>
           </div>
         </Link>
       )}

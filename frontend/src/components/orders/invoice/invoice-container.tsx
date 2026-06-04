@@ -22,7 +22,7 @@ export function InvoiceContainer({ orderId }: InvoiceContainerProps) {
       <div className="flex min-h-screen items-center justify-center">
         <div className="flex flex-col items-center gap-2">
           <Loader2 className="text-primary size-10 animate-spin" />
-          <h2 className="font-bold">Memuat Detail Pesanan...</h2>
+          <h2 className="font-semibold">Memuat Detail Pesanan...</h2>
         </div>
       </div>
     )
@@ -33,7 +33,7 @@ export function InvoiceContainer({ orderId }: InvoiceContainerProps) {
       <div className="flex min-h-screen items-center justify-center">
         <div className="flex flex-col items-center gap-2">
           <AlertCircle className="text-muted-foreground size-10" />
-          <h2 className="font-bold">Pesanan tidak ditemukan</h2>
+          <h2 className="font-semibold">Pesanan tidak ditemukan</h2>
           <Link href="/orders" className="text-primary mt-2 text-sm underline">
             Kembali ke Riwayat
           </Link>
