@@ -29,8 +29,6 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    private String avatarUrl;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id")
     private Location location;

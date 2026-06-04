@@ -14,7 +14,6 @@ public class UserProfileResponse {
     private String id;
     private String name;
     private String nim;
-    private String avatarUrl;
     private Integer semester;
     private Role role;
     private String locationName;
@@ -25,7 +24,6 @@ public class UserProfileResponse {
                 .id(user.getId())
                 .name(user.getName())
                 .nim(user.getNim())
-                .avatarUrl(user.getAvatarUrl())
                 .semester(user.getSemester())
                 .role(user.getRole())
                 .locationName(user.getLocation() != null ? user.getLocation().getName() : null)

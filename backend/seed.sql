@@ -146,7 +146,6 @@ CREATE TABLE users (
     name VARCHAR(255) NOT NULL,
     nim VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    avatar_url VARCHAR(255),
     location_id VARCHAR(10),
     semester INT,
     role VARCHAR(255) NOT NULL,

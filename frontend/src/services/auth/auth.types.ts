@@ -7,7 +7,6 @@ export interface UserBackend {
   id: string
   name: string
   nim: string
-  avatarUrl: string | null
   semester: number | null
   role: string
   locationName: string | null
