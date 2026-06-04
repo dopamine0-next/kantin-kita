@@ -25,7 +25,7 @@ export default function HomeClient() {
         try {
           const nearest = await locationService.getNearestLocation(
             position.coords.latitude,
-            position.coords.longitude,
+            position.coords.longitude
           )
           updateLocation(nearest.name, nearest.id)
         } catch {
@@ -35,7 +35,7 @@ export default function HomeClient() {
       () => {
         // permission denied or error — silent
       },
-      { timeout: 5000 },
+      { timeout: 5000 }
     )
   }, [user?.locationId, updateLocation])
 
@@ -63,18 +63,13 @@ export default function HomeClient() {
 
           {/* Unified Category & Promo Section */}
           <section className="flex flex-col gap-1">
-            <div className="flex items-center justify-between px-4 pb-1">
-              <div className="flex flex-col">
-                <h2 className="text-foreground text-base font-black tracking-tight">
-                  Kategori & Promo
-                </h2>
-                <p className="text-muted-foreground text-xs font-medium tracking-wider uppercase">
-                  Temukan promo terbaikmu
-                </p>
-              </div>
-              <span className="text-primary cursor-pointer text-xs font-bold hover:underline">
-                Lihat Semua
-              </span>
+            <div className="px-4 pb-1">
+              <h2 className="text-foreground text-base font-black tracking-tight">
+                Kategori & Promo
+              </h2>
+              <p className="text-muted-foreground text-xs font-medium tracking-wider uppercase">
+                Temukan promo terbaikmu
+              </p>
             </div>
 
             <div className="flex flex-col gap-2">
