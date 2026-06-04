@@ -22,6 +22,10 @@ export function Categories({ selectedCategory, setSelectedCategory }: Categories
               <Skeleton key={i} className="h-10 w-24 rounded-2xl" />
             ))}
           </div>
+        ) : categories.length === 0 ? (
+          <div className="bg-muted/30 text-muted-foreground/60 inline-flex items-center gap-2 rounded-2xl px-4 py-2.5 text-xs font-bold">
+            Belum ada kategori
+          </div>
         ) : (
           categories.map((category) => {
             const isActive = selectedCategory === category.id

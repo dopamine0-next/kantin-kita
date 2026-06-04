@@ -8,7 +8,14 @@ export function PromoMarquee() {
   // Jika loading atau kosong, kita bisa mereturn null atau skeleton
   if (isLoading)
     return <div className="border-border bg-secondary h-10 w-full animate-pulse border-y" />
-  if (marqueeItems.length === 0) return null
+  if (marqueeItems.length === 0)
+    return (
+      <div className="border-border bg-muted/50 flex h-10 w-full items-center justify-center border-y">
+        <span className="text-muted-foreground/60 text-xs font-semibold tracking-wide">
+          Belum ada promo saat ini
+        </span>
+      </div>
+    )
 
   // Duplicate the promo items to create a seamless infinite scroll loop
   const duplicatedItems = [...marqueeItems, ...marqueeItems, ...marqueeItems]

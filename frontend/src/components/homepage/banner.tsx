@@ -37,7 +37,18 @@ export function Banner() {
     )
   }
 
-  if (banners.length === 0) return null
+  if (banners.length === 0)
+    return (
+      <div className="px-4 py-2">
+        <div className="bg-muted/20 flex h-44 flex-col items-center justify-center gap-2 rounded-2xl">
+          <span className="text-muted-foreground/40 text-2xl">📢</span>
+          <span className="text-muted-foreground/60 text-sm font-semibold">Belum Ada Banner</span>
+          <span className="text-muted-foreground/50 max-w-60 text-center text-xs font-medium">
+            Belum ada banner promo aktif
+          </span>
+        </div>
+      </div>
+    )
 
   return (
     <div className="flex flex-col gap-3 overflow-visible pt-1 pb-2">

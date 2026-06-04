@@ -33,7 +33,20 @@ export function PromoItems({ selectedCategory }: PromoItemsProps) {
     )
   }
 
-  if (filteredFoods.length === 0) return null
+  if (filteredFoods.length === 0)
+    return (
+      <div className="no-scrollbar flex w-full gap-4 overflow-x-auto px-4 py-2">
+        <div className="bg-muted/20 flex h-48 w-full flex-col items-center justify-center gap-2 rounded-2xl">
+          <span className="text-muted-foreground/40 text-2xl">🍽️</span>
+          <span className="text-muted-foreground/60 text-sm font-semibold">Belum Ada Promo</span>
+          <span className="text-muted-foreground/50 max-w-60 text-center text-xs font-medium">
+            {selectedCategory === 'all'
+              ? 'Belum ada promo tersedia saat ini'
+              : 'Belum ada promo untuk kategori ini. Cek kategori lain yuk!'}
+          </span>
+        </div>
+      </div>
+    )
 
   return (
     <div className="flex flex-col">
