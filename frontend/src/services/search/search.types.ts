@@ -7,6 +7,7 @@ export interface SearchResultApiResponse {
   rating: number
   prep_time: string
   image_url: string
+  restaurant_id: string
 }
 
 export interface SearchResult {
@@ -18,4 +19,5 @@ export interface SearchResult {
   rating: number
   prepTime: string
   image: string
+  stallId: string
 }

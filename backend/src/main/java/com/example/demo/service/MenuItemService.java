@@ -20,7 +20,7 @@ public class MenuItemService {
             return List.of();
         }
 
-        return menuItemRepository.findByNameContainingIgnoreCase(query.trim()).stream()
+        return menuItemRepository.searchByKeyword(query.trim()).stream()
                 .map(MenuItemResponse::from)
                 .toList();
     }

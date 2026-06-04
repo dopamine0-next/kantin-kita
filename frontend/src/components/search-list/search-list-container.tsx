@@ -6,9 +6,11 @@ import { AnimatePresence, motion } from 'motion/react'
 import { useRouter } from 'next/navigation'
 
 import { useRestaurants } from '@/hooks/use-restaurants'
+import { useSearch } from '@/hooks/use-search'
 import { useAuthStore } from '@/store/useAuthStore'
 
 import { FilterBadgesRow } from './filter-badges-row'
+import { MenuCard } from './menu-card'
 import { SearchHeader } from './search-header'
 import { StallCard } from './stall-card'
 
@@ -23,6 +25,7 @@ export default function SearchListContainer({ initialQuery }: SearchListContaine
   const [selectedFilters, setSelectedFilters] = useState<string[]>([])
 
   const { restaurants } = useRestaurants()
+  const { results: menuResults, isLoading: isMenuLoading } = useSearch(initialQuery)
 
   // Keep internal state updated when URL query changes (via Server Component initialQuery prop)
   useEffect(() => {
@@ -99,48 +102,63 @@ export default function SearchListContainer({ initialQuery }: SearchListContaine
         <FilterBadgesRow selectedFilters={selectedFilters} onToggleFilter={toggleFilter} />
       </div>
 
-      {/* Canteen Stalls / Restaurant List Results */}
-      <div className="flex flex-1 flex-col gap-4 overflow-y-auto px-4 py-4">
-        {/* Results Info */}
-        <div className="text-muted-foreground flex items-center justify-between text-xs font-semibold">
-          <span>Menampilkan {filteredStalls.length} kios kantin</span>
-          {selectedFilters.length > 0 && (
-            <button
-              onClick={() => setSelectedFilters([])}
-              className="text-primary font-bold hover:underline"
-            >
-              Reset Filter
-            </button>
-          )}
-        </div>
-
-        <AnimatePresence mode="popLayout">
-          {filteredStalls.length > 0 ? (
-            <div className="flex flex-col gap-4">
-              {filteredStalls.map((stall, idx) => (
-                <StallCard key={stall.id} stall={stall} index={idx} />
+      {/* Results */}
+      <div className="flex flex-1 flex-col gap-6 overflow-y-auto px-4 py-4">
+        {/* Menu Items Results */}
+        {menuResults.length > 0 && (
+          <div className="flex flex-col gap-3">
+            <h3 className="text-foreground text-xs font-bold tracking-wider uppercase">Menu</h3>
+            <div className="flex flex-col gap-2">
+              {menuResults.map((menu, idx) => (
+                <MenuCard key={menu.id} menu={menu} index={idx} />
               ))}
             </div>
-          ) : (
-            // Empty filter result state
-            <motion.div
-              key="empty"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="flex flex-col items-center justify-center py-20 text-center"
-            >
-              <div className="bg-muted/40 mb-4 flex size-16 items-center justify-center rounded-full">
-                <Sparkles className="text-muted-foreground/60 animate-spin-slow size-8" />
+          </div>
+        )}
+
+        {/* Canteen Stalls / Restaurant List Results */}
+        <div className="flex flex-col gap-3">
+          <div className="flex items-center justify-between">
+            <h3 className="text-foreground text-xs font-bold tracking-wider uppercase">
+              Kios Kantin
+            </h3>
+            {selectedFilters.length > 0 && (
+              <button
+                onClick={() => setSelectedFilters([])}
+                className="text-primary text-xs font-bold hover:underline"
+              >
+                Reset Filter
+              </button>
+            )}
+          </div>
+
+          <AnimatePresence mode="popLayout">
+            {filteredStalls.length > 0 ? (
+              <div className="flex flex-col gap-4">
+                {filteredStalls.map((stall, idx) => (
+                  <StallCard key={stall.id} stall={stall} index={idx} />
+                ))}
               </div>
-              <h3 className="text-foreground text-sm font-bold">Kios Kantin Tidak Ditemukan</h3>
-              <p className="text-muted-foreground mt-1.5 max-w-[220px] text-xs leading-relaxed">
-                Tidak ada kios yang cocok dengan filter atau kata kunci &ldquo;{searchQuery}&rdquo;
-                Anda. Silakan reset filter.
-              </p>
-            </motion.div>
-          )}
-        </AnimatePresence>
+            ) : (
+              <motion.div
+                key="empty"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="flex flex-col items-center justify-center py-16 text-center"
+              >
+                <div className="bg-muted/40 mb-4 flex size-16 items-center justify-center rounded-full">
+                  <Sparkles className="text-muted-foreground/60 animate-spin-slow size-8" />
+                </div>
+                <h3 className="text-foreground text-sm font-bold">Kios Kantin Tidak Ditemukan</h3>
+                <p className="text-muted-foreground mt-1.5 max-w-[220px] text-xs leading-relaxed">
+                  Tidak ada kios yang cocok dengan filter atau kata kunci &ldquo;{searchQuery}
+                  &rdquo; Anda. Silakan reset filter.
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
     </div>
   )
