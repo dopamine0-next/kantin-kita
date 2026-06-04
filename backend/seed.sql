@@ -33,7 +33,7 @@ CREATE TABLE locations (
 CREATE TABLE categories (
     id VARCHAR(10) PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    icon_url VARCHAR(255),
+
     priority INT
 );
 
@@ -209,15 +209,15 @@ INSERT INTO locations (id, name, address, latitude, longitude) VALUES
 -- =============================================
 -- CATEGORIES
 -- =============================================
-INSERT INTO categories (id, name, icon_url, priority) VALUES
-('cat_001', 'Semua', 'https://img.icons8.com/fluency/48/all.png', 0),
-('cat_002', 'Nasi', 'https://img.icons8.com/fluency/48/rice.png', 1),
-('cat_003', 'Mie', 'https://img.icons8.com/fluency/48/noodles.png', 2),
-('cat_004', 'Ayam', 'https://img.icons8.com/fluency/48/chicken.png', 3),
-('cat_005', 'Minuman', 'https://img.icons8.com/fluency/48/water.png', 4),
-('cat_006', 'Camilan', 'https://img.icons8.com/fluency/48/snacks.png', 5),
-('cat_007', 'Seafood', 'https://img.icons8.com/fluency/48/fish.png', 6),
-('cat_008', 'Manis', 'https://img.icons8.com/fluency/48/cake.png', 7);
+INSERT INTO categories (id, name, priority) VALUES
+('cat_001', 'Semua', 0),
+('cat_002', 'Nasi', 1),
+('cat_003', 'Mie', 2),
+('cat_004', 'Ayam', 3),
+('cat_005', 'Minuman', 4),
+('cat_006', 'Camilan', 5),
+('cat_007', 'Seafood', 6),
+('cat_008', 'Manis', 7);
 
 -- =============================================
 -- MARQUEE NODES

@@ -31,7 +31,7 @@
 ### 3.2. Master Data (Discovery)
 - **Locations**: `id`, `name`, `address`, `latitude`, `longitude`.
 - **Banners**: `id`, `image_url`, `title`, `link_url`, `is_active`, `location_id` (FK).
-- **Categories**: `id`, `name`, `icon_url`, `priority`.
+- **Categories**: `id`, `name`, `priority`.
 - **MarqueeNodes**: `id`, `text`, `is_active`.
 - **FAQs**: `id`, `question`, `answer`.
 - **Terms**: `id`, `title`, `content` (Markdown).
