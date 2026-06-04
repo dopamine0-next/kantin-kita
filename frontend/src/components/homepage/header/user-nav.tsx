@@ -45,7 +45,13 @@ export function UserNav() {
           <DropdownMenuTrigger asChild>
             <button className="group flex items-center gap-2.5 text-left outline-none">
               <Avatar className="border-primary/20 size-9 border shadow-none transition-transform active:scale-95">
-                <AvatarImage src={user.avatar} alt={user.name} />
+                <AvatarImage
+                  src={
+                    user.avatar ||
+                    `https://api.dicebear.com/10.x/adventurer/svg?seed=${encodeURIComponent(user.name)}`
+                  }
+                  alt={user.name}
+                />
                 <AvatarFallback className="bg-primary/10 text-primary text-xs font-bold">
                   {user.name.substring(0, 2).toUpperCase()}
                 </AvatarFallback>

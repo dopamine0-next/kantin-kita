@@ -82,7 +82,14 @@ export function ProfileContainer() {
       {/* Profile Header */}
       <div className="relative -mt-20 flex flex-col items-center px-4">
         <Avatar className="border-background size-24 border-4 shadow-md">
-          <AvatarImage src={user.avatar} alt={user.name} className="object-cover" />
+          <AvatarImage
+            src={
+              user.avatar ||
+              `https://api.dicebear.com/10.x/adventurer/svg?seed=${encodeURIComponent(user.name)}`
+            }
+            alt={user.name}
+            className="object-cover"
+          />
           <AvatarFallback className="bg-primary text-primary-foreground text-2xl font-bold">
             {user.name.charAt(0).toUpperCase()}
           </AvatarFallback>
