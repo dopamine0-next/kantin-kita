@@ -11,11 +11,18 @@ interface OrderItem {
 interface InvoiceSummaryProps {
   items: OrderItem[]
   totalAmount: number
-  serviceFee?: number
+  discountAmount?: number | null
+  appFee?: number | null
 }
 
-export function InvoiceSummary({ items, totalAmount, serviceFee = 2000 }: InvoiceSummaryProps) {
-  const subtotal = totalAmount - serviceFee
+export function InvoiceSummary({
+  items,
+  totalAmount,
+  discountAmount,
+  appFee = 0,
+}: InvoiceSummaryProps) {
+  const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
+  const biayaLayanan = appFee ?? 0
 
   return (
     <div className="flex flex-col gap-3">
@@ -41,9 +48,17 @@ export function InvoiceSummary({ items, totalAmount, serviceFee = 2000 }: Invoic
           <span className="text-muted-foreground font-semibold">Subtotal</span>
           <span className="font-bold">{formatRupiah(subtotal)}</span>
         </div>
+
+        {discountAmount && discountAmount > 0 && (
+          <div className="flex items-center justify-between text-sm">
+            <span className="font-semibold text-green-600">Diskon</span>
+            <span className="font-bold text-green-600">-{formatRupiah(discountAmount)}</span>
+          </div>
+        )}
+
         <div className="flex items-center justify-between text-sm">
           <span className="text-muted-foreground font-semibold">Biaya Layanan</span>
-          <span className="font-bold">{formatRupiah(serviceFee)}</span>
+          <span className="font-bold">{formatRupiah(biayaLayanan)}</span>
         </div>
 
         <div className="bg-primary/10 mt-1 flex items-center justify-between rounded-xl p-3">

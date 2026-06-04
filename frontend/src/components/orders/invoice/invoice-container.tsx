@@ -47,9 +47,19 @@ export function InvoiceContainer({ orderId }: InvoiceContainerProps) {
       <InvoiceHeader />
 
       <div className="animate-fade-in flex flex-col gap-5 p-4">
-        <InvoiceStatus orderId={orderId} status={order.status} />
+        <InvoiceStatus
+          orderId={orderId}
+          status={order.status}
+          paymentStatus={order.payment_status}
+          paymentUrl={order.payment_url}
+        />
         <InvoiceInfo createdAt={order.created_at} />
-        <InvoiceSummary items={order.items} totalAmount={order.total_amount} />
+        <InvoiceSummary
+          items={order.items}
+          totalAmount={order.total_amount}
+          discountAmount={order.discount_amount}
+          appFee={order.app_fee}
+        />
       </div>
     </div>
   )
