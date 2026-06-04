@@ -56,6 +56,7 @@ export interface MenuItemApiResponse {
   price: number
   image_url: string
   category: string
+  restaurant_id?: string
   variants?: string[]
   customizations?: MenuCustomization[]
   rating?: number
@@ -70,6 +71,7 @@ export interface MenuItem {
   price: number
   image: string
   category: string
+  restaurantId?: string
   variants?: string[]
   customizations?: MenuCustomization[]
   rating?: number

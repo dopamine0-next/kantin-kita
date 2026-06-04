@@ -9,6 +9,7 @@ export interface CartItem {
   price: number
   image: string
   qty: number
+  restaurantId?: string
   variant?: string
   note?: string
   level?: string

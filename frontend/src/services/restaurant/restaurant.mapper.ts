@@ -34,6 +34,7 @@ export function mapMenuItem(apiData: MenuItemApiResponse): MenuItem {
     price: apiData.price,
     image: apiData.image_url,
     category: apiData.category,
+    restaurantId: apiData.restaurant_id,
     variants: apiData.variants,
     customizations: apiData.customizations,
     rating: apiData.rating,

@@ -8,6 +8,7 @@ import { toast } from 'sonner'
 import { FoodDetailDrawer } from '@/components/restaurant/food-detail-drawer'
 import { useRestaurantsDetails } from '@/hooks/use-restaurants'
 import { useVouchers } from '@/hooks/use-vouchers'
+import { createOrder } from '@/services/order/order.service'
 import { MenuItem } from '@/services/restaurant/restaurant.types'
 import { useAuthStore } from '@/store/useAuthStore'
 import { CartItem, useCartStore } from '@/store/useCartStore'
@@ -50,7 +51,7 @@ export default function CheckoutContainer() {
   const [isPromoDrawerOpen, setIsPromoDrawerOpen] = useState(false)
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false)
   const [isProcessing, setIsProcessing] = useState(false)
-  const [orderNumber] = useState(() => Math.floor(1000 + Math.random() * 9000))
+  const [orderNumber, setOrderNumber] = useState('')
 
   // Edit State
   const [selectedCartItem, setSelectedCartItem] = useState<CartItem | null>(null)
@@ -75,15 +76,44 @@ export default function CheckoutContainer() {
 
   const total = Math.max(0, subtotal - discount + appFee)
 
-  const handlePay = () => {
+  const handlePay = async () => {
     if (items.length === 0) return
     setIsProcessing(true)
 
-    // Fake progress loading
-    setTimeout(() => {
+    try {
+      const restaurantId = items[0]?.restaurantId
+      if (!restaurantId) {
+        toast.error('Restoran tidak ditemukan')
+        setIsProcessing(false)
+        return
+      }
+
+      const result = await createOrder({
+        restaurantId,
+        items: items.map((item) => ({
+          menuItemId: item.foodId,
+          qty: item.qty,
+          variantName: item.variant,
+          note: item.note,
+          addons: item.addons?.map((a) => ({ name: a.name, price: a.price })),
+        })),
+        mode: activeMode,
+        voucherCode: promoApplied?.code,
+      })
+
+      clearCart()
+
+      if (result.payment_url) {
+        window.location.href = result.payment_url
+      } else {
+        setOrderNumber(result.order_number)
+        setIsSuccessModalOpen(true)
+      }
+    } catch {
+      toast.error('Gagal membuat pesanan. Silakan coba lagi.')
+    } finally {
       setIsProcessing(false)
-      setIsSuccessModalOpen(true)
-    }, 1800)
+    }
   }
 
   const handleFinishPayment = () => {

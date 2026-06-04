@@ -112,6 +112,7 @@ export function FoodVariantForm({
       name: item.name,
       price: singleItemPrice,
       image: item.image,
+      restaurantId: item.restaurantId,
       variant: selectedVariant || undefined,
       // For legacy/simple compatibility we take the first choice if available as 'level'
       level: Object.values(selectedChoices)[0],

@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 
 interface SuccessModalProps {
   isOpen: boolean
-  orderNumber: number
+  orderNumber: string
   total: number
   activeMode: 'dine-in' | 'pickup'
   onFinish: () => void
@@ -56,7 +56,7 @@ export function SuccessModal({
 
               <div className="text-muted-foreground/85 flex items-center justify-between text-xs font-bold">
                 <span>Nomor Order</span>
-                <span className="text-foreground font-black">#KK-{orderNumber}</span>
+                <span className="text-foreground font-black">{orderNumber}</span>
               </div>
 
               <div className="text-muted-foreground/85 flex items-center justify-between text-xs font-bold">

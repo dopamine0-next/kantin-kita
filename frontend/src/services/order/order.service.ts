@@ -1,16 +1,21 @@
-import { MOCK_ORDERS } from './order.mock'
-import { Order } from './order.types'
+import { fetcher } from '@/lib/fetcher'
+
+import { mapOrder } from './order.mapper'
+import { CreateOrderPayload, CreateOrderResponse, Order, OrderApiResponse } from './order.types'
 
 export async function get_orders(): Promise<Order[]> {
-  // Simulate network delay for API
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(MOCK_ORDERS)
-    }, 800)
-  })
+  const res = await fetcher<OrderApiResponse[]>('/orders')
+  return res.map(mapOrder)
 }
 
-export async function get_order_by_id(id: string): Promise<Order | undefined> {
-  const orders = await get_orders()
-  return orders.find((order) => order.id === id)
+export async function get_order_by_id(id: string): Promise<Order> {
+  const res = await fetcher<OrderApiResponse>(`/orders/${id}`)
+  return mapOrder(res)
+}
+
+export async function createOrder(payload: CreateOrderPayload): Promise<CreateOrderResponse> {
+  return fetcher<CreateOrderResponse>('/orders', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  })
 }
