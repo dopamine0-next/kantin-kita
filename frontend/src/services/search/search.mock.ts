@@ -90,12 +90,3 @@ export const MOCK_SEARCH_DATABASE: SearchResultApiResponse[] = [
       'https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=300&q=80',
   },
 ]
-
-export const MOCK_POPULAR_SEARCHES = [
-  'Geprek',
-  'Soto Lamongan',
-  'Kopi Aren',
-  'Nasi Goreng',
-  'Roti Bakar',
-  'Bakso',
-]

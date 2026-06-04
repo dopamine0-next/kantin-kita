@@ -19,8 +19,3 @@ export interface SearchResult {
   prepTime: string
   image: string
 }
-
-export interface SearchSuggestions {
-  popular: string[]
-  trends: string[]
-}

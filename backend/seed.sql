@@ -96,6 +96,10 @@ CREATE TABLE menu_items (
     name VARCHAR(255) NOT NULL,
     description TEXT,
     price DOUBLE NOT NULL,
+    original_price DOUBLE,
+    badge_text VARCHAR(255),
+    badge_variant VARCHAR(255),
+    prep_time VARCHAR(255),
     image_url VARCHAR(255),
     category VARCHAR(255) NOT NULL,
     rating DOUBLE,
@@ -284,21 +288,21 @@ INSERT INTO restaurant_promos (restaurant_id, promo) VALUES
 -- =============================================
 -- MENU ITEMS
 -- =============================================
-INSERT INTO menu_items (id, restaurant_id, name, description, price, image_url, category, rating, sales_count, is_popular) VALUES
-('mnu_001', 'rst_001', 'Nasi Goreng Spesial', 'Nasi goreng dengan telur, ayam suwir, dan kerupuk', 25000, 'https://images.unsplash.com/photo-1563379926898-05f4575a45d8?auto=format&fit=crop&w=400&q=80', 'Nasi', 4.8, '1.5rb', TRUE),
-('mnu_002', 'rst_001', 'Ayam Bakar Madu', 'Ayam bakar dengan bumbu madu khas Bu Ani', 30000, 'https://images.unsplash.com/photo-1598103442097-8b74f2e94f0d?auto=format&fit=crop&w=400&q=80', 'Ayam', 4.7, '980', TRUE),
-('mnu_003', 'rst_001', 'Es Teh Manis', 'Teh manis segar dengan es batu', 5000, 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=400&q=80', 'Minuman', 4.5, '2.3rb', FALSE),
-('mnu_004', 'rst_001', 'Pisang Goreng', 'Pisang goreng crispy taburan gula halus', 10000, 'https://images.unsplash.com/photo-1615361200141-f45040f367be?auto=format&fit=crop&w=400&q=80', 'Camilan', 4.6, '750', FALSE),
-('mnu_005', 'rst_002', 'Ayam Geprek Level 5', 'Ayam geprek super pedas level 5 dengan nasi hangat', 20000, 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=400&q=80', 'Ayam', 4.8, '2.1rb', TRUE),
-('mnu_006', 'rst_002', 'Paket Geprek Komplit', 'Ayam geprek + nasi + telur + tahu + es teh', 35000, 'https://images.unsplash.com/photo-1604503468506-a8da13d82791?auto=format&fit=crop&w=400&q=80', 'Ayam', 4.7, '1.8rb', TRUE),
-('mnu_007', 'rst_002', 'Es Jeruk', 'Jeruk peras segar', 5000, 'https://images.unsplash.com/photo-1621263764928-df1444c5e859?auto=format&fit=crop&w=400&q=80', 'Minuman', 4.5, '3.2rb', FALSE),
-('mnu_008', 'rst_003', 'Kopi Susu Mantan', 'Kopi susu kekinian dengan rasa caramel', 18000, 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80', 'Minuman', 4.6, '5.1rb', TRUE),
-('mnu_009', 'rst_003', 'Matcha Latte', 'Latte dengan bubuk matcha premium', 22000, 'https://images.unsplash.com/photo-1571934811356-5cc061b6821f?auto=format&fit=crop&w=400&q=80', 'Minuman', 4.7, '3.4rb', TRUE),
-('mnu_010', 'rst_003', 'Croissant Coklat', 'Croissant panggang dengan isian coklat leleh', 15000, 'https://images.unsplash.com/photo-1555507036-ab1f4038028a?auto=format&fit=crop&w=400&q=80', 'Manis', 4.5, '1.2rb', FALSE),
-('mnu_011', 'rst_004', 'Mie Aceh Original', 'Mie Aceh dengan daging sapi dan bumbu khas Aceh', 25000, 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=400&q=80', 'Mie', 4.8, '2.7rb', TRUE),
-('mnu_012', 'rst_004', 'Mie Aceh Seafood', 'Mie Aceh dengan campuran seafood segar', 35000, 'https://images.unsplash.com/photo-1552611052-33e04de1b100?auto=format&fit=crop&w=400&q=80', 'Seafood', 4.7, '1.5rb', TRUE),
-('mnu_013', 'rst_004', 'Mie Aceh Goreng', 'Mie Aceh versi goreng dengan bumbu spesial', 28000, 'https://images.unsplash.com/photo-1585032226651-759b368d7246?auto=format&fit=crop&w=400&q=80', 'Mie', 4.6, '980', FALSE),
-('mnu_014', 'rst_004', 'Es Kelapa Muda', 'Air kelapa muda segar dengan daging kelapa', 8000, 'https://images.unsplash.com/photo-1527661591475-527312dd65f5?auto=format&fit=crop&w=400&q=80', 'Minuman', 4.5, '2.1rb', FALSE);
+INSERT INTO menu_items (id, restaurant_id, name, description, price, original_price, badge_text, badge_variant, prep_time, image_url, category, rating, sales_count, is_popular) VALUES
+('mnu_001', 'rst_001', 'Nasi Goreng Spesial', 'Nasi goreng dengan telur, ayam suwir, dan kerupuk', 20000, 25000, 'Diskon 20%', 'destructive', '10-15 mnt', 'https://images.unsplash.com/photo-1563379926898-05f4575a45d8?auto=format&fit=crop&w=400&q=80', 'Nasi', 4.8, '1.5rb', TRUE),
+('mnu_002', 'rst_001', 'Ayam Bakar Madu', 'Ayam bakar dengan bumbu madu khas Bu Ani', 30000, NULL, NULL, NULL, '15-20 mnt', 'https://images.unsplash.com/photo-1598103442097-8b74f2e94f0d?auto=format&fit=crop&w=400&q=80', 'Ayam', 4.7, '980', TRUE),
+('mnu_003', 'rst_001', 'Es Teh Manis', 'Teh manis segar dengan es batu', 5000, NULL, NULL, NULL, '3-5 mnt', 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=400&q=80', 'Minuman', 4.5, '2.3rb', FALSE),
+('mnu_004', 'rst_001', 'Pisang Goreng', 'Pisang goreng crispy taburan gula halus', 8000, 10000, 'Hemat 20%', 'secondary', '5-8 mnt', 'https://images.unsplash.com/photo-1615361200141-f45040f367be?auto=format&fit=crop&w=400&q=80', 'Camilan', 4.6, '750', FALSE),
+('mnu_005', 'rst_002', 'Ayam Geprek Level 5', 'Ayam geprek super pedas level 5 dengan nasi hangat', 16000, 20000, 'Best Seller', 'default', '10-15 mnt', 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=400&q=80', 'Ayam', 4.8, '2.1rb', TRUE),
+('mnu_006', 'rst_002', 'Paket Geprek Komplit', 'Ayam geprek + nasi + telur + tahu + es teh', 35000, NULL, NULL, NULL, '15-20 mnt', 'https://images.unsplash.com/photo-1604503468506-a8da13d82791?auto=format&fit=crop&w=400&q=80', 'Ayam', 4.7, '1.8rb', TRUE),
+('mnu_007', 'rst_002', 'Es Jeruk', 'Jeruk peras segar', 5000, NULL, NULL, NULL, '3-5 mnt', 'https://images.unsplash.com/photo-1621263764928-df1444c5e859?auto=format&fit=crop&w=400&q=80', 'Minuman', 4.5, '3.2rb', FALSE),
+('mnu_008', 'rst_003', 'Kopi Susu Mantan', 'Kopi susu kekinian dengan rasa caramel', 14000, 18000, 'Diskon 20%', 'destructive', '5-8 mnt', 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80', 'Minuman', 4.6, '5.1rb', TRUE),
+('mnu_009', 'rst_003', 'Matcha Latte', 'Latte dengan bubuk matcha premium', 22000, NULL, NULL, NULL, '5-8 mnt', 'https://images.unsplash.com/photo-1571934811356-5cc061b6821f?auto=format&fit=crop&w=400&q=80', 'Minuman', 4.7, '3.4rb', TRUE),
+('mnu_010', 'rst_003', 'Croissant Coklat', 'Croissant panggang dengan isian coklat leleh', 15000, NULL, NULL, NULL, '10-15 mnt', 'https://images.unsplash.com/photo-1555507036-ab1f4038028a?auto=format&fit=crop&w=400&q=80', 'Manis', 4.5, '1.2rb', FALSE),
+('mnu_011', 'rst_004', 'Mie Aceh Original', 'Mie Aceh dengan daging sapi dan bumbu khas Aceh', 25000, NULL, NULL, NULL, '10-15 mnt', 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=400&q=80', 'Mie', 4.8, '2.7rb', TRUE),
+('mnu_012', 'rst_004', 'Mie Aceh Seafood', 'Mie Aceh dengan campuran seafood segar', 28000, 35000, 'Promo Spesial', 'secondary', '15-20 mnt', 'https://images.unsplash.com/photo-1552611052-33e04de1b100?auto=format&fit=crop&w=400&q=80', 'Seafood', 4.7, '1.5rb', TRUE),
+('mnu_013', 'rst_004', 'Mie Aceh Goreng', 'Mie Aceh versi goreng dengan bumbu spesial', 28000, NULL, NULL, NULL, '10-15 mnt', 'https://images.unsplash.com/photo-1585032226651-759b368d7246?auto=format&fit=crop&w=400&q=80', 'Mie', 4.6, '980', FALSE),
+('mnu_014', 'rst_004', 'Es Kelapa Muda', 'Air kelapa muda segar dengan daging kelapa', 8000, NULL, NULL, NULL, '3-5 mnt', 'https://images.unsplash.com/photo-1527661591475-527312dd65f5?auto=format&fit=crop&w=400&q=80', 'Minuman', 4.5, '2.1rb', FALSE);
 
 -- =============================================
 -- MENU ITEM VARIANTS

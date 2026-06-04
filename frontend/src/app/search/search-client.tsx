@@ -10,7 +10,7 @@ import { toast } from 'sonner'
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { usePopularSearches, useSearch } from '@/hooks/use-search'
+import { useSearch } from '@/hooks/use-search'
 import { formatRupiah } from '@/lib/utils'
 import { SearchResult } from '@/services/search/search.types'
 import { useCartStore } from '@/store/useCartStore'
@@ -24,7 +24,6 @@ export default function SearchClient() {
   const cartCount = items.reduce((sum, item) => sum + item.qty, 0)
 
   const { results: filteredResults, isLoading: isSearchLoading } = useSearch(searchQuery)
-  const { popularSearches } = usePopularSearches()
 
   const handleSearchSubmit = (query: string) => {
     const trimmed = query.trim()
@@ -154,24 +153,6 @@ export default function SearchClient() {
                   </div>
                 </div>
               )}
-
-              {/* Popular / Trending Searches */}
-              <div className="flex flex-col gap-3">
-                <h3 className="text-foreground text-xs font-bold tracking-wider uppercase">
-                  Pencarian Populer
-                </h3>
-                <div className="flex flex-wrap gap-2.5">
-                  {popularSearches.map((tag, index) => (
-                    <button
-                      key={index}
-                      onClick={() => handleSearchSubmit(tag)}
-                      className="bg-muted/40 hover:bg-primary/10 hover:text-primary border-muted/40 text-muted-foreground rounded-full border px-3.5 py-1.5 text-xs font-bold transition-all duration-300 active:scale-95"
-                    >
-                      🔥 {tag}
-                    </button>
-                  ))}
-                </div>
-              </div>
             </motion.div>
           ) : (
             // Search Results List

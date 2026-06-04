@@ -1,5 +1,5 @@
 import { mapSearchResult } from './search.mapper'
-import { MOCK_POPULAR_SEARCHES, MOCK_SEARCH_DATABASE } from './search.mock'
+import { MOCK_SEARCH_DATABASE } from './search.mock'
 import { SearchResult } from './search.types'
 
 export async function getSearchResults(query: string): Promise<SearchResult[]> {
@@ -14,9 +14,4 @@ export async function getSearchResults(query: string): Promise<SearchResult[]> {
       item.stall.toLowerCase().includes(query.toLowerCase()) ||
       item.category.toLowerCase().includes(query.toLowerCase())
   ).map(mapSearchResult)
-}
-
-export async function getPopularSearches(): Promise<string[]> {
-  await new Promise((resolve) => setTimeout(resolve, 300))
-  return MOCK_POPULAR_SEARCHES
 }

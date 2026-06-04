@@ -4,7 +4,6 @@ import {
   ChevronRight,
   FileText,
   HelpCircle,
-  Key,
   LogOut,
   MapPin,
   ReceiptText,
@@ -47,14 +46,6 @@ export function ProfileContainer() {
   ]
 
   const menuItems = [
-    {
-      id: 'password',
-      icon: Key,
-      label: 'Ganti Password',
-      onClick: () => {
-        console.log('Ganti password clicked')
-      },
-    },
     {
       id: 'faq',
       icon: HelpCircle,

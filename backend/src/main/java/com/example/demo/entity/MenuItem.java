@@ -46,6 +46,14 @@ public class MenuItem {
 
     private Boolean isPopular;
 
+    private Double originalPrice;
+
+    private String badgeText;
+
+    private String badgeVariant;
+
+    private String prepTime;
+
     @ElementCollection
     @CollectionTable(name = "menu_item_variants", joinColumns = @JoinColumn(name = "menu_item_id"))
     @Column(name = "variant")
