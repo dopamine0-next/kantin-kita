@@ -470,7 +470,6 @@ public class DataSeeder implements CommandLineRunner {
                     .nim(nim)
                     .password(passwordEncoder.encode("password"))
                     .semester(semester)
-                    .role(Role.USER)
                     .location(locations.get(rand.nextInt(locations.size())))
                     .build()));
         }

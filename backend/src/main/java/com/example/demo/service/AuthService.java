@@ -6,7 +6,6 @@ import com.example.demo.dto.response.LoginResponse;
 import com.example.demo.dto.response.UserProfileResponse;
 import com.example.demo.entity.Location;
 import com.example.demo.entity.User;
-import com.example.demo.entity.enums.Role;
 import com.example.demo.repository.LocationRepository;
 import com.example.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -41,12 +40,11 @@ public class AuthService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .semester(request.getSemester())
                 .location(location)
-                .role(Role.USER)
                 .build();
 
         user = userRepository.save(user);
 
-        String token = jwtService.generateToken(user.getId(), user.getRole().name());
+        String token = jwtService.generateToken(user.getId(), "USER");
         return LoginResponse.builder()
                 .token(token)
                 .user(UserProfileResponse.from(user))
@@ -61,7 +59,7 @@ public class AuthService {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid NIM or password");
         }
 
-        String token = jwtService.generateToken(user.getId(), user.getRole().name());
+        String token = jwtService.generateToken(user.getId(), "USER");
         return LoginResponse.builder()
                 .token(token)
                 .user(UserProfileResponse.from(user))

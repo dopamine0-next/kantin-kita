@@ -1,7 +1,6 @@
 package com.example.demo.dto.response;
 
 import com.example.demo.entity.User;
-import com.example.demo.entity.enums.Role;
 import lombok.*;
 
 @Getter
@@ -15,7 +14,6 @@ public class UserProfileResponse {
     private String name;
     private String nim;
     private Integer semester;
-    private Role role;
     private String locationName;
     private String locationId;
 
@@ -25,7 +23,6 @@ public class UserProfileResponse {
                 .name(user.getName())
                 .nim(user.getNim())
                 .semester(user.getSemester())
-                .role(user.getRole())
                 .locationName(user.getLocation() != null ? user.getLocation().getName() : null)
                 .locationId(user.getLocation() != null ? user.getLocation().getId() : null)
                 .build();
