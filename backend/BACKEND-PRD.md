@@ -149,6 +149,7 @@ erDiagram
     USERS ||--o{ ORDERS : places
     RESTAURANTS ||--o{ MENU_ITEMS : owns
     RESTAURANTS ||--o{ ORDERS : receives
+    RESTAURANTS }o--|| USERS : "owned by (VENDOR)"
     MENU_ITEMS ||--o{ MENU_CUSTOMIZATIONS : has
     MENU_CUSTOMIZATIONS ||--o{ CUSTOMIZATION_OPTIONS : has
     ORDERS ||--|{ ORDER_ITEMS : contains
@@ -156,3 +157,93 @@ erDiagram
     VOUCHERS ||--o{ ORDERS : applied_to
     ORDERS ||--o| PAYMENTS : "handled via gateway redirect"
 ```
+
+---
+
+## 8. Vendor (Kantin) API
+
+### 8.1. Overview
+API khusus untuk pengguna dengan role **VENDOR** (pemilik stan/kantin). Vendor dapat mengelola restoran, menu, pesanan masuk, serta melihat performa dan pendapatan.
+
+### 8.2. Data Model Changes
+
+**Restaurants** — tambah relasi ke User (VENDOR):
+- `vendor_id` (FK → `users.id`) — Many-to-One: satu vendor bisa memiliki banyak restoran.
+
+### 8.3. Authentication & Profile
+Semua endpoint vendor diawali `/api/v1/vendor`. Filter keamanan memastikan:
+- Hanya user dengan role `VENDOR` yang bisa mengakses.
+- Vendor hanya bisa mengakses data restoran miliknya sendiri.
+
+| Method | Endpoint | Deskripsi |
+|--------|----------|-----------|
+| `POST` | `/api/v1/vendor/auth/login` | Login khusus vendor (validasi role VENDOR). Return JWT + profil vendor. |
+| `GET` | `/api/v1/vendor/auth/me` | Profil vendor + daftar restoran yang dimiliki. |
+
+### 8.4. Restaurant Management (Settings)
+
+| Method | Endpoint | Deskripsi |
+|--------|----------|-----------|
+| `GET` | `/api/v1/vendor/restaurants/{id}` | Detail restoran milik vendor. |
+| `PUT` | `/api/v1/vendor/restaurants/{id}` | Update profil restoran (nama, cuisine, alamat, image, banner, deskripsi). |
+| `PATCH` | `/api/v1/vendor/restaurants/{id}/status` | Toggle buka/tutup restoran (`is_open`). |
+| `PUT` | `/api/v1/vendor/restaurants/{id}/hours` | Update jam operasional (`operational_hours`). |
+
+### 8.5. Menu Management (CRUD + Customizations)
+
+| Method | Endpoint | Deskripsi |
+|--------|----------|-----------|
+| `GET` | `/api/v1/vendor/restaurants/{id}/menus` | List semua menu item restoran. |
+| `POST` | `/api/v1/vendor/restaurants/{id}/menus` | Tambah menu item baru. |
+| `PUT` | `/api/v1/vendor/menus/{menuId}` | Edit menu item. |
+| `DELETE` | `/api/v1/vendor/menus/{menuId}` | Hapus menu item. |
+| `PATCH` | `/api/v1/vendor/menus/{menuId}/popular` | Toggle status `is_popular`. |
+
+**Menu Customizations:**
+| Method | Endpoint | Deskripsi |
+|--------|----------|-----------|
+| `POST` | `/api/v1/vendor/menus/{menuId}/customizations` | Tambah kustomisasi (CHOICE / MULTIPLE, is_required). |
+| `PUT` | `/api/v1/vendor/customizations/{custId}` | Edit kustomisasi. |
+| `DELETE` | `/api/v1/vendor/customizations/{custId}` | Hapus kustomisasi + seluruh opsinya. |
+| `POST` | `/api/v1/vendor/customizations/{custId}/options` | Tambah opsi (label, price). |
+| `PUT` | `/api/v1/vendor/customization-options/{optId}` | Edit opsi. |
+| `DELETE` | `/api/v1/vendor/customization-options/{optId}` | Hapus opsi. |
+
+### 8.6. Order Management
+
+| Method | Endpoint | Deskripsi |
+|--------|----------|-----------|
+| `GET` | `/api/v1/vendor/restaurants/{id}/orders` | List pesanan masuk. Filter: `status` (PENDING, PROCESSING, READY, COMPLETED, CANCELLED), `date_from`, `date_to`. |
+| `GET` | `/api/v1/vendor/orders/{orderId}` | Detail pesanan (items, addons, catatan, info customer). |
+| `PATCH` | `/api/v1/vendor/orders/{orderId}/status` | Update status pesanan (PROCESSING → READY → COMPLETED). Validasi state transition. |
+
+### 8.7. Revenue & Analytics
+
+| Method | Endpoint | Deskripsi |
+|--------|----------|-----------|
+| `GET` | `/api/v1/vendor/restaurants/{id}/revenue` | Pendapatan. Params: `period` (day / week / month), `date_from`, `date_to`. |
+| `GET` | `/api/v1/vendor/restaurants/{id}/analytics/summary` | Ringkasan dashboard: total order hari ini, revenue hari ini, pesanan pending, rating rata-rata. |
+| `GET` | `/api/v1/vendor/restaurants/{id}/analytics/top-items` | Menu terlaris (sorted by `sales_count`, with date filter). |
+| `GET` | `/api/v1/vendor/restaurants/{id}/analytics/orders` | Statistik tren pesanan per hari dalam rentang tanggal. |
+
+### 8.8. Reviews
+
+| Method | Endpoint | Deskripsi |
+|--------|----------|-----------|
+| `GET` | `/api/v1/vendor/restaurants/{id}/reviews` | List ulasan customer untuk restoran tersebut. |
+
+### 8.9. Security & Authorization Flow
+
+1. **Vendor Login**: Endpoint `POST /api/v1/vendor/auth/login` — sama dengan login biasa tapi hanya user dengan `role == VENDOR` yang bisa login.
+2. **JWT Enhancement**: Token menyimpan `role` sebagai klaim tambahan untuk validasi cepat.
+3. **Endpoint Filter**: Endpoint `/api/v1/vendor/**` hanya bisa diakses user dengan role VENDOR. Validasi tambahan memastikan `restaurant.vendor_id == currentUserId`.
+4. **Role Hierarchy**: `VENDOR` tidak bisa mengakses endpoint user biasa (`/api/v1/orders/**`, dll) dan sebaliknya.
+
+### 8.10. State Transition — Order Status (Vendor Side)
+
+```
+PROCESSING → READY → COMPLETED
+```
+
+- Vendor **tidak bisa** mengubah status ke PENDING atau CANCELLED (PENDING dari system, CANCELLED dari user).
+- Setiap transisi divalidasi: hanya bisa maju ke status berikutnya.

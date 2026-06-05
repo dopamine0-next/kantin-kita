@@ -33,6 +33,7 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/v1/auth/login", "/api/v1/auth/register", "/error", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/api/v1/payments/callback", "/api/v1/promos", "/api/v1/menus/**").permitAll()
+                .requestMatchers("/api/v1/vendor/**").hasRole("VENDOR")
                 .anyRequest().authenticated()
             )
             .exceptionHandling(ex -> ex
@@ -61,7 +62,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of("*"));
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

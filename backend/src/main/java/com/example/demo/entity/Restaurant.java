@@ -56,6 +56,10 @@ public class Restaurant {
     @JoinColumn(name = "location_id")
     private Location location;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "vendor_id")
+    private Vendor vendor;
+
     private Double cheapestPrice;
 
     private Boolean isInstant;

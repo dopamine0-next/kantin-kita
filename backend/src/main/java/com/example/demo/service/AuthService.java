@@ -46,7 +46,7 @@ public class AuthService {
 
         user = userRepository.save(user);
 
-        String token = jwtService.generateToken(user.getId().toString());
+        String token = jwtService.generateToken(user.getId(), user.getRole().name());
         return LoginResponse.builder()
                 .token(token)
                 .user(UserProfileResponse.from(user))
@@ -61,7 +61,7 @@ public class AuthService {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid NIM or password");
         }
 
-        String token = jwtService.generateToken(user.getId().toString());
+        String token = jwtService.generateToken(user.getId(), user.getRole().name());
         return LoginResponse.builder()
                 .token(token)
                 .user(UserProfileResponse.from(user))
