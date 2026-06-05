@@ -20,6 +20,9 @@ public class RestaurantResponse {
     private String cuisine;
     private Double rating;
 
+    @JsonProperty("rating_count")
+    private Integer ratingCount;
+
     @JsonProperty("reviews_count")
     private String reviewsCount;
 
@@ -54,6 +57,7 @@ public class RestaurantResponse {
                 .name(restaurant.getName())
                 .cuisine(restaurant.getCuisine())
                 .rating(restaurant.getRating())
+                .ratingCount(restaurant.getRatingCount())
                 .reviewsCount(restaurant.getReviewsCount())
                 .walkTime(restaurant.getWalkTime())
                 .distance(restaurant.getDistance())

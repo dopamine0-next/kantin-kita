@@ -42,6 +42,9 @@ public class MenuItem {
 
     private Double rating;
 
+    @Column(name = "rating_count")
+    private Integer ratingCount;
+
     private String salesCount;
 
     private Boolean isPopular;

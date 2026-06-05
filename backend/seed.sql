@@ -4,6 +4,8 @@
 -- Run: mysql -u root -p kantin_kita < seed.sql
 -- =============================================
 
+DROP TABLE IF EXISTS menu_item_reviews;
+DROP TABLE IF EXISTS restaurant_reviews;
 DROP TABLE IF EXISTS order_addons;
 DROP TABLE IF EXISTS order_items;
 DROP TABLE IF EXISTS orders;
@@ -69,6 +71,7 @@ CREATE TABLE restaurants (
     name VARCHAR(255) NOT NULL,
     cuisine VARCHAR(255),
     rating DOUBLE,
+    rating_count INT DEFAULT 0,
     reviews_count VARCHAR(255),
     walk_time VARCHAR(255),
     distance VARCHAR(255),
@@ -103,6 +106,7 @@ CREATE TABLE menu_items (
     image_url VARCHAR(255),
     category VARCHAR(255) NOT NULL,
     rating DOUBLE,
+    rating_count INT DEFAULT 0,
     sales_count VARCHAR(255),
     is_popular BOOLEAN,
     FOREIGN KEY (restaurant_id) REFERENCES restaurants(id)
@@ -183,6 +187,30 @@ CREATE TABLE order_items (
     image_url VARCHAR(255),
     variant_name VARCHAR(255),
     note VARCHAR(255),
+    FOREIGN KEY (order_id) REFERENCES orders(id),
+    FOREIGN KEY (menu_item_id) REFERENCES menu_items(id)
+);
+
+CREATE TABLE restaurant_reviews (
+    id VARCHAR(10) PRIMARY KEY,
+    user_id VARCHAR(10) NOT NULL,
+    order_id VARCHAR(10) NOT NULL,
+    restaurant_id VARCHAR(10) NOT NULL,
+    rating INT NOT NULL,
+    created_at DATETIME NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (order_id) REFERENCES orders(id),
+    FOREIGN KEY (restaurant_id) REFERENCES restaurants(id)
+);
+
+CREATE TABLE menu_item_reviews (
+    id VARCHAR(10) PRIMARY KEY,
+    user_id VARCHAR(10) NOT NULL,
+    order_id VARCHAR(10) NOT NULL,
+    menu_item_id VARCHAR(10) NOT NULL,
+    rating INT NOT NULL,
+    created_at DATETIME NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (order_id) REFERENCES orders(id),
     FOREIGN KEY (menu_item_id) REFERENCES menu_items(id)
 );
@@ -270,11 +298,11 @@ INSERT INTO vouchers (id, code, value, description, max_discount, is_active) VAL
 -- =============================================
 -- RESTAURANTS
 -- =============================================
-INSERT INTO restaurants (id, name, cuisine, rating, reviews_count, walk_time, distance, is_open, promo_text, image_url, banner_image_url, address, operational_hours, location_id, cheapest_price, is_instant) VALUES
-('rst_001', 'Warung Bu Ani', 'Masakan Rumah', 4.8, '1.2rb', '2 menit', '50 m', TRUE, 'Diskon 30%', 'https://images.unsplash.com/photo-1541832676-9b763b0239ab?auto=format&fit=crop&w=400&q=80', 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=80', 'Kantin Pusat Lt. 1, Blok A', '08:00 - 17:00', 'loc_001', 15000, TRUE),
-('rst_002', 'Ayam Geprek Bensu', 'Ayam', 4.6, '890rb', '5 menit', '120 m', TRUE, 'Promo Spesial', 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=400&q=80', 'https://images.unsplash.com/photo-1598103442097-8b74f2e94f0d?auto=format&fit=crop&w=1200&q=80', 'Kantin Teknik Lt. Dasar, Blok C', '09:00 - 20:00', 'loc_002', 18000, TRUE),
-('rst_003', 'Kopi Kenangan', 'Kopi & Minuman', 4.5, '2.1rb', '1 menit', '20 m', TRUE, NULL, 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80', 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1200&q=80', 'Kantin Pusat Lt. 1, Blok B', '07:00 - 18:00', 'loc_001', 12000, FALSE),
-('rst_004', 'Mie Aceh Jaya', 'Mie', 4.7, '650rb', '3 menit', '80 m', TRUE, 'Mie Terfavorit', 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=400&q=80', 'https://images.unsplash.com/photo-1612929633738-8fe03f7d0b9c?auto=format&fit=crop&w=1200&q=80', 'Kantin Ekonomi Lt. 2, Blok A', '09:00 - 19:00', 'loc_003', 20000, TRUE);
+INSERT INTO restaurants (id, name, cuisine, rating, rating_count, reviews_count, walk_time, distance, is_open, promo_text, image_url, banner_image_url, address, operational_hours, location_id, cheapest_price, is_instant) VALUES
+('rst_001', 'Warung Bu Ani', 'Masakan Rumah', 4.8, 0, '1.2rb', '2 menit', '50 m', TRUE, 'Diskon 30%', 'https://images.unsplash.com/photo-1541832676-9b763b0239ab?auto=format&fit=crop&w=400&q=80', 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=80', 'Kantin Pusat Lt. 1, Blok A', '08:00 - 17:00', 'loc_001', 15000, TRUE),
+('rst_002', 'Ayam Geprek Bensu', 'Ayam', 4.6, 0, '890rb', '5 menit', '120 m', TRUE, 'Promo Spesial', 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=400&q=80', 'https://images.unsplash.com/photo-1598103442097-8b74f2e94f0d?auto=format&fit=crop&w=1200&q=80', 'Kantin Teknik Lt. Dasar, Blok C', '09:00 - 20:00', 'loc_002', 18000, TRUE),
+('rst_003', 'Kopi Kenangan', 'Kopi & Minuman', 4.5, 0, '2.1rb', '1 menit', '20 m', TRUE, NULL, 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80', 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1200&q=80', 'Kantin Pusat Lt. 1, Blok B', '07:00 - 18:00', 'loc_001', 12000, FALSE),
+('rst_004', 'Mie Aceh Jaya', 'Mie', 4.7, 0, '650rb', '3 menit', '80 m', TRUE, 'Mie Terfavorit', 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=400&q=80', 'https://images.unsplash.com/photo-1612929633738-8fe03f7d0b9c?auto=format&fit=crop&w=1200&q=80', 'Kantin Ekonomi Lt. 2, Blok A', '09:00 - 19:00', 'loc_003', 20000, TRUE);
 
 -- =============================================
 -- RESTAURANT PROMOS
@@ -287,21 +315,21 @@ INSERT INTO restaurant_promos (restaurant_id, promo) VALUES
 -- =============================================
 -- MENU ITEMS
 -- =============================================
-INSERT INTO menu_items (id, restaurant_id, name, description, price, original_price, badge_text, badge_variant, prep_time, image_url, category, rating, sales_count, is_popular) VALUES
-('mnu_001', 'rst_001', 'Nasi Goreng Spesial', 'Nasi goreng dengan telur, ayam suwir, dan kerupuk', 20000, 25000, 'Diskon 20%', 'destructive', '10-15 mnt', 'https://images.unsplash.com/photo-1563379926898-05f4575a45d8?auto=format&fit=crop&w=400&q=80', 'Nasi', 4.8, '1.5rb', TRUE),
-('mnu_002', 'rst_001', 'Ayam Bakar Madu', 'Ayam bakar dengan bumbu madu khas Bu Ani', 30000, NULL, NULL, NULL, '15-20 mnt', 'https://images.unsplash.com/photo-1598103442097-8b74f2e94f0d?auto=format&fit=crop&w=400&q=80', 'Ayam', 4.7, '980', TRUE),
-('mnu_003', 'rst_001', 'Es Teh Manis', 'Teh manis segar dengan es batu', 5000, NULL, NULL, NULL, '3-5 mnt', 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=400&q=80', 'Minuman', 4.5, '2.3rb', FALSE),
-('mnu_004', 'rst_001', 'Pisang Goreng', 'Pisang goreng crispy taburan gula halus', 8000, 10000, 'Hemat 20%', 'secondary', '5-8 mnt', 'https://images.unsplash.com/photo-1615361200141-f45040f367be?auto=format&fit=crop&w=400&q=80', 'Camilan', 4.6, '750', FALSE),
-('mnu_005', 'rst_002', 'Ayam Geprek Level 5', 'Ayam geprek super pedas level 5 dengan nasi hangat', 16000, 20000, 'Best Seller', 'default', '10-15 mnt', 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=400&q=80', 'Ayam', 4.8, '2.1rb', TRUE),
-('mnu_006', 'rst_002', 'Paket Geprek Komplit', 'Ayam geprek + nasi + telur + tahu + es teh', 35000, NULL, NULL, NULL, '15-20 mnt', 'https://images.unsplash.com/photo-1604503468506-a8da13d82791?auto=format&fit=crop&w=400&q=80', 'Ayam', 4.7, '1.8rb', TRUE),
-('mnu_007', 'rst_002', 'Es Jeruk', 'Jeruk peras segar', 5000, NULL, NULL, NULL, '3-5 mnt', 'https://images.unsplash.com/photo-1621263764928-df1444c5e859?auto=format&fit=crop&w=400&q=80', 'Minuman', 4.5, '3.2rb', FALSE),
-('mnu_008', 'rst_003', 'Kopi Susu Mantan', 'Kopi susu kekinian dengan rasa caramel', 14000, 18000, 'Diskon 20%', 'destructive', '5-8 mnt', 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80', 'Minuman', 4.6, '5.1rb', TRUE),
-('mnu_009', 'rst_003', 'Matcha Latte', 'Latte dengan bubuk matcha premium', 22000, NULL, NULL, NULL, '5-8 mnt', 'https://images.unsplash.com/photo-1571934811356-5cc061b6821f?auto=format&fit=crop&w=400&q=80', 'Minuman', 4.7, '3.4rb', TRUE),
-('mnu_010', 'rst_003', 'Croissant Coklat', 'Croissant panggang dengan isian coklat leleh', 15000, NULL, NULL, NULL, '10-15 mnt', 'https://images.unsplash.com/photo-1555507036-ab1f4038028a?auto=format&fit=crop&w=400&q=80', 'Manis', 4.5, '1.2rb', FALSE),
-('mnu_011', 'rst_004', 'Mie Aceh Original', 'Mie Aceh dengan daging sapi dan bumbu khas Aceh', 25000, NULL, NULL, NULL, '10-15 mnt', 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=400&q=80', 'Mie', 4.8, '2.7rb', TRUE),
-('mnu_012', 'rst_004', 'Mie Aceh Seafood', 'Mie Aceh dengan campuran seafood segar', 28000, 35000, 'Promo Spesial', 'secondary', '15-20 mnt', 'https://images.unsplash.com/photo-1552611052-33e04de1b100?auto=format&fit=crop&w=400&q=80', 'Seafood', 4.7, '1.5rb', TRUE),
-('mnu_013', 'rst_004', 'Mie Aceh Goreng', 'Mie Aceh versi goreng dengan bumbu spesial', 28000, NULL, NULL, NULL, '10-15 mnt', 'https://images.unsplash.com/photo-1585032226651-759b368d7246?auto=format&fit=crop&w=400&q=80', 'Mie', 4.6, '980', FALSE),
-('mnu_014', 'rst_004', 'Es Kelapa Muda', 'Air kelapa muda segar dengan daging kelapa', 8000, NULL, NULL, NULL, '3-5 mnt', 'https://images.unsplash.com/photo-1527661591475-527312dd65f5?auto=format&fit=crop&w=400&q=80', 'Minuman', 4.5, '2.1rb', FALSE);
+INSERT INTO menu_items (id, restaurant_id, name, description, price, original_price, badge_text, badge_variant, prep_time, image_url, category, rating, rating_count, sales_count, is_popular) VALUES
+('mnu_001', 'rst_001', 'Nasi Goreng Spesial', 'Nasi goreng dengan telur, ayam suwir, dan kerupuk', 20000, 25000, 'Diskon 20%', 'destructive', '10-15 mnt', 'https://images.unsplash.com/photo-1563379926898-05f4575a45d8?auto=format&fit=crop&w=400&q=80', 'Nasi', 4.8, 0, '1.5rb', TRUE),
+('mnu_002', 'rst_001', 'Ayam Bakar Madu', 'Ayam bakar dengan bumbu madu khas Bu Ani', 30000, NULL, NULL, NULL, '15-20 mnt', 'https://images.unsplash.com/photo-1598103442097-8b74f2e94f0d?auto=format&fit=crop&w=400&q=80', 'Ayam', 4.7, 0, '980', TRUE),
+('mnu_003', 'rst_001', 'Es Teh Manis', 'Teh manis segar dengan es batu', 5000, NULL, NULL, NULL, '3-5 mnt', 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=400&q=80', 'Minuman', 4.5, 0, '2.3rb', FALSE),
+('mnu_004', 'rst_001', 'Pisang Goreng', 'Pisang goreng crispy taburan gula halus', 8000, 10000, 'Hemat 20%', 'secondary', '5-8 mnt', 'https://images.unsplash.com/photo-1615361200141-f45040f367be?auto=format&fit=crop&w=400&q=80', 'Camilan', 4.6, 0, '750', FALSE),
+('mnu_005', 'rst_002', 'Ayam Geprek Level 5', 'Ayam geprek super pedas level 5 dengan nasi hangat', 16000, 20000, 'Best Seller', 'default', '10-15 mnt', 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=400&q=80', 'Ayam', 4.8, 0, '2.1rb', TRUE),
+('mnu_006', 'rst_002', 'Paket Geprek Komplit', 'Ayam geprek + nasi + telur + tahu + es teh', 35000, NULL, NULL, NULL, '15-20 mnt', 'https://images.unsplash.com/photo-1604503468506-a8da13d82791?auto=format&fit=crop&w=400&q=80', 'Ayam', 4.7, 0, '1.8rb', TRUE),
+('mnu_007', 'rst_002', 'Es Jeruk', 'Jeruk peras segar', 5000, NULL, NULL, NULL, '3-5 mnt', 'https://images.unsplash.com/photo-1621263764928-df1444c5e859?auto=format&fit=crop&w=400&q=80', 'Minuman', 4.5, 0, '3.2rb', FALSE),
+('mnu_008', 'rst_003', 'Kopi Susu Mantan', 'Kopi susu kekinian dengan rasa caramel', 14000, 18000, 'Diskon 20%', 'destructive', '5-8 mnt', 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80', 'Minuman', 4.6, 0, '5.1rb', TRUE),
+('mnu_009', 'rst_003', 'Matcha Latte', 'Latte dengan bubuk matcha premium', 22000, NULL, NULL, NULL, '5-8 mnt', 'https://images.unsplash.com/photo-1571934811356-5cc061b6821f?auto=format&fit=crop&w=400&q=80', 'Minuman', 4.7, 0, '3.4rb', TRUE),
+('mnu_010', 'rst_003', 'Croissant Coklat', 'Croissant panggang dengan isian coklat leleh', 15000, NULL, NULL, NULL, '10-15 mnt', 'https://images.unsplash.com/photo-1555507036-ab1f4038028a?auto=format&fit=crop&w=400&q=80', 'Manis', 4.5, 0, '1.2rb', FALSE),
+('mnu_011', 'rst_004', 'Mie Aceh Original', 'Mie Aceh dengan daging sapi dan bumbu khas Aceh', 25000, NULL, NULL, NULL, '10-15 mnt', 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=400&q=80', 'Mie', 4.8, 0, '2.7rb', TRUE),
+('mnu_012', 'rst_004', 'Mie Aceh Seafood', 'Mie Aceh dengan campuran seafood segar', 28000, 35000, 'Promo Spesial', 'secondary', '15-20 mnt', 'https://images.unsplash.com/photo-1552611052-33e04de1b100?auto=format&fit=crop&w=400&q=80', 'Seafood', 4.7, 0, '1.5rb', TRUE),
+('mnu_013', 'rst_004', 'Mie Aceh Goreng', 'Mie Aceh versi goreng dengan bumbu spesial', 28000, NULL, NULL, NULL, '10-15 mnt', 'https://images.unsplash.com/photo-1585032226651-759b368d7246?auto=format&fit=crop&w=400&q=80', 'Mie', 4.6, 0, '980', FALSE),
+('mnu_014', 'rst_004', 'Es Kelapa Muda', 'Air kelapa muda segar dengan daging kelapa', 8000, NULL, NULL, NULL, '3-5 mnt', 'https://images.unsplash.com/photo-1527661591475-527312dd65f5?auto=format&fit=crop&w=400&q=80', 'Minuman', 4.5, 0, '2.1rb', FALSE);
 
 -- =============================================
 -- MENU ITEM VARIANTS

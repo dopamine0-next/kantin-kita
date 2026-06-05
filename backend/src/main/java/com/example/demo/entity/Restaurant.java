@@ -29,6 +29,9 @@ public class Restaurant {
 
     private Double rating;
 
+    @Column(name = "rating_count")
+    private Integer ratingCount;
+
     private String reviewsCount;
 
     private String walkTime;
