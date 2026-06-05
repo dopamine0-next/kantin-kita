@@ -56,7 +56,7 @@ public class RestaurantResponse {
                 .id(restaurant.getId())
                 .name(restaurant.getName())
                 .cuisine(restaurant.getCuisine())
-                .rating(restaurant.getRating())
+                .rating(Math.round(restaurant.getRating() * 10.0) / 10.0)
                 .ratingCount(restaurant.getRatingCount())
                 .reviewsCount(restaurant.getReviewsCount())
                 .walkTime(restaurant.getWalkTime())

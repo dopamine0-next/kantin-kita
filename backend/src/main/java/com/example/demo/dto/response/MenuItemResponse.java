@@ -54,7 +54,7 @@ public class MenuItemResponse {
                 .price(item.getPrice())
                 .imageUrl(item.getImageUrl())
                 .category(item.getCategory())
-                .rating(item.getRating())
+                .rating(Math.round(item.getRating() * 10.0) / 10.0)
                 .ratingCount(item.getRatingCount())
                 .salesCount(item.getSalesCount())
                 .isPopular(item.getIsPopular())

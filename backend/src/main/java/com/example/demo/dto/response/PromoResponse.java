@@ -49,7 +49,7 @@ public class PromoResponse {
                 .category(item.getCategory())
                 .price(item.getPrice())
                 .originalPrice(item.getOriginalPrice())
-                .rating(item.getRating())
+                .rating(Math.round(item.getRating() * 10.0) / 10.0)
                 .prepTime(item.getPrepTime())
                 .badgeText(item.getBadgeText())
                 .badgeVariant(item.getBadgeVariant())

@@ -286,7 +286,7 @@ public class DataSeeder implements CommandLineRunner {
             Restaurant restaurant = Restaurant.builder()
                     .name(RESTAURANT_NAMES.get(i))
                     .cuisine(CUISINES.get(i))
-                    .rating(rand.nextDouble() * 1.5 + 3.5)
+                    .rating(Math.round((rand.nextDouble() * 1.5 + 3.5) * 10.0) / 10.0)
                     .ratingCount(ratingCount)
                     .reviewsCount(reviewsCount)
                     .walkTime(rand.nextInt(1, 8) + " menit")
