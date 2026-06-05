@@ -45,7 +45,6 @@ public class VendorMenuService {
                 .category(request.getCategory())
                 .rating(0.0)
                 .ratingCount(0)
-                .salesCount("0")
                 .isPopular(false)
                 .prepTime(request.getPrepTime())
                 .originalPrice(request.getOriginalPrice())

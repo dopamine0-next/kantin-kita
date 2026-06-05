@@ -375,7 +375,6 @@ public class DataSeeder implements CommandLineRunner {
                         .category(category)
                         .rating(rating)
                         .ratingCount(0)
-                        .salesCount(formatSalesCount(rand.nextInt(100, 6000)))
                         .isPopular(rand.nextBoolean())
                         .variants(variants)
                         .build();
@@ -609,14 +608,6 @@ public class DataSeeder implements CommandLineRunner {
     }
 
     private String formatReviewsCount(int count) {
-        if (count >= 1000) {
-            double ribuan = count / 1000.0;
-            return String.format(Locale.US, "%.1f", ribuan) + "rb";
-        }
-        return String.valueOf(count);
-    }
-
-    private String formatSalesCount(int count) {
         if (count >= 1000) {
             double ribuan = count / 1000.0;
             return String.format(Locale.US, "%.1f", ribuan) + "rb";

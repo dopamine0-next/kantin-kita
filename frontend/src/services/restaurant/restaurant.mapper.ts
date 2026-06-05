@@ -39,7 +39,6 @@ export function mapMenuItem(apiData: MenuItemApiResponse): MenuItem {
     variants: apiData.variants,
     customizations: mapCustomizations(apiData.customizations),
     rating: apiData.rating,
-    salesCount: apiData.sales_count,
     isPopular: apiData.is_popular,
   }
 }

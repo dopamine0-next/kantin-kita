@@ -18,7 +18,7 @@ public class PaymentController {
     @PostMapping("/callback")
     public ResponseEntity<Map<String, Object>> handleCallback(
             @RequestBody PaymentCallbackRequest callback,
-            @RequestHeader(value = "x-callback-token", required = false) String callbackToken
+            @RequestHeader("x-callback-token") String callbackToken
     ) {
         paymentService.handleCallback(callback, callbackToken);
         return ResponseEntity.ok(Map.of("received", true));

@@ -19,6 +19,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -47,6 +50,14 @@ public class OrderService {
     public CreateOrderResponse createOrder(CreateOrderRequest request, String userId) {
         Restaurant restaurant = restaurantRepository.findById(request.getRestaurantId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Restaurant not found"));
+
+        if (!Boolean.TRUE.equals(restaurant.getIsOpen())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Restaurant is currently closed");
+        }
+
+        if (restaurant.getOperationalHours() != null && !restaurant.getOperationalHours().isBlank()) {
+            validateOperationalHours(restaurant.getOperationalHours());
+        }
 
         OrderMode mode = OrderMode.fromString(request.getMode());
 
@@ -170,6 +181,31 @@ public class OrderService {
                 .filter(order -> !restaurantReviewRepository.existsByOrderIdAndUserId(order.getId(), userId))
                 .map(OrderResponse::from)
                 .toList();
+    }
+
+    private void validateOperationalHours(String operationalHours) {
+        String[] parts = operationalHours.split("\\s*-\\s*");
+        if (parts.length != 2) return;
+
+        try {
+            LocalTime open = LocalTime.parse(parts[0].trim());
+            LocalTime close = LocalTime.parse(parts[1].trim());
+            LocalTime now = LocalTime.now(ZoneId.of("Asia/Jakarta"));
+
+            boolean isOpen;
+            if (close.isAfter(open)) {
+                isOpen = !now.isBefore(open) && !now.isAfter(close);
+            } else {
+                isOpen = !now.isBefore(open) || !now.isAfter(close);
+            }
+
+            if (!isOpen) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                        "Restaurant is closed. Operational hours: " + operationalHours);
+            }
+        } catch (DateTimeParseException e) {
+            log.warn("Unable to parse operational hours: {}", operationalHours);
+        }
     }
 
     private String callXenditInvoice(Order order) {

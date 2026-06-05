@@ -25,16 +25,37 @@ public class PaymentService {
     private String callbackToken;
 
     public void handleCallback(PaymentCallbackRequest callback, String xenditCallbackToken) {
-        if (callbackToken != null && !callbackToken.isBlank()
-                && !callbackToken.equals(xenditCallbackToken)) {
+        if (callbackToken == null || callbackToken.isBlank()) {
+            log.error("xendit.callback-token is not configured! Set XENDIT_CALLBACK_TOKEN in .env");
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Callback token not configured on server");
+        }
+        if (!callbackToken.equals(xenditCallbackToken)) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid callback token");
         }
 
         Order order = orderRepository.findById(callback.getExternalId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Order not found"));
 
+        if (order.getPaymentStatus() != PaymentStatus.UNPAID || order.getStatus() != OrderStatus.PENDING) {
+            log.info("Order {} already processed (status={}, payment={}), ignoring callback",
+                    order.getOrderNumber(), order.getStatus(), order.getPaymentStatus());
+            return;
+        }
+
+        if (callback.getId() != null) {
+            order.setPaymentExternalId(callback.getId());
+        }
+
         switch (callback.getStatus()) {
             case "PAID":
+                if (callback.getPaidAmount() != null) {
+                    double diff = Math.abs(callback.getPaidAmount().doubleValue() - order.getTotalAmount());
+                    if (diff > 1000) {
+                        log.warn("Payment amount mismatch for order {}: paid={}, expected={}",
+                                order.getOrderNumber(), callback.getPaidAmount(), order.getTotalAmount());
+                    }
+                }
                 order.setPaymentStatus(PaymentStatus.PAID);
                 order.setStatus(OrderStatus.PROCESSING);
                 break;

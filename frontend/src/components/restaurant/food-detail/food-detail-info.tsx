@@ -1,4 +1,4 @@
-import { Info, ShoppingBag, Star } from 'lucide-react'
+import { ShoppingBag, Star } from 'lucide-react'
 import { motion } from 'motion/react'
 import Image from 'next/image'
 
@@ -43,13 +43,6 @@ export function FoodDetailInfo({ item, onProceed }: FoodDetailInfoProps) {
             {item.description}
           </DrawerDescription>
         </DrawerHeader>
-
-        {item.salesCount && (
-          <div className="text-muted-foreground bg-muted/30 border-muted/20 mt-1.5 flex max-w-max items-center gap-1.5 rounded-xl border px-2.5 py-1 text-xs font-semibold">
-            <Info className="text-muted-foreground/70 size-3" />
-            <span>Alternatif Terlaris • {item.salesCount}</span>
-          </div>
-        )}
 
         <div className="border-muted/30 mt-8 border-t pt-4">
           <motion.div whileTap={{ scale: 0.98 }}>

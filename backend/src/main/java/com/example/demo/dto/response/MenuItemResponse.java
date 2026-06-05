@@ -29,9 +29,6 @@ public class MenuItemResponse {
     @JsonProperty("rating_count")
     private Integer ratingCount;
 
-    @JsonProperty("sales_count")
-    private String salesCount;
-
     @JsonProperty("is_popular")
     private Boolean isPopular;
 
@@ -56,7 +53,6 @@ public class MenuItemResponse {
                 .category(item.getCategory())
                 .rating(Math.round(item.getRating() * 10.0) / 10.0)
                 .ratingCount(item.getRatingCount())
-                .salesCount(item.getSalesCount())
                 .isPopular(item.getIsPopular())
                 .prepTime(item.getPrepTime())
                 .stall(item.getRestaurant().getName())

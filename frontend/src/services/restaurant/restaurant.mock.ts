@@ -101,7 +101,6 @@ export const MOCK_RESTAURANTS_DETAILS_RESPONSE: Record<string, RestaurantDetailA
         category: 'Soto & Sup',
         variants: ['Standard', 'Ekstra Koya', 'Ekstra Ceker'],
         rating: 4.9,
-        sales_count: '1.2k+ terjual',
         is_popular: true,
       },
       {
@@ -115,7 +114,6 @@ export const MOCK_RESTAURANTS_DETAILS_RESPONSE: Record<string, RestaurantDetailA
         category: 'Soto & Sup',
         variants: ['Standard', 'Dengan Nasi', 'Tanpa Nasi'],
         rating: 4.8,
-        sales_count: '500+ terjual',
       },
       {
         id: 'food-1-3',
@@ -150,7 +148,6 @@ export const MOCK_RESTAURANTS_DETAILS_RESPONSE: Record<string, RestaurantDetailA
           },
         ],
         rating: 4.9,
-        sales_count: '800+ terjual',
         is_popular: true,
       },
       {
@@ -164,7 +161,6 @@ export const MOCK_RESTAURANTS_DETAILS_RESPONSE: Record<string, RestaurantDetailA
         category: 'Bakso',
         variants: ['Standard', 'Ekstra Tahu'],
         rating: 4.7,
-        sales_count: '350+ terjual',
       },
       {
         id: 'food-1-5',
@@ -176,7 +172,6 @@ export const MOCK_RESTAURANTS_DETAILS_RESPONSE: Record<string, RestaurantDetailA
           'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=300&q=80',
         category: 'Camilan',
         rating: 4.8,
-        sales_count: '1.5k+ terjual',
         is_popular: true,
       },
       {
@@ -209,7 +204,6 @@ export const MOCK_RESTAURANTS_DETAILS_RESPONSE: Record<string, RestaurantDetailA
           },
         ],
         rating: 4.9,
-        sales_count: '2k+ terjual',
       },
       {
         id: 'food-1-7',
@@ -221,7 +215,6 @@ export const MOCK_RESTAURANTS_DETAILS_RESPONSE: Record<string, RestaurantDetailA
           'https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?auto=format&fit=crop&w=300&q=80',
         category: 'Minuman',
         rating: 4.8,
-        sales_count: '900+ terjual',
       },
     ],
   },
@@ -255,7 +248,6 @@ export const MOCK_RESTAURANTS_DETAILS_RESPONSE: Record<string, RestaurantDetailA
         category: 'Paket Geprek',
         variants: ['Level 1 (Sante)', 'Level 3 (Gahar)', 'Level 5 (Mampus)'],
         rating: 4.8,
-        sales_count: '2.4k+ terjual',
         is_popular: true,
       },
       {
@@ -269,7 +261,6 @@ export const MOCK_RESTAURANTS_DETAILS_RESPONSE: Record<string, RestaurantDetailA
         category: 'Paket Geprek',
         variants: ['Level 1', 'Level 2', 'Level 3', 'Level 4'],
         rating: 4.9,
-        sales_count: '1.1k+ terjual',
         is_popular: true,
       },
       {
@@ -282,7 +273,6 @@ export const MOCK_RESTAURANTS_DETAILS_RESPONSE: Record<string, RestaurantDetailA
           'https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=300&q=80',
         category: 'Paket Geprek',
         rating: 4.7,
-        sales_count: '850+ terjual',
       },
     ],
   },

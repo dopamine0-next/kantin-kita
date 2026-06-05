@@ -45,8 +45,6 @@ public class MenuItem {
     @Column(name = "rating_count")
     private Integer ratingCount;
 
-    private String salesCount;
-
     private Boolean isPopular;
 
     private Double originalPrice;

@@ -60,7 +60,6 @@ export interface MenuItemApiResponse {
   variants?: string[]
   customizations?: MenuCustomization[]
   rating?: number
-  sales_count?: string
   is_popular?: boolean
 }
 
@@ -75,7 +74,6 @@ export interface MenuItem {
   variants?: string[]
   customizations?: MenuCustomization[]
   rating?: number
-  salesCount?: string
   isPopular?: boolean
 }
 
