@@ -1,0 +1,28 @@
+sequenceDiagram
+  participant Vendor as Vendor
+  participant API as Backend API
+  participant DB as Database
+
+  Vendor->>API: Login
+  API->>DB: Verifikasi kredensial
+  DB-->>API: Token JWT
+  API-->>Vendor: Dashboard vendor
+
+  Vendor->>API: Lihat pesanan masuk
+  API->>DB: Query order by restoran
+  DB-->>API: Daftar pesanan
+  API-->>Vendor: Tampilkan pesanan
+
+  Vendor->>API: Update status (PROCESSING)
+  API->>DB: Update order
+  DB-->>API: Sukses
+
+  Vendor->>API: Update status (READY)
+  API->>DB: Update order
+  DB-->>API: Sukses
+
+  Note over Vendor,DB: Customer diberitahu
+
+  Vendor->>API: Update status (COMPLETED)
+  API->>DB: Update order
+  DB-->>API: Sukses

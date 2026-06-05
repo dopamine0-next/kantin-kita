@@ -1,0 +1,159 @@
+erDiagram
+  User ||--o{ Order : "memiliki"
+  User ||--o{ MenuItemReview : "memberi"
+  User ||--o{ RestaurantReview : "memberi"
+  Location ||--o{ Restaurant : "berada di"
+  Location ||--o{ Banner : "ditampilkan di"
+  Location ||--o{ User : "berada di"
+  Vendor ||--o{ Restaurant : "memiliki"
+  Restaurant ||--o{ MenuItem : "menjual"
+  Restaurant ||--o{ Order : "menerima"
+  Restaurant ||--o{ RestaurantReview : "mendapat"
+  MenuItem ||--o{ MenuItemReview : "mendapat"
+  MenuItem ||--o{ MenuCustomization : "memiliki"
+  MenuCustomization ||--o{ CustomizationOption : "memiliki"
+  Order ||--o{ OrderItem : "terdiri atas"
+  OrderItem ||--o{ OrderAddon : "memiliki tambahan"
+  Voucher ||--o{ Order : "digunakan"
+
+  User {
+    string id PK "NanoID"
+    string nim UK
+    string name
+    string password "BCrypt"
+    enum role "USER | VENDOR | ADMIN"
+    int semester
+    string location_id FK
+  }
+
+  Vendor {
+    string id PK "NanoID"
+    string email UK
+    string password "BCrypt"
+    string name
+  }
+
+  Location {
+    string id PK "NanoID"
+    string name
+    float latitude
+    float longitude
+  }
+
+  Restaurant {
+    string id PK "NanoID"
+    string name
+    float rating
+    boolean is_open
+    string location_id FK
+    string vendor_id FK
+  }
+
+  MenuItem {
+    string id PK "NanoID"
+    string name
+    float price
+    string restaurant_id FK
+    string category_id FK
+  }
+
+  MenuCustomization {
+    string id PK "NanoID"
+    string name
+    enum type "CHOICE | MULTIPLE"
+    string menu_item_id FK
+  }
+
+  CustomizationOption {
+    string id PK "NanoID"
+    string label
+    float price
+    string customization_id FK
+  }
+
+  Category {
+    string id PK "NanoID"
+    string name
+    int priority
+  }
+
+  Order {
+    string id PK "NanoID"
+    string user_id FK
+    string restaurant_id FK
+    string voucher_code "nullable"
+    enum order_mode "DINE_IN | PICKUP"
+    float total
+    enum order_status "PENDING | PROCESSING | READY | COMPLETED | CANCELLED"
+    enum payment_status "UNPAID | PAID | EXPIRED | FAILED"
+    string xendit_invoice_url "nullable"
+  }
+
+  OrderItem {
+    string id PK "NanoID"
+    string order_id FK
+    string menu_item_id FK
+    int quantity
+    float price
+    string variant "nullable"
+  }
+
+  OrderAddon {
+    string id PK "NanoID"
+    string order_item_id FK
+    string name
+    float price
+  }
+
+  Banner {
+    string id PK "NanoID"
+    string title
+    string image
+    boolean is_active
+    string location_id FK "nullable"
+  }
+
+  Voucher {
+    string id PK "NanoID"
+    string code UK
+    float discount_percent
+    float min_spend "nullable"
+    float max_discount "nullable"
+    datetime valid_until
+  }
+
+  MenuItemReview {
+    string id PK "NanoID"
+    string user_id FK
+    string menu_item_id FK
+    string order_id FK
+    int rating "1-5"
+  }
+
+  RestaurantReview {
+    string id PK "NanoID"
+    string user_id FK
+    string restaurant_id FK
+    string order_id FK
+    int rating "1-5"
+  }
+
+  MarqueeNode {
+    string id PK "NanoID"
+    string text
+    boolean is_active
+    int sort_order
+  }
+
+  FAQ {
+    string id PK "NanoID"
+    string question
+    string answer
+    int sort_order
+  }
+
+  Term {
+    string id PK "NanoID"
+    string title
+    string content "Markdown"
+  }
