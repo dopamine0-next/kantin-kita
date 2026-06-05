@@ -25,6 +25,7 @@ export interface OrderItemApiResponse {
   price: number
   image_url?: string
   variant_name?: string
+  menu_item_id?: string
   note?: string
   addons?: OrderAddonApiResponse[]
 }
@@ -59,6 +60,7 @@ export interface CreateOrderResponse {
 
 export interface OrderItem {
   id: string
+  menuItemId?: string
   name: string
   quantity: number
   price: number

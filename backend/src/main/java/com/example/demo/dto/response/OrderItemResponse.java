@@ -27,6 +27,9 @@ public class OrderItemResponse {
     @JsonProperty("variant_name")
     private String variantName;
 
+    @JsonProperty("menu_item_id")
+    private String menuItemId;
+
     private String note;
 
     private List<OrderAddonResponse> addons;
@@ -39,6 +42,7 @@ public class OrderItemResponse {
                 .price(item.getPrice())
                 .imageUrl(item.getImageUrl())
                 .variantName(item.getVariantName())
+                .menuItemId(item.getMenuItem() != null ? item.getMenuItem().getId() : null)
                 .note(item.getNote())
                 .addons(item.getAddons().isEmpty() ? null
                         : item.getAddons().stream().map(OrderAddonResponse::from).toList())

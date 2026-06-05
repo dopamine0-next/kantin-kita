@@ -36,6 +36,7 @@ public class OrderService {
     private final MenuItemRepository menuItemRepository;
     private final VoucherRepository voucherRepository;
     private final UserRepository userRepository;
+    private final RestaurantReviewRepository restaurantReviewRepository;
 
     @Value("${xendit.success-redirect-url}")
     private String successRedirectUrl;
@@ -160,6 +161,15 @@ public class OrderService {
         }
 
         return OrderResponse.from(order);
+    }
+
+    @Transactional(readOnly = true)
+    public List<OrderResponse> getUnreviewedOrders(String userId) {
+        return orderRepository.findByUserIdAndStatusOrderByCreatedAtDesc(userId, OrderStatus.COMPLETED)
+                .stream()
+                .filter(order -> !restaurantReviewRepository.existsByOrderIdAndUserId(order.getId(), userId))
+                .map(OrderResponse::from)
+                .toList();
     }
 
     private String callXenditInvoice(Order order) {

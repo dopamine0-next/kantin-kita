@@ -42,4 +42,10 @@ public class OrderController {
         String userId = (String) authentication.getPrincipal();
         return ResponseEntity.ok(orderService.getOrderDetail(id, userId));
     }
+
+    @GetMapping("/unreviewed")
+    public ResponseEntity<List<OrderResponse>> getUnreviewedOrders(Authentication authentication) {
+        String userId = (String) authentication.getPrincipal();
+        return ResponseEntity.ok(orderService.getUnreviewedOrders(userId));
+    }
 }

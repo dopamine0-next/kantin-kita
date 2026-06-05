@@ -13,6 +13,11 @@ export async function get_order_by_id(id: string): Promise<Order> {
   return mapOrder(res)
 }
 
+export async function getUnreviewedOrders(): Promise<Order[]> {
+  const res = await fetcher<OrderApiResponse[]>('/orders/unreviewed')
+  return res.map(mapOrder)
+}
+
 export async function createOrder(payload: CreateOrderPayload): Promise<CreateOrderResponse> {
   return fetcher<CreateOrderResponse>('/orders', {
     method: 'POST',

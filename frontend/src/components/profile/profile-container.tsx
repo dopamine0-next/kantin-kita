@@ -1,23 +1,21 @@
 'use client'
 
-import {
-  ChevronRight,
-  FileText,
-  HelpCircle,
-  LogOut,
-  MapPin,
-  ReceiptText,
-  Sparkles,
-} from 'lucide-react'
+import { ChevronRight, FileText, HelpCircle, LogOut, Star } from 'lucide-react'
+import Image from 'next/image'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Skeleton } from '@/components/ui/skeleton'
+import { useUnreviewedOrders } from '@/hooks/use-unreviewed-orders'
+import { formatRupiah } from '@/lib/utils'
 import { useAuthStore } from '@/store/useAuthStore'
 
 export function ProfileContainer() {
   const router = useRouter()
   const { user, logout } = useAuthStore()
+  const { orders: unratedOrders, isLoading } = useUnreviewedOrders()
 
   if (!user) {
     return (
@@ -26,24 +24,6 @@ export function ProfileContainer() {
       </div>
     )
   }
-
-  const stats = [
-    {
-      label: 'Lokasi Aktif',
-      value: user.location,
-      icon: MapPin,
-    },
-    {
-      label: 'Pesanan',
-      value: '24x',
-      icon: ReceiptText,
-    },
-    {
-      label: 'Poin Kantin',
-      value: '150',
-      icon: Sparkles,
-    },
-  ]
 
   const menuItems = [
     {
@@ -105,15 +85,63 @@ export function ProfileContainer() {
         </div>
       </div>
 
-      {/* Stats */}
-      <div className="bg-muted/40 mx-4 mt-6 flex items-stretch justify-between gap-0 rounded-2xl p-1">
-        {stats.map((stat, i) => (
-          <div key={i} className="flex flex-1 flex-col items-center gap-1 rounded-xl py-3">
-            <stat.icon className="text-primary size-5" />
-            <span className="text-sm font-semibold">{stat.value}</span>
-            <span className="text-muted-foreground text-[10px] font-semibold">{stat.label}</span>
+      {/* Unreviewed Restaurants */}
+      <div className="mx-4 mt-6">
+        <div className="mb-3 flex items-center justify-between">
+          <h3 className="text-foreground text-sm font-semibold">Belum Direview</h3>
+          {!isLoading && unratedOrders.length > 0 && (
+            <span className="text-muted-foreground text-xs font-medium">
+              {unratedOrders.length} restoran
+            </span>
+          )}
+        </div>
+
+        {isLoading ? (
+          <div className="no-scrollbar flex gap-3 overflow-x-auto">
+            {[...Array(3)].map((_, i) => (
+              <Skeleton key={i} className="h-32 w-40 shrink-0 rounded-2xl" />
+            ))}
           </div>
-        ))}
+        ) : unratedOrders.length > 0 ? (
+          <div className="no-scrollbar flex gap-3 overflow-x-auto">
+            {unratedOrders.map((order) => (
+              <Link
+                key={order.id}
+                href={`/rate/${order.id}`}
+                className="border-muted/30 bg-card/50 hover:border-primary/20 group flex w-40 shrink-0 flex-col overflow-hidden rounded-2xl border shadow-sm transition-all duration-200 hover:shadow-md"
+              >
+                <div className="relative h-24 w-full overflow-hidden">
+                  <Image
+                    src={order.restaurant_image || '/placeholder.svg'}
+                    alt={order.restaurant_name}
+                    fill
+                    sizes="160px"
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                </div>
+                <div className="flex flex-col gap-0.5 p-2.5">
+                  <span className="line-clamp-1 text-xs font-semibold">
+                    {order.restaurant_name}
+                  </span>
+                  <span className="text-muted-foreground text-[10px] font-medium">
+                    {order.items.length} item &middot; {formatRupiah(order.total_amount)}
+                  </span>
+                  <div className="text-muted-foreground/60 mt-0.5 flex items-center gap-1 text-[10px]">
+                    <Star className="size-3 text-amber-500" />
+                    <span>Beri rating</span>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <div className="bg-muted/20 flex items-center gap-2 rounded-2xl px-4 py-3">
+            <Star className="text-muted-foreground/40 size-4" />
+            <span className="text-muted-foreground/60 text-xs font-medium">
+              Semua pesanan sudah direview!
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Menu */}

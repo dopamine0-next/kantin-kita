@@ -20,4 +20,15 @@ public class PromoService {
                 .map(PromoResponse::from)
                 .toList();
     }
+
+    public List<PromoResponse> getPromos(String locationId) {
+        if (locationId == null) {
+            return getPromos();
+        }
+
+        return menuItemRepository.findByOriginalPriceIsNotNullAndRestaurant_Location_Id(locationId)
+                .stream()
+                .map(PromoResponse::from)
+                .toList();
+    }
 }

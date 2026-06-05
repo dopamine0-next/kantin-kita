@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,9 +22,10 @@ public class RestaurantReviewController {
 
     @PostMapping
     public ResponseEntity<RestaurantReviewResponse> createReview(
-            @RequestHeader("X-User-Id") String userId,
-            @Valid @RequestBody CreateRestaurantReviewRequest request
+            @Valid @RequestBody CreateRestaurantReviewRequest request,
+            Authentication authentication
     ) {
+        String userId = (String) authentication.getPrincipal();
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(restaurantReviewService.createReview(userId, request));
     }
@@ -45,8 +47,9 @@ public class RestaurantReviewController {
     @GetMapping("/check")
     public ResponseEntity<Map<String, Boolean>> checkReviewed(
             @RequestParam String orderId,
-            @RequestHeader("X-User-Id") String userId
+            Authentication authentication
     ) {
+        String userId = (String) authentication.getPrincipal();
         boolean reviewed = restaurantReviewService.hasReviewed(orderId, userId);
         return ResponseEntity.ok(Map.of("reviewed", reviewed));
     }

@@ -3,6 +3,7 @@ import { Order, OrderApiResponse, OrderItem, OrderItemApiResponse } from './orde
 export function mapOrderItem(data: OrderItemApiResponse): OrderItem {
   return {
     id: data.id,
+    menuItemId: data.menu_item_id,
     name: data.name,
     quantity: data.quantity,
     price: data.price,

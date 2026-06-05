@@ -17,6 +17,8 @@ public interface MenuItemRepository extends JpaRepository<MenuItem, String> {
 
     List<MenuItem> findByOriginalPriceIsNotNull();
 
+    List<MenuItem> findByOriginalPriceIsNotNullAndRestaurant_Location_Id(String locationId);
+
     @Query("SELECT m FROM MenuItem m JOIN FETCH m.restaurant r WHERE LOWER(m.name) LIKE LOWER(CONCAT('%', :q, '%')) OR LOWER(r.name) LIKE LOWER(CONCAT('%', :q, '%')) OR LOWER(m.category) LIKE LOWER(CONCAT('%', :q, '%'))")
     List<MenuItem> searchByKeyword(@Param("q") String query);
 }
