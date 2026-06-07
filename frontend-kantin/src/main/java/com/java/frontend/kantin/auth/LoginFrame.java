@@ -125,7 +125,7 @@ public class LoginFrame extends JFrame {
                     SessionContext.setCurrentVendor(loginResp.getVendor());
 
                     dispose();
-                    var mainFrame = new MainFrame(tokenManager);
+                    var mainFrame = new MainFrame(tokenManager, apiClient);
                     mainFrame.setVisible(true);
                 } else {
                     String msg = response.getErrorMessage();
