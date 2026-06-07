@@ -1,0 +1,197 @@
+package com.java.frontend.kantin.model;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
+
+public class VendorRestaurantResponse {
+
+    @JsonProperty
+    private String id;
+
+    @JsonProperty
+    private String name;
+
+    @JsonProperty
+    private String cuisine;
+
+    @JsonProperty
+    private Double rating;
+
+    @JsonProperty
+    private Integer ratingCount;
+
+    @JsonProperty
+    private String reviewsCount;
+
+    @JsonProperty
+    private Boolean isOpen;
+
+    @JsonProperty
+    private String promoText;
+
+    @JsonProperty
+    private String imageUrl;
+
+    @JsonProperty
+    private String bannerImageUrl;
+
+    @JsonProperty
+    private String address;
+
+    @JsonProperty
+    private String operationalHours;
+
+    @JsonProperty
+    private String locationId;
+
+    @JsonProperty
+    private String locationName;
+
+    @JsonProperty
+    private Double cheapestPrice;
+
+    @JsonProperty
+    private Boolean isInstant;
+
+    @JsonProperty
+    private List<String> promos;
+
+    public VendorRestaurantResponse() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCuisine() {
+        return cuisine;
+    }
+
+    public void setCuisine(String cuisine) {
+        this.cuisine = cuisine;
+    }
+
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
+
+    public Integer getRatingCount() {
+        return ratingCount;
+    }
+
+    public void setRatingCount(Integer ratingCount) {
+        this.ratingCount = ratingCount;
+    }
+
+    public String getReviewsCount() {
+        return reviewsCount;
+    }
+
+    public void setReviewsCount(String reviewsCount) {
+        this.reviewsCount = reviewsCount;
+    }
+
+    public Boolean getIsOpen() {
+        return isOpen;
+    }
+
+    public void setIsOpen(Boolean isOpen) {
+        this.isOpen = isOpen;
+    }
+
+    public String getPromoText() {
+        return promoText;
+    }
+
+    public void setPromoText(String promoText) {
+        this.promoText = promoText;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getBannerImageUrl() {
+        return bannerImageUrl;
+    }
+
+    public void setBannerImageUrl(String bannerImageUrl) {
+        this.bannerImageUrl = bannerImageUrl;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getOperationalHours() {
+        return operationalHours;
+    }
+
+    public void setOperationalHours(String operationalHours) {
+        this.operationalHours = operationalHours;
+    }
+
+    public String getLocationId() {
+        return locationId;
+    }
+
+    public void setLocationId(String locationId) {
+        this.locationId = locationId;
+    }
+
+    public String getLocationName() {
+        return locationName;
+    }
+
+    public void setLocationName(String locationName) {
+        this.locationName = locationName;
+    }
+
+    public Double getCheapestPrice() {
+        return cheapestPrice;
+    }
+
+    public void setCheapestPrice(Double cheapestPrice) {
+        this.cheapestPrice = cheapestPrice;
+    }
+
+    public Boolean getIsInstant() {
+        return isInstant;
+    }
+
+    public void setIsInstant(Boolean isInstant) {
+        this.isInstant = isInstant;
+    }
+
+    public List<String> getPromos() {
+        return promos;
+    }
+
+    public void setPromos(List<String> promos) {
+        this.promos = promos;
+    }
+}
