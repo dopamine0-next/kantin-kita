@@ -37,7 +37,7 @@ public class MainFrame extends JFrame {
 
         var sidebar = new Sidebar(panelManager, this::doLogout);
         panelManager.addPanel("dashboard", new DashboardPanel(apiClient));
-        panelManager.addPanel("restaurant", new RestaurantPanel());
+        panelManager.addPanel("restaurant", new RestaurantPanel(apiClient));
         panelManager.addPanel("menu", new MenuPanel());
         panelManager.addPanel("orders", new OrderPanel());
         panelManager.addPanel("reviews", new ReviewPanel());
