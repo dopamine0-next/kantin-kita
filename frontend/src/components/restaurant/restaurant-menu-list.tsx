@@ -81,7 +81,7 @@ export function RestaurantMenuList({
                   <div className="mt-2 flex items-center justify-between">
                     <div className="text-foreground flex items-center gap-2 text-xs font-semibold">
                       <span>Rp {item.price.toLocaleString('id-ID')}</span>
-                      {item.rating && (
+                      {item.rating && item.ratingCount != null && item.ratingCount >= 10 && (
                         <div className="flex items-center gap-0.5 text-xs font-semibold text-amber-500">
                           <Star className="size-3 fill-amber-500 stroke-none" />
                           <span>{item.rating}</span>

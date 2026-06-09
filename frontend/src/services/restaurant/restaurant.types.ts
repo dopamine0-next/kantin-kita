@@ -46,6 +46,7 @@ export interface MenuItemApiResponse {
   restaurant_id?: string
   customizations?: MenuCustomization[]
   rating?: number
+  rating_count?: number
   is_popular?: boolean
 }
 
@@ -59,6 +60,7 @@ export interface MenuItem {
   restaurantId?: string
   customizations?: MenuCustomization[]
   rating?: number
+  ratingCount?: number
   isPopular?: boolean
 }
 

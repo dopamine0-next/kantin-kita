@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -25,12 +27,30 @@ public class VendorMenuService {
     private final MenuCustomizationRepository menuCustomizationRepository;
     private final CustomizationOptionRepository customizationOptionRepository;
     private final CategoryRepository categoryRepository;
+    private final MenuItemReviewRepository menuItemReviewRepository;
 
     public List<MenuItemResponse> listMenus(String vendorId, String restaurantId) {
         vendorRestaurantService.findOwnedRestaurant(vendorId, restaurantId);
-        return menuItemRepository.findByRestaurantId(restaurantId).stream()
-                .map(MenuItemResponse::from)
+        List<MenuItem> items = menuItemRepository.findByRestaurantId(restaurantId);
+        Map<String, Object[]> ratingMap = buildRatingMap(items);
+        return items.stream()
+                .map(item -> {
+                    Object[] rating = ratingMap.get(item.getId());
+                    Double avg = rating != null ? (Double) rating[0] : null;
+                    Integer count = rating != null ? ((Long) rating[1]).intValue() : null;
+                    return MenuItemResponse.from(item, avg, count);
+                })
                 .toList();
+    }
+
+    private Map<String, Object[]> buildRatingMap(List<MenuItem> items) {
+        if (items.isEmpty()) return Map.of();
+        List<Object[]> grouped = menuItemReviewRepository.findAverageRatingByMenuItemGrouped();
+        Map<String, Object[]> map = new HashMap<>();
+        for (Object[] row : grouped) {
+            map.put((String) row[0], new Object[]{row[1], row[2]});
+        }
+        return map;
     }
 
     @Transactional
@@ -47,8 +67,6 @@ public class VendorMenuService {
                 .price(request.getPrice())
                 .imageUrl(request.getImageUrl())
                 .category(category)
-                .rating(0.0)
-                .ratingCount(0)
                 .isPopular(false)
                 .prepTime(request.getPrepTime())
                 .originalPrice(request.getOriginalPrice())
@@ -57,7 +75,7 @@ public class VendorMenuService {
                 .build();
 
         menuItem = menuItemRepository.save(menuItem);
-        return MenuItemResponse.from(menuItem);
+        return MenuItemResponse.from(menuItem, null, null);
     }
 
     @Transactional
@@ -79,13 +97,9 @@ public class VendorMenuService {
         if (request.getBadgeVariant() != null) menuItem.setBadgeVariant(request.getBadgeVariant());
 
         menuItem = menuItemRepository.save(menuItem);
-        return MenuItemResponse.from(menuItem);
-    }
-
-    @Transactional
-    public void deleteMenu(String vendorId, String menuId) {
-        MenuItem menuItem = findMenuItemOwnedByVendor(vendorId, menuId);
-        menuItemRepository.delete(menuItem);
+        Double avg = menuItemReviewRepository.averageRatingByMenuItemId(menuItem.getId());
+        Integer count = menuItemReviewRepository.countByMenuItemId(menuItem.getId());
+        return MenuItemResponse.from(menuItem, avg, count);
     }
 
     @Transactional
@@ -93,7 +107,15 @@ public class VendorMenuService {
         MenuItem menuItem = findMenuItemOwnedByVendor(vendorId, menuId);
         menuItem.setIsPopular(!Boolean.TRUE.equals(menuItem.getIsPopular()));
         menuItem = menuItemRepository.save(menuItem);
-        return MenuItemResponse.from(menuItem);
+        Double avg = menuItemReviewRepository.averageRatingByMenuItemId(menuItem.getId());
+        Integer count = menuItemReviewRepository.countByMenuItemId(menuItem.getId());
+        return MenuItemResponse.from(menuItem, avg, count);
+    }
+
+    @Transactional
+    public void deleteMenu(String vendorId, String menuId) {
+        MenuItem menuItem = findMenuItemOwnedByVendor(vendorId, menuId);
+        menuItemRepository.delete(menuItem);
     }
 
     @Transactional

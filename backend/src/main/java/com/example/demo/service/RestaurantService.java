@@ -3,7 +3,9 @@ package com.example.demo.service;
 import com.example.demo.dto.response.MenuItemResponse;
 import com.example.demo.dto.response.RestaurantDetailResponse;
 import com.example.demo.dto.response.RestaurantResponse;
+import com.example.demo.entity.MenuItem;
 import com.example.demo.entity.Restaurant;
+import com.example.demo.repository.MenuItemReviewRepository;
 import com.example.demo.repository.RestaurantRepository;
 import com.example.demo.repository.RestaurantReviewRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +25,7 @@ public class RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
     private final RestaurantReviewRepository restaurantReviewRepository;
+    private final MenuItemReviewRepository menuItemReviewRepository;
 
     public List<RestaurantResponse> getRestaurants(String locationId, String search) {
         List<Restaurant> restaurants;
@@ -48,8 +53,19 @@ public class RestaurantService {
         Restaurant restaurant = restaurantRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Restaurant not found"));
 
-        List<MenuItemResponse> menuResponses = restaurant.getMenus().stream()
-                .map(MenuItemResponse::from)
+        List<MenuItem> menuItems = restaurant.getMenus();
+
+        List<Object[]> grouped = menuItemReviewRepository.findAverageRatingByMenuItemGrouped();
+        Map<String, Object[]> ratingMap = grouped.stream()
+                .collect(Collectors.toMap(row -> (String) row[0], row -> row));
+
+        List<MenuItemResponse> menuResponses = menuItems.stream()
+                .map(item -> {
+                    Object[] rating = ratingMap.get(item.getId());
+                    Double avg = rating != null ? (Double) rating[1] : null;
+                    Integer count = rating != null ? ((Long) rating[2]).intValue() : null;
+                    return MenuItemResponse.from(item, avg, count);
+                })
                 .toList();
 
         Double rating = restaurantReviewRepository.averageRatingByRestaurantId(id);

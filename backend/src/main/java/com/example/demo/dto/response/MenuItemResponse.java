@@ -46,7 +46,7 @@ public class MenuItemResponse {
 
     private List<MenuCustomizationResponse> customizations;
 
-    public static MenuItemResponse from(MenuItem item) {
+    public static MenuItemResponse from(MenuItem item, Double rating, Integer ratingCount) {
         return MenuItemResponse.builder()
                 .id(item.getId())
                 .name(item.getName())
@@ -55,8 +55,8 @@ public class MenuItemResponse {
                 .imageUrl(item.getImageUrl())
                 .category(item.getCategory().getName())
                 .categoryId(item.getCategory().getId())
-                .rating(Math.round(item.getRating() * 10.0) / 10.0)
-                .ratingCount(item.getRatingCount())
+                .rating(rating != null ? Math.round(rating * 10.0) / 10.0 : null)
+                .ratingCount(ratingCount != null ? ratingCount : 0)
                 .isPopular(item.getIsPopular())
                 .prepTime(item.getPrepTime())
                 .stall(item.getRestaurant().getName())

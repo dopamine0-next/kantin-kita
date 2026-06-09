@@ -9,6 +9,7 @@ export function mapPromoItem(data: PromoApiResponse): PromoItem {
     price: data.price,
     originalPrice: data.original_price,
     rating: data.rating,
+    ratingCount: data.rating_count,
     prepTime: data.prep_time,
     badgeText: data.badge_text,
     badgeVariant: data.badge_variant,

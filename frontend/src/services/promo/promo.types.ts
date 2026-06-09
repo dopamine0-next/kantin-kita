@@ -6,6 +6,7 @@ export interface PromoApiResponse {
   price: number
   original_price?: number
   rating: number
+  rating_count?: number
   prep_time: string
   badge_text?: string
   badge_variant?: 'default' | 'secondary' | 'destructive' | 'outline'
@@ -20,6 +21,7 @@ export interface PromoItem {
   price: number
   originalPrice?: number
   rating: number
+  ratingCount?: number
   prepTime: string
   badgeText?: string
   badgeVariant?: 'default' | 'secondary' | 'destructive' | 'outline'

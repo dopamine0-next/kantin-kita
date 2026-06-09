@@ -33,6 +33,7 @@ export function mapMenuItem(apiData: MenuItemApiResponse): MenuItem {
     restaurantId: apiData.restaurant_id,
     customizations: mapCustomizations(apiData.customizations),
     rating: apiData.rating,
+    ratingCount: apiData.rating_count,
     isPopular: apiData.is_popular,
   }
 }

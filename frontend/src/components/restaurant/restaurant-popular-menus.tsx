@@ -41,7 +41,12 @@ export function RestaurantPopularMenus({ menus, onFoodClick }: RestaurantPopular
               />
               <div className="text-primary-foreground absolute top-2 left-2 flex items-center gap-1 rounded-full bg-black/60 px-2 py-0.5 text-xs font-semibold backdrop-blur-md">
                 <Star className="size-3 fill-amber-500 stroke-none text-amber-500" />
-                {item.rating || 'Baru'}
+                {item.rating && item.ratingCount != null && item.ratingCount >= 10 && (
+                  <div className="text-primary-foreground absolute top-2 left-2 flex items-center gap-1 rounded-full bg-black/60 px-2 py-0.5 text-xs font-semibold backdrop-blur-md">
+                    <Star className="size-3 fill-amber-500 stroke-none text-amber-500" />
+                    {item.rating}
+                  </div>
+                )}
               </div>
             </div>
             <div className="flex flex-1 flex-col justify-between p-2.5">

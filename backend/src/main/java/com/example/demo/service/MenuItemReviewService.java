@@ -61,8 +61,6 @@ public class MenuItemReviewService {
 
         review = menuItemReviewRepository.save(review);
 
-        updateMenuItemRating(menuItem);
-
         return MenuItemReviewResponse.from(review);
     }
 
@@ -84,21 +82,5 @@ public class MenuItemReviewService {
                 .stream()
                 .map(MenuItemReviewResponse::from)
                 .toList();
-    }
-
-    private void updateMenuItemRating(MenuItem menuItem) {
-        List<MenuItemReview> reviews = menuItemReviewRepository.findByMenuItemIdOrderByCreatedAtDesc(
-                menuItem.getId());
-
-        if (reviews.isEmpty()) return;
-
-        double avg = reviews.stream()
-                .mapToInt(MenuItemReview::getRating)
-                .average()
-                .orElse(0);
-
-        menuItem.setRating(Math.round(avg * 10.0) / 10.0);
-        menuItem.setRatingCount(reviews.size());
-        menuItemRepository.save(menuItem);
     }
 }

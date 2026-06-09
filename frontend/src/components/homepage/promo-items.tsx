@@ -77,10 +77,12 @@ export function PromoItems({ selectedCategory }: PromoItemsProps) {
                 )}
 
                 {/* Rating floating top-right */}
-                <div className="bg-secondary/80 absolute top-2 right-2 flex items-center gap-0.5 rounded-lg px-1.5 py-0.5 text-xs font-semibold text-amber-500 backdrop-blur-md">
-                  <Star className="size-3 fill-amber-500 stroke-none" />
-                  <span>{food.rating}</span>
-                </div>
+                {food.rating && food.ratingCount != null && food.ratingCount >= 10 && (
+                  <div className="bg-secondary/80 absolute top-2 right-2 flex items-center gap-0.5 rounded-lg px-1.5 py-0.5 text-xs font-semibold text-amber-500 backdrop-blur-md">
+                    <Star className="size-3 fill-amber-500 stroke-none" />
+                    <span>{food.rating}</span>
+                  </div>
+                )}
               </div>
 
               {/* Card details */}

@@ -26,12 +26,6 @@ public class MenuItemResponse {
     @JsonProperty("category_id")
     private String categoryId;
 
-    @JsonProperty
-    private Double rating;
-
-    @JsonProperty("rating_count")
-    private Integer ratingCount;
-
     @JsonProperty("is_popular")
     private Boolean isPopular;
 
@@ -113,22 +107,6 @@ public class MenuItemResponse {
 
     public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
-    }
-
-    public Double getRating() {
-        return rating;
-    }
-
-    public void setRating(Double rating) {
-        this.rating = rating;
-    }
-
-    public Integer getRatingCount() {
-        return ratingCount;
-    }
-
-    public void setRatingCount(Integer ratingCount) {
-        this.ratingCount = ratingCount;
     }
 
     public Boolean getIsPopular() {

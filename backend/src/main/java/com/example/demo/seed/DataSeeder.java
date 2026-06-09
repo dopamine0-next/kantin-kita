@@ -342,8 +342,6 @@ public class DataSeeder implements CommandLineRunner {
                 double price = (rand.nextInt(5, 50)) * 1000.0;
                 boolean hasDiscount = rand.nextInt(5) == 0;
 
-                double rating = Math.round((rand.nextDouble() * 1.5 + 3.5) * 10.0) / 10.0;
-
                 Category category = categories.get(rand.nextInt(1, categories.size()));
 
                 List<String> variantNames = new ArrayList<>();
@@ -365,8 +363,6 @@ public class DataSeeder implements CommandLineRunner {
                         .prepTime(rand.nextInt(3, 20) + "-" + rand.nextInt(20, 30) + " mnt")
                         .imageUrl(FOOD_IMAGES[rand.nextInt(FOOD_IMAGES.length)])
                         .category(category)
-                        .rating(rating)
-                        .ratingCount(0)
                         .isPopular(rand.nextBoolean())
                         .build();
 

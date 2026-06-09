@@ -47,10 +47,12 @@ export function MenuCard({ menu, index = 0 }: MenuCardProps) {
             {menu.stall}
           </span>
           <div className="text-muted-foreground/80 mt-0.5 flex items-center gap-1.5 text-[11px] font-semibold">
-            <span className="flex items-center gap-0.5 text-amber-500">
-              <Star className="size-3 fill-amber-500 stroke-none" />
-              <span className="text-foreground">{menu.rating}</span>
-            </span>
+            {menu.rating && menu.ratingCount != null && menu.ratingCount >= 10 && (
+              <span className="flex items-center gap-0.5 text-amber-500">
+                <Star className="size-3 fill-amber-500 stroke-none" />
+                <span className="text-foreground">{menu.rating}</span>
+              </span>
+            )}
             <span className="text-muted-foreground/60">•</span>
             <span>{menu.prepTime}</span>
           </div>

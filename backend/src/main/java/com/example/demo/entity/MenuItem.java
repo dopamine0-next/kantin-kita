@@ -41,11 +41,6 @@ public class MenuItem {
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
-    private Double rating;
-
-    @Column(name = "rating_count")
-    private Integer ratingCount;
-
     private Boolean isPopular;
 
     private Double originalPrice;

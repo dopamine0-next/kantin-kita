@@ -32,7 +32,7 @@ export function FoodDetailInfo({ item, onProceed }: FoodDetailInfoProps) {
               {item.name}
             </DrawerTitle>
 
-            {item.rating && (
+            {item.rating && item.ratingCount != null && item.ratingCount >= 10 && (
               <div className="flex shrink-0 items-center gap-1 rounded-lg bg-amber-500/10 px-2 py-0.5 text-xs font-semibold text-amber-600">
                 <Star className="size-3.5 fill-amber-500 stroke-none" />
                 <span>{item.rating}</span>
