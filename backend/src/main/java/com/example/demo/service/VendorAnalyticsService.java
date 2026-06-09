@@ -7,6 +7,7 @@ import com.example.demo.entity.enums.OrderStatus;
 import com.example.demo.entity.enums.PaymentStatus;
 import com.example.demo.repository.OrderItemRepository;
 import com.example.demo.repository.OrderRepository;
+import com.example.demo.repository.RestaurantReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +26,7 @@ public class VendorAnalyticsService {
     private final VendorRestaurantService vendorRestaurantService;
     private final OrderRepository orderRepository;
     private final OrderItemRepository orderItemRepository;
+    private final RestaurantReviewRepository restaurantReviewRepository;
 
     private static final Set<PaymentStatus> PAID_STATUSES = Set.of(PaymentStatus.PAID);
 
@@ -49,7 +51,7 @@ public class VendorAnalyticsService {
                 .filter(o -> o.getStatus() == OrderStatus.PROCESSING)
                 .count();
 
-        double avgRating = restaurant.getRating() != null ? restaurant.getRating() : 0.0;
+        Double avgRating = restaurantReviewRepository.averageRatingByRestaurantId(restaurantId);
 
         return VendorAnalyticsSummaryResponse.builder()
                 .todayOrders(todayCount)

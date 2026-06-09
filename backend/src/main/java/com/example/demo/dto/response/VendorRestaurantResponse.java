@@ -19,7 +19,6 @@ public class VendorRestaurantResponse {
     private Integer ratingCount;
     private Integer reviewsCount;
     private Boolean isOpen;
-    private String promoText;
     private String imageUrl;
     private String bannerImageUrl;
     private String address;
@@ -27,7 +26,6 @@ public class VendorRestaurantResponse {
     private String locationId;
     private String locationName;
     private Double cheapestPrice;
-    private Boolean isInstant;
     private List<String> promos;
 
     public static VendorRestaurantResponse from(Restaurant restaurant, Double rating, Integer ratingCount) {
@@ -39,7 +37,6 @@ public class VendorRestaurantResponse {
                 .ratingCount(ratingCount)
                 .reviewsCount(ratingCount)
                 .isOpen(restaurant.getIsOpen())
-                .promoText(restaurant.getPromoText())
                 .imageUrl(restaurant.getImageUrl())
                 .bannerImageUrl(restaurant.getBannerImageUrl())
                 .address(restaurant.getAddress())
@@ -47,7 +44,6 @@ public class VendorRestaurantResponse {
                 .locationId(restaurant.getLocation() != null ? restaurant.getLocation().getId() : null)
                 .locationName(restaurant.getLocation() != null ? restaurant.getLocation().getName() : null)
                 .cheapestPrice(restaurant.getCheapestPrice())
-                .isInstant(restaurant.getIsInstant())
                 .promos(restaurant.getPromos() != null && !restaurant.getPromos().isEmpty()
                         ? restaurant.getPromos() : null)
                 .build();

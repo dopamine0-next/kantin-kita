@@ -4,14 +4,10 @@ export interface RestaurantApiResponse {
   cuisine: string
   rating: number
   reviews_count: number
-  walk_time: string
-  distance: string
   is_open: boolean
-  promo_text?: string
   image_url: string
   location_id?: string
   cheapest_price?: number
-  is_instant?: boolean
   promos?: string[]
 }
 
@@ -21,14 +17,10 @@ export interface RestaurantItem {
   cuisine: string
   rating: number
   reviewsCount: number
-  walkTime: string
-  distance: string
   isOpen: boolean
-  promoText?: string
   image: string
   locationId?: string
   cheapestPrice?: number
-  isInstant?: boolean
   promos?: string[]
 }
 

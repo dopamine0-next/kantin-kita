@@ -1,6 +1,6 @@
 'use client'
 
-import { BadgePercent, Clock, MapPin, Star } from 'lucide-react'
+import { BadgePercent, Star } from 'lucide-react'
 import { motion } from 'motion/react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
@@ -18,9 +18,7 @@ export interface StallCardProps {
 export function StallCard({ stall, index = 0, onClick }: StallCardProps) {
   const router = useRouter()
 
-  // Determine if a promo exists
-  const displayPromo =
-    stall.promoText || (stall.promos && stall.promos.length > 0 ? stall.promos[0] : null)
+  const displayPromo = stall.promos && stall.promos.length > 0 ? stall.promos[0] : null
 
   const handleClick = () => {
     if (onClick) {
@@ -82,19 +80,6 @@ export function StallCard({ stall, index = 0, onClick }: StallCardProps) {
             <span className="text-foreground">{stall.rating}</span>
             <span className="text-muted-foreground/50 font-medium">
               ({formatReviewCount(stall.reviewsCount)})
-            </span>
-          </div>
-
-          {/* Distance/Walk time */}
-          <div className="flex items-center gap-2 font-semibold">
-            <span className="flex items-center gap-0.5">
-              <Clock className="text-muted-foreground size-3" />
-              {stall.walkTime}
-            </span>
-            <span className="bg-muted-foreground/30 size-1 rounded-full" />
-            <span className="flex items-center gap-0.5">
-              <MapPin className="text-muted-foreground size-3" />
-              {stall.distance}
             </span>
           </div>
         </div>

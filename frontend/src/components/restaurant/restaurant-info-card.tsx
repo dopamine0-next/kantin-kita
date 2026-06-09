@@ -1,4 +1,4 @@
-import { BadgePercent, Clock, MapPin, Star } from 'lucide-react'
+import { BadgePercent, Star } from 'lucide-react'
 
 import { Badge } from '@/components/ui/badge'
 import { cn, formatReviewCount } from '@/lib/utils'
@@ -29,27 +29,13 @@ export function RestaurantInfoCard({ restaurant }: RestaurantInfoCardProps) {
         </Badge>
       </div>
 
-      <div className="border-muted/20 text-muted-foreground/85 flex items-center justify-between border-y py-2.5 text-xs font-semibold">
+      <div className="border-muted/20 text-muted-foreground/85 border-y py-2.5 text-xs font-semibold">
         <div className="gap-0.8 flex items-center text-amber-500">
           <Star className="size-4 fill-amber-500 stroke-none" />
           <span className="text-foreground">{restaurant.rating}</span>
           <span className="text-muted-foreground/50 font-medium">
             ({formatReviewCount(restaurant.reviewsCount)} Ulasan)
           </span>
-        </div>
-
-        <div className="bg-muted-foreground/30 size-1 rounded-full" />
-
-        <div className="flex items-center gap-1 font-semibold">
-          <Clock className="text-muted-foreground size-3.5" />
-          <span>{restaurant.walkTime} mnt</span>
-        </div>
-
-        <div className="bg-muted-foreground/30 size-1 rounded-full" />
-
-        <div className="flex items-center gap-1 font-semibold">
-          <MapPin className="text-muted-foreground size-3.5" />
-          <span>{restaurant.distance}</span>
         </div>
       </div>
 

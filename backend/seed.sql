@@ -70,17 +70,13 @@ CREATE TABLE restaurants (
     id VARCHAR(10) PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     cuisine VARCHAR(255),
-    walk_time VARCHAR(255),
-    distance VARCHAR(255),
     is_open BOOLEAN NOT NULL,
-    promo_text VARCHAR(255),
     image_url VARCHAR(255) NOT NULL,
     banner_image_url VARCHAR(255),
     address VARCHAR(255),
     operational_hours VARCHAR(255),
     location_id VARCHAR(10),
     cheapest_price DOUBLE,
-    is_instant BOOLEAN,
     FOREIGN KEY (location_id) REFERENCES locations(id)
 );
 
@@ -295,11 +291,11 @@ INSERT INTO vouchers (id, code, value, description, max_discount, is_active) VAL
 -- =============================================
 -- RESTAURANTS
 -- =============================================
-INSERT INTO restaurants (id, name, cuisine, rating, rating_count, reviews_count, walk_time, distance, is_open, promo_text, image_url, banner_image_url, address, operational_hours, location_id, cheapest_price, is_instant) VALUES
-('rst_001', 'Warung Bu Ani', 'Masakan Rumah', 4.8, 0, '1.2rb', '2 menit', '50 m', TRUE, 'Diskon 30%', 'https://images.unsplash.com/photo-1541832676-9b763b0239ab?auto=format&fit=crop&w=400&q=80', 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=80', 'Kantin Pusat Lt. 1, Blok A', '08:00 - 17:00', 'loc_001', 15000, TRUE),
-('rst_002', 'Ayam Geprek Bensu', 'Ayam', 4.6, 0, '890rb', '5 menit', '120 m', TRUE, 'Promo Spesial', 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=400&q=80', 'https://images.unsplash.com/photo-1598103442097-8b74f2e94f0d?auto=format&fit=crop&w=1200&q=80', 'Kantin Teknik Lt. Dasar, Blok C', '09:00 - 20:00', 'loc_002', 18000, TRUE),
-('rst_003', 'Kopi Kenangan', 'Kopi & Minuman', 4.5, 0, '2.1rb', '1 menit', '20 m', TRUE, NULL, 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80', 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1200&q=80', 'Kantin Pusat Lt. 1, Blok B', '07:00 - 18:00', 'loc_001', 12000, FALSE),
-('rst_004', 'Mie Aceh Jaya', 'Mie', 4.7, 0, '650rb', '3 menit', '80 m', TRUE, 'Mie Terfavorit', 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=400&q=80', 'https://images.unsplash.com/photo-1612929633738-8fe03f7d0b9c?auto=format&fit=crop&w=1200&q=80', 'Kantin Ekonomi Lt. 2, Blok A', '09:00 - 19:00', 'loc_003', 20000, TRUE);
+INSERT INTO restaurants (id, name, cuisine, rating, rating_count, reviews_count, is_open, image_url, banner_image_url, address, operational_hours, location_id, cheapest_price) VALUES
+('rst_001', 'Warung Bu Ani', 'Masakan Rumah', 4.8, 0, '1.2rb', TRUE, 'https://images.unsplash.com/photo-1541832676-9b763b0239ab?auto=format&fit=crop&w=400&q=80', 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=80', 'Kantin Pusat Lt. 1, Blok A', '08:00 - 17:00', 'loc_001', 15000),
+('rst_002', 'Ayam Geprek Bensu', 'Ayam', 4.6, 0, '890rb', TRUE, 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=400&q=80', 'https://images.unsplash.com/photo-1598103442097-8b74f2e94f0d?auto=format&fit=crop&w=1200&q=80', 'Kantin Teknik Lt. Dasar, Blok C', '09:00 - 20:00', 'loc_002', 18000),
+('rst_003', 'Kopi Kenangan', 'Kopi & Minuman', 4.5, 0, '2.1rb', TRUE, 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80', 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1200&q=80', 'Kantin Pusat Lt. 1, Blok B', '07:00 - 18:00', 'loc_001', 12000),
+('rst_004', 'Mie Aceh Jaya', 'Mie', 4.7, 0, '650rb', TRUE, 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=400&q=80', 'https://images.unsplash.com/photo-1612929633738-8fe03f7d0b9c?auto=format&fit=crop&w=1200&q=80', 'Kantin Ekonomi Lt. 2, Blok A', '09:00 - 19:00', 'loc_003', 20000);
 
 -- =============================================
 -- RESTAURANT PROMOS

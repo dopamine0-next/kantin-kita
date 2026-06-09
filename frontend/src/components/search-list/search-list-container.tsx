@@ -76,9 +76,6 @@ export default function SearchListContainer({ initialQuery }: SearchListContaine
       ) {
         return false
       }
-      if (selectedFilters.includes('instant') && !stall.isInstant) {
-        return false
-      }
       if (selectedFilters.includes('rating-high') && stall.rating < 4.8) {
         return false
       }

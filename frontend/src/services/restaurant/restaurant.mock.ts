@@ -7,15 +7,11 @@ export const MOCK_RESTAURANT_API_RESPONSE: RestaurantApiResponse[] = [
     cuisine: 'Soto, Bakso, Masakan Indonesia',
     rating: 4.8,
     reviews_count: 500,
-    walk_time: '2 mnt',
-    distance: '50m',
     is_open: true,
-    promo_text: 'Diskon 20%',
     image_url:
       'https://images.unsplash.com/photo-1541832676-9b763b0239ab?auto=format&fit=crop&w=150&q=80',
     location_id: 'l1',
     cheapest_price: 15000,
-    is_instant: true,
     promos: ['Diskon 20%', 'Menu Populer', 'Cepat Saji'],
   },
   {
@@ -24,15 +20,11 @@ export const MOCK_RESTAURANT_API_RESPONSE: RestaurantApiResponse[] = [
     cuisine: 'Ayam Geprek, Fried Chicken, Pedas',
     rating: 4.7,
     reviews_count: 380,
-    walk_time: '3 mnt',
-    distance: '70m',
     is_open: true,
-    promo_text: 'Diskon 30%',
     image_url:
       'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=150&q=80',
     location_id: 'l2',
     cheapest_price: 14000,
-    is_instant: false,
     promos: ['Diskon 30%', 'Voucher Rp 5rb', 'Geprek Spesial'],
   },
   {
@@ -41,15 +33,11 @@ export const MOCK_RESTAURANT_API_RESPONSE: RestaurantApiResponse[] = [
     cuisine: 'Kopi Susu, Toast, Roti Bakar',
     rating: 4.9,
     reviews_count: 1200,
-    walk_time: '1 mnt',
-    distance: '15m',
     is_open: true,
-    promo_text: 'Combo Hemat',
     image_url:
       'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=150&q=80',
     location_id: 'l1',
     cheapest_price: 10000,
-    is_instant: true,
     promos: ['Beli 1 Gratis 1', 'Es Kopi Susu Murah', 'Cemilan Hemat'],
   },
   {
@@ -58,14 +46,11 @@ export const MOCK_RESTAURANT_API_RESPONSE: RestaurantApiResponse[] = [
     cuisine: 'Seafood, Ikan Bakar, Udang Geprek',
     rating: 4.6,
     reviews_count: 120,
-    walk_time: '5 mnt',
-    distance: '120m',
     is_open: false,
     image_url:
       'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=150&q=80',
     location_id: 'l2',
     cheapest_price: 28000,
-    is_instant: false,
     promos: ['Diskon Spesial 15%', 'Seafood Segar'],
   },
 ]
@@ -77,10 +62,7 @@ export const MOCK_RESTAURANTS_DETAILS_RESPONSE: Record<string, RestaurantDetailA
     cuisine: 'Soto Ayam, Bakso Urat, Mie Bakso',
     rating: 4.8,
     reviews_count: 500,
-    walk_time: '8 mnt',
-    distance: '50m',
     is_open: true,
-    promo_text: 'Diskon 20%',
     image_url:
       'https://images.unsplash.com/photo-1541832676-9b763b0239ab?auto=format&fit=crop&w=400&q=80',
     banner_image_url:
@@ -224,10 +206,7 @@ export const MOCK_RESTAURANTS_DETAILS_RESPONSE: Record<string, RestaurantDetailA
     cuisine: 'Ayam Geprek, Ayam Crispy, Ricebowl Pedas',
     rating: 4.7,
     reviews_count: 380,
-    walk_time: '12 mnt',
-    distance: '70m',
     is_open: true,
-    promo_text: 'Diskon 30%',
     image_url:
       'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=400&q=80',
     banner_image_url:

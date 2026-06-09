@@ -21,13 +21,10 @@ public class VendorRestaurantResponse {
     private Integer ratingCount;
 
     @JsonProperty
-    private String reviewsCount;
+    private Integer reviewsCount;
 
     @JsonProperty
     private Boolean isOpen;
-
-    @JsonProperty
-    private String promoText;
 
     @JsonProperty
     private String imageUrl;
@@ -49,9 +46,6 @@ public class VendorRestaurantResponse {
 
     @JsonProperty
     private Double cheapestPrice;
-
-    @JsonProperty
-    private Boolean isInstant;
 
     @JsonProperty
     private List<String> promos;
@@ -99,11 +93,11 @@ public class VendorRestaurantResponse {
         this.ratingCount = ratingCount;
     }
 
-    public String getReviewsCount() {
+    public Integer getReviewsCount() {
         return reviewsCount;
     }
 
-    public void setReviewsCount(String reviewsCount) {
+    public void setReviewsCount(Integer reviewsCount) {
         this.reviewsCount = reviewsCount;
     }
 
@@ -113,14 +107,6 @@ public class VendorRestaurantResponse {
 
     public void setIsOpen(Boolean isOpen) {
         this.isOpen = isOpen;
-    }
-
-    public String getPromoText() {
-        return promoText;
-    }
-
-    public void setPromoText(String promoText) {
-        this.promoText = promoText;
     }
 
     public String getImageUrl() {
@@ -177,14 +163,6 @@ public class VendorRestaurantResponse {
 
     public void setCheapestPrice(Double cheapestPrice) {
         this.cheapestPrice = cheapestPrice;
-    }
-
-    public Boolean getIsInstant() {
-        return isInstant;
-    }
-
-    public void setIsInstant(Boolean isInstant) {
-        this.isInstant = isInstant;
     }
 
     public List<String> getPromos() {

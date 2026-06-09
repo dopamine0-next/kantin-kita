@@ -19,9 +19,6 @@ public class UpdateRestaurantRequest {
     @JsonProperty
     private String address;
 
-    @JsonProperty
-    private String promoText;
-
     public UpdateRestaurantRequest() {
     }
 
@@ -63,13 +60,5 @@ public class UpdateRestaurantRequest {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public String getPromoText() {
-        return promoText;
-    }
-
-    public void setPromoText(String promoText) {
-        this.promoText = promoText;
     }
 }

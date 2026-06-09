@@ -13,5 +13,4 @@ public class UpdateRestaurantRequest {
     private String imageUrl;
     private String bannerImageUrl;
     private String address;
-    private String promoText;
 }

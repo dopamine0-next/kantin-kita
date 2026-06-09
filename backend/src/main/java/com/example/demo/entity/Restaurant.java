@@ -27,14 +27,8 @@ public class Restaurant {
 
     private String cuisine;
 
-    private String walkTime;
-
-    private String distance;
-
     @Column(nullable = false)
     private Boolean isOpen;
-
-    private String promoText;
 
     @Column(nullable = false)
     private String imageUrl;
@@ -54,8 +48,6 @@ public class Restaurant {
     private Vendor vendor;
 
     private Double cheapestPrice;
-
-    private Boolean isInstant;
 
     @ElementCollection
     @CollectionTable(name = "restaurant_promos", joinColumns = @JoinColumn(name = "restaurant_id"))

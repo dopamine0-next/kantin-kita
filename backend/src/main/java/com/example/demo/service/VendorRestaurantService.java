@@ -42,7 +42,6 @@ public class VendorRestaurantService {
         if (request.getImageUrl() != null) restaurant.setImageUrl(request.getImageUrl());
         if (request.getBannerImageUrl() != null) restaurant.setBannerImageUrl(request.getBannerImageUrl());
         if (request.getAddress() != null) restaurant.setAddress(request.getAddress());
-        if (request.getPromoText() != null) restaurant.setPromoText(request.getPromoText());
 
         restaurant = restaurantRepository.save(restaurant);
         return toResponse(restaurant);
@@ -62,37 +61,6 @@ public class VendorRestaurantService {
         restaurant.setOperationalHours(request.getOperationalHours());
         restaurant = restaurantRepository.save(restaurant);
         return toResponse(restaurant);
-    }
-
-    @Transactional
-    public VendorRestaurantResponse updateRestaurant(String vendorId, String restaurantId, UpdateRestaurantRequest request) {
-        Restaurant restaurant = findOwnedRestaurant(vendorId, restaurantId);
-
-        if (request.getName() != null) restaurant.setName(request.getName());
-        if (request.getCuisine() != null) restaurant.setCuisine(request.getCuisine());
-        if (request.getImageUrl() != null) restaurant.setImageUrl(request.getImageUrl());
-        if (request.getBannerImageUrl() != null) restaurant.setBannerImageUrl(request.getBannerImageUrl());
-        if (request.getAddress() != null) restaurant.setAddress(request.getAddress());
-        if (request.getPromoText() != null) restaurant.setPromoText(request.getPromoText());
-
-        restaurant = restaurantRepository.save(restaurant);
-        return VendorRestaurantResponse.from(restaurant);
-    }
-
-    @Transactional
-    public VendorRestaurantResponse toggleStatus(String vendorId, String restaurantId) {
-        Restaurant restaurant = findOwnedRestaurant(vendorId, restaurantId);
-        restaurant.setIsOpen(!restaurant.getIsOpen());
-        restaurant = restaurantRepository.save(restaurant);
-        return VendorRestaurantResponse.from(restaurant);
-    }
-
-    @Transactional
-    public VendorRestaurantResponse updateHours(String vendorId, String restaurantId, UpdateHoursRequest request) {
-        Restaurant restaurant = findOwnedRestaurant(vendorId, restaurantId);
-        restaurant.setOperationalHours(request.getOperationalHours());
-        restaurant = restaurantRepository.save(restaurant);
-        return VendorRestaurantResponse.from(restaurant);
     }
 
     public Restaurant findOwnedRestaurant(String vendorId, String restaurantId) {

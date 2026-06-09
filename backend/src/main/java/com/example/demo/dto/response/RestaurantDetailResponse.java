@@ -26,16 +26,8 @@ public class RestaurantDetailResponse {
     @JsonProperty("reviews_count")
     private Integer reviewsCount;
 
-    @JsonProperty("walk_time")
-    private String walkTime;
-
-    private String distance;
-
     @JsonProperty("is_open")
     private Boolean isOpen;
-
-    @JsonProperty("promo_text")
-    private String promoText;
 
     @JsonProperty("image_url")
     private String imageUrl;
@@ -45,9 +37,6 @@ public class RestaurantDetailResponse {
 
     @JsonProperty("cheapest_price")
     private Double cheapestPrice;
-
-    @JsonProperty("is_instant")
-    private Boolean isInstant;
 
     private List<String> promos;
 
@@ -77,14 +66,10 @@ public class RestaurantDetailResponse {
                 .rating(rating != null ? Math.round(rating * 10.0) / 10.0 : null)
                 .ratingCount(ratingCount)
                 .reviewsCount(ratingCount)
-                .walkTime(restaurant.getWalkTime())
-                .distance(restaurant.getDistance())
                 .isOpen(restaurant.getIsOpen())
-                .promoText(restaurant.getPromoText())
                 .imageUrl(restaurant.getImageUrl())
                 .locationId(restaurant.getLocation() != null ? restaurant.getLocation().getId() : null)
                 .cheapestPrice(restaurant.getCheapestPrice())
-                .isInstant(restaurant.getIsInstant())
                 .promos(restaurant.getPromos() != null && !restaurant.getPromos().isEmpty()
                         ? restaurant.getPromos() : null)
                 .bannerImageUrl(restaurant.getBannerImageUrl())

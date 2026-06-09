@@ -965,7 +965,7 @@ All fields optional (same structure as CreateMenuItemRequest)
 #### `UpdateRestaurantRequest`
 ```java
 name: String, cuisine: String, imageUrl: String,
-bannerImageUrl: String, address: String, promoText: String
+bannerImageUrl: String, address: String
 ```
 (All optional)
 
@@ -1096,11 +1096,10 @@ Same as `OrderResponse` but adds `customer: { id, name, nim }` and uses uppercas
 ```json
 {
   "id": "...", "name": "...", "cuisine": "...",
-  "rating": 4.5, "rating_count": 250, "reviews_count": "250",
-  "walk_time": "5 menit", "distance": "120 m",
-  "is_open": true, "promo_text": "Diskon 30%",
+  "rating": 4.5, "rating_count": 250, "reviews_count": 250,
+  "is_open": true,
   "image_url": "...", "location_id": "...",
-  "cheapest_price": 8000.0, "is_instant": true,
+  "cheapest_price": 8000.0,
   "promos": ["Diskon 30%", "Paket Hemat"],
   "banner_image_url": "...", "address": "...",
   "operational_hours": "08:00 - 17:00",

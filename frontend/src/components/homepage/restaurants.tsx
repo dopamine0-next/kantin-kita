@@ -47,16 +47,7 @@ export function Restaurants() {
             </p>
           </div>
         ) : (
-          filtered.map((stall, idx) => (
-            <StallCard
-              key={stall.id}
-              stall={{
-                ...stall,
-                distance: stall.distance,
-              }}
-              index={idx}
-            />
-          ))
+          filtered.map((stall, idx) => <StallCard key={stall.id} stall={stall} index={idx} />)
         )}
       </div>
     </div>
