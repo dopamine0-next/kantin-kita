@@ -55,12 +55,6 @@ public class MenuItem {
 
     private String prepTime;
 
-    @ElementCollection
-    @CollectionTable(name = "menu_item_variants", joinColumns = @JoinColumn(name = "menu_item_id"))
-    @Column(name = "variant")
-    @Builder.Default
-    private List<String> variants = new ArrayList<>();
-
     @OneToMany(mappedBy = "menuItem", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<MenuCustomization> customizations = new ArrayList<>();

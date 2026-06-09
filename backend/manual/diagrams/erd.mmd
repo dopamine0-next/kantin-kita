@@ -13,7 +13,6 @@ erDiagram
   MenuItem ||--o{ MenuCustomization : "memiliki"
   MenuCustomization ||--o{ CustomizationOption : "memiliki"
   Order ||--o{ OrderItem : "terdiri atas"
-  OrderItem ||--o{ OrderAddon : "memiliki tambahan"
   Voucher ||--o{ Order : "digunakan"
 
   User {
@@ -60,7 +59,7 @@ erDiagram
   MenuCustomization {
     string id PK "NanoID"
     string name
-    enum type "CHOICE | MULTIPLE"
+    enum type "CHOICE"
     string menu_item_id FK
   }
 
@@ -96,13 +95,6 @@ erDiagram
     int quantity
     float price
     string variant "nullable"
-  }
-
-  OrderAddon {
-    string id PK "NanoID"
-    string order_item_id FK
-    string name
-    float price
   }
 
   Banner {

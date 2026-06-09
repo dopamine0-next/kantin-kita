@@ -145,7 +145,7 @@ controller → service → repository → entity
 ### 4.1 Entity Relationships Diagram
 
 ```
-User ──┐                    ┌── OrderItem ── OrderAddon
+User ──┐                    ┌── OrderItem
        │                    │
        ├──< Order >── Restaurant ──< MenuItem ──< MenuCustomization ──< CustomizationOption
        │         │                  │
@@ -250,17 +250,8 @@ Location ──< User
 | imageUrl | String | nullable |
 | variantName | String | nullable |
 | note | String | nullable |
-| addons | @OneToMany → OrderAddon | cascade ALL, orphanRemoval |
 | order | @ManyToOne → Order | NOT NULL |
 | menuItem | @ManyToOne → MenuItem | nullable (soft reference) |
-
-#### `OrderAddon` → `order_addons`
-| Field | Type | Constraints |
-|-------|------|-------------|
-| id | String (10) | PK, NanoID |
-| name | String | NOT NULL |
-| price | Double | nullable |
-| orderItem | @ManyToOne → OrderItem | NOT NULL |
 
 #### `RestaurantReview` → `restaurant_reviews`
 | Field | Type | Constraints |
@@ -349,7 +340,7 @@ Location ──< User
 locations, categories, marquee_nodes, faqs, terms, vouchers,
 restaurants, restaurant_promos, menu_items, menu_item_variants,
 menu_customizations, customization_options, banners,
-users, vendors,
+users, vendors, orders, order_items,
 orders, order_items, order_addons,
 restaurant_reviews, menu_item_reviews
 ```
@@ -367,7 +358,6 @@ restaurant_reviews, menu_item_reviews
 | `restaurant_id` | orders | restaurants |
 | `order_id` | order_items | orders |
 | `menu_item_id` | order_items | menu_items (nullable) |
-| `order_item_id` | order_addons | order_items |
 | `user_id` | restaurant_reviews | users |
 | `order_id` | restaurant_reviews | orders |
 | `restaurant_id` | restaurant_reviews | restaurants |
@@ -683,7 +673,7 @@ Only PROCESSING→READY and READY→COMPLETED are allowed. All other transitions
 createOrder(request, userId)
   │
   ├── Validate restaurant exists
-  ├── Build OrderItems from request (with addons)
+  ├── Build OrderItems from request
   ├── Calculate subtotal
   ├── Apply voucher (if code provided):
   │     ├── Find active voucher by code
@@ -937,10 +927,7 @@ items: List<CreateOrderItemRequest> (NotEmpty)
   ├── menuItemId: String (NotNull)
   ├── qty: Integer (NotNull)
   ├── variantName: String (optional)
-  ├── note: String (optional)
-  └── addons: List<CreateOrderAddonRequest> (optional)
-        ├── name: String (NotNull)
-        └── price: Double (optional)
+  └── note: String (optional)
 mode: String (NotNull)  // "dine-in" or "pickup"
 voucherCode: String (optional)
 ```
@@ -1082,8 +1069,7 @@ Key response structures:
   "items": [
     {
       "id": "...", "name": "Nasi Goreng", "quantity": 1, "price": 15000.0,
-      "image_url": "...", "variant_name": "Level 2", "note": "...",
-      "addons": [ { "name": "Telur", "price": 3000.0 } ]
+      "image_url": "...", "variant_name": "Level 2", "note": "..."
     }
   ]
 }

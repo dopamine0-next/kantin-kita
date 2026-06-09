@@ -68,7 +68,7 @@
     - `created_at`, `updated_at`
 - **OrderItems**: 
     - `id`, `order_id` (FK), `menu_item_id` (FK), `name`, `quantity`, `price`, `variant_name`, `note`.
-- **OrderAddons**: 
+
     - `id`, `order_item_id` (FK), `name`, `price`.
 
 ---
@@ -214,7 +214,7 @@ Semua endpoint vendor diawali `/api/v1/vendor`. Filter keamanan memastikan:
 | Method | Endpoint | Deskripsi |
 |--------|----------|-----------|
 | `GET` | `/api/v1/vendor/restaurants/{id}/orders` | List pesanan masuk. Filter: `status` (PENDING, PROCESSING, READY, COMPLETED, CANCELLED), `date_from`, `date_to`. |
-| `GET` | `/api/v1/vendor/orders/{orderId}` | Detail pesanan (items, addons, catatan, info customer). |
+| `GET` | `/api/v1/vendor/orders/{orderId}` | Detail pesanan (items, catatan, info customer). |
 | `PATCH` | `/api/v1/vendor/orders/{orderId}/status` | Update status pesanan (PROCESSING → READY → COMPLETED). Validasi state transition. |
 
 ### 8.7. Revenue & Analytics

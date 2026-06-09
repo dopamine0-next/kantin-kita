@@ -6,12 +6,11 @@ import { ChevronLeft } from 'lucide-react'
 
 import { DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Textarea } from '@/components/ui/textarea'
-import { AddonOption, ChoiceOption, MenuItem } from '@/services/restaurant/restaurant.types'
+import { ChoiceOption, MenuItem } from '@/services/restaurant/restaurant.types'
 import { CartItem, useCartStore } from '@/store/useCartStore'
 
 import { CustomizationOptions } from './customization-options'
 import { FoodVariantFooter } from './food-variant-footer'
-import { VariantSelector } from './variant-selector'
 
 interface FoodVariantFormProps {
   item: MenuItem
@@ -32,54 +31,25 @@ export function FoodVariantForm({
   const removeItem = useCartStore((state) => state.removeItem)
 
   const [qty, setQty] = useState(initialCartItem?.qty || 1)
-  const [selectedVariant, setSelectedVariant] = useState<string>(initialCartItem?.variant || '')
   const [selectedChoices, setSelectedChoices] = useState<Record<string, string>>({})
-  const [selectedAddons, setSelectedAddons] = useState<Record<string, AddonOption[]>>({})
   const [note, setNote] = useState(initialCartItem?.note || '')
 
   useEffect(() => {
     if (!initialCartItem) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setQty(1)
-      setSelectedVariant(item.variants && item.variants.length > 0 ? item.variants[0] : '')
       setNote('')
     }
 
-    // Initialize choices and addons from customizations
     const initialChoices: Record<string, string> = {}
-    const initialAddons: Record<string, AddonOption[]> = {}
-
     item.customizations?.forEach((cust) => {
-      if (cust.type === 'choice') {
-        const savedChoice = initialCartItem?.level
-        initialChoices[cust.title] = savedChoice || (cust.options[0] as ChoiceOption).label
-      } else {
-        const savedAddons =
-          initialCartItem?.addons?.filter((a) =>
-            cust.options.some((opt) => (opt as AddonOption).name === a.name)
-          ) || []
-        initialAddons[cust.title] = savedAddons as AddonOption[]
-      }
+      const savedChoice = initialCartItem?.level
+      initialChoices[cust.title] = savedChoice || (cust.options[0] as ChoiceOption).label
     })
-
     setSelectedChoices(initialChoices)
-    setSelectedAddons(initialAddons)
   }, [item, initialCartItem])
 
   const handleIncrement = () => setQty((prev) => prev + 1)
   const handleDecrement = () => setQty((prev) => (prev > 1 ? prev - 1 : 1))
-
-  const handleToggleAddon = (custTitle: string, addon: AddonOption) => {
-    setSelectedAddons((prev) => {
-      const current = prev[custTitle] || []
-      const exists = current.some((a) => a.name === addon.name)
-      if (exists) {
-        return { ...prev, [custTitle]: current.filter((a) => a.name !== addon.name) }
-      } else {
-        return { ...prev, [custTitle]: [...current, addon] }
-      }
-    })
-  }
 
   const handleSelectChoice = (custTitle: string, label: string) => {
     setSelectedChoices((prev) => ({ ...prev, [custTitle]: label }))
@@ -92,17 +62,10 @@ export function FoodVariantForm({
     return sum + (option?.price || 0)
   }, 0)
 
-  const addonsPrice = Object.values(selectedAddons)
-    .flat()
-    .reduce((sum, a) => sum + a.price, 0)
-
-  const singleItemPrice = item.price + choicesPrice + addonsPrice
+  const singleItemPrice = item.price + choicesPrice
   const totalPrice = singleItemPrice * qty
 
   const handleAddToCart = () => {
-    const allAddons = Object.values(selectedAddons).flat()
-
-    // If we are editing, remove the old one first
     if (initialCartItem) {
       removeItem(initialCartItem.id)
     }
@@ -113,19 +76,14 @@ export function FoodVariantForm({
       price: singleItemPrice,
       image: item.image,
       restaurantId: item.restaurantId,
-      variant: selectedVariant || undefined,
-      // For legacy/simple compatibility we take the first choice if available as 'level'
       level: Object.values(selectedChoices)[0],
       levelPrice: choicesPrice,
-      addons: allAddons.length > 0 ? allAddons : undefined,
       note: note.trim() || undefined,
       qty,
     })
 
     const details: string[] = []
-    if (selectedVariant) details.push(selectedVariant)
     Object.values(selectedChoices).forEach((c) => details.push(c))
-    if (allAddons.length > 0) details.push(`${allAddons.length} Ekstra`)
 
     const detailsStr = details.length > 0 ? ` (${details.join(', ')})` : ''
     const actionText = initialCartItem ? 'diperbarui' : 'ditambahkan ke keranjang'
@@ -147,18 +105,10 @@ export function FoodVariantForm({
         </DialogTitle>
       </DialogHeader>
 
-      <VariantSelector
-        variants={item.variants || []}
-        selectedVariant={selectedVariant}
-        onSelect={setSelectedVariant}
-      />
-
       <CustomizationOptions
         customizations={item.customizations || []}
         selectedChoices={selectedChoices}
-        selectedAddons={selectedAddons}
         onSelectChoice={handleSelectChoice}
-        onToggleAddon={handleToggleAddon}
       />
 
       <div className="mt-6">

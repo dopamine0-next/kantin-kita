@@ -1,6 +1,5 @@
 package com.example.demo.dto.response;
 
-import com.example.demo.entity.OrderAddon;
 import com.example.demo.entity.OrderItem;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -32,8 +31,6 @@ public class OrderItemResponse {
 
     private String note;
 
-    private List<OrderAddonResponse> addons;
-
     public static OrderItemResponse from(OrderItem item) {
         return OrderItemResponse.builder()
                 .id(item.getId())
@@ -44,26 +41,6 @@ public class OrderItemResponse {
                 .variantName(item.getVariantName())
                 .menuItemId(item.getMenuItem() != null ? item.getMenuItem().getId() : null)
                 .note(item.getNote())
-                .addons(item.getAddons().isEmpty() ? null
-                        : item.getAddons().stream().map(OrderAddonResponse::from).toList())
                 .build();
-    }
-
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Builder
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public static class OrderAddonResponse {
-        private String name;
-        private Double price;
-
-        public static OrderAddonResponse from(OrderAddon addon) {
-            return OrderAddonResponse.builder()
-                    .name(addon.getName())
-                    .price(addon.getPrice())
-                    .build();
-        }
     }
 }

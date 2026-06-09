@@ -39,18 +39,5 @@ public class CreateOrderRequest {
 
         private String variantName;
         private String note;
-        private List<CreateOrderAddonRequest> addons;
-    }
-
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class CreateOrderAddonRequest {
-
-        @NotNull
-        private String name;
-
-        private Double price;
     }
 }

@@ -68,7 +68,7 @@ Setiap request mengalir: **Controller → Service → Repository → Database**,
 | 8 | CustomizationOption | `customization_options` | Opsi kustomisasi |
 | 9 | Order | `orders` | Pesanan |
 | 10 | OrderItem | `order_items` | Item dalam pesanan |
-| 11 | OrderAddon | `order_addons` | Addon item |
+
 | 12 | Banner | `banners` | Banner promosi |
 | 13 | Voucher | `vouchers` | Voucher diskon |
 | 14 | MenuItemReview | `menu_item_reviews` | Review menu |

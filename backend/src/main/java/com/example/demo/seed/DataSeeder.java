@@ -344,11 +344,11 @@ public class DataSeeder implements CommandLineRunner {
 
                 String category = CATEGORIES.get(rand.nextInt(1, CATEGORIES.size()));
 
-                List<String> variants = new ArrayList<>();
+                List<String> variantNames = new ArrayList<>();
                 if (rand.nextBoolean()) {
-                    variants.add(VARIANTS.get(rand.nextInt(VARIANTS.size())));
+                    variantNames.add(VARIANTS.get(rand.nextInt(VARIANTS.size())));
                     if (rand.nextBoolean()) {
-                        variants.add(VARIANTS.get(rand.nextInt(VARIANTS.size())));
+                        variantNames.add(VARIANTS.get(rand.nextInt(VARIANTS.size())));
                     }
                 }
 
@@ -366,8 +366,25 @@ public class DataSeeder implements CommandLineRunner {
                         .rating(rating)
                         .ratingCount(0)
                         .isPopular(rand.nextBoolean())
-                        .variants(variants)
                         .build();
+
+                if (!variantNames.isEmpty()) {
+                    MenuCustomization variantCust = MenuCustomization.builder()
+                            .menuItem(item)
+                            .title("Variant")
+                            .type(CustomizationType.CHOICE)
+                            .isRequired(true)
+                            .build();
+                    List<CustomizationOption> variantOpts = variantNames.stream()
+                            .map(v -> CustomizationOption.builder()
+                                    .customization(variantCust)
+                                    .label(v)
+                                    .price(0.0)
+                                    .build())
+                            .toList();
+                    variantCust.setOptions(variantOpts);
+                    item.getCustomizations().add(variantCust);
+                }
 
                 if (rand.nextBoolean()) {
                     MenuCustomization spicy = MenuCustomization.builder()
@@ -393,7 +410,7 @@ public class DataSeeder implements CommandLineRunner {
                         MenuCustomization topping = MenuCustomization.builder()
                                 .menuItem(item)
                                 .title("Topping")
-                                .type(CustomizationType.MULTIPLE)
+                                .type(CustomizationType.CHOICE)
                                 .isRequired(false)
                                 .build();
 
@@ -497,17 +514,7 @@ public class DataSeeder implements CommandLineRunner {
             for (int j = 0; j < itemCount; j++) {
                 MenuItem menuItem = restaurantMenus.get(rand.nextInt(restaurantMenus.size()));
 
-                List<OrderAddon> addons = new ArrayList<>();
                 double itemTotal = menuItem.getPrice();
-
-                if (rand.nextBoolean()) {
-                    OrderAddon addon = OrderAddon.builder()
-                            .name(rand.nextBoolean() ? "Telur" : "Bakso")
-                            .price((double) rand.nextInt(3, 8) * 1000)
-                            .build();
-                    addons.add(addon);
-                    itemTotal += addon.getPrice();
-                }
 
                 OrderItem orderItem = OrderItem.builder()
                         .menuItem(menuItem)
@@ -515,12 +522,9 @@ public class DataSeeder implements CommandLineRunner {
                         .quantity(rand.nextInt(1, 3))
                         .price(menuItem.getPrice())
                         .imageUrl(menuItem.getImageUrl())
-                        .variantName(menuItem.getVariants() != null && !menuItem.getVariants().isEmpty()
-                                ? menuItem.getVariants().get(rand.nextInt(menuItem.getVariants().size())) : null)
-                        .addons(addons)
+                        .variantName(null)
                         .build();
 
-                addons.forEach(a -> a.setOrderItem(orderItem));
                 orderItems.add(orderItem);
                 subtotal += itemTotal * orderItem.getQuantity();
             }

@@ -95,7 +95,6 @@ export default function CheckoutContainer() {
           qty: item.qty,
           variantName: item.variant,
           note: item.note,
-          addons: item.addons?.map((a) => ({ name: a.name, price: a.price })),
         })),
         mode: activeMode,
         voucherCode: promoApplied?.code,

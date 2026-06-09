@@ -18,17 +18,6 @@ public class VendorOrderItemResponse {
     private Double price;
     private String variantName;
     private String note;
-    private List<VendorOrderAddonResponse> addons;
-
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Builder
-    public static class VendorOrderAddonResponse {
-        private String name;
-        private Double price;
-    }
 
     public static VendorOrderItemResponse from(OrderItem item) {
         return VendorOrderItemResponse.builder()
@@ -38,12 +27,6 @@ public class VendorOrderItemResponse {
                 .price(item.getPrice())
                 .variantName(item.getVariantName())
                 .note(item.getNote())
-                .addons(item.getAddons().stream()
-                        .map(a -> VendorOrderAddonResponse.builder()
-                                .name(a.getName())
-                                .price(a.getPrice())
-                                .build())
-                        .toList())
                 .build();
     }
 }

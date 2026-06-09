@@ -5,8 +5,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
 
-import java.util.List;
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -34,6 +32,4 @@ public class CreateMenuItemRequest {
     private String badgeText;
 
     private String badgeVariant;
-
-    private List<String> variants;
 }

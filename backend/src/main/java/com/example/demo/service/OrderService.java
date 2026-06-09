@@ -72,17 +72,6 @@ public class OrderService {
             double itemPrice = menuItem.getPrice() * itemReq.getQty();
             subtotal += itemPrice;
 
-            List<OrderAddon> addons = new ArrayList<>();
-            if (itemReq.getAddons() != null) {
-                for (var addonReq : itemReq.getAddons()) {
-                    subtotal += addonReq.getPrice();
-                    addons.add(OrderAddon.builder()
-                            .name(addonReq.getName())
-                            .price(addonReq.getPrice())
-                            .build());
-                }
-            }
-
             OrderItem orderItem = OrderItem.builder()
                     .menuItem(menuItem)
                     .name(menuItem.getName())
@@ -91,10 +80,8 @@ public class OrderService {
                     .imageUrl(menuItem.getImageUrl())
                     .variantName(itemReq.getVariantName())
                     .note(itemReq.getNote())
-                    .addons(addons)
                     .build();
 
-            addons.forEach(a -> a.setOrderItem(orderItem));
             orderItems.add(orderItem);
         }
 

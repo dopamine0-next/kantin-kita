@@ -40,7 +40,6 @@ public class MenuItemResponse {
     @JsonProperty("restaurant_id")
     private String restaurantId;
 
-    private List<String> variants;
     private List<MenuCustomizationResponse> customizations;
 
     public static MenuItemResponse from(MenuItem item) {
@@ -57,7 +56,6 @@ public class MenuItemResponse {
                 .prepTime(item.getPrepTime())
                 .stall(item.getRestaurant().getName())
                 .restaurantId(item.getRestaurant().getId())
-                .variants(item.getVariants())
                 .customizations(item.getCustomizations().isEmpty() ? null
                         : item.getCustomizations().stream()
                                 .map(MenuCustomizationResponse::from)

@@ -81,7 +81,18 @@ export const MOCK_RESTAURANTS_DETAILS_RESPONSE: Record<string, RestaurantDetailA
         image_url:
           'https://images.unsplash.com/photo-1541832676-9b763b0239ab?auto=format&fit=crop&w=300&q=80',
         category: 'Soto & Sup',
-        variants: ['Standard', 'Ekstra Koya', 'Ekstra Ceker'],
+        customizations: [
+          {
+            title: 'Variant',
+            type: 'choice',
+            required: true,
+            options: [
+              { label: 'Standard', price: 0 },
+              { label: 'Ekstra Koya', price: 3000 },
+              { label: 'Ekstra Ceker', price: 5000 },
+            ],
+          },
+        ],
         rating: 4.9,
         is_popular: true,
       },
@@ -94,7 +105,18 @@ export const MOCK_RESTAURANTS_DETAILS_RESPONSE: Record<string, RestaurantDetailA
         image_url:
           'https://images.unsplash.com/photo-1594756202469-9ff9799b2e4e?auto=format&fit=crop&w=300&q=80',
         category: 'Soto & Sup',
-        variants: ['Standard', 'Dengan Nasi', 'Tanpa Nasi'],
+        customizations: [
+          {
+            title: 'Variant',
+            type: 'choice',
+            required: true,
+            options: [
+              { label: 'Standard', price: 0 },
+              { label: 'Dengan Nasi', price: 5000 },
+              { label: 'Tanpa Nasi', price: 0 },
+            ],
+          },
+        ],
         rating: 4.8,
       },
       {
@@ -106,8 +128,18 @@ export const MOCK_RESTAURANTS_DETAILS_RESPONSE: Record<string, RestaurantDetailA
         image_url:
           'https://images.unsplash.com/photo-1529042410759-befb1204b468?auto=format&fit=crop&w=300&q=80',
         category: 'Bakso',
-        variants: ['Mie Campur', 'Bihun Saja', 'Mie Kuning Saja', 'Tanpa Mie'],
         customizations: [
+          {
+            title: 'Variant',
+            type: 'choice',
+            required: true,
+            options: [
+              { label: 'Mie Campur', price: 0 },
+              { label: 'Bihun Saja', price: 0 },
+              { label: 'Mie Kuning Saja', price: 0 },
+              { label: 'Tanpa Mie', price: 0 },
+            ],
+          },
           {
             title: 'Tingkat Kepedasan',
             type: 'choice',
@@ -120,12 +152,12 @@ export const MOCK_RESTAURANTS_DETAILS_RESPONSE: Record<string, RestaurantDetailA
           },
           {
             title: 'Tambahan Ekstra',
-            type: 'multiple',
+            type: 'choice',
             options: [
-              { name: 'Nasi Putih Ekstra', price: 5000 },
-              { name: 'Tahu & Tempe Goreng', price: 3000 },
-              { name: 'Telor Ceplok', price: 4000 },
-              { name: 'Kerupuk Udang', price: 2000 },
+              { label: 'Nasi Putih Ekstra', price: 5000 },
+              { label: 'Tahu & Tempe Goreng', price: 3000 },
+              { label: 'Telor Ceplok', price: 4000 },
+              { label: 'Kerupuk Udang', price: 2000 },
             ],
           },
         ],
@@ -141,7 +173,17 @@ export const MOCK_RESTAURANTS_DETAILS_RESPONSE: Record<string, RestaurantDetailA
         image_url:
           'https://images.unsplash.com/photo-1585032226651-759b368d7246?auto=format&fit=crop&w=300&q=80',
         category: 'Bakso',
-        variants: ['Standard', 'Ekstra Tahu'],
+        customizations: [
+          {
+            title: 'Variant',
+            type: 'choice',
+            required: true,
+            options: [
+              { label: 'Standard', price: 0 },
+              { label: 'Ekstra Tahu', price: 3000 },
+            ],
+          },
+        ],
         rating: 4.7,
       },
       {
@@ -164,8 +206,17 @@ export const MOCK_RESTAURANTS_DETAILS_RESPONSE: Record<string, RestaurantDetailA
         image_url:
           'https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=300&q=80',
         category: 'Minuman',
-        variants: ['Manis Sedang', 'Manis Maksimal', 'Tawar'],
         customizations: [
+          {
+            title: 'Variant',
+            type: 'choice',
+            required: true,
+            options: [
+              { label: 'Manis Sedang', price: 0 },
+              { label: 'Manis Maksimal', price: 0 },
+              { label: 'Tawar', price: 0 },
+            ],
+          },
           {
             title: 'Tingkat Kemanisan',
             type: 'choice',
@@ -177,11 +228,11 @@ export const MOCK_RESTAURANTS_DETAILS_RESPONSE: Record<string, RestaurantDetailA
           },
           {
             title: 'Tambahan Ekstra',
-            type: 'multiple',
+            type: 'choice',
             options: [
-              { name: 'Extra Espresso Shot', price: 5000 },
-              { name: 'Cincau / Grass Jelly', price: 2000 },
-              { name: 'Boba Pearls', price: 3000 },
+              { label: 'Extra Espresso Shot', price: 5000 },
+              { label: 'Cincau / Grass Jelly', price: 2000 },
+              { label: 'Boba Pearls', price: 3000 },
             ],
           },
         ],
@@ -225,7 +276,18 @@ export const MOCK_RESTAURANTS_DETAILS_RESPONSE: Record<string, RestaurantDetailA
         image_url:
           'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=300&q=80',
         category: 'Paket Geprek',
-        variants: ['Level 1 (Sante)', 'Level 3 (Gahar)', 'Level 5 (Mampus)'],
+        customizations: [
+          {
+            title: 'Variant',
+            type: 'choice',
+            required: true,
+            options: [
+              { label: 'Level 1 (Sante)', price: 0 },
+              { label: 'Level 3 (Gahar)', price: 0 },
+              { label: 'Level 5 (Mampus)', price: 0 },
+            ],
+          },
+        ],
         rating: 4.8,
         is_popular: true,
       },
@@ -238,7 +300,19 @@ export const MOCK_RESTAURANTS_DETAILS_RESPONSE: Record<string, RestaurantDetailA
         image_url:
           'https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=300&q=80',
         category: 'Paket Geprek',
-        variants: ['Level 1', 'Level 2', 'Level 3', 'Level 4'],
+        customizations: [
+          {
+            title: 'Variant',
+            type: 'choice',
+            required: true,
+            options: [
+              { label: 'Level 1', price: 0 },
+              { label: 'Level 2', price: 0 },
+              { label: 'Level 3', price: 0 },
+              { label: 'Level 4', price: 0 },
+            ],
+          },
+        ],
         rating: 4.9,
         is_popular: true,
       },

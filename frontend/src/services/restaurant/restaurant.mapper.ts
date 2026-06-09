@@ -1,5 +1,4 @@
 import {
-  AddonOption,
   MenuItem,
   MenuItemApiResponse,
   RestaurantApiResponse,
@@ -32,7 +31,6 @@ export function mapMenuItem(apiData: MenuItemApiResponse): MenuItem {
     image: apiData.image_url,
     category: apiData.category,
     restaurantId: apiData.restaurant_id,
-    variants: apiData.variants,
     customizations: mapCustomizations(apiData.customizations),
     rating: apiData.rating,
     isPopular: apiData.is_popular,
@@ -43,18 +41,7 @@ function mapCustomizations(
   customizations?: MenuItemApiResponse['customizations']
 ): MenuItem['customizations'] {
   if (!customizations) return undefined
-  return customizations.map((cust) => {
-    if (cust.type === 'multiple') {
-      return {
-        ...cust,
-        options: cust.options.map((opt) => {
-          const raw = opt as unknown as { label: string; price: number }
-          return { name: raw.label, price: raw.price } as AddonOption
-        }),
-      }
-    }
-    return cust
-  })
+  return customizations.map((cust) => cust)
 }
 
 export function mapRestaurantDetail(apiData: RestaurantDetailApiResponse): RestaurantDetail {

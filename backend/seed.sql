@@ -6,13 +6,11 @@
 
 DROP TABLE IF EXISTS menu_item_reviews;
 DROP TABLE IF EXISTS restaurant_reviews;
-DROP TABLE IF EXISTS order_addons;
 DROP TABLE IF EXISTS order_items;
 DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS customization_options;
 DROP TABLE IF EXISTS menu_customizations;
-DROP TABLE IF EXISTS menu_item_variants;
 DROP TABLE IF EXISTS menu_items;
 DROP TABLE IF EXISTS restaurant_promos;
 DROP TABLE IF EXISTS restaurants;
@@ -103,12 +101,6 @@ CREATE TABLE menu_items (
 
     is_popular BOOLEAN,
     FOREIGN KEY (restaurant_id) REFERENCES restaurants(id)
-);
-
-CREATE TABLE menu_item_variants (
-    menu_item_id VARCHAR(10) NOT NULL,
-    variant VARCHAR(255),
-    FOREIGN KEY (menu_item_id) REFERENCES menu_items(id)
 );
 
 CREATE TABLE menu_customizations (
@@ -206,14 +198,6 @@ CREATE TABLE menu_item_reviews (
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (order_id) REFERENCES orders(id),
     FOREIGN KEY (menu_item_id) REFERENCES menu_items(id)
-);
-
-CREATE TABLE order_addons (
-    id VARCHAR(10) PRIMARY KEY,
-    order_item_id VARCHAR(10) NOT NULL,
-    name VARCHAR(255) NOT NULL,
-    price DOUBLE,
-    FOREIGN KEY (order_item_id) REFERENCES order_items(id)
 );
 
 SET FOREIGN_KEY_CHECKS = 0;
@@ -324,8 +308,6 @@ INSERT INTO menu_items (id, restaurant_id, name, description, price, original_pr
 ('mnu_013', 'rst_004', 'Mie Aceh Goreng', 'Mie Aceh versi goreng dengan bumbu spesial', 28000, NULL, NULL, NULL, '10-15 mnt', 'https://images.unsplash.com/photo-1585032226651-759b368d7246?auto=format&fit=crop&w=400&q=80', 'Mie', 4.6, 0, FALSE),
 ('mnu_014', 'rst_004', 'Es Kelapa Muda', 'Air kelapa muda segar dengan daging kelapa', 8000, NULL, NULL, NULL, '3-5 mnt', 'https://images.unsplash.com/photo-1527661591475-527312dd65f5?auto=format&fit=crop&w=400&q=80', 'Minuman', 4.5, 0, FALSE);
 
--- =============================================
--- MENU ITEM VARIANTS
 -- =============================================
 INSERT INTO menu_item_variants (menu_item_id, variant) VALUES
 ('mnu_001', 'Original'),

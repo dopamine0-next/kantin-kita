@@ -44,8 +44,4 @@ public class OrderItem {
     private String variantName;
 
     private String note;
-
-    @OneToMany(mappedBy = "orderItem", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Builder.Default
-    private List<OrderAddon> addons = new ArrayList<>();
 }

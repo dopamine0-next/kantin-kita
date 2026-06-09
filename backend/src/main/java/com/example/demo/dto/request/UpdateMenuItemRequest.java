@@ -2,8 +2,6 @@ package com.example.demo.dto.request;
 
 import lombok.*;
 
-import java.util.List;
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -19,5 +17,4 @@ public class UpdateMenuItemRequest {
     private Double originalPrice;
     private String badgeText;
     private String badgeVariant;
-    private List<String> variants;
 }

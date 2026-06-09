@@ -27,12 +27,6 @@ export interface OrderItemApiResponse {
   variant_name?: string
   menu_item_id?: string
   note?: string
-  addons?: OrderAddonApiResponse[]
-}
-
-export interface OrderAddonApiResponse {
-  name: string
-  price: number
 }
 
 export interface CreateOrderPayload {
@@ -47,7 +41,6 @@ export interface CreateOrderItemPayload {
   qty: number
   variantName?: string
   note?: string
-  addons?: { name: string; price: number }[]
 }
 
 export interface CreateOrderResponse {
@@ -67,7 +60,6 @@ export interface OrderItem {
   image?: string
   variantName?: string
   note?: string
-  addons?: { name: string; price: number }[]
 }
 
 export interface Order {

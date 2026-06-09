@@ -10,7 +10,6 @@ export function mapOrderItem(data: OrderItemApiResponse): OrderItem {
     image: data.image_url,
     variantName: data.variant_name,
     note: data.note,
-    addons: data.addons,
   }
 }
 

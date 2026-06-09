@@ -14,7 +14,6 @@ export interface CartItem {
   note?: string
   level?: string
   levelPrice?: number
-  addons?: { name: string; price: number }[]
 }
 
 interface CartStore {
@@ -42,14 +41,12 @@ export const useCartStore = create<CartStore>((set) => ({
     set((state) => {
       const qtyToAdd = newItem.qty || 1
 
-      // Find if item with same foodId, variant, note, level, and addons already exists
       const existingIndex = state.items.findIndex(
         (item) =>
           item.foodId === newItem.foodId &&
           item.variant === newItem.variant &&
           item.note === newItem.note &&
-          item.level === newItem.level &&
-          JSON.stringify(item.addons) === JSON.stringify(newItem.addons)
+          item.level === newItem.level
       )
 
       if (existingIndex > -1) {

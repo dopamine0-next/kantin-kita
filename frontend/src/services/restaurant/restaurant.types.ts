@@ -24,11 +24,6 @@ export interface RestaurantItem {
   promos?: string[]
 }
 
-export interface AddonOption {
-  name: string
-  price: number
-}
-
 export interface ChoiceOption {
   label: string
   price: number
@@ -36,8 +31,8 @@ export interface ChoiceOption {
 
 export interface MenuCustomization {
   title: string
-  type: 'choice' | 'multiple'
-  options: (ChoiceOption | AddonOption)[]
+  type: 'choice'
+  options: ChoiceOption[]
   required?: boolean
 }
 
@@ -49,7 +44,6 @@ export interface MenuItemApiResponse {
   image_url: string
   category: string
   restaurant_id?: string
-  variants?: string[]
   customizations?: MenuCustomization[]
   rating?: number
   is_popular?: boolean
@@ -63,7 +57,6 @@ export interface MenuItem {
   image: string
   category: string
   restaurantId?: string
-  variants?: string[]
   customizations?: MenuCustomization[]
   rating?: number
   isPopular?: boolean

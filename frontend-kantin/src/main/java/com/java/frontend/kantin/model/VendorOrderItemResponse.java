@@ -1,7 +1,6 @@
 package com.java.frontend.kantin.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.List;
 
 public class VendorOrderItemResponse {
 
@@ -22,9 +21,6 @@ public class VendorOrderItemResponse {
 
     @JsonProperty
     private String note;
-
-    @JsonProperty
-    private List<VendorOrderAddonResponse> addons;
 
     public VendorOrderItemResponse() {
     }
@@ -75,41 +71,5 @@ public class VendorOrderItemResponse {
 
     public void setNote(String note) {
         this.note = note;
-    }
-
-    public List<VendorOrderAddonResponse> getAddons() {
-        return addons;
-    }
-
-    public void setAddons(List<VendorOrderAddonResponse> addons) {
-        this.addons = addons;
-    }
-
-    public static class VendorOrderAddonResponse {
-
-        @JsonProperty
-        private String name;
-
-        @JsonProperty
-        private Double price;
-
-        public VendorOrderAddonResponse() {
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public Double getPrice() {
-            return price;
-        }
-
-        public void setPrice(Double price) {
-            this.price = price;
-        }
     }
 }
