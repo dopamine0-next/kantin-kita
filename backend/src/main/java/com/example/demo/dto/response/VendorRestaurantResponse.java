@@ -17,7 +17,7 @@ public class VendorRestaurantResponse {
     private String cuisine;
     private Double rating;
     private Integer ratingCount;
-    private String reviewsCount;
+    private Integer reviewsCount;
     private Boolean isOpen;
     private String promoText;
     private String imageUrl;
@@ -30,14 +30,14 @@ public class VendorRestaurantResponse {
     private Boolean isInstant;
     private List<String> promos;
 
-    public static VendorRestaurantResponse from(Restaurant restaurant) {
+    public static VendorRestaurantResponse from(Restaurant restaurant, Double rating, Integer ratingCount) {
         return VendorRestaurantResponse.builder()
                 .id(restaurant.getId())
                 .name(restaurant.getName())
                 .cuisine(restaurant.getCuisine())
-                .rating(restaurant.getRating())
-                .ratingCount(restaurant.getRatingCount())
-                .reviewsCount(restaurant.getReviewsCount())
+                .rating(rating)
+                .ratingCount(ratingCount)
+                .reviewsCount(ratingCount)
                 .isOpen(restaurant.getIsOpen())
                 .promoText(restaurant.getPromoText())
                 .imageUrl(restaurant.getImageUrl())

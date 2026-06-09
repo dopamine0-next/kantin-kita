@@ -27,13 +27,6 @@ public class Restaurant {
 
     private String cuisine;
 
-    private Double rating;
-
-    @Column(name = "rating_count")
-    private Integer ratingCount;
-
-    private String reviewsCount;
-
     private String walkTime;
 
     private String distance;

@@ -5,6 +5,7 @@ import com.example.demo.dto.response.RestaurantDetailResponse;
 import com.example.demo.dto.response.RestaurantResponse;
 import com.example.demo.entity.Restaurant;
 import com.example.demo.repository.RestaurantRepository;
+import com.example.demo.repository.RestaurantReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import java.util.List;
 public class RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
+    private final RestaurantReviewRepository restaurantReviewRepository;
 
     public List<RestaurantResponse> getRestaurants(String locationId, String search) {
         List<Restaurant> restaurants;
@@ -34,7 +36,11 @@ public class RestaurantService {
         }
 
         return restaurants.stream()
-                .map(RestaurantResponse::from)
+                .map(r -> {
+                    Double rating = restaurantReviewRepository.averageRatingByRestaurantId(r.getId());
+                    Integer count = restaurantReviewRepository.countByRestaurantId(r.getId());
+                    return RestaurantResponse.from(r, rating, count);
+                })
                 .toList();
     }
 
@@ -46,6 +52,9 @@ public class RestaurantService {
                 .map(MenuItemResponse::from)
                 .toList();
 
-        return RestaurantDetailResponse.from(restaurant, menuResponses);
+        Double rating = restaurantReviewRepository.averageRatingByRestaurantId(id);
+        Integer count = restaurantReviewRepository.countByRestaurantId(id);
+
+        return RestaurantDetailResponse.from(restaurant, menuResponses, rating, count);
     }
 }

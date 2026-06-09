@@ -1,7 +1,7 @@
 import { BadgePercent, Clock, MapPin, Star } from 'lucide-react'
 
 import { Badge } from '@/components/ui/badge'
-import { cn } from '@/lib/utils'
+import { cn, formatReviewCount } from '@/lib/utils'
 import type { RestaurantDetail } from '@/services/restaurant/restaurant.types'
 
 interface RestaurantInfoCardProps {
@@ -34,7 +34,7 @@ export function RestaurantInfoCard({ restaurant }: RestaurantInfoCardProps) {
           <Star className="size-4 fill-amber-500 stroke-none" />
           <span className="text-foreground">{restaurant.rating}</span>
           <span className="text-muted-foreground/50 font-medium">
-            ({restaurant.reviewsCount} Ulasan)
+            ({formatReviewCount(restaurant.reviewsCount)} Ulasan)
           </span>
         </div>
 

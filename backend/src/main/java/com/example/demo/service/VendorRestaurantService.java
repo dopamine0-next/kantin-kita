@@ -5,11 +5,14 @@ import com.example.demo.dto.request.UpdateRestaurantRequest;
 import com.example.demo.dto.response.VendorRestaurantResponse;
 import com.example.demo.entity.Restaurant;
 import com.example.demo.repository.RestaurantRepository;
+import com.example.demo.repository.RestaurantReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -17,10 +20,48 @@ import org.springframework.web.server.ResponseStatusException;
 public class VendorRestaurantService {
 
     private final RestaurantRepository restaurantRepository;
+    private final RestaurantReviewRepository restaurantReviewRepository;
+
+    private VendorRestaurantResponse toResponse(Restaurant restaurant) {
+        Double rating = restaurantReviewRepository.averageRatingByRestaurantId(restaurant.getId());
+        Integer count = restaurantReviewRepository.countByRestaurantId(restaurant.getId());
+        return VendorRestaurantResponse.from(restaurant, rating, count);
+    }
 
     public VendorRestaurantResponse getRestaurant(String vendorId, String restaurantId) {
         Restaurant restaurant = findOwnedRestaurant(vendorId, restaurantId);
-        return VendorRestaurantResponse.from(restaurant);
+        return toResponse(restaurant);
+    }
+
+    @Transactional
+    public VendorRestaurantResponse updateRestaurant(String vendorId, String restaurantId, UpdateRestaurantRequest request) {
+        Restaurant restaurant = findOwnedRestaurant(vendorId, restaurantId);
+
+        if (request.getName() != null) restaurant.setName(request.getName());
+        if (request.getCuisine() != null) restaurant.setCuisine(request.getCuisine());
+        if (request.getImageUrl() != null) restaurant.setImageUrl(request.getImageUrl());
+        if (request.getBannerImageUrl() != null) restaurant.setBannerImageUrl(request.getBannerImageUrl());
+        if (request.getAddress() != null) restaurant.setAddress(request.getAddress());
+        if (request.getPromoText() != null) restaurant.setPromoText(request.getPromoText());
+
+        restaurant = restaurantRepository.save(restaurant);
+        return toResponse(restaurant);
+    }
+
+    @Transactional
+    public VendorRestaurantResponse toggleStatus(String vendorId, String restaurantId) {
+        Restaurant restaurant = findOwnedRestaurant(vendorId, restaurantId);
+        restaurant.setIsOpen(!restaurant.getIsOpen());
+        restaurant = restaurantRepository.save(restaurant);
+        return toResponse(restaurant);
+    }
+
+    @Transactional
+    public VendorRestaurantResponse updateHours(String vendorId, String restaurantId, UpdateHoursRequest request) {
+        Restaurant restaurant = findOwnedRestaurant(vendorId, restaurantId);
+        restaurant.setOperationalHours(request.getOperationalHours());
+        restaurant = restaurantRepository.save(restaurant);
+        return toResponse(restaurant);
     }
 
     @Transactional

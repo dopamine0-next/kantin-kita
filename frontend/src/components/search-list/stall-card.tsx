@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
 import { Badge } from '@/components/ui/badge'
+import { formatReviewCount } from '@/lib/utils'
 import { RestaurantItem } from '@/services/restaurant/restaurant.types'
 
 export interface StallCardProps {
@@ -79,7 +80,9 @@ export function StallCard({ stall, index = 0, onClick }: StallCardProps) {
           <div className="flex shrink-0 items-center gap-0.5 text-amber-500">
             <Star className="size-3.5 fill-amber-500 stroke-none" />
             <span className="text-foreground">{stall.rating}</span>
-            <span className="text-muted-foreground/50 font-medium">({stall.reviewsCount})</span>
+            <span className="text-muted-foreground/50 font-medium">
+              ({formatReviewCount(stall.reviewsCount)})
+            </span>
           </div>
 
           {/* Distance/Walk time */}

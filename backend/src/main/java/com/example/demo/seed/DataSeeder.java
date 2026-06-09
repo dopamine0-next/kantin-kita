@@ -294,9 +294,6 @@ public class DataSeeder implements CommandLineRunner {
         List<Restaurant> list = new ArrayList<>();
 
         for (int i = 0; i < 6; i++) {
-            int ratingCount = rand.nextInt(50, 500);
-            String reviewsCount = formatReviewsCount(ratingCount);
-
             List<String> promos = new ArrayList<>();
             promos.add(PROMOS.get(rand.nextInt(PROMOS.size())));
             if (rand.nextBoolean()) {
@@ -308,9 +305,6 @@ public class DataSeeder implements CommandLineRunner {
             Restaurant restaurant = Restaurant.builder()
                     .name(RESTAURANT_NAMES.get(i))
                     .cuisine(CUISINES.get(i))
-                    .rating(Math.round((rand.nextDouble() * 1.5 + 3.5) * 10.0) / 10.0)
-                    .ratingCount(ratingCount)
-                    .reviewsCount(reviewsCount)
                     .walkTime(rand.nextInt(1, 8) + " menit")
                     .distance(rand.nextInt(10, 200) + " m")
                     .isOpen(true)
@@ -607,11 +601,4 @@ public class DataSeeder implements CommandLineRunner {
         log.info("Seeded {} restaurant reviews, {} menu item reviews", restReviewCount, itemReviewCount);
     }
 
-    private String formatReviewsCount(int count) {
-        if (count >= 1000) {
-            double ribuan = count / 1000.0;
-            return String.format(Locale.US, "%.1f", ribuan) + "rb";
-        }
-        return String.valueOf(count);
-    }
 }

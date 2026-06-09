@@ -24,7 +24,7 @@ public class RestaurantResponse {
     private Integer ratingCount;
 
     @JsonProperty("reviews_count")
-    private String reviewsCount;
+    private Integer reviewsCount;
 
     @JsonProperty("walk_time")
     private String walkTime;
@@ -51,14 +51,14 @@ public class RestaurantResponse {
 
     private List<String> promos;
 
-    public static RestaurantResponse from(Restaurant restaurant) {
+    public static RestaurantResponse from(Restaurant restaurant, Double rating, Integer ratingCount) {
         return RestaurantResponse.builder()
                 .id(restaurant.getId())
                 .name(restaurant.getName())
                 .cuisine(restaurant.getCuisine())
-                .rating(Math.round(restaurant.getRating() * 10.0) / 10.0)
-                .ratingCount(restaurant.getRatingCount())
-                .reviewsCount(restaurant.getReviewsCount())
+                .rating(rating != null ? Math.round(rating * 10.0) / 10.0 : null)
+                .ratingCount(ratingCount)
+                .reviewsCount(ratingCount)
                 .walkTime(restaurant.getWalkTime())
                 .distance(restaurant.getDistance())
                 .isOpen(restaurant.getIsOpen())

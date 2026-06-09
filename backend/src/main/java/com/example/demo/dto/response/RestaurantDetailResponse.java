@@ -24,7 +24,7 @@ public class RestaurantDetailResponse {
     private Integer ratingCount;
 
     @JsonProperty("reviews_count")
-    private String reviewsCount;
+    private Integer reviewsCount;
 
     @JsonProperty("walk_time")
     private String walkTime;
@@ -62,7 +62,8 @@ public class RestaurantDetailResponse {
     private List<String> categories;
     private List<MenuItemResponse> menus;
 
-    public static RestaurantDetailResponse from(Restaurant restaurant, List<MenuItemResponse> menuResponses) {
+    public static RestaurantDetailResponse from(Restaurant restaurant, List<MenuItemResponse> menuResponses,
+                                                  Double rating, Integer ratingCount) {
         List<String> categories = menuResponses.stream()
                 .map(MenuItemResponse::getCategory)
                 .distinct()
@@ -73,9 +74,9 @@ public class RestaurantDetailResponse {
                 .id(restaurant.getId())
                 .name(restaurant.getName())
                 .cuisine(restaurant.getCuisine())
-                .rating(Math.round(restaurant.getRating() * 10.0) / 10.0)
-                .ratingCount(restaurant.getRatingCount())
-                .reviewsCount(restaurant.getReviewsCount())
+                .rating(rating != null ? Math.round(rating * 10.0) / 10.0 : null)
+                .ratingCount(ratingCount)
+                .reviewsCount(ratingCount)
                 .walkTime(restaurant.getWalkTime())
                 .distance(restaurant.getDistance())
                 .isOpen(restaurant.getIsOpen())

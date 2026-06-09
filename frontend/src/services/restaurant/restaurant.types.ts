@@ -3,7 +3,7 @@ export interface RestaurantApiResponse {
   name: string
   cuisine: string
   rating: number
-  reviews_count: string
+  reviews_count: number
   walk_time: string
   distance: string
   is_open: boolean
@@ -20,7 +20,7 @@ export interface RestaurantItem {
   name: string
   cuisine: string
   rating: number
-  reviewsCount: string
+  reviewsCount: number
   walkTime: string
   distance: string
   isOpen: boolean

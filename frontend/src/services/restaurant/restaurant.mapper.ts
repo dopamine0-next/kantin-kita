@@ -14,7 +14,7 @@ export function mapRestaurantItem(apiData: RestaurantApiResponse): RestaurantIte
     name: apiData.name,
     cuisine: apiData.cuisine,
     rating: apiData.rating,
-    reviewsCount: apiData.reviews_count,
+    reviewsCount: Number(apiData.reviews_count),
     walkTime: apiData.walk_time,
     distance: apiData.distance,
     isOpen: apiData.is_open,

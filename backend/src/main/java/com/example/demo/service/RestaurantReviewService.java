@@ -51,8 +51,6 @@ public class RestaurantReviewService {
 
         review = restaurantReviewRepository.save(review);
 
-        updateRestaurantRating(restaurant);
-
         return RestaurantReviewResponse.from(review);
     }
 
@@ -79,21 +77,5 @@ public class RestaurantReviewService {
     @Transactional(readOnly = true)
     public boolean hasReviewed(String orderId, String userId) {
         return restaurantReviewRepository.existsByOrderIdAndUserId(orderId, userId);
-    }
-
-    private void updateRestaurantRating(Restaurant restaurant) {
-        List<RestaurantReview> reviews = restaurantReviewRepository.findByRestaurantIdOrderByCreatedAtDesc(
-                restaurant.getId());
-
-        if (reviews.isEmpty()) return;
-
-        double avg = reviews.stream()
-                .mapToInt(RestaurantReview::getRating)
-                .average()
-                .orElse(0);
-
-        restaurant.setRating(Math.round(avg * 10.0) / 10.0);
-        restaurant.setRatingCount(reviews.size());
-        restaurantRepository.save(restaurant);
     }
 }
