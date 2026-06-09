@@ -11,6 +11,7 @@ erDiagram
   Restaurant ||--o{ RestaurantReview : "mendapat"
   MenuItem ||--o{ MenuItemReview : "mendapat"
   MenuItem ||--o{ MenuCustomization : "memiliki"
+  MenuItem }o--|| Category : "dikategorikan sebagai"
   MenuCustomization ||--o{ CustomizationOption : "memiliki"
   Order ||--o{ OrderItem : "terdiri atas"
   Voucher ||--o{ Order : "digunakan"
@@ -54,6 +55,9 @@ erDiagram
     float price
     string restaurant_id FK
     string category_id FK
+    float rating
+    boolean is_popular
+    boolean is_active
   }
 
   MenuCustomization {

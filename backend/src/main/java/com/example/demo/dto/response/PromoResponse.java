@@ -46,7 +46,7 @@ public class PromoResponse {
                 .id(item.getId())
                 .restaurantId(item.getRestaurant().getId())
                 .name(item.getName())
-                .category(item.getCategory())
+                .category(item.getCategory().getName())
                 .price(item.getPrice())
                 .originalPrice(item.getOriginalPrice())
                 .rating(Math.round(item.getRating() * 10.0) / 10.0)

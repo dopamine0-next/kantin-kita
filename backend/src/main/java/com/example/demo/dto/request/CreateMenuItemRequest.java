@@ -23,7 +23,7 @@ public class CreateMenuItemRequest {
     private String imageUrl;
 
     @NotBlank
-    private String category;
+    private String categoryId;
 
     private String prepTime;
 

@@ -1,7 +1,6 @@
 package com.java.frontend.kantin.model.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.List;
 
 public class CreateMenuItemRequest {
 
@@ -18,7 +17,7 @@ public class CreateMenuItemRequest {
     private String imageUrl;
 
     @JsonProperty
-    private String category;
+    private String categoryId;
 
     @JsonProperty
     private String prepTime;
@@ -31,9 +30,6 @@ public class CreateMenuItemRequest {
 
     @JsonProperty
     private String badgeVariant;
-
-    @JsonProperty
-    private List<String> variants;
 
     public CreateMenuItemRequest() {
     }
@@ -70,12 +66,12 @@ public class CreateMenuItemRequest {
         this.imageUrl = imageUrl;
     }
 
-    public String getCategory() {
-        return category;
+    public String getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getPrepTime() {
@@ -108,13 +104,5 @@ public class CreateMenuItemRequest {
 
     public void setBadgeVariant(String badgeVariant) {
         this.badgeVariant = badgeVariant;
-    }
-
-    public List<String> getVariants() {
-        return variants;
-    }
-
-    public void setVariants(List<String> variants) {
-        this.variants = variants;
     }
 }

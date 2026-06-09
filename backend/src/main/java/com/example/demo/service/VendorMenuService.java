@@ -24,6 +24,7 @@ public class VendorMenuService {
     private final MenuItemRepository menuItemRepository;
     private final MenuCustomizationRepository menuCustomizationRepository;
     private final CustomizationOptionRepository customizationOptionRepository;
+    private final CategoryRepository categoryRepository;
 
     public List<MenuItemResponse> listMenus(String vendorId, String restaurantId) {
         vendorRestaurantService.findOwnedRestaurant(vendorId, restaurantId);
@@ -36,13 +37,16 @@ public class VendorMenuService {
     public MenuItemResponse createMenu(String vendorId, String restaurantId, CreateMenuItemRequest request) {
         Restaurant restaurant = vendorRestaurantService.findOwnedRestaurant(vendorId, restaurantId);
 
+        Category category = categoryRepository.findById(request.getCategoryId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Category not found"));
+
         MenuItem menuItem = MenuItem.builder()
                 .restaurant(restaurant)
                 .name(request.getName())
                 .description(request.getDescription())
                 .price(request.getPrice())
                 .imageUrl(request.getImageUrl())
-                .category(request.getCategory())
+                .category(category)
                 .rating(0.0)
                 .ratingCount(0)
                 .isPopular(false)
@@ -64,7 +68,11 @@ public class VendorMenuService {
         if (request.getDescription() != null) menuItem.setDescription(request.getDescription());
         if (request.getPrice() != null) menuItem.setPrice(request.getPrice());
         if (request.getImageUrl() != null) menuItem.setImageUrl(request.getImageUrl());
-        if (request.getCategory() != null) menuItem.setCategory(request.getCategory());
+        if (request.getCategoryId() != null) {
+            Category cat = categoryRepository.findById(request.getCategoryId())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Category not found"));
+            menuItem.setCategory(cat);
+        }
         if (request.getPrepTime() != null) menuItem.setPrepTime(request.getPrepTime());
         if (request.getOriginalPrice() != null) menuItem.setOriginalPrice(request.getOriginalPrice());
         if (request.getBadgeText() != null) menuItem.setBadgeText(request.getBadgeText());

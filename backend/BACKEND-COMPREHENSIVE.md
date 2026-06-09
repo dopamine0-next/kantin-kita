@@ -41,7 +41,7 @@
 - Customer mendaftar dengan NIM (unique), login dengan NIM + password
 - Vendor login dengan email + password
 - Setiap Restaurant dimiliki oleh 1 Vendor, berada di 1 Location
-- Setiap MenuItem memiliki category, variants, dan customizations
+- Setiap MenuItem memiliki category (relasi Many-to-One ke Category), customizations, dan optional variant customizations
 - Order memiliki lifecycle: PENDING → PROCESSING → READY → COMPLETED / CANCELLED
 - Review hanya bisa dibuat untuk order dengan status COMPLETED
 - Voucher bersifat persentase dengan minSpend dan maxDiscount cap
@@ -938,12 +938,11 @@ name: String (NotBlank)
 description: String
 price: Double (NotNull)
 imageUrl: String
-category: String
+categoryId: String (NotBlank)
 prepTime: String
 originalPrice: Double
 badgeText: String
 badgeVariant: String
-variants: List<String>
 ```
 
 #### `UpdateMenuItemRequest`
@@ -1098,11 +1097,10 @@ Same as `OrderResponse` but adds `customer: { id, name, nim }` and uses uppercas
 ```json
 {
   "id": "...", "name": "...", "description": "...",
-  "price": 15000.0, "image_url": "...", "category": "Nasi",
+  "price": 15000.0, "image_url": "...", "category": "Nasi", "category_id": "cat_002",
   "rating": 4.5, "rating_count": 10,
   "is_popular": true, "prep_time": "10-20 mnt",
   "stall": "Warung Bu Ani", "restaurant_id": "...",
-  "variants": ["Level 1", "Level 2"],
   "customizations": [
     {
       "id": "...", "title": "Level Pedas",

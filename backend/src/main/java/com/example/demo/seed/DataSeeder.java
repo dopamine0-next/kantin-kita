@@ -146,14 +146,14 @@ public class DataSeeder implements CommandLineRunner {
         log.info("Starting data seeding...");
 
         List<Location> locations = seedLocations();
-        seedCategories();
+        List<Category> categories = seedCategories();
         seedMarqueeNodes();
         seedFAQs();
         seedTerms();
         seedVouchers();
         List<Vendor> vendors = seedVendors();
         List<Restaurant> restaurants = seedRestaurants(locations, vendors);
-        seedMenuItems(restaurants);
+        seedMenuItems(restaurants, categories);
         seedBanners(locations);
         List<User> users = seedUsers(locations);
         Map<String, List<Order>> ordersByUser = seedOrders(users, restaurants);
@@ -204,14 +204,16 @@ public class DataSeeder implements CommandLineRunner {
         return list;
     }
 
-    private void seedCategories() {
+    private List<Category> seedCategories() {
+        List<Category> list = new ArrayList<>();
         for (int i = 0; i < CATEGORIES.size(); i++) {
-            categoryRepository.save(Category.builder()
+            list.add(categoryRepository.save(Category.builder()
                     .name(CATEGORIES.get(i))
                     .priority(i == 0 ? 0 : i)
-                    .build());
+                    .build()));
         }
         log.info("Seeded {} categories", CATEGORIES.size());
+        return list;
     }
 
     private void seedMarqueeNodes() {
@@ -323,7 +325,7 @@ public class DataSeeder implements CommandLineRunner {
         return list;
     }
 
-    private void seedMenuItems(List<Restaurant> restaurants) {
+    private void seedMenuItems(List<Restaurant> restaurants, List<Category> categories) {
         int count = 0;
 
         for (Restaurant restaurant : restaurants) {
@@ -342,7 +344,7 @@ public class DataSeeder implements CommandLineRunner {
 
                 double rating = Math.round((rand.nextDouble() * 1.5 + 3.5) * 10.0) / 10.0;
 
-                String category = CATEGORIES.get(rand.nextInt(1, CATEGORIES.size()));
+                Category category = categories.get(rand.nextInt(1, categories.size()));
 
                 List<String> variantNames = new ArrayList<>();
                 if (rand.nextBoolean()) {

@@ -12,7 +12,7 @@ public class UpdateMenuItemRequest {
     private String description;
     private Double price;
     private String imageUrl;
-    private String category;
+    private String categoryId;
     private String prepTime;
     private Double originalPrice;
     private String badgeText;

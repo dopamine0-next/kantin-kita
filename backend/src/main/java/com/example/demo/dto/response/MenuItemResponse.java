@@ -24,6 +24,10 @@ public class MenuItemResponse {
     private String imageUrl;
 
     private String category;
+
+    @JsonProperty("category_id")
+    private String categoryId;
+
     private Double rating;
 
     @JsonProperty("rating_count")
@@ -49,7 +53,8 @@ public class MenuItemResponse {
                 .description(item.getDescription())
                 .price(item.getPrice())
                 .imageUrl(item.getImageUrl())
-                .category(item.getCategory())
+                .category(item.getCategory().getName())
+                .categoryId(item.getCategory().getId())
                 .rating(Math.round(item.getRating() * 10.0) / 10.0)
                 .ratingCount(item.getRatingCount())
                 .isPopular(item.getIsPopular())

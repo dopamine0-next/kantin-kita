@@ -23,6 +23,9 @@ public class MenuItemResponse {
     @JsonProperty
     private String category;
 
+    @JsonProperty("category_id")
+    private String categoryId;
+
     @JsonProperty
     private Double rating;
 
@@ -49,9 +52,6 @@ public class MenuItemResponse {
 
     @JsonProperty
     private String badgeVariant;
-
-    @JsonProperty
-    private List<String> variants;
 
     @JsonProperty
     private List<MenuCustomizationResponse> customizations;
@@ -105,6 +105,14 @@ public class MenuItemResponse {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
 
     public Double getRating() {
@@ -177,14 +185,6 @@ public class MenuItemResponse {
 
     public void setBadgeVariant(String badgeVariant) {
         this.badgeVariant = badgeVariant;
-    }
-
-    public List<String> getVariants() {
-        return variants;
-    }
-
-    public void setVariants(List<String> variants) {
-        this.variants = variants;
     }
 
     public List<MenuCustomizationResponse> getCustomizations() {
