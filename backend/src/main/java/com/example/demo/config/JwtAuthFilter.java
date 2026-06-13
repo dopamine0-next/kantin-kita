@@ -15,11 +15,21 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.List;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @Component
 @RequiredArgsConstructor
 public class JwtAuthFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        String path = request.getRequestURI();
+        return path.equals("/api/v1/vendor/auth/login")
+            || path.equals("/api/v1/auth/login")
+            || path.equals("/api/v1/auth/register");
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
