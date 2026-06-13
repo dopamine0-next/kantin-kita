@@ -4,7 +4,7 @@ export const MOCK_RESTAURANT_API_RESPONSE: RestaurantApiResponse[] = [
   {
     id: 'stall-1',
     name: 'Soto & Bakso Mbok Sri',
-    cuisine: 'Soto, Bakso, Masakan Indonesia',
+    restaurant_category: { id: 'rct_001', name: 'Masakan Rumah' },
     rating: 4.8,
     reviews_count: 500,
     is_open: true,
@@ -17,7 +17,7 @@ export const MOCK_RESTAURANT_API_RESPONSE: RestaurantApiResponse[] = [
   {
     id: 'stall-2',
     name: 'Ayam Geprek Gahar',
-    cuisine: 'Ayam Geprek, Fried Chicken, Pedas',
+    restaurant_category: { id: 'rct_002', name: 'Ayam' },
     rating: 4.7,
     reviews_count: 380,
     is_open: true,
@@ -30,7 +30,7 @@ export const MOCK_RESTAURANT_API_RESPONSE: RestaurantApiResponse[] = [
   {
     id: 'stall-3',
     name: 'Kopi & Roti Bakar Kanto',
-    cuisine: 'Kopi Susu, Toast, Roti Bakar',
+    restaurant_category: { id: 'rct_003', name: 'Kopi & Minuman' },
     rating: 4.9,
     reviews_count: 1200,
     is_open: true,
@@ -43,7 +43,7 @@ export const MOCK_RESTAURANT_API_RESPONSE: RestaurantApiResponse[] = [
   {
     id: 'stall-4',
     name: 'Dapur Seafood Selera Rasa',
-    cuisine: 'Seafood, Ikan Bakar, Udang Geprek',
+    restaurant_category: { id: 'rct_007', name: 'Ikan Bakar' },
     rating: 4.6,
     reviews_count: 120,
     is_open: false,
@@ -59,7 +59,7 @@ export const MOCK_RESTAURANTS_DETAILS_RESPONSE: Record<string, RestaurantDetailA
   'stall-1': {
     id: 'stall-1',
     name: 'Soto & Bakso Mbok Sri',
-    cuisine: 'Soto Ayam, Bakso Urat, Mie Bakso',
+    restaurant_category: { id: 'rct_001', name: 'Masakan Rumah' },
     rating: 4.8,
     reviews_count: 500,
     is_open: true,
@@ -254,7 +254,7 @@ export const MOCK_RESTAURANTS_DETAILS_RESPONSE: Record<string, RestaurantDetailA
   'stall-2': {
     id: 'stall-2',
     name: 'Ayam Geprek Gahar',
-    cuisine: 'Ayam Geprek, Ayam Crispy, Ricebowl Pedas',
+    restaurant_category: { id: 'rct_002', name: 'Ayam' },
     rating: 4.7,
     reviews_count: 380,
     is_open: true,

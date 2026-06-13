@@ -7,6 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Entity
 @Table(name = "menu_items")
 @Getter
@@ -39,7 +40,7 @@ public class MenuItem {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id", nullable = false)
-    private Category category;
+    private MenuCategory category;
 
     private Boolean isPopular;
 

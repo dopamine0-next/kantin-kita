@@ -7,8 +7,8 @@ public class UpdateRestaurantRequest {
     @JsonProperty
     private String name;
 
-    @JsonProperty
-    private String cuisine;
+    @JsonProperty("restaurant_category_id")
+    private String restaurantCategoryId;
 
     @JsonProperty
     private String imageUrl;
@@ -30,12 +30,12 @@ public class UpdateRestaurantRequest {
         this.name = name;
     }
 
-    public String getCuisine() {
-        return cuisine;
+    public String getRestaurantCategoryId() {
+        return restaurantCategoryId;
     }
 
-    public void setCuisine(String cuisine) {
-        this.cuisine = cuisine;
+    public void setRestaurantCategoryId(String restaurantCategoryId) {
+        this.restaurantCategoryId = restaurantCategoryId;
     }
 
     public String getImageUrl() {

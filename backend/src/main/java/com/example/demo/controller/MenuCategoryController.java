@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/categories")
+@RequestMapping("/api/v1/menu-categories")
 @RequiredArgsConstructor
-public class CategoryController {
+public class MenuCategoryController {
 
     private final MenuCategoryService menuCategoryService;
 

@@ -25,7 +25,9 @@ public class Restaurant {
     @Column(nullable = false)
     private String name;
 
-    private String cuisine;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "restaurant_category_id")
+    private RestaurantCategory restaurantCategory;
 
     @Column(nullable = false)
     private Boolean isOpen;

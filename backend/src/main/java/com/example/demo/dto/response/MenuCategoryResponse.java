@@ -1,6 +1,6 @@
 package com.example.demo.dto.response;
 
-import com.example.demo.entity.Category;
+import com.example.demo.entity.MenuCategory;
 import lombok.*;
 
 @Getter
@@ -8,14 +8,14 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CategoryResponse {
+public class MenuCategoryResponse {
 
     private String id;
     private String name;
     private Integer priority;
 
-    public static CategoryResponse from(Category category) {
-        return CategoryResponse.builder()
+    public static MenuCategoryResponse from(MenuCategory category) {
+        return MenuCategoryResponse.builder()
                 .id(category.getId())
                 .name(category.getName())
                 .priority(category.getPriority())

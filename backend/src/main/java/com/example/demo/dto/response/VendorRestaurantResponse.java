@@ -1,6 +1,7 @@
 package com.example.demo.dto.response;
 
 import com.example.demo.entity.Restaurant;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import java.util.List;
@@ -14,7 +15,8 @@ public class VendorRestaurantResponse {
 
     private String id;
     private String name;
-    private String cuisine;
+    @JsonProperty("restaurant_category")
+    private RestaurantCategoryResponse restaurantCategory;
     private Double rating;
     private Integer ratingCount;
     private Integer reviewsCount;
@@ -32,7 +34,8 @@ public class VendorRestaurantResponse {
         return VendorRestaurantResponse.builder()
                 .id(restaurant.getId())
                 .name(restaurant.getName())
-                .cuisine(restaurant.getCuisine())
+                .restaurantCategory(restaurant.getRestaurantCategory() != null
+                        ? RestaurantCategoryResponse.from(restaurant.getRestaurantCategory()) : null)
                 .rating(rating)
                 .ratingCount(ratingCount)
                 .reviewsCount(ratingCount)

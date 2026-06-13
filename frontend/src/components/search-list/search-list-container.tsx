@@ -63,7 +63,7 @@ export default function SearchListContainer({ initialQuery }: SearchListContaine
       // 1. Text Search Filter (matches stall name or cuisine menu tags)
       const matchesSearch = searchQuery.trim()
         ? stall.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          stall.cuisine.toLowerCase().includes(searchQuery.toLowerCase())
+          stall.restaurantCategory.name.toLowerCase().includes(searchQuery.toLowerCase())
         : true
 
       if (!matchesSearch) return false

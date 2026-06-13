@@ -11,8 +11,8 @@ public class VendorRestaurantResponse {
     @JsonProperty
     private String name;
 
-    @JsonProperty
-    private String cuisine;
+    @JsonProperty("restaurant_category")
+    private RestaurantCategoryResponse restaurantCategory;
 
     @JsonProperty
     private Double rating;
@@ -69,12 +69,12 @@ public class VendorRestaurantResponse {
         this.name = name;
     }
 
-    public String getCuisine() {
-        return cuisine;
+    public RestaurantCategoryResponse getRestaurantCategory() {
+        return restaurantCategory;
     }
 
-    public void setCuisine(String cuisine) {
-        this.cuisine = cuisine;
+    public void setRestaurantCategory(RestaurantCategoryResponse restaurantCategory) {
+        this.restaurantCategory = restaurantCategory;
     }
 
     public Double getRating() {

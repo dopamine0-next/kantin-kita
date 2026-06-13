@@ -1,7 +1,12 @@
+export interface RestaurantCategoryResponse {
+  id: string
+  name: string
+}
+
 export interface RestaurantApiResponse {
   id: string
   name: string
-  cuisine: string
+  restaurant_category: RestaurantCategoryResponse
   rating: number
   reviews_count: number
   is_open: boolean
@@ -14,7 +19,7 @@ export interface RestaurantApiResponse {
 export interface RestaurantItem {
   id: string
   name: string
-  cuisine: string
+  restaurantCategory: RestaurantCategoryResponse
   rating: number
   reviewsCount: number
   isOpen: boolean

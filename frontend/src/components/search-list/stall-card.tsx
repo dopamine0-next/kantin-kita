@@ -68,7 +68,7 @@ export function StallCard({ stall, index = 0, onClick }: StallCardProps) {
             )}
           </div>
           <p className="text-muted-foreground/80 line-clamp-1 text-xs leading-snug font-medium">
-            {stall.cuisine}
+            {stall.restaurantCategory.name}
           </p>
         </div>
 

@@ -9,7 +9,7 @@ import lombok.*;
 public class UpdateRestaurantRequest {
 
     private String name;
-    private String cuisine;
+    private String restaurantCategoryId;
     private String imageUrl;
     private String bannerImageUrl;
     private String address;

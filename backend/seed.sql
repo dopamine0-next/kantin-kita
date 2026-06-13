@@ -19,7 +19,8 @@ DROP TABLE IF EXISTS banners;
 DROP TABLE IF EXISTS terms;
 DROP TABLE IF EXISTS faqs;
 DROP TABLE IF EXISTS marquee_nodes;
-DROP TABLE IF EXISTS categories;
+DROP TABLE IF EXISTS menu_categories;
+DROP TABLE IF EXISTS restaurant_categories;
 DROP TABLE IF EXISTS locations;
 
 CREATE TABLE locations (
@@ -30,11 +31,15 @@ CREATE TABLE locations (
     longitude DOUBLE
 );
 
-CREATE TABLE categories (
+CREATE TABLE menu_categories (
     id VARCHAR(10) PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-
     priority INT
+);
+
+CREATE TABLE restaurant_categories (
+    id VARCHAR(10) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE marquee_nodes (
@@ -67,7 +72,7 @@ CREATE TABLE vouchers (
 CREATE TABLE restaurants (
     id VARCHAR(10) PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    cuisine VARCHAR(255),
+    restaurant_category_id VARCHAR(10),
     is_open BOOLEAN NOT NULL,
     image_url VARCHAR(255) NOT NULL,
     banner_image_url VARCHAR(255),
@@ -75,7 +80,8 @@ CREATE TABLE restaurants (
     operational_hours VARCHAR(255),
     location_id VARCHAR(10),
     cheapest_price DOUBLE,
-    FOREIGN KEY (location_id) REFERENCES locations(id)
+    FOREIGN KEY (location_id) REFERENCES locations(id),
+    FOREIGN KEY (restaurant_category_id) REFERENCES restaurant_categories(id)
 );
 
 CREATE TABLE restaurant_promos (
@@ -98,7 +104,7 @@ CREATE TABLE menu_items (
 
     is_popular BOOLEAN,
     FOREIGN KEY (restaurant_id) REFERENCES restaurants(id),
-    FOREIGN KEY (category_id) REFERENCES categories(id)
+    FOREIGN KEY (category_id) REFERENCES menu_categories(id)
 );
 
 CREATE TABLE menu_customizations (
@@ -211,7 +217,19 @@ INSERT INTO locations (id, name, address, latitude, longitude) VALUES
 -- =============================================
 -- CATEGORIES
 -- =============================================
-INSERT INTO categories (id, name, priority) VALUES
+INSERT INTO restaurant_categories (id, name) VALUES
+('rct_001', 'Masakan Rumah'),
+('rct_002', 'Ayam'),
+('rct_003', 'Kopi & Minuman'),
+('rct_004', 'Mie'),
+('rct_005', 'Sate'),
+('rct_006', 'Bakso'),
+('rct_007', 'Pecel'),
+('rct_008', 'Seblak'),
+('rct_009', 'Soto'),
+('rct_010', 'Ikan Bakar');
+
+INSERT INTO menu_categories (id, name, priority) VALUES
 ('cat_001', 'Semua', 0),
 ('cat_002', 'Nasi', 1),
 ('cat_003', 'Mie', 2),
@@ -273,11 +291,11 @@ INSERT INTO vouchers (id, code, value, description, max_discount, is_active) VAL
 -- =============================================
 -- RESTAURANTS
 -- =============================================
-INSERT INTO restaurants (id, name, cuisine, rating, rating_count, reviews_count, is_open, image_url, banner_image_url, address, operational_hours, location_id, cheapest_price) VALUES
-('rst_001', 'Warung Bu Ani', 'Masakan Rumah', 4.8, 0, '1.2rb', TRUE, 'https://images.unsplash.com/photo-1541832676-9b763b0239ab?auto=format&fit=crop&w=400&q=80', 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=80', 'Kantin Pusat Lt. 1, Blok A', '08:00 - 17:00', 'loc_001', 15000),
-('rst_002', 'Ayam Geprek Bensu', 'Ayam', 4.6, 0, '890rb', TRUE, 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=400&q=80', 'https://images.unsplash.com/photo-1598103442097-8b74f2e94f0d?auto=format&fit=crop&w=1200&q=80', 'Kantin Teknik Lt. Dasar, Blok C', '09:00 - 20:00', 'loc_002', 18000),
-('rst_003', 'Kopi Kenangan', 'Kopi & Minuman', 4.5, 0, '2.1rb', TRUE, 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80', 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1200&q=80', 'Kantin Pusat Lt. 1, Blok B', '07:00 - 18:00', 'loc_001', 12000),
-('rst_004', 'Mie Aceh Jaya', 'Mie', 4.7, 0, '650rb', TRUE, 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=400&q=80', 'https://images.unsplash.com/photo-1612929633738-8fe03f7d0b9c?auto=format&fit=crop&w=1200&q=80', 'Kantin Ekonomi Lt. 2, Blok A', '09:00 - 19:00', 'loc_003', 20000);
+INSERT INTO restaurants (id, name, restaurant_category_id, rating, rating_count, reviews_count, is_open, image_url, banner_image_url, address, operational_hours, location_id, cheapest_price) VALUES
+('rst_001', 'Warung Bu Ani', 'rct_001', 4.8, 0, '1.2rb', TRUE, 'https://images.unsplash.com/photo-1541832676-9b763b0239ab?auto=format&fit=crop&w=400&q=80', 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=80', 'Kantin Pusat Lt. 1, Blok A', '08:00 - 17:00', 'loc_001', 15000),
+('rst_002', 'Ayam Geprek Bensu', 'rct_002', 4.6, 0, '890rb', TRUE, 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=400&q=80', 'https://images.unsplash.com/photo-1598103442097-8b74f2e94f0d?auto=format&fit=crop&w=1200&q=80', 'Kantin Teknik Lt. Dasar, Blok C', '09:00 - 20:00', 'loc_002', 18000),
+('rst_003', 'Kopi Kenangan', 'rct_003', 4.5, 0, '2.1rb', TRUE, 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80', 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1200&q=80', 'Kantin Pusat Lt. 1, Blok B', '07:00 - 18:00', 'loc_001', 12000),
+('rst_004', 'Mie Aceh Jaya', 'rct_004', 4.7, 0, '650rb', TRUE, 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=400&q=80', 'https://images.unsplash.com/photo-1612929633738-8fe03f7d0b9c?auto=format&fit=crop&w=1200&q=80', 'Kantin Ekonomi Lt. 2, Blok A', '09:00 - 19:00', 'loc_003', 20000);
 
 -- =============================================
 -- RESTAURANT PROMOS

@@ -5,13 +5,13 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name = "categories")
+@Table(name = "restaurant_categories")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Category {
+public class RestaurantCategory {
 
     @Id
     @GeneratedValue(generator = "nanoId")
@@ -21,6 +21,4 @@ public class Category {
 
     @Column(nullable = false)
     private String name;
-
-    private Integer priority;
 }

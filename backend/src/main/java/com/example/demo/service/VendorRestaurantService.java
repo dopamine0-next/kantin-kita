@@ -4,6 +4,8 @@ import com.example.demo.dto.request.UpdateHoursRequest;
 import com.example.demo.dto.request.UpdateRestaurantRequest;
 import com.example.demo.dto.response.VendorRestaurantResponse;
 import com.example.demo.entity.Restaurant;
+import com.example.demo.entity.RestaurantCategory;
+import com.example.demo.repository.RestaurantCategoryRepository;
 import com.example.demo.repository.RestaurantRepository;
 import com.example.demo.repository.RestaurantReviewRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,7 @@ public class VendorRestaurantService {
 
     private final RestaurantRepository restaurantRepository;
     private final RestaurantReviewRepository restaurantReviewRepository;
+    private final RestaurantCategoryRepository restaurantCategoryRepository;
 
     private VendorRestaurantResponse toResponse(Restaurant restaurant) {
         Double rating = restaurantReviewRepository.averageRatingByRestaurantId(restaurant.getId());
@@ -38,7 +41,11 @@ public class VendorRestaurantService {
         Restaurant restaurant = findOwnedRestaurant(vendorId, restaurantId);
 
         if (request.getName() != null) restaurant.setName(request.getName());
-        if (request.getCuisine() != null) restaurant.setCuisine(request.getCuisine());
+        if (request.getRestaurantCategoryId() != null) {
+            RestaurantCategory cat = restaurantCategoryRepository.findById(request.getRestaurantCategoryId())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Restaurant category not found"));
+            restaurant.setRestaurantCategory(cat);
+        }
         if (request.getImageUrl() != null) restaurant.setImageUrl(request.getImageUrl());
         if (request.getBannerImageUrl() != null) restaurant.setBannerImageUrl(request.getBannerImageUrl());
         if (request.getAddress() != null) restaurant.setAddress(request.getAddress());

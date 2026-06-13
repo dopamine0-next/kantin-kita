@@ -7,6 +7,7 @@ import lombok.*;
 
 import java.util.List;
 
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,7 +18,8 @@ public class RestaurantDetailResponse {
 
     private String id;
     private String name;
-    private String cuisine;
+    @JsonProperty("restaurant_category")
+    private RestaurantCategoryResponse restaurantCategory;
     private Double rating;
 
     @JsonProperty("rating_count")
@@ -62,7 +64,8 @@ public class RestaurantDetailResponse {
         return RestaurantDetailResponse.builder()
                 .id(restaurant.getId())
                 .name(restaurant.getName())
-                .cuisine(restaurant.getCuisine())
+                .restaurantCategory(restaurant.getRestaurantCategory() != null
+                        ? RestaurantCategoryResponse.from(restaurant.getRestaurantCategory()) : null)
                 .rating(rating != null ? Math.round(rating * 10.0) / 10.0 : null)
                 .ratingCount(ratingCount)
                 .reviewsCount(ratingCount)

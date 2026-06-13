@@ -14,7 +14,9 @@ export function RestaurantInfoCard({ restaurant }: RestaurantInfoCardProps) {
       <div className="flex items-start justify-between gap-2">
         <div className="flex flex-col gap-0.5">
           <h1 className="text-foreground text-lg leading-tight font-semibold">{restaurant.name}</h1>
-          <p className="text-muted-foreground/80 text-xs font-medium">{restaurant.cuisine}</p>
+          <p className="text-muted-foreground/80 text-xs font-medium">
+            {restaurant.restaurantCategory.name}
+          </p>
         </div>
 
         <Badge

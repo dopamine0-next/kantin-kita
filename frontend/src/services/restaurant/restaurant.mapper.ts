@@ -11,7 +11,7 @@ export function mapRestaurantItem(apiData: RestaurantApiResponse): RestaurantIte
   return {
     id: apiData.id,
     name: apiData.name,
-    cuisine: apiData.cuisine,
+    restaurantCategory: apiData.restaurant_category,
     rating: apiData.rating,
     reviewsCount: Number(apiData.reviews_count),
     isOpen: apiData.is_open,

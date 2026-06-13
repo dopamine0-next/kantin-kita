@@ -8,6 +8,7 @@ import com.example.demo.entity.*;
 import com.example.demo.entity.enums.CustomizationType;
 import com.example.demo.repository.*;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,8 +26,9 @@ public class VendorMenuService {
     private final VendorRestaurantService vendorRestaurantService;
     private final MenuItemRepository menuItemRepository;
     private final MenuCustomizationRepository menuCustomizationRepository;
+
     private final CustomizationOptionRepository customizationOptionRepository;
-    private final CategoryRepository categoryRepository;
+    private final MenuCategoryRepository menuCategoryRepository;
     private final MenuItemReviewRepository menuItemReviewRepository;
 
     public List<MenuItemResponse> listMenus(String vendorId, String restaurantId) {
@@ -57,7 +59,7 @@ public class VendorMenuService {
     public MenuItemResponse createMenu(String vendorId, String restaurantId, CreateMenuItemRequest request) {
         Restaurant restaurant = vendorRestaurantService.findOwnedRestaurant(vendorId, restaurantId);
 
-        Category category = categoryRepository.findById(request.getCategoryId())
+        MenuCategory category = menuCategoryRepository.findById(request.getCategoryId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Category not found"));
 
         MenuItem menuItem = MenuItem.builder()
@@ -86,7 +88,7 @@ public class VendorMenuService {
         if (request.getPrice() != null) menuItem.setPrice(request.getPrice());
         if (request.getImageUrl() != null) menuItem.setImageUrl(request.getImageUrl());
         if (request.getCategoryId() != null) {
-            Category cat = categoryRepository.findById(request.getCategoryId())
+            MenuCategory cat = menuCategoryRepository.findById(request.getCategoryId())
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Category not found"));
             menuItem.setCategory(cat);
         }

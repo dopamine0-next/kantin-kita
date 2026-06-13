@@ -25,7 +25,8 @@ public class DataSeeder implements CommandLineRunner {
     private boolean seedEnabled;
 
     private final LocationRepository locationRepository;
-    private final CategoryRepository categoryRepository;
+    private final MenuCategoryRepository menuCategoryRepository;
+    private final RestaurantCategoryRepository restaurantCategoryRepository;
     private final MarqueeNodeRepository marqueeNodeRepository;
     private final FAQRepository faqRepository;
     private final TermRepository termRepository;
@@ -50,7 +51,7 @@ public class DataSeeder implements CommandLineRunner {
             "Ikan Bakar Sambal"
     );
 
-    private static final List<String> CUISINES = List.of(
+    private static final List<String> RESTAURANT_CATEGORIES = List.of(
             "Masakan Rumah", "Ayam", "Kopi & Minuman", "Mie",
             "Sate", "Bakso", "Pecel", "Seblak", "Soto", "Ikan Bakar"
     );
@@ -146,14 +147,15 @@ public class DataSeeder implements CommandLineRunner {
         log.info("Starting data seeding...");
 
         List<Location> locations = seedLocations();
-        List<Category> categories = seedCategories();
+        List<RestaurantCategory> restaurantCategories = seedRestaurantCategories();
+        List<MenuCategory> menuCategories = seedMenuCategories();
         seedMarqueeNodes();
         seedFAQs();
         seedTerms();
         seedVouchers();
         List<Vendor> vendors = seedVendors();
-        List<Restaurant> restaurants = seedRestaurants(locations, vendors);
-        seedMenuItems(restaurants, categories);
+        List<Restaurant> restaurants = seedRestaurants(locations, vendors, restaurantCategories);
+        seedMenuItems(restaurants, menuCategories);
         seedBanners(locations);
         List<User> users = seedUsers(locations);
         Map<String, List<Order>> ordersByUser = seedOrders(users, restaurants);
@@ -204,15 +206,26 @@ public class DataSeeder implements CommandLineRunner {
         return list;
     }
 
-    private List<Category> seedCategories() {
-        List<Category> list = new ArrayList<>();
+    private List<RestaurantCategory> seedRestaurantCategories() {
+        List<RestaurantCategory> list = new ArrayList<>();
+        for (String name : RESTAURANT_CATEGORIES) {
+            list.add(restaurantCategoryRepository.save(RestaurantCategory.builder()
+                    .name(name)
+                    .build()));
+        }
+        log.info("Seeded {} restaurant categories", RESTAURANT_CATEGORIES.size());
+        return list;
+    }
+
+    private List<MenuCategory> seedMenuCategories() {
+        List<MenuCategory> list = new ArrayList<>();
         for (int i = 0; i < CATEGORIES.size(); i++) {
-            list.add(categoryRepository.save(Category.builder()
+            list.add(menuCategoryRepository.save(MenuCategory.builder()
                     .name(CATEGORIES.get(i))
                     .priority(i == 0 ? 0 : i)
                     .build()));
         }
-        log.info("Seeded {} categories", CATEGORIES.size());
+        log.info("Seeded {} menu categories", CATEGORIES.size());
         return list;
     }
 
@@ -292,7 +305,7 @@ public class DataSeeder implements CommandLineRunner {
         log.info("Seeded {} vouchers", data.length);
     }
 
-    private List<Restaurant> seedRestaurants(List<Location> locations, List<Vendor> vendors) {
+    private List<Restaurant> seedRestaurants(List<Location> locations, List<Vendor> vendors, List<RestaurantCategory> restaurantCategories) {
         List<Restaurant> list = new ArrayList<>();
 
         for (int i = 0; i < 6; i++) {
@@ -306,7 +319,7 @@ public class DataSeeder implements CommandLineRunner {
 
             Restaurant restaurant = Restaurant.builder()
                     .name(RESTAURANT_NAMES.get(i))
-                    .cuisine(CUISINES.get(i))
+                    .restaurantCategory(restaurantCategories.get(i))
                     .isOpen(true)
                     .imageUrl(RESTAURANT_IMAGES[i])
                     .bannerImageUrl(BANNER_IMAGES[rand.nextInt(BANNER_IMAGES.length)])
@@ -325,7 +338,7 @@ public class DataSeeder implements CommandLineRunner {
         return list;
     }
 
-    private void seedMenuItems(List<Restaurant> restaurants, List<Category> categories) {
+    private void seedMenuItems(List<Restaurant> restaurants, List<MenuCategory> categories) {
         int count = 0;
 
         for (Restaurant restaurant : restaurants) {
@@ -342,7 +355,7 @@ public class DataSeeder implements CommandLineRunner {
                 double price = (rand.nextInt(5, 50)) * 1000.0;
                 boolean hasDiscount = rand.nextInt(5) == 0;
 
-                Category category = categories.get(rand.nextInt(1, categories.size()));
+                MenuCategory category = categories.get(rand.nextInt(1, categories.size()));
 
                 List<String> variantNames = new ArrayList<>();
                 if (rand.nextBoolean()) {

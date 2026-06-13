@@ -173,7 +173,7 @@ public class RestaurantPanel extends JPanel {
 
     private void populateForm(VendorRestaurantResponse data) {
         nameField.setText(data.getName());
-        cuisineField.setText(data.getCuisine());
+        cuisineField.setText(data.getRestaurantCategory() != null ? data.getRestaurantCategory().getName() : "");
         addressArea.setText(data.getAddress());
         promoField.setText(data.getPromoText());
         if (data.getImageUrl() != null && !data.getImageUrl().isBlank()) {
@@ -274,7 +274,7 @@ public class RestaurantPanel extends JPanel {
 
         var req = new UpdateRestaurantRequest();
         req.setName(nameField.getText().trim());
-        req.setCuisine(cuisineField.getText().trim());
+        // req.setRestaurantCategoryId(...) — requires category picker, skipped for now
         req.setAddress(addressArea.getText().trim());
         req.setPromoText(promoField.getText().trim());
 
