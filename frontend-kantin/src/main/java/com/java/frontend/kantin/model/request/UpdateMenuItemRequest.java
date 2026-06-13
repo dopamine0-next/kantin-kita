@@ -20,9 +20,6 @@ public class UpdateMenuItemRequest {
     private String categoryId;
 
     @JsonProperty
-    private String prepTime;
-
-    @JsonProperty
     private Double originalPrice;
 
     @JsonProperty
@@ -72,14 +69,6 @@ public class UpdateMenuItemRequest {
 
     public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
-    }
-
-    public String getPrepTime() {
-        return prepTime;
-    }
-
-    public void setPrepTime(String prepTime) {
-        this.prepTime = prepTime;
     }
 
     public Double getOriginalPrice() {

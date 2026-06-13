@@ -36,9 +36,6 @@ public class MenuItemResponse {
     @JsonProperty("is_popular")
     private Boolean isPopular;
 
-    @JsonProperty("prep_time")
-    private String prepTime;
-
     private String stall;
 
     @JsonProperty("restaurant_id")
@@ -58,7 +55,6 @@ public class MenuItemResponse {
                 .rating(rating != null ? Math.round(rating * 10.0) / 10.0 : null)
                 .ratingCount(ratingCount != null ? ratingCount : 0)
                 .isPopular(item.getIsPopular())
-                .prepTime(item.getPrepTime())
                 .stall(item.getRestaurant().getName())
                 .restaurantId(item.getRestaurant().getId())
                 .customizations(item.getCustomizations().isEmpty() ? null

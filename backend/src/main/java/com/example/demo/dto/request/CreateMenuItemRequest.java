@@ -25,8 +25,6 @@ public class CreateMenuItemRequest {
     @NotBlank
     private String categoryId;
 
-    private String prepTime;
-
     private Double originalPrice;
 
     private String badgeText;

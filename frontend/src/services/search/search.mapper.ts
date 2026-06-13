@@ -8,7 +8,7 @@ export function mapSearchResult(data: SearchResultApiResponse): SearchResult {
     category: data.category,
     price: data.price,
     rating: data.rating,
-    prepTime: data.prep_time,
+    ratingCount: data.rating_count,
     image: data.image_url,
     stallId: data.restaurant_id,
   }

@@ -49,8 +49,6 @@ public class MenuItem {
 
     private String badgeVariant;
 
-    private String prepTime;
-
     @OneToMany(mappedBy = "menuItem", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<MenuCustomization> customizations = new ArrayList<>();

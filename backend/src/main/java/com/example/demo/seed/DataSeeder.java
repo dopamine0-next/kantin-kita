@@ -360,7 +360,6 @@ public class DataSeeder implements CommandLineRunner {
                         .originalPrice(hasDiscount ? price * (1 + rand.nextDouble() * 0.3 + 0.1) : null)
                         .badgeText(hasDiscount ? "Diskon " + rand.nextInt(10, 50) + "%" : null)
                         .badgeVariant(hasDiscount ? (rand.nextBoolean() ? "destructive" : "secondary") : null)
-                        .prepTime(rand.nextInt(3, 20) + "-" + rand.nextInt(20, 30) + " mnt")
                         .imageUrl(FOOD_IMAGES[rand.nextInt(FOOD_IMAGES.length)])
                         .category(category)
                         .isPopular(rand.nextBoolean())

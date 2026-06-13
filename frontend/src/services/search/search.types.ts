@@ -5,7 +5,7 @@ export interface SearchResultApiResponse {
   category: string
   price: number
   rating: number
-  prep_time: string
+  rating_count?: number
   image_url: string
   restaurant_id: string
 }
@@ -17,7 +17,7 @@ export interface SearchResult {
   category: string
   price: number
   rating: number
-  prepTime: string
+  ratingCount?: number
   image: string
   stallId: string
 }

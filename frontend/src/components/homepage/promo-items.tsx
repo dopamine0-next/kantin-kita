@@ -1,6 +1,6 @@
 'use client'
 
-import { Clock, Star } from 'lucide-react'
+import { Star } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -91,10 +91,6 @@ export function PromoItems({ selectedCategory }: PromoItemsProps) {
                   <h3 className="text-foreground group-hover:text-primary line-clamp-1 text-xs leading-snug font-semibold transition-colors">
                     {food.name}
                   </h3>
-                  <div className="text-muted-foreground/80 flex items-center gap-1 text-xs font-medium">
-                    <Clock className="text-muted-foreground size-3" />
-                    <span>{food.prepTime}</span>
-                  </div>
                 </div>
 
                 {/* Pricing Action */}

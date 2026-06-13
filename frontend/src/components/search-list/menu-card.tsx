@@ -53,8 +53,6 @@ export function MenuCard({ menu, index = 0 }: MenuCardProps) {
                 <span className="text-foreground">{menu.rating}</span>
               </span>
             )}
-            <span className="text-muted-foreground/60">•</span>
-            <span>{menu.prepTime}</span>
           </div>
         </div>
         <span className="text-primary shrink-0 text-xs font-semibold">

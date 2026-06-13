@@ -29,9 +29,6 @@ public class MenuItemResponse {
     @JsonProperty("is_popular")
     private Boolean isPopular;
 
-    @JsonProperty("prep_time")
-    private String prepTime;
-
     @JsonProperty
     private String stall;
 
@@ -115,14 +112,6 @@ public class MenuItemResponse {
 
     public void setIsPopular(Boolean isPopular) {
         this.isPopular = isPopular;
-    }
-
-    public String getPrepTime() {
-        return prepTime;
-    }
-
-    public void setPrepTime(String prepTime) {
-        this.prepTime = prepTime;
     }
 
     public String getStall() {

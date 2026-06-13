@@ -68,7 +68,6 @@ public class VendorMenuService {
                 .imageUrl(request.getImageUrl())
                 .category(category)
                 .isPopular(false)
-                .prepTime(request.getPrepTime())
                 .originalPrice(request.getOriginalPrice())
                 .badgeText(request.getBadgeText())
                 .badgeVariant(request.getBadgeVariant())
@@ -91,7 +90,6 @@ public class VendorMenuService {
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Category not found"));
             menuItem.setCategory(cat);
         }
-        if (request.getPrepTime() != null) menuItem.setPrepTime(request.getPrepTime());
         if (request.getOriginalPrice() != null) menuItem.setOriginalPrice(request.getOriginalPrice());
         if (request.getBadgeText() != null) menuItem.setBadgeText(request.getBadgeText());
         if (request.getBadgeVariant() != null) menuItem.setBadgeVariant(request.getBadgeVariant());
