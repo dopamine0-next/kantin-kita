@@ -3,10 +3,8 @@ package com.example.demo.dto.response;
 import com.example.demo.entity.Restaurant;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
-
 import java.util.List;
-
+import lombok.*;
 
 @Getter
 @Setter
@@ -40,8 +38,6 @@ public class RestaurantDetailResponse {
     @JsonProperty("cheapest_price")
     private Double cheapestPrice;
 
-    private List<String> promos;
-
     @JsonProperty("banner_image_url")
     private String bannerImageUrl;
 
@@ -73,8 +69,6 @@ public class RestaurantDetailResponse {
                 .imageUrl(restaurant.getImageUrl())
                 .locationId(restaurant.getLocation() != null ? restaurant.getLocation().getId() : null)
                 .cheapestPrice(restaurant.getCheapestPrice())
-                .promos(restaurant.getPromos() != null && !restaurant.getPromos().isEmpty()
-                        ? restaurant.getPromos() : null)
                 .bannerImageUrl(restaurant.getBannerImageUrl())
                 .address(restaurant.getAddress())
                 .operationalHours(restaurant.getOperationalHours())

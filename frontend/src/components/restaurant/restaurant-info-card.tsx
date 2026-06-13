@@ -1,4 +1,4 @@
-import { BadgePercent, Star } from 'lucide-react'
+import { Star } from 'lucide-react'
 
 import { Badge } from '@/components/ui/badge'
 import { cn, formatReviewCount } from '@/lib/utils'
@@ -46,20 +46,6 @@ export function RestaurantInfoCard({ restaurant }: RestaurantInfoCardProps) {
           </span>
         )}
       </div>
-
-      {restaurant.promos && restaurant.promos.length > 0 && (
-        <div className="no-scrollbar flex items-center gap-2 overflow-x-auto pt-0.5">
-          {restaurant.promos.map((promo, idx) => (
-            <Badge
-              key={idx}
-              className="py-0.8 gap-0.8 bg-primary text-primary-foreground hover:bg-primary/90 flex shrink-0 items-center rounded-lg border-none px-2 text-xs font-semibold whitespace-nowrap"
-            >
-              <BadgePercent className="size-3.5" />
-              <span>{promo}</span>
-            </Badge>
-          ))}
-        </div>
-      )}
     </div>
   )
 }

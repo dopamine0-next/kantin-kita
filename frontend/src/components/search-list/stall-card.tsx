@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
 import { Badge } from '@/components/ui/badge'
-import { formatReviewCount } from '@/lib/utils'
+import { formatReviewCount, formatRupiah } from '@/lib/utils'
 import { RestaurantItem } from '@/services/restaurant/restaurant.types'
 
 export interface StallCardProps {
@@ -17,8 +17,6 @@ export interface StallCardProps {
 
 export function StallCard({ stall, index = 0, onClick }: StallCardProps) {
   const router = useRouter()
-
-  const displayPromo = stall.promos && stall.promos.length > 0 ? stall.promos[0] : null
 
   const handleClick = () => {
     if (onClick) {
@@ -60,12 +58,6 @@ export function StallCard({ stall, index = 0, onClick }: StallCardProps) {
             <h3 className="text-foreground group-hover:text-primary line-clamp-1 text-sm leading-snug font-semibold transition-colors">
               {stall.name}
             </h3>
-            {stall.isOpen && displayPromo && !stall.promos && (
-              <Badge className="bg-primary text-primary-foreground hover:bg-primary/90 flex shrink-0 items-center gap-0.5 rounded-lg border-none px-1.5 py-0.5 text-xs font-semibold shadow-sm">
-                <BadgePercent className="size-3" />
-                <span>{displayPromo}</span>
-              </Badge>
-            )}
           </div>
           <p className="text-muted-foreground/80 line-clamp-1 text-xs leading-snug font-medium">
             {stall.restaurantCategory.name}
@@ -90,18 +82,13 @@ export function StallCard({ stall, index = 0, onClick }: StallCardProps) {
           )}
         </div>
 
-        {/* PROMO BADGES LIST INSIDE THE STALL CARD */}
-        {stall.promos && stall.promos.length > 0 && (
+        {/* Cheapest price badge */}
+        {stall.cheapestPrice && (
           <div className="border-muted/20 mt-1.5 flex flex-wrap gap-1.5 border-t pt-1.5">
-            {stall.promos.map((promo, pIdx) => (
-              <Badge
-                key={pIdx}
-                className="bg-primary text-primary-foreground hover:bg-primary/90 flex items-center gap-1 rounded-lg border-none px-2 py-0.5 text-xs font-semibold shadow-sm"
-              >
-                <BadgePercent className="size-3" />
-                <span>{promo}</span>
-              </Badge>
-            ))}
+            <Badge className="bg-primary text-primary-foreground hover:bg-primary/90 flex items-center gap-1 rounded-lg border-none px-2 py-0.5 text-xs font-semibold shadow-sm">
+              <BadgePercent className="size-3" />
+              <span>Mulai dari {formatRupiah(stall.cheapestPrice)}</span>
+            </Badge>
           </div>
         )}
       </div>

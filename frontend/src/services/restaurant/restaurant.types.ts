@@ -13,7 +13,6 @@ export interface RestaurantApiResponse {
   image_url: string
   location_id?: string
   cheapest_price?: number
-  promos?: string[]
 }
 
 export interface RestaurantItem {
@@ -26,7 +25,6 @@ export interface RestaurantItem {
   image: string
   locationId?: string
   cheapestPrice?: number
-  promos?: string[]
 }
 
 export interface ChoiceOption {

@@ -75,11 +75,6 @@ public class DataSeeder implements CommandLineRunner {
             "Nasi", "Mie", "Ayam", "Minuman", "Camilan", "Seafood", "Manis"
     );
 
-    private static final List<String> PROMOS = List.of(
-            "Diskon 30%", "Voucher Rp 5rb", "Promo Spesial",
-            "Buy 1 Get 1", "Gratis Ongkir", "Paket Hemat"
-    );
-
     private static final List<String> VARIANTS = List.of(
             "Original", "Level 1", "Level 2", "Level 3",
             "Level 4", "Level 5", "Paha", "Dada",
@@ -309,12 +304,6 @@ public class DataSeeder implements CommandLineRunner {
         List<Restaurant> list = new ArrayList<>();
 
         for (int i = 0; i < 6; i++) {
-            List<String> promos = new ArrayList<>();
-            promos.add(PROMOS.get(rand.nextInt(PROMOS.size())));
-            if (rand.nextBoolean()) {
-                promos.add(PROMOS.get(rand.nextInt(PROMOS.size())));
-            }
-
             Location loc = locations.get(rand.nextInt(locations.size()));
 
             Restaurant restaurant = Restaurant.builder()
@@ -327,7 +316,6 @@ public class DataSeeder implements CommandLineRunner {
                     .operationalHours("0" + rand.nextInt(7, 9) + ":00 - " + (rand.nextBoolean() ? "17:00" : "20:00"))
                     .location(loc)
                     .cheapestPrice(rand.nextDouble() * 20000 + 5000)
-                    .promos(promos)
                     .vendor(vendors.get(i % vendors.size()))
                     .build();
 

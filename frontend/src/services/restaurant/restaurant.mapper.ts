@@ -18,7 +18,6 @@ export function mapRestaurantItem(apiData: RestaurantApiResponse): RestaurantIte
     image: apiData.image_url,
     locationId: apiData.location_id,
     cheapestPrice: apiData.cheapest_price,
-    promos: apiData.promos,
   }
 }
 

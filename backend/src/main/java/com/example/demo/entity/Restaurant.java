@@ -51,12 +51,6 @@ public class Restaurant {
 
     private Double cheapestPrice;
 
-    @ElementCollection
-    @CollectionTable(name = "restaurant_promos", joinColumns = @JoinColumn(name = "restaurant_id"))
-    @Column(name = "promo")
-    @Builder.Default
-    private List<String> promos = new ArrayList<>();
-
     @OneToMany(mappedBy = "restaurant")
     @Builder.Default
     private List<MenuItem> menus = new ArrayList<>();

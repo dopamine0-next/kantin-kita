@@ -12,7 +12,6 @@ export const MOCK_RESTAURANT_API_RESPONSE: RestaurantApiResponse[] = [
       'https://images.unsplash.com/photo-1541832676-9b763b0239ab?auto=format&fit=crop&w=150&q=80',
     location_id: 'l1',
     cheapest_price: 15000,
-    promos: ['Diskon 20%', 'Menu Populer', 'Cepat Saji'],
   },
   {
     id: 'stall-2',
@@ -25,7 +24,6 @@ export const MOCK_RESTAURANT_API_RESPONSE: RestaurantApiResponse[] = [
       'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=150&q=80',
     location_id: 'l2',
     cheapest_price: 14000,
-    promos: ['Diskon 30%', 'Voucher Rp 5rb', 'Geprek Spesial'],
   },
   {
     id: 'stall-3',
@@ -38,7 +36,6 @@ export const MOCK_RESTAURANT_API_RESPONSE: RestaurantApiResponse[] = [
       'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=150&q=80',
     location_id: 'l1',
     cheapest_price: 10000,
-    promos: ['Beli 1 Gratis 1', 'Es Kopi Susu Murah', 'Cemilan Hemat'],
   },
   {
     id: 'stall-4',
@@ -51,7 +48,6 @@ export const MOCK_RESTAURANT_API_RESPONSE: RestaurantApiResponse[] = [
       'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=150&q=80',
     location_id: 'l2',
     cheapest_price: 28000,
-    promos: ['Diskon Spesial 15%', 'Seafood Segar'],
   },
 ]
 

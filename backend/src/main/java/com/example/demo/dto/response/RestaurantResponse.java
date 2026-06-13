@@ -5,9 +5,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
-import java.util.List;
-
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -40,8 +37,6 @@ public class RestaurantResponse {
     @JsonProperty("cheapest_price")
     private Double cheapestPrice;
 
-    private List<String> promos;
-
     public static RestaurantResponse from(Restaurant restaurant, Double rating, Integer ratingCount) {
         return RestaurantResponse.builder()
                 .id(restaurant.getId())
@@ -55,8 +50,6 @@ public class RestaurantResponse {
                 .imageUrl(restaurant.getImageUrl())
                 .locationId(restaurant.getLocation() != null ? restaurant.getLocation().getId() : null)
                 .cheapestPrice(restaurant.getCheapestPrice())
-                .promos(restaurant.getPromos() != null && !restaurant.getPromos().isEmpty()
-                        ? restaurant.getPromos() : null)
                 .build();
     }
 }

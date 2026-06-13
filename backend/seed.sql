@@ -12,7 +12,6 @@ DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS customization_options;
 DROP TABLE IF EXISTS menu_customizations;
 DROP TABLE IF EXISTS menu_items;
-DROP TABLE IF EXISTS restaurant_promos;
 DROP TABLE IF EXISTS restaurants;
 DROP TABLE IF EXISTS vouchers;
 DROP TABLE IF EXISTS banners;
@@ -82,12 +81,6 @@ CREATE TABLE restaurants (
     cheapest_price DOUBLE,
     FOREIGN KEY (location_id) REFERENCES locations(id),
     FOREIGN KEY (restaurant_category_id) REFERENCES restaurant_categories(id)
-);
-
-CREATE TABLE restaurant_promos (
-    restaurant_id VARCHAR(10) NOT NULL,
-    promo VARCHAR(255),
-    FOREIGN KEY (restaurant_id) REFERENCES restaurants(id)
 );
 
 CREATE TABLE menu_items (
@@ -293,14 +286,6 @@ INSERT INTO restaurants (id, name, restaurant_category_id, rating, rating_count,
 ('rst_002', 'Ayam Geprek Bensu', 'rct_002', 4.6, 0, '890rb', TRUE, 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=400&q=80', 'https://images.unsplash.com/photo-1598103442097-8b74f2e94f0d?auto=format&fit=crop&w=1200&q=80', 'Kantin Teknik Lt. Dasar, Blok C', '09:00 - 20:00', 'loc_002', 18000),
 ('rst_003', 'Kopi Kenangan', 'rct_003', 4.5, 0, '2.1rb', TRUE, 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80', 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1200&q=80', 'Kantin Pusat Lt. 1, Blok B', '07:00 - 18:00', 'loc_001', 12000),
 ('rst_004', 'Mie Aceh Jaya', 'rct_004', 4.7, 0, '650rb', TRUE, 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=400&q=80', 'https://images.unsplash.com/photo-1612929633738-8fe03f7d0b9c?auto=format&fit=crop&w=1200&q=80', 'Kantin Ekonomi Lt. 2, Blok A', '09:00 - 19:00', 'loc_003', 20000);
-
--- =============================================
--- RESTAURANT PROMOS
--- =============================================
-INSERT INTO restaurant_promos (restaurant_id, promo) VALUES
-('rst_001', 'Diskon 30%'),
-('rst_001', 'Voucher Rp 5rb'),
-('rst_002', 'Promo Spesial');
 
 -- =============================================
 -- MENU ITEMS

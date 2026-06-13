@@ -4,8 +4,6 @@ import com.example.demo.entity.Restaurant;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
-import java.util.List;
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -28,7 +26,6 @@ public class VendorRestaurantResponse {
     private String locationId;
     private String locationName;
     private Double cheapestPrice;
-    private List<String> promos;
 
     public static VendorRestaurantResponse from(Restaurant restaurant, Double rating, Integer ratingCount) {
         return VendorRestaurantResponse.builder()
@@ -47,8 +44,6 @@ public class VendorRestaurantResponse {
                 .locationId(restaurant.getLocation() != null ? restaurant.getLocation().getId() : null)
                 .locationName(restaurant.getLocation() != null ? restaurant.getLocation().getName() : null)
                 .cheapestPrice(restaurant.getCheapestPrice())
-                .promos(restaurant.getPromos() != null && !restaurant.getPromos().isEmpty()
-                        ? restaurant.getPromos() : null)
                 .build();
     }
 }

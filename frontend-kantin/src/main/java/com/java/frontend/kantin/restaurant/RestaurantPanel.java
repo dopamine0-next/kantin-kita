@@ -18,7 +18,6 @@ public class RestaurantPanel extends JPanel {
     private JTextField nameField;
     private JTextField cuisineField;
     private JTextArea addressArea;
-    private JTextField promoField;
     private JLabel imagePreview;
     private JLabel bannerPreview;
     private JToggleButton statusToggle;
@@ -101,15 +100,8 @@ public class RestaurantPanel extends JPanel {
         addressScroll.setPreferredSize(new Dimension(300, 60));
         formPanel.add(addressScroll, gbc);
 
-        gbc.gridy = 6;
-        formPanel.add(new JLabel("Promo Text"), gbc);
-        gbc.gridy = 7;
-        promoField = new JTextField(25);
-        promoField.setPreferredSize(new Dimension(300, 35));
-        formPanel.add(promoField, gbc);
-
         // Status row
-        gbc.gridy = 8;
+        gbc.gridy = 6;
         formPanel.add(new JLabel("Status"), gbc);
         gbc.gridy = 9;
         var statusRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
@@ -175,7 +167,6 @@ public class RestaurantPanel extends JPanel {
         nameField.setText(data.getName());
         cuisineField.setText(data.getRestaurantCategory() != null ? data.getRestaurantCategory().getName() : "");
         addressArea.setText(data.getAddress());
-        promoField.setText(data.getPromoText());
         if (data.getImageUrl() != null && !data.getImageUrl().isBlank()) {
             imagePreview.setText(data.getImageUrl());
         }
@@ -276,7 +267,6 @@ public class RestaurantPanel extends JPanel {
         req.setName(nameField.getText().trim());
         // req.setRestaurantCategoryId(...) — requires category picker, skipped for now
         req.setAddress(addressArea.getText().trim());
-        req.setPromoText(promoField.getText().trim());
 
         SwingWorker<Void, Void> worker = new SwingWorker<>() {
             private boolean ok;
