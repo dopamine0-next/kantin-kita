@@ -46,6 +46,9 @@ public class OrderService {
     @Value("${xendit.failure-redirect-url}")
     private String failureRedirectUrl;
 
+    @Value("${app.fee}")
+    private double appFeeAmount;
+
     public CreateOrderResponse createOrder(CreateOrderRequest request, String userId) {
         Restaurant restaurant = restaurantRepository.findById(request.getRestaurantId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Restaurant not found"));
@@ -101,7 +104,7 @@ public class OrderService {
             }
         }
 
-        double appFee = subtotal > 0 ? 2000 : 0;
+        double appFee = subtotal > 0 ? appFeeAmount : 0;
         double totalAmount = Math.max(0, subtotal - discount + appFee);
 
         User userRef = userRepository.getReferenceById(userId);
