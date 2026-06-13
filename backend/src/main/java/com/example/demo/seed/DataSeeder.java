@@ -72,7 +72,7 @@ public class DataSeeder implements CommandLineRunner {
     };
 
     private static final List<String> CATEGORIES = List.of(
-            "Semua", "Nasi", "Mie", "Ayam", "Minuman", "Camilan", "Seafood", "Manis"
+            "Nasi", "Mie", "Ayam", "Minuman", "Camilan", "Seafood", "Manis"
     );
 
     private static final List<String> PROMOS = List.of(
@@ -222,7 +222,7 @@ public class DataSeeder implements CommandLineRunner {
         for (int i = 0; i < CATEGORIES.size(); i++) {
             list.add(menuCategoryRepository.save(MenuCategory.builder()
                     .name(CATEGORIES.get(i))
-                    .priority(i == 0 ? 0 : i)
+                    .priority(i + 1)
                     .build()));
         }
         log.info("Seeded {} menu categories", CATEGORIES.size());

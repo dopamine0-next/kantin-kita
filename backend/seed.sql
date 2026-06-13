@@ -230,14 +230,13 @@ INSERT INTO restaurant_categories (id, name) VALUES
 ('rct_010', 'Ikan Bakar');
 
 INSERT INTO menu_categories (id, name, priority) VALUES
-('cat_001', 'Semua', 0),
-('cat_002', 'Nasi', 1),
-('cat_003', 'Mie', 2),
-('cat_004', 'Ayam', 3),
-('cat_005', 'Minuman', 4),
-('cat_006', 'Camilan', 5),
-('cat_007', 'Seafood', 6),
-('cat_008', 'Manis', 7);
+('cat_001', 'Nasi', 1),
+('cat_002', 'Mie', 2),
+('cat_003', 'Ayam', 3),
+('cat_004', 'Minuman', 4),
+('cat_005', 'Camilan', 5),
+('cat_006', 'Seafood', 6),
+('cat_007', 'Manis', 7);
 
 -- =============================================
 -- MARQUEE NODES
