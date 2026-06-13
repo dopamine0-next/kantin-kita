@@ -74,14 +74,20 @@ export function StallCard({ stall, index = 0, onClick }: StallCardProps) {
 
         {/* Badges and Walk stats */}
         <div className="text-muted-foreground/80 mt-1 flex items-center gap-3.5 text-xs font-semibold">
-          {/* Rating */}
-          <div className="flex shrink-0 items-center gap-0.5 text-amber-500">
-            <Star className="size-3.5 fill-amber-500 stroke-none" />
-            <span className="text-foreground">{stall.rating}</span>
-            <span className="text-muted-foreground/50 font-medium">
-              ({formatReviewCount(stall.reviewsCount)})
+          {/* Rating or New Badge */}
+          {stall.reviewsCount >= 10 ? (
+            <div className="flex shrink-0 items-center gap-0.5 text-amber-500">
+              <Star className="size-3.5 fill-amber-500 stroke-none" />
+              <span className="text-foreground">{stall.rating}</span>
+              <span className="text-muted-foreground/50 font-medium">
+                ({formatReviewCount(stall.reviewsCount)})
+              </span>
+            </div>
+          ) : (
+            <span className="bg-primary/10 text-primary inline-flex items-center rounded-full px-2 py-0.5 font-semibold">
+              Baru
             </span>
-          </div>
+          )}
         </div>
 
         {/* PROMO BADGES LIST INSIDE THE STALL CARD */}

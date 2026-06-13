@@ -30,13 +30,19 @@ export function RestaurantInfoCard({ restaurant }: RestaurantInfoCardProps) {
       </div>
 
       <div className="border-muted/20 text-muted-foreground/85 border-y py-2.5 text-xs font-semibold">
-        <div className="gap-0.8 flex items-center text-amber-500">
-          <Star className="size-4 fill-amber-500 stroke-none" />
-          <span className="text-foreground">{restaurant.rating}</span>
-          <span className="text-muted-foreground/50 font-medium">
-            ({formatReviewCount(restaurant.reviewsCount)} Ulasan)
+        {restaurant.reviewsCount >= 10 ? (
+          <div className="gap-0.8 flex items-center text-amber-500">
+            <Star className="size-4 fill-amber-500 stroke-none" />
+            <span className="text-foreground">{restaurant.rating}</span>
+            <span className="text-muted-foreground/50 font-medium">
+              ({formatReviewCount(restaurant.reviewsCount)} Ulasan)
+            </span>
+          </div>
+        ) : (
+          <span className="bg-primary/10 text-primary inline-flex items-center rounded-full px-2.5 py-0.5 font-semibold">
+            Baru
           </span>
-        </div>
+        )}
       </div>
 
       {restaurant.promos && restaurant.promos.length > 0 && (
