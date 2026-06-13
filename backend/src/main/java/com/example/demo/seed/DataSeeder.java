@@ -36,6 +36,7 @@ public class DataSeeder implements CommandLineRunner {
     private final BannerRepository bannerRepository;
     private final UserRepository userRepository;
     private final VendorRepository vendorRepository;
+    private final AdminRepository adminRepository;
     private final OrderRepository orderRepository;
     private final RestaurantReviewRepository restaurantReviewRepository;
     private final MenuItemReviewRepository menuItemReviewRepository;
@@ -148,6 +149,7 @@ public class DataSeeder implements CommandLineRunner {
         seedFAQs();
         seedTerms();
         seedVouchers();
+        seedAdmins();
         List<Vendor> vendors = seedVendors();
         List<Restaurant> restaurants = seedRestaurants(locations, vendors, restaurantCategories);
         seedMenuItems(restaurants, menuCategories);
@@ -157,6 +159,23 @@ public class DataSeeder implements CommandLineRunner {
         seedReviews(users, ordersByUser);
 
         log.info("Data seeding completed!");
+    }
+
+    private void seedAdmins() {
+        String[][] data = {
+                {"Admin Utama", "admin@kantin.id"},
+                {"Admin Operasional", "ops@kantin.id"},
+        };
+
+        List<Admin> list = new ArrayList<>();
+        for (String[] d : data) {
+            list.add(adminRepository.save(Admin.builder()
+                    .name(d[0])
+                    .email(d[1])
+                    .password(passwordEncoder.encode("password"))
+                    .build()));
+        }
+        log.info("Seeded {} admins", list.size());
     }
 
     private List<Vendor> seedVendors() {
