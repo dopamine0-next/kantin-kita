@@ -39,12 +39,6 @@ public class MenuItemResponse {
     private Double originalPrice;
 
     @JsonProperty
-    private String badgeText;
-
-    @JsonProperty
-    private String badgeVariant;
-
-    @JsonProperty
     private List<MenuCustomizationResponse> customizations;
 
     public MenuItemResponse() {
@@ -135,26 +129,6 @@ public class MenuItemResponse {
     }
 
     public void setOriginalPrice(Double originalPrice) {
-        this.originalPrice = originalPrice;
-    }
-
-    public String getBadgeText() {
-        return badgeText;
-    }
-
-    public void setBadgeText(String badgeText) {
-        this.badgeText = badgeText;
-    }
-
-    public String getBadgeVariant() {
-        return badgeVariant;
-    }
-
-    public void setBadgeVariant(String badgeVariant) {
-        this.badgeVariant = badgeVariant;
-    }
-
-    public List<MenuCustomizationResponse> getCustomizations() {
         return customizations;
     }
 

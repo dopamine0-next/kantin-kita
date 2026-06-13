@@ -22,12 +22,6 @@ public class CreateMenuItemRequest {
     @JsonProperty
     private Double originalPrice;
 
-    @JsonProperty
-    private String badgeText;
-
-    @JsonProperty
-    private String badgeVariant;
-
     public CreateMenuItemRequest() {
     }
 
@@ -77,21 +71,5 @@ public class CreateMenuItemRequest {
 
     public void setOriginalPrice(Double originalPrice) {
         this.originalPrice = originalPrice;
-    }
-
-    public String getBadgeText() {
-        return badgeText;
-    }
-
-    public void setBadgeText(String badgeText) {
-        this.badgeText = badgeText;
-    }
-
-    public String getBadgeVariant() {
-        return badgeVariant;
-    }
-
-    public void setBadgeVariant(String badgeVariant) {
-        this.badgeVariant = badgeVariant;
     }
 }

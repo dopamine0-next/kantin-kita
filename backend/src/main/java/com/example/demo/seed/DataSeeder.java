@@ -371,8 +371,6 @@ public class DataSeeder implements CommandLineRunner {
                         .description(faker.lorem().sentence(rand.nextInt(5, 15)))
                         .price(price)
                         .originalPrice(hasDiscount ? price * (1 + rand.nextDouble() * 0.3 + 0.1) : null)
-                        .badgeText(hasDiscount ? "Diskon " + rand.nextInt(10, 50) + "%" : null)
-                        .badgeVariant(hasDiscount ? (rand.nextBoolean() ? "destructive" : "secondary") : null)
                         .imageUrl(FOOD_IMAGES[rand.nextInt(FOOD_IMAGES.length)])
                         .category(category)
                         .isPopular(rand.nextBoolean())

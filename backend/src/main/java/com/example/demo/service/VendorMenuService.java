@@ -71,8 +71,6 @@ public class VendorMenuService {
                 .category(category)
                 .isPopular(false)
                 .originalPrice(request.getOriginalPrice())
-                .badgeText(request.getBadgeText())
-                .badgeVariant(request.getBadgeVariant())
                 .build();
 
         menuItem = menuItemRepository.save(menuItem);
@@ -93,8 +91,6 @@ public class VendorMenuService {
             menuItem.setCategory(cat);
         }
         if (request.getOriginalPrice() != null) menuItem.setOriginalPrice(request.getOriginalPrice());
-        if (request.getBadgeText() != null) menuItem.setBadgeText(request.getBadgeText());
-        if (request.getBadgeVariant() != null) menuItem.setBadgeVariant(request.getBadgeVariant());
 
         menuItem = menuItemRepository.save(menuItem);
         Double avg = menuItemReviewRepository.averageRatingByMenuItemId(menuItem.getId());

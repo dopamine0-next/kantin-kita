@@ -4,7 +4,6 @@ import { Star } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { usePromos } from '@/hooks/use-promos'
@@ -68,13 +67,6 @@ export function PromoItems({ selectedCategory }: PromoItemsProps) {
                   sizes="192px"
                   className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
                 />
-
-                {/* Promo Badge floating top-left */}
-                {food.badgeText && (
-                  <Badge className="bg-primary text-primary-foreground hover:bg-primary/90 absolute top-2 left-2 rounded-lg border-none px-2 py-0.5 text-xs font-semibold shadow-sm">
-                    {food.badgeText}
-                  </Badge>
-                )}
 
                 {/* Rating floating top-right */}
                 {food.rating && food.ratingCount != null && food.ratingCount >= 10 && (

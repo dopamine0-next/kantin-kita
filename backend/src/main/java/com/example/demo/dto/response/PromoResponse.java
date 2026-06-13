@@ -32,12 +32,6 @@ public class PromoResponse {
     @JsonProperty("rating_count")
     private Integer ratingCount;
 
-    @JsonProperty("badge_text")
-    private String badgeText;
-
-    @JsonProperty("badge_variant")
-    private String badgeVariant;
-
     @JsonProperty("image_url")
     private String imageUrl;
 
@@ -51,8 +45,6 @@ public class PromoResponse {
                 .originalPrice(item.getOriginalPrice())
                 .rating(rating != null ? Math.round(rating * 10.0) / 10.0 : null)
                 .ratingCount(ratingCount != null ? ratingCount : 0)
-                .badgeText(item.getBadgeText())
-                .badgeVariant(item.getBadgeVariant())
                 .imageUrl(item.getImageUrl())
                 .build();
     }

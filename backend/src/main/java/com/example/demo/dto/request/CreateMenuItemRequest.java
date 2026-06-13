@@ -26,8 +26,4 @@ public class CreateMenuItemRequest {
     private String categoryId;
 
     private Double originalPrice;
-
-    private String badgeText;
-
-    private String badgeVariant;
 }

@@ -46,10 +46,6 @@ public class MenuItem {
 
     private Double originalPrice;
 
-    private String badgeText;
-
-    private String badgeVariant;
-
     @OneToMany(mappedBy = "menuItem", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<MenuCustomization> customizations = new ArrayList<>();
