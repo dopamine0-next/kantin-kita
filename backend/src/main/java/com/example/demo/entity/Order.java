@@ -34,9 +34,6 @@ public class Order {
     @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
 
-    @Column(nullable = false)
-    private String orderNumber;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private OrderStatus status;

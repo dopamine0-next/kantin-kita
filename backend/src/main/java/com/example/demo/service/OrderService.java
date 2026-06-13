@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 @RequiredArgsConstructor
@@ -104,14 +103,12 @@ public class OrderService {
 
         double appFee = subtotal > 0 ? 2000 : 0;
         double totalAmount = Math.max(0, subtotal - discount + appFee);
-        String orderNumber = generateOrderNumber();
 
         User userRef = userRepository.getReferenceById(userId);
 
         Order order = Order.builder()
                 .user(userRef)
                 .restaurant(restaurant)
-                .orderNumber(orderNumber)
                 .status(OrderStatus.PENDING)
                 .paymentStatus(PaymentStatus.UNPAID)
                 .mode(mode)
@@ -134,7 +131,6 @@ public class OrderService {
 
         return CreateOrderResponse.builder()
                 .orderId(savedOrder.getId())
-                .orderNumber(orderNumber)
                 .paymentUrl(paymentUrl)
                 .totalAmount(totalAmount)
                 .status(OrderStatus.PENDING.name().toLowerCase())
@@ -205,7 +201,7 @@ public class OrderService {
             Map<String, Object> params = new HashMap<>();
             params.put("external_id", order.getId());
             params.put("amount", order.getTotalAmount());
-            params.put("description", "Pembayaran Order " + order.getOrderNumber());
+            params.put("description", "Pembayaran Order " + order.getId());
             params.put("success_redirect_url", successRedirectUrl + order.getId());
             params.put("failure_redirect_url", failureRedirectUrl + order.getId());
 
@@ -217,9 +213,5 @@ public class OrderService {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
                     "Failed to create payment: " + e.getMessage());
         }
-    }
-
-    private String generateOrderNumber() {
-        return "#" + String.format("%04d", ThreadLocalRandom.current().nextInt(10000));
     }
 }

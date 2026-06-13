@@ -33,9 +33,6 @@ public class OrderResponse {
 
     private String mode;
 
-    @JsonProperty("order_number")
-    private String orderNumber;
-
     @JsonProperty("payment_url")
     private String paymentUrl;
 
@@ -65,7 +62,6 @@ public class OrderResponse {
                 .status(order.getStatus().name().toLowerCase())
                 .totalAmount(order.getTotalAmount())
                 .mode(order.getMode().name().toLowerCase().replace("_", "-"))
-                .orderNumber(order.getOrderNumber())
                 .paymentUrl(order.getPaymentUrl())
                 .paymentStatus(order.getPaymentStatus().name().toLowerCase())
                 .discountAmount(order.getDiscountAmount())

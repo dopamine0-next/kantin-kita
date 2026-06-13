@@ -530,12 +530,9 @@ public class DataSeeder implements CommandLineRunner {
             double appFee = subtotal > 0 ? 2000 : 0;
             double total = Math.max(0, subtotal - discount + appFee);
 
-            String orderNumber = "#" + String.format("%04d", rand.nextInt(10000));
-
             Order order = Order.builder()
                     .user(user)
                     .restaurant(restaurant)
-                    .orderNumber(orderNumber)
                     .status(status)
                     .paymentStatus(status == OrderStatus.PENDING ? PaymentStatus.UNPAID
                             : status == OrderStatus.CANCELLED ? PaymentStatus.FAILED : PaymentStatus.PAID)

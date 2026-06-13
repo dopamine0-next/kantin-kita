@@ -22,7 +22,6 @@ export function mapOrder(data: OrderApiResponse): Order {
     status: data.status as Order['status'],
     total_amount: data.total_amount,
     mode: data.mode,
-    order_number: data.order_number,
     payment_url: data.payment_url,
     payment_status: data.payment_status,
     discount_amount: data.discount_amount,

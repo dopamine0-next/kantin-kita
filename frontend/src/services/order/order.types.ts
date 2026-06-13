@@ -8,7 +8,6 @@ export interface OrderApiResponse {
   status: string
   total_amount: number
   mode: string
-  order_number: string
   payment_url?: string
   payment_status: string
   discount_amount?: number
@@ -45,7 +44,6 @@ export interface CreateOrderItemPayload {
 
 export interface CreateOrderResponse {
   order_id: string
-  order_number: string
   payment_url?: string
   total_amount: number
   status: string
@@ -70,7 +68,6 @@ export interface Order {
   status: OrderStatus
   total_amount: number
   mode: string
-  order_number: string
   payment_url?: string
   payment_status: string
   discount_amount?: number

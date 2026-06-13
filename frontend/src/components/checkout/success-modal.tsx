@@ -7,19 +7,13 @@ import { Button } from '@/components/ui/button'
 
 interface SuccessModalProps {
   isOpen: boolean
-  orderNumber: string
+  orderId: string
   total: number
   activeMode: 'dine-in' | 'pickup'
   onFinish: () => void
 }
 
-export function SuccessModal({
-  isOpen,
-  orderNumber,
-  total,
-  activeMode,
-  onFinish,
-}: SuccessModalProps) {
+export function SuccessModal({ isOpen, orderId, total, activeMode, onFinish }: SuccessModalProps) {
   return (
     <AnimatePresence>
       {isOpen && (
@@ -53,8 +47,8 @@ export function SuccessModal({
               </div>
 
               <div className="text-muted-foreground/85 flex items-center justify-between text-xs font-semibold">
-                <span>Nomor Order</span>
-                <span className="text-foreground font-semibold">{orderNumber}</span>
+                <span>ID Order</span>
+                <span className="text-foreground font-semibold">{orderId}</span>
               </div>
 
               <div className="text-muted-foreground/85 flex items-center justify-between text-xs font-semibold">

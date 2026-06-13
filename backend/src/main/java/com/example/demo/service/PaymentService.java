@@ -39,7 +39,7 @@ public class PaymentService {
 
         if (order.getPaymentStatus() != PaymentStatus.UNPAID || order.getStatus() != OrderStatus.PENDING) {
             log.info("Order {} already processed (status={}, payment={}), ignoring callback",
-                    order.getOrderNumber(), order.getStatus(), order.getPaymentStatus());
+                    order.getId(), order.getStatus(), order.getPaymentStatus());
             return;
         }
 
@@ -53,7 +53,7 @@ public class PaymentService {
                     double diff = Math.abs(callback.getPaidAmount().doubleValue() - order.getTotalAmount());
                     if (diff > 1000) {
                         log.warn("Payment amount mismatch for order {}: paid={}, expected={}",
-                                order.getOrderNumber(), callback.getPaidAmount(), order.getTotalAmount());
+                                order.getId(), callback.getPaidAmount(), order.getTotalAmount());
                     }
                 }
                 order.setPaymentStatus(PaymentStatus.PAID);
@@ -74,6 +74,6 @@ public class PaymentService {
 
         orderRepository.save(order);
         log.info("Order {} updated: status={}, paymentStatus={}",
-                order.getOrderNumber(), order.getStatus(), order.getPaymentStatus());
+                order.getId(), order.getStatus(), order.getPaymentStatus());
     }
 }

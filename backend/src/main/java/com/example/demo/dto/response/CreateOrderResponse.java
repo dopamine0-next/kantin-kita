@@ -13,9 +13,6 @@ public class CreateOrderResponse {
     @JsonProperty("order_id")
     private String orderId;
 
-    @JsonProperty("order_number")
-    private String orderNumber;
-
     @JsonProperty("payment_url")
     private String paymentUrl;
 

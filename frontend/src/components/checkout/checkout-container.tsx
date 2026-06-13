@@ -51,7 +51,7 @@ export default function CheckoutContainer() {
   const [isPromoDrawerOpen, setIsPromoDrawerOpen] = useState(false)
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false)
   const [isProcessing, setIsProcessing] = useState(false)
-  const [orderNumber, setOrderNumber] = useState('')
+  const [orderId, setOrderId] = useState('')
 
   // Edit State
   const [selectedCartItem, setSelectedCartItem] = useState<CartItem | null>(null)
@@ -105,7 +105,7 @@ export default function CheckoutContainer() {
       if (result.payment_url) {
         window.location.href = result.payment_url
       } else {
-        setOrderNumber(result.order_number)
+        setOrderId(result.order_id)
         setIsSuccessModalOpen(true)
       }
     } catch {
@@ -185,7 +185,7 @@ export default function CheckoutContainer() {
 
       <SuccessModal
         isOpen={isSuccessModalOpen}
-        orderNumber={orderNumber}
+        orderId={orderId}
         total={total}
         activeMode={activeMode}
         onFinish={handleFinishPayment}

@@ -140,7 +140,6 @@ CREATE TABLE orders (
     id VARCHAR(10) PRIMARY KEY,
     user_id VARCHAR(10) NOT NULL,
     restaurant_id VARCHAR(10) NOT NULL,
-    order_number VARCHAR(255) NOT NULL,
     status VARCHAR(255) NOT NULL,
     payment_status VARCHAR(255) NOT NULL,
     payment_url VARCHAR(255),

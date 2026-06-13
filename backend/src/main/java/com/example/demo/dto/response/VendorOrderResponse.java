@@ -13,7 +13,6 @@ import java.util.List;
 public class VendorOrderResponse {
 
     private String id;
-    private String orderNumber;
     private String status;
     private String paymentStatus;
     private String mode;
@@ -40,7 +39,6 @@ public class VendorOrderResponse {
     public static VendorOrderResponse from(Order order) {
         return VendorOrderResponse.builder()
                 .id(order.getId())
-                .orderNumber(order.getOrderNumber())
                 .status(order.getStatus().name())
                 .paymentStatus(order.getPaymentStatus().name())
                 .mode(order.getMode().name())
