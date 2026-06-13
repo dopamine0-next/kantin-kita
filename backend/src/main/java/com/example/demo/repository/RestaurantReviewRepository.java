@@ -25,4 +25,7 @@ public interface RestaurantReviewRepository extends JpaRepository<RestaurantRevi
 
     @Query("SELECT COUNT(r) FROM RestaurantReview r WHERE r.restaurant.id = :restaurantId")
     Integer countByRestaurantId(@Param("restaurantId") String restaurantId);
+
+    @Query("SELECT COALESCE(AVG(r.rating), 0) FROM RestaurantReview r")
+    Double averageRatingAll();
 }

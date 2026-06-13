@@ -35,4 +35,9 @@ public interface OrderRepository extends JpaRepository<Order, String> {
             @Param("status") OrderStatus status,
             @Param("dateFrom") LocalDateTime dateFrom,
             @Param("dateTo") LocalDateTime dateTo);
+
+    @Query("SELECT o FROM Order o WHERE o.createdAt BETWEEN :dateFrom AND :dateTo ORDER BY o.createdAt DESC")
+    List<Order> findByCreatedAtBetween(
+            @Param("dateFrom") LocalDateTime dateFrom,
+            @Param("dateTo") LocalDateTime dateTo);
 }
