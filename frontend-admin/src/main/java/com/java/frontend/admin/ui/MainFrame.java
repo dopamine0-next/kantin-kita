@@ -3,6 +3,9 @@ package com.java.frontend.admin.ui;
 import com.java.frontend.admin.service.AuthService;
 import com.java.frontend.admin.ui.panels.DashboardPanel;
 import com.java.frontend.admin.ui.panels.RestaurantPanel;
+import com.java.frontend.admin.ui.panels.VendorPanel;
+import com.java.frontend.admin.ui.panels.RestaurantCategoryPanel;
+import com.java.frontend.admin.ui.panels.MenuCategoryPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,9 +26,9 @@ public class MainFrame extends JFrame {
 
         contentPanel.add(new DashboardPanel(), "dashboard");
         contentPanel.add(new RestaurantPanel(), "restaurant");
-        contentPanel.add(new JLabel("Vendor", SwingConstants.CENTER), "vendor");
-        contentPanel.add(new JLabel("Kategori Restoran", SwingConstants.CENTER), "category");
-        contentPanel.add(new JLabel("Kategori Menu", SwingConstants.CENTER), "menuCategory");
+        contentPanel.add(new VendorPanel(), "vendor");
+        contentPanel.add(new RestaurantCategoryPanel(), "category");
+        contentPanel.add(new MenuCategoryPanel(), "menuCategory");
         contentPanel.add(new JLabel("Lokasi", SwingConstants.CENTER), "location");
         contentPanel.add(new JLabel("Voucher", SwingConstants.CENTER), "voucher");
         contentPanel.add(new JLabel("Banner", SwingConstants.CENTER), "banner");
