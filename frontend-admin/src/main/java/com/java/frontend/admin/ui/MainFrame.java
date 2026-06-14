@@ -7,6 +7,8 @@ import com.java.frontend.admin.ui.panels.VendorPanel;
 import com.java.frontend.admin.ui.panels.RestaurantCategoryPanel;
 import com.java.frontend.admin.ui.panels.MenuCategoryPanel;
 import com.java.frontend.admin.ui.panels.LocationPanel;
+import com.java.frontend.admin.ui.panels.VoucherPanel;
+import com.java.frontend.admin.ui.panels.BannerPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,8 +33,8 @@ public class MainFrame extends JFrame {
         contentPanel.add(new RestaurantCategoryPanel(), "category");
         contentPanel.add(new MenuCategoryPanel(), "menuCategory");
         contentPanel.add(new LocationPanel(), "location");
-        contentPanel.add(new JLabel("Voucher", SwingConstants.CENTER), "voucher");
-        contentPanel.add(new JLabel("Banner", SwingConstants.CENTER), "banner");
+        contentPanel.add(new VoucherPanel(), "voucher");
+        contentPanel.add(new BannerPanel(), "banner");
 
         JPanel sidebar = createSidebar();
         add(sidebar, BorderLayout.WEST);
