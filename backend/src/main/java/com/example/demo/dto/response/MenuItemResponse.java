@@ -20,6 +20,9 @@ public class MenuItemResponse {
     private String description;
     private Double price;
 
+    @JsonProperty("original_price")
+    private Double originalPrice;
+
     @JsonProperty("image_url")
     private String imageUrl;
 
@@ -49,6 +52,7 @@ public class MenuItemResponse {
                 .name(item.getName())
                 .description(item.getDescription())
                 .price(item.getPrice())
+                .originalPrice(item.getOriginalPrice())
                 .imageUrl(item.getImageUrl())
                 .category(item.getCategory().getName())
                 .categoryId(item.getCategory().getId())
