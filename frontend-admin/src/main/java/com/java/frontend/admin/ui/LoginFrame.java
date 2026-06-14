@@ -12,7 +12,7 @@ public class LoginFrame extends JFrame {
     private JPasswordField passwordField;
 
     public LoginFrame() {
-        setTitle("Admin Login — Kantin Kita");
+        setTitle("Login Admin — Kantin Kita");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 300);
         setLocationRelativeTo(null);
@@ -53,7 +53,7 @@ public class LoginFrame extends JFrame {
 
         gbc.gridy = 5;
         gbc.gridwidth = 2;
-        JButton loginBtn = new JButton("Login");
+        JButton loginBtn = new JButton("Masuk");
         loginBtn.addActionListener(e -> doLogin());
         panel.add(loginBtn, gbc);
 
@@ -82,7 +82,7 @@ public class LoginFrame extends JFrame {
                 } catch (Exception ex) {
                     SwingUtilities.invokeLater(() ->
                             JOptionPane.showMessageDialog(LoginFrame.this,
-                                    "Login gagal: " + ex.getMessage(),
+                                    "Gagal masuk: " + ex.getMessage(),
                                     "Error", JOptionPane.ERROR_MESSAGE));
                 }
                 return null;

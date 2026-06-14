@@ -1,6 +1,7 @@
 package com.java.frontend.admin.ui;
 
 import com.java.frontend.admin.service.AuthService;
+import com.java.frontend.admin.ui.panels.DashboardPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +12,7 @@ public class MainFrame extends JFrame {
     private final JPanel contentPanel;
 
     public MainFrame(String adminName) {
-        setTitle("Kantin Kita Admin — " + adminName);
+        setTitle("Kantin Kita — Admin (" + adminName + ")");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1200, 750);
         setLocationRelativeTo(null);
@@ -19,12 +20,12 @@ public class MainFrame extends JFrame {
         cardLayout = new CardLayout();
         contentPanel = new JPanel(cardLayout);
 
-        contentPanel.add(new JLabel("Dashboard", SwingConstants.CENTER), "dashboard");
-        contentPanel.add(new JLabel("Restaurant", SwingConstants.CENTER), "restaurant");
+        contentPanel.add(new DashboardPanel(), "dashboard");
+        contentPanel.add(new JLabel("Restoran", SwingConstants.CENTER), "restaurant");
         contentPanel.add(new JLabel("Vendor", SwingConstants.CENTER), "vendor");
-        contentPanel.add(new JLabel("Category", SwingConstants.CENTER), "category");
-        contentPanel.add(new JLabel("Menu Category", SwingConstants.CENTER), "menuCategory");
-        contentPanel.add(new JLabel("Location", SwingConstants.CENTER), "location");
+        contentPanel.add(new JLabel("Kategori Restoran", SwingConstants.CENTER), "category");
+        contentPanel.add(new JLabel("Kategori Menu", SwingConstants.CENTER), "menuCategory");
+        contentPanel.add(new JLabel("Lokasi", SwingConstants.CENTER), "location");
         contentPanel.add(new JLabel("Voucher", SwingConstants.CENTER), "voucher");
         contentPanel.add(new JLabel("Banner", SwingConstants.CENTER), "banner");
 
@@ -44,15 +45,15 @@ public class MainFrame extends JFrame {
         gbc.gridx = 0;
 
         String[] labels = {
-                "Dashboard", "Restaurant", "Vendor", "Category",
-                "Menu Category", "Location", "Voucher", "Banner"
+                "Dashboard", "Restoran", "Vendor", "Kategori Restoran",
+                "Kategori Menu", "Lokasi", "Voucher", "Banner"
         };
         String[] ids = {
                 "dashboard", "restaurant", "vendor", "category",
                 "menuCategory", "location", "voucher", "banner"
         };
 
-        JLabel title = new JLabel("Menu");
+        JLabel title = new JLabel("Navigasi");
         title.setFont(new Font("Segoe UI", Font.BOLD, 14));
         gbc.gridy = 0;
         panel.add(title, gbc);
@@ -69,7 +70,7 @@ public class MainFrame extends JFrame {
         gbc.gridy = labels.length + 1;
         gbc.weighty = 1.0;
         gbc.anchor = GridBagConstraints.SOUTH;
-        JButton logoutBtn = new JButton("Logout");
+        JButton logoutBtn = new JButton("Keluar");
         logoutBtn.addActionListener(e -> logout());
         panel.add(logoutBtn, gbc);
 
