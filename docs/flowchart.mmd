@@ -1,0 +1,48 @@
+flowchart TD
+  Start([Start]) --> Register[Register / Login]
+  Register --> Browse[Browse Restaurants]
+  Browse --> Search[Search Menu / Filter]
+  Search --> ViewMenu[View Menu Detail & Customizations]
+  ViewMenu --> AddToCart[Add to Cart]
+  AddToCart --> Checkout[Checkout]
+  Checkout --> ChooseMode{Order Mode}
+  ChooseMode -->|Dine In| DineIn[Dine In]
+  ChooseMode -->|Pickup| Pickup[Pickup]
+  DineIn --> ApplyVoucher[Apply Voucher]
+  Pickup --> ApplyVoucher
+  ApplyVoucher --> Payment[Payment via Xendit]
+  Payment --> PaymentStatus{Payment Status}
+  PaymentStatus -->|Paid| OrderPlaced[Order Placed]
+  PaymentStatus -->|Unpaid/Failed| PaymentFailed[Payment Failed]
+  PaymentFailed --> Retry[Retry Payment]
+  Retry --> Payment
+  OrderPlaced --> VendorProcess[Vendor Processes Order]
+  VendorProcess -->|PROCESSING| Processing[Order Processing]
+  Processing -->|READY| Ready[Order Ready]
+  Ready -->|Dine In| DineInServe[Server to Table]
+  Ready -->|Pickup| PickupServe[Customer Pickup]
+  DineInServe --> Complete[Order Completed]
+  PickupServe --> Complete
+  Complete --> Review[Rate & Review]
+  Review --> End([End])
+
+  subgraph User["User (Mahasiswa)"]
+    Register
+    Browse
+    Search
+    ViewMenu
+    AddToCart
+    Checkout
+    Review
+  end
+
+  subgraph VendorSide["Vendor"]
+    VendorProcess
+    Processing
+    Ready
+  end
+
+  subgraph PaymentFlow["Payment"]
+    Payment
+    PaymentStatus
+  end

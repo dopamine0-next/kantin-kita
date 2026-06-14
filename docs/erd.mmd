@@ -1,0 +1,191 @@
+erDiagram
+  users {
+    string id PK
+    string name
+    string nim UK
+    string password
+    int semester
+    string location_id FK
+  }
+
+  vendors {
+    string id PK
+    string email UK
+    string password
+    string name
+    string phone
+    string avatar_url
+    datetime created_at
+  }
+
+  admins {
+    string id PK
+    string email UK
+    string password
+    string name
+    datetime created_at
+  }
+
+  restaurants {
+    string id PK
+    string name
+    string restaurant_category_id FK
+    bool is_open
+    string image_url
+    string banner_image_url
+    string address
+    string operational_hours
+    string location_id FK
+    string vendor_id FK
+    double cheapest_price
+  }
+
+  restaurant_categories {
+    string id PK
+    string name
+  }
+
+  menu_items {
+    string id PK
+    string restaurant_id FK
+    string name
+    text description
+    double price
+    double original_price
+    string image_url
+    string category_id FK
+    bool is_popular
+  }
+
+  menu_categories {
+    string id PK
+    string name
+    int priority
+  }
+
+  menu_customizations {
+    string id PK
+    string menu_item_id FK
+    string title
+    string type
+    bool is_required
+  }
+
+  customization_options {
+    string id PK
+    string customization_id FK
+    string label
+    double price
+  }
+
+  orders {
+    string id PK
+    string user_id FK
+    string restaurant_id FK
+    string status
+    string payment_status
+    string payment_url
+    string payment_external_id
+    string mode
+    double subtotal
+    double discount_amount
+    double app_fee
+    double total_amount
+    string voucher_code
+    datetime created_at
+    datetime updated_at
+  }
+
+  order_items {
+    string id PK
+    string order_id FK
+    string menu_item_id FK
+    string name
+    int quantity
+    double price
+    string image_url
+    string variant_name
+    string note
+  }
+
+  menu_item_reviews {
+    string id PK
+    string user_id FK
+    string order_id FK
+    string menu_item_id FK
+    int rating
+    datetime created_at
+  }
+
+  restaurant_reviews {
+    string id PK
+    string user_id FK
+    string order_id FK
+    string restaurant_id FK
+    int rating
+    datetime created_at
+  }
+
+  locations {
+    string id PK
+    string name
+    string address
+    double latitude
+    double longitude
+  }
+
+  banners {
+    string id PK
+    string image_url
+    string title
+    string link_url
+    bool is_active
+    string location_id FK
+  }
+
+  vouchers {
+    string id PK
+    string code UK
+    double value
+    text description
+    double min_spend
+    double max_discount
+    bool is_active
+  }
+
+  faqs {
+    string id PK
+    string question
+    text answer
+  }
+
+  terms {
+    string id PK
+    text content
+  }
+
+  marquee_nodes {
+    string id PK
+    string text
+    bool is_active
+  }
+
+  users }o--|| locations : "located at"
+  restaurants ||--|| vendors : "owned by"
+  restaurants }o--|| locations : "located at"
+  restaurants }o--|| restaurant_categories : "categorized as"
+  menu_items }o--|| restaurants : "belongs to"
+  menu_items }o--|| menu_categories : "categorized as"
+  menu_customizations }o--|| menu_items : "has"
+  customization_options }o--|| menu_customizations : "has"
+  orders }o--|| users : "placed by"
+  orders }o--|| restaurants : "at"
+  order_items }o--|| orders : "contains"
+  order_items }o--o| menu_items : "references"
+  menu_item_reviews }o--|| users : "by"
+  menu_item_reviews }o--|| orders : "in"
+  menu_item_reviews }o--|| menu_items : "about"
+  restaurant_reviews }o--|| users : "by"
+  restaurant_reviews }o--|| orders : "in"
+  restaurant_reviews }o--|| restaurants : "about"
+  banners }o--o| locations : "shown at"
