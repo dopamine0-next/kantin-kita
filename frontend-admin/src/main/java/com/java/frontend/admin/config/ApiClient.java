@@ -1,5 +1,6 @@
 package com.java.frontend.admin.config;
 
+import java.io.ByteArrayOutputStream;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -46,6 +47,41 @@ public class ApiClient {
 
     public static String delete(String path) {
         return request("DELETE", path, null);
+    }
+
+    public static String uploadFile(String path, byte[] fileBytes, String fileName, String mimeType) {
+        try {
+            var boundary = "Boundary-" + System.currentTimeMillis();
+            var lineEnd = "\r\n".getBytes();
+            var body = new ByteArrayOutputStream();
+            body.write(("--" + boundary + "\r\n").getBytes());
+            body.write(("Content-Disposition: form-data; name=\"file\"; filename=\"" + fileName + "\"\r\n").getBytes());
+            body.write(("Content-Type: " + mimeType + "\r\n\r\n").getBytes());
+            body.write(fileBytes);
+            body.write("\r\n".getBytes());
+            body.write(("--" + boundary + "--\r\n").getBytes());
+
+            var builder = HttpRequest.newBuilder()
+                    .uri(URI.create(baseUrl + path))
+                    .timeout(Duration.ofSeconds(60))
+                    .header("Content-Type", "multipart/form-data; boundary=" + boundary);
+
+            if (token != null && !token.isBlank()) {
+                builder.header("Authorization", "Bearer " + token);
+            }
+
+            var request = builder.POST(HttpRequest.BodyPublishers.ofByteArray(body.toByteArray())).build();
+            var response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            if (response.statusCode() >= 400) {
+                throw new RuntimeException("HTTP " + response.statusCode() + ": " + response.body());
+            }
+            return response.body();
+        } catch (RuntimeException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new RuntimeException("Upload failed: " + e.getMessage());
+        }
     }
 
     private static String request(String method, String path, String jsonBody) {

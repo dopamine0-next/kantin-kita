@@ -2,6 +2,7 @@ package com.java.frontend.admin.ui;
 
 import com.java.frontend.admin.service.AuthService;
 import com.java.frontend.admin.ui.panels.DashboardPanel;
+import com.java.frontend.admin.ui.panels.RestaurantPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,7 +22,7 @@ public class MainFrame extends JFrame {
         contentPanel = new JPanel(cardLayout);
 
         contentPanel.add(new DashboardPanel(), "dashboard");
-        contentPanel.add(new JLabel("Restoran", SwingConstants.CENTER), "restaurant");
+        contentPanel.add(new RestaurantPanel(), "restaurant");
         contentPanel.add(new JLabel("Vendor", SwingConstants.CENTER), "vendor");
         contentPanel.add(new JLabel("Kategori Restoran", SwingConstants.CENTER), "category");
         contentPanel.add(new JLabel("Kategori Menu", SwingConstants.CENTER), "menuCategory");

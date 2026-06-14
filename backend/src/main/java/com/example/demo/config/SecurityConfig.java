@@ -35,6 +35,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/v1/auth/login", "/api/v1/auth/register").permitAll()
                 .requestMatchers("/api/v1/vendor/auth/login").permitAll()
                 .requestMatchers("/api/v1/admin/auth/login").permitAll()
+                .requestMatchers("/api/v1/uploads/**").permitAll()
                 .requestMatchers("/error", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/api/v1/payments/callback").permitAll()
                 .requestMatchers("/api/v1/restaurant-categories").permitAll()
                 .requestMatchers("/api/v1/vendor/**").hasRole("VENDOR")

@@ -52,8 +52,4 @@ public class AdminRestaurantController {
         return ResponseEntity.noContent().build();
     }
 
-    @PatchMapping("/{id}/status")
-    public ResponseEntity<AdminRestaurantResponse> toggleStatus(@PathVariable String id) {
-        return ResponseEntity.ok(service.toggleStatus(id));
-    }
 }

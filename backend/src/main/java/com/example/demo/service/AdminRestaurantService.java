@@ -111,14 +111,6 @@ public class AdminRestaurantService {
         restaurantRepository.delete(restaurant);
     }
 
-    @Transactional
-    public AdminRestaurantResponse toggleStatus(String id) {
-        Restaurant restaurant = restaurantRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Restaurant not found"));
-        restaurant.setIsOpen(!restaurant.getIsOpen());
-        return toResponse(restaurantRepository.save(restaurant));
-    }
-
     private AdminRestaurantResponse toResponse(Restaurant restaurant) {
         Double rating = restaurantReviewRepository.averageRatingByRestaurantId(restaurant.getId());
         Integer count = restaurantReviewRepository.countByRestaurantId(restaurant.getId());
