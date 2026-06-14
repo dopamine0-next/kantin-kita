@@ -23,7 +23,7 @@ public class UploadService {
             }
             byte[] bytes = Files.readAllBytes(filePath);
             String fileName = filePath.getFileName().toString();
-            String json = ApiClient.uploadFile("/admin/upload", bytes, fileName, mimeType);
+            String json = ApiClient.uploadFile("/vendor/upload", bytes, fileName, mimeType);
             JsonObject obj = gson.fromJson(json, JsonObject.class);
             return obj.get("url").getAsString();
         } catch (Exception e) {

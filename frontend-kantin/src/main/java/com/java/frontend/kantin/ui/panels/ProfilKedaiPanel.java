@@ -7,8 +7,10 @@ import com.java.frontend.kantin.service.RestaurantService;
 import com.java.frontend.kantin.ui.components.FormDialog;
 import com.java.frontend.kantin.ui.components.ImageUploadField;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -144,6 +146,27 @@ public class ProfilKedaiPanel extends JPanel {
         ratingLabel.setText(data.getRating() != null
                 ? String.format("%.1f (%d ulasan)", data.getRating(), data.getRatingCount() != null ? data.getRatingCount() : 0)
                 : "Belum ada rating");
+
+        imageLabel.setIcon(null);
+        if (data.getImageUrl() != null && !data.getImageUrl().isEmpty()) {
+            String imgUrl = data.getImageUrl();
+            new SwingWorker<ImageIcon, Void>() {
+                @Override
+                protected ImageIcon doInBackground() throws Exception {
+                    Image img = ImageIO.read(new URL(imgUrl));
+                    if (img == null) return null;
+                    Image scaled = img.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+                    return new ImageIcon(scaled);
+                }
+                @Override
+                protected void done() {
+                    try {
+                        ImageIcon icon = get();
+                        if (icon != null) imageLabel.setIcon(icon);
+                    } catch (Exception ignored) {}
+                }
+            }.execute();
+        }
     }
 
     private void edit() {
