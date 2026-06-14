@@ -21,13 +21,6 @@
             <artifactId>gson</artifactId>
             <version>2.11.0</version>
         </dependency>
-        <dependency>
-            <groupId>org.openstreetmap.jmapviewer</groupId>
-            <artifactId>jmapviewer</artifactId>
-            <version>2.23</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/JMapViewer.jar</systemPath>
-        </dependency>
     </dependencies>
     <build>
         <plugins>

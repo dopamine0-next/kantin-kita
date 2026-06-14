@@ -5,10 +5,6 @@ import com.google.gson.JsonObject;
 import com.java.frontend.admin.model.AdminLocation;
 import com.java.frontend.admin.service.LocationService;
 import com.java.frontend.admin.ui.components.FormDialog;
-import org.openstreetmap.gui.jmapviewer.Coordinate;
-import org.openstreetmap.gui.jmapviewer.JMapViewer;
-import org.openstreetmap.gui.jmapviewer.Layer;
-import org.openstreetmap.gui.jmapviewer.MapMarkerDot;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -22,15 +18,11 @@ public class LocationPanel extends JPanel {
     private List<AdminLocation> data;
     private final Gson gson = new Gson();
     private JLabel errorLabel;
-    private JMapViewer map;
+    private JPanel tableContainer;
 
     public LocationPanel() {
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-
-        map = new JMapViewer();
-        map.setPreferredSize(new Dimension(0, 300));
-        map.setMinimumSize(new Dimension(0, 200));
 
         String[] cols = {"ID", "Nama", "Alamat", "Latitude", "Longitude"};
         tableModel = new DefaultTableModel(cols, 0) {
@@ -44,16 +36,10 @@ public class LocationPanel extends JPanel {
         errorLabel.setForeground(new Color(217, 83, 79));
         errorLabel.setVisible(false);
 
-        JPanel topPanel = new JPanel(new BorderLayout());
-        topPanel.add(errorLabel, BorderLayout.NORTH);
-        topPanel.add(map, BorderLayout.CENTER);
-
-        JScrollPane tableScroll = new JScrollPane(table);
-
-        JSplitPane split = new JSplitPane(JSplitPane.VERTICAL_SPLIT, topPanel, tableScroll);
-        split.setResizeWeight(0.35);
-        split.setDividerSize(5);
-        add(split, BorderLayout.CENTER);
+        tableContainer = new JPanel(new BorderLayout());
+        tableContainer.add(errorLabel, BorderLayout.NORTH);
+        tableContainer.add(new JScrollPane(table), BorderLayout.CENTER);
+        add(tableContainer, BorderLayout.CENTER);
 
         JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 5));
         JButton tambahBtn = new JButton("Tambah");
@@ -93,42 +79,19 @@ public class LocationPanel extends JPanel {
                                     l.getLongitude() != null ? String.valueOf(l.getLongitude()) : "-"
                             });
                         }
-                        updateMapMarkers();
+                        tableContainer.revalidate();
+                        tableContainer.repaint();
                     });
                 } catch (Exception ex) {
                     SwingUtilities.invokeLater(() -> {
                         errorLabel.setText("Gagal memuat data: " + ex.getMessage());
                         errorLabel.setVisible(true);
+                        tableContainer.revalidate();
                     });
                 }
                 return null;
             }
         }.execute();
-    }
-
-    private void updateMapMarkers() {
-        map.removeAllMapMarkers();
-        double latSum = 0, lonSum = 0;
-        int count = 0;
-        Layer layer = new Layer("Lokasi");
-
-        for (AdminLocation l : data) {
-            if (l.getLatitude() != null && l.getLongitude() != null) {
-                MapMarkerDot marker = new MapMarkerDot(layer, l.getName(),
-                        new Coordinate(l.getLatitude(), l.getLongitude()));
-                map.addMapMarker(marker);
-                latSum += l.getLatitude();
-                lonSum += l.getLongitude();
-                count++;
-            }
-        }
-
-        if (count > 0) {
-            Coordinate center = new Coordinate(latSum / count, lonSum / count);
-            int w = map.getWidth() > 0 ? map.getWidth() : 600;
-            int h = map.getHeight() > 0 ? map.getHeight() : 300;
-            map.setDisplayPosition(new Point(w / 2, h / 2), center, 14);
-        }
     }
 
     private int selectedRow() {
