@@ -65,7 +65,7 @@ export function ProfileContainer() {
           <AvatarImage
             src={
               user.avatar ||
-              `https://api.dicebear.com/10.x/adventurer/svg?seed=${encodeURIComponent(user.name)}`
+              `https://api.dicebear.com/10.x/glyphs/svg?seed=${encodeURIComponent(user.name)}`
             }
             alt={user.name}
             className="object-cover"

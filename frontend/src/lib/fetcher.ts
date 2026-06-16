@@ -13,6 +13,12 @@ export async function fetcher<T>(endpoint: string, options?: RequestInit): Promi
   })
 
   if (!response.ok) {
+    if (response.status === 401 && token) {
+      useAuthStore.getState().logout()
+      window.location.href = '/login'
+      throw new Error('Session expired')
+    }
+
     const body = await response.json().catch(() => ({}))
     throw new Error(body.message || `Request failed (${response.status})`)
   }

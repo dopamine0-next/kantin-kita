@@ -7,7 +7,7 @@ export function mapUserBackendToProfile(user: UserBackend): UserProfile {
     id: user.id,
     name: user.name,
     nim: user.nim,
-    avatar: `https://api.dicebear.com/10.x/adventurer/svg?seed=${encodeURIComponent(user.name)}`,
+    avatar: `https://api.dicebear.com/10.x/glyphs/svg?seed=${encodeURIComponent(user.name)}`,
     location: user.locationName ?? '',
     locationId: user.locationId?.toString() ?? '',
     semester: user.semester ?? 0,
