@@ -1,13 +1,25 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 
-import { X } from 'lucide-react'
+import { ShoppingBag, X } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogMedia,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog'
 import { useRestaurantDetail } from '@/hooks/use-restaurants'
 import { MenuItem } from '@/services/restaurant/restaurant.types'
+import { useCartStore } from '@/store/useCartStore'
 
 import { FoodDetailDrawer } from './food-detail-drawer'
 import { RestaurantCategoryTabs } from './restaurant-category-tabs'
@@ -31,6 +43,8 @@ export default function RestaurantDetailContainer({
   const [drawerStep, setDrawerStep] = useState<'info' | 'variant'>('info')
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [isFavorite, setIsFavorite] = useState(false)
+  const [showRestoConflict, setShowRestoConflict] = useState(false)
+  const pendingFoodRef = useRef<{ item: MenuItem; step: 'info' | 'variant' } | null>(null)
 
   const { restaurant, isLoading } = useRestaurantDetail(restaurantId)
 
@@ -100,9 +114,30 @@ export default function RestaurantDetailContainer({
   }
 
   const handleFoodClick = (item: MenuItem, step: 'info' | 'variant' = 'info') => {
+    const cartItems = useCartStore.getState().items
+    const cartRestoId = cartItems[0]?.restaurantId
+
+    if (cartItems.length > 0 && cartRestoId && cartRestoId !== restaurant.id) {
+      pendingFoodRef.current = { item, step }
+      setShowRestoConflict(true)
+      return
+    }
+
     setSelectedFood(item)
     setDrawerStep(step)
     setIsDrawerOpen(true)
+  }
+
+  const handleConfirmSwitchResto = () => {
+    useCartStore.getState().clearCart()
+    setShowRestoConflict(false)
+    const pending = pendingFoodRef.current
+    if (pending) {
+      setSelectedFood(pending.item)
+      setDrawerStep(pending.step)
+      setIsDrawerOpen(true)
+    }
+    pendingFoodRef.current = null
   }
 
   return (
@@ -146,6 +181,27 @@ export default function RestaurantDetailContainer({
         onClose={() => setIsDrawerOpen(false)}
         onAddedToCart={handleItemAdded}
       />
+
+      <AlertDialog open={showRestoConflict} onOpenChange={setShowRestoConflict}>
+        <AlertDialogContent size="sm">
+          <AlertDialogHeader>
+            <AlertDialogMedia>
+              <ShoppingBag className="size-8" />
+            </AlertDialogMedia>
+            <AlertDialogTitle>Pindah Restoran?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Keranjangmu berisi pesanan dari restoran lain. Ingin menghapus dan pindah ke{' '}
+              <strong>{restaurant.name}</strong>?
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Tidak</AlertDialogCancel>
+            <AlertDialogAction onClick={handleConfirmSwitchResto}>
+              Ya, Hapus & Pindah
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   )
 }

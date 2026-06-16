@@ -2,8 +2,19 @@
 
 import { useEffect, useState } from 'react'
 
-import { ChevronLeft } from 'lucide-react'
+import { ChevronLeft, ShoppingBag } from 'lucide-react'
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogMedia,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog'
 import { DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Textarea } from '@/components/ui/textarea'
 import { ChoiceOption, MenuItem } from '@/services/restaurant/restaurant.types'
@@ -31,10 +42,12 @@ export function FoodVariantForm({
 }: FoodVariantFormProps) {
   const addToCart = useCartStore((state) => state.addToCart)
   const removeItem = useCartStore((state) => state.removeItem)
+  const clearCart = useCartStore((state) => state.clearCart)
 
   const [qty, setQty] = useState(initialCartItem?.qty || 1)
   const [selectedChoices, setSelectedChoices] = useState<Record<string, string>>({})
   const [note, setNote] = useState(initialCartItem?.note || '')
+  const [showRestoConflict, setShowRestoConflict] = useState(false)
 
   useEffect(() => {
     if (!initialCartItem) {
@@ -67,7 +80,7 @@ export function FoodVariantForm({
   const singleItemPrice = item.price + choicesPrice
   const totalPrice = singleItemPrice * qty
 
-  const handleAddToCart = () => {
+  const executeAddToCart = () => {
     if (initialCartItem) {
       removeItem(initialCartItem.id)
     }
@@ -91,6 +104,24 @@ export function FoodVariantForm({
     const actionText = initialCartItem ? 'diperbarui' : 'ditambahkan ke keranjang'
     onAddedToCart(`✓ ${qty}x ${item.name}${detailsStr} ${actionText}!`)
     onClose()
+  }
+
+  const handleAddToCart = () => {
+    const cartItems = useCartStore.getState().items
+    const cartRestoId = cartItems[0]?.restaurantId
+
+    if (cartItems.length > 0 && cartRestoId && cartRestoId !== item.restaurantId) {
+      setShowRestoConflict(true)
+      return
+    }
+
+    executeAddToCart()
+  }
+
+  const handleConfirmSwitchResto = () => {
+    clearCart()
+    setShowRestoConflict(false)
+    executeAddToCart()
   }
 
   return (
@@ -132,6 +163,27 @@ export function FoodVariantForm({
         onAddToCart={handleAddToCart}
         disabled={!isOpen}
       />
+
+      <AlertDialog open={showRestoConflict} onOpenChange={setShowRestoConflict}>
+        <AlertDialogContent size="sm">
+          <AlertDialogHeader>
+            <AlertDialogMedia>
+              <ShoppingBag className="size-8" />
+            </AlertDialogMedia>
+            <AlertDialogTitle>Pindah Restoran?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Keranjangmu berisi pesanan dari restoran lain. Ingin menghapus dan pindah ke restoran
+              ini?
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Tidak</AlertDialogCancel>
+            <AlertDialogAction onClick={handleConfirmSwitchResto}>
+              Ya, Hapus & Pindah
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   )
 }
