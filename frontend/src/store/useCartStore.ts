@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 
 import { Promo } from '@/services/voucher/voucher.types'
 
@@ -30,78 +31,83 @@ interface CartStore {
   removeItem: (id: string) => void
 }
 
-export const useCartStore = create<CartStore>((set) => ({
-  items: [],
-  activeMode: 'dine-in',
-  promoApplied: null,
+export const useCartStore = create<CartStore>()(
+  persist(
+    (set) => ({
+      items: [],
+      activeMode: 'dine-in',
+      promoApplied: null,
 
-  setActiveMode: (mode) => set({ activeMode: mode }),
+      setActiveMode: (mode) => set({ activeMode: mode }),
 
-  addToCart: (newItem) =>
-    set((state) => {
-      const qtyToAdd = newItem.qty || 1
+      addToCart: (newItem) =>
+        set((state) => {
+          const qtyToAdd = newItem.qty || 1
 
-      const existingIndex = state.items.findIndex(
-        (item) =>
-          item.foodId === newItem.foodId &&
-          item.variant === newItem.variant &&
-          item.note === newItem.note &&
-          item.level === newItem.level
-      )
+          const existingIndex = state.items.findIndex(
+            (item) =>
+              item.foodId === newItem.foodId &&
+              item.variant === newItem.variant &&
+              item.note === newItem.note &&
+              item.level === newItem.level
+          )
 
-      if (existingIndex > -1) {
-        const updatedItems = [...state.items]
-        updatedItems[existingIndex] = {
-          ...updatedItems[existingIndex],
-          qty: updatedItems[existingIndex].qty + qtyToAdd,
-        }
-        return { items: updatedItems }
-      }
+          if (existingIndex > -1) {
+            const updatedItems = [...state.items]
+            updatedItems[existingIndex] = {
+              ...updatedItems[existingIndex],
+              qty: updatedItems[existingIndex].qty + qtyToAdd,
+            }
+            return { items: updatedItems }
+          }
 
-      // If not exists, generate a unique ID and add it
-      const uniqueId = `${newItem.foodId}-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`
-      return {
-        items: [
-          ...state.items,
-          {
-            ...newItem,
-            id: uniqueId,
-            qty: qtyToAdd,
-          },
-        ],
-      }
-    }),
+          // If not exists, generate a unique ID and add it
+          const uniqueId = `${newItem.foodId}-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`
+          return {
+            items: [
+              ...state.items,
+              {
+                ...newItem,
+                id: uniqueId,
+                qty: qtyToAdd,
+              },
+            ],
+          }
+        }),
 
-  updateQty: (id, qty) =>
-    set((state) => {
-      if (qty <= 0) {
-        // If qty is 0, remove item from state
-        return {
+      updateQty: (id, qty) =>
+        set((state) => {
+          if (qty <= 0) {
+            // If qty is 0, remove item from state
+            return {
+              items: state.items.filter((item) => item.id !== id),
+            }
+          }
+
+          return {
+            items: state.items.map((item) => (item.id === id ? { ...item, qty } : item)),
+          }
+        }),
+
+      updateVariant: (id, variant) =>
+        set((state) => ({
+          items: state.items.map((item) => (item.id === id ? { ...item, variant } : item)),
+        })),
+
+      updateNote: (id, note) =>
+        set((state) => ({
+          items: state.items.map((item) => (item.id === id ? { ...item, note } : item)),
+        })),
+
+      applyPromo: (promo) => set({ promoApplied: promo }),
+
+      clearCart: () => set({ items: [], promoApplied: null }),
+
+      removeItem: (id) =>
+        set((state) => ({
           items: state.items.filter((item) => item.id !== id),
-        }
-      }
-
-      return {
-        items: state.items.map((item) => (item.id === id ? { ...item, qty } : item)),
-      }
+        })),
     }),
-
-  updateVariant: (id, variant) =>
-    set((state) => ({
-      items: state.items.map((item) => (item.id === id ? { ...item, variant } : item)),
-    })),
-
-  updateNote: (id, note) =>
-    set((state) => ({
-      items: state.items.map((item) => (item.id === id ? { ...item, note } : item)),
-    })),
-
-  applyPromo: (promo) => set({ promoApplied: promo }),
-
-  clearCart: () => set({ items: [], promoApplied: null }),
-
-  removeItem: (id) =>
-    set((state) => ({
-      items: state.items.filter((item) => item.id !== id),
-    })),
-}))
+    { name: 'kantin-kita-cart' }
+  )
+)
