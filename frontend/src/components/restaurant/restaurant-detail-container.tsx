@@ -124,18 +124,24 @@ export default function RestaurantDetailContainer({
       />
 
       {!searchQuery && selectedCategory === 'Semua' && (
-        <RestaurantPopularMenus menus={restaurant.menus} onFoodClick={handleFoodClick} />
+        <RestaurantPopularMenus
+          menus={restaurant.menus}
+          isOpen={restaurant.isOpen}
+          onFoodClick={handleFoodClick}
+        />
       )}
 
       <RestaurantMenuList
         groupedMenus={groupedMenus}
         searchQuery={searchQuery}
+        isOpen={restaurant.isOpen}
         onFoodClick={handleFoodClick}
       />
 
       <FoodDetailDrawer
         item={selectedFood}
         isOpen={isDrawerOpen}
+        isRestaurantOpen={restaurant.isOpen}
         initialStep={drawerStep}
         onClose={() => setIsDrawerOpen(false)}
         onAddedToCart={handleItemAdded}

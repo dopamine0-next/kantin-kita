@@ -1,4 +1,4 @@
-import { ShoppingBag, Star } from 'lucide-react'
+import { Clock, ShoppingBag, Star } from 'lucide-react'
 import { motion } from 'motion/react'
 import Image from 'next/image'
 
@@ -8,10 +8,12 @@ import { MenuItem } from '@/services/restaurant/restaurant.types'
 
 interface FoodDetailInfoProps {
   item: MenuItem
+  isOpen: boolean
   onProceed: () => void
 }
 
-export function FoodDetailInfo({ item, onProceed }: FoodDetailInfoProps) {
+export function FoodDetailInfo({ item, isOpen, onProceed }: FoodDetailInfoProps) {
+  const isClosed = !isOpen
   return (
     <div className="no-scrollbar max-h-[85vh] overflow-y-auto pb-8">
       {/* Main Image Header */}
@@ -24,6 +26,15 @@ export function FoodDetailInfo({ item, onProceed }: FoodDetailInfoProps) {
           Rp {item.price.toLocaleString('id-ID')}
         </div>
       </div>
+
+      {isClosed && (
+        <div className="bg-destructive/10 mx-5 mt-3 flex items-center gap-2 rounded-xl px-4 py-2.5">
+          <Clock className="text-destructive size-4 shrink-0" />
+          <span className="text-destructive text-xs font-semibold">
+            Restoran sedang tutup. Kamu tidak bisa memesan saat ini.
+          </span>
+        </div>
+      )}
 
       <div className="px-5 pt-3">
         <DrawerHeader className="px-0 pt-0 text-left">
@@ -45,13 +56,23 @@ export function FoodDetailInfo({ item, onProceed }: FoodDetailInfoProps) {
         </DrawerHeader>
 
         <div className="border-muted/30 mt-8 border-t pt-4">
-          <motion.div whileTap={{ scale: 0.98 }}>
+          <motion.div whileTap={isClosed ? undefined : { scale: 0.98 }}>
             <Button
-              onClick={onProceed}
-              className="bg-primary text-primary-foreground shadow-primary/20 hover:bg-primary/95 hover:shadow-primary/30 flex h-10.5 w-full items-center justify-center gap-2 rounded-2xl text-xs font-semibold shadow-lg"
+              onClick={isClosed ? undefined : onProceed}
+              disabled={isClosed}
+              className="bg-primary text-primary-foreground shadow-primary/20 hover:bg-primary/95 hover:shadow-primary/30 flex h-10.5 w-full items-center justify-center gap-2 rounded-2xl text-xs font-semibold shadow-lg disabled:pointer-events-auto disabled:cursor-not-allowed disabled:opacity-40"
             >
-              <ShoppingBag className="size-4" />
-              <span>Pesan Sekarang</span>
+              {isClosed ? (
+                <>
+                  <Clock className="size-4" />
+                  <span>Restoran Sedang Tutup</span>
+                </>
+              ) : (
+                <>
+                  <ShoppingBag className="size-4" />
+                  <span>Pesan Sekarang</span>
+                </>
+              )}
             </Button>
           </motion.div>
         </div>

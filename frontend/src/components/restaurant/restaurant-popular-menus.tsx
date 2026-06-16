@@ -8,10 +8,15 @@ import { MenuItem } from '@/services/restaurant/restaurant.types'
 
 interface RestaurantPopularMenusProps {
   menus: MenuItem[]
+  isOpen: boolean
   onFoodClick: (item: MenuItem, step?: 'info' | 'variant') => void
 }
 
-export function RestaurantPopularMenus({ menus, onFoodClick }: RestaurantPopularMenusProps) {
+export function RestaurantPopularMenus({
+  menus,
+  isOpen,
+  onFoodClick,
+}: RestaurantPopularMenusProps) {
   const popularMenus = menus.filter((m) => m.isPopular).slice(0, 4)
 
   if (popularMenus.length === 0) return null
@@ -59,10 +64,15 @@ export function RestaurantPopularMenus({ menus, onFoodClick }: RestaurantPopular
                 </span>
                 <div
                   onClick={(e) => {
+                    if (!isOpen) return
                     e.stopPropagation()
                     onFoodClick(item, 'variant')
                   }}
-                  className="bg-primary text-primary-foreground hover:bg-primary/90 flex size-6 shrink-0 items-center justify-center rounded-lg shadow-sm transition-all active:scale-90"
+                  className={`flex size-6 shrink-0 items-center justify-center rounded-lg shadow-sm transition-all ${
+                    isOpen
+                      ? 'bg-primary text-primary-foreground hover:bg-primary/90 cursor-pointer active:scale-90'
+                      : 'bg-muted text-muted-foreground/40 cursor-not-allowed'
+                  }`}
                 >
                   <Plus className="size-3 stroke-[3]" />
                 </div>

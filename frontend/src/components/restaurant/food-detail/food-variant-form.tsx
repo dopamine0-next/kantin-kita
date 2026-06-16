@@ -15,6 +15,7 @@ import { FoodVariantFooter } from './food-variant-footer'
 interface FoodVariantFormProps {
   item: MenuItem
   initialCartItem?: CartItem
+  isOpen: boolean
   onBack: () => void
   onClose: () => void
   onAddedToCart: (message: string) => void
@@ -23,6 +24,7 @@ interface FoodVariantFormProps {
 export function FoodVariantForm({
   item,
   initialCartItem,
+  isOpen,
   onBack,
   onClose,
   onAddedToCart,
@@ -128,6 +130,7 @@ export function FoodVariantForm({
         onIncrement={handleIncrement}
         onDecrement={handleDecrement}
         onAddToCart={handleAddToCart}
+        disabled={!isOpen}
       />
     </div>
   )

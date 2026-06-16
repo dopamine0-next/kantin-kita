@@ -13,6 +13,7 @@ interface FoodDetailDrawerProps {
   item: MenuItem | null
   initialCartItem?: CartItem
   isOpen: boolean
+  isRestaurantOpen: boolean
   initialStep?: 'info' | 'variant'
   onClose: () => void
   onAddedToCart: (message: string) => void
@@ -22,6 +23,7 @@ export function FoodDetailDrawer({
   item,
   initialCartItem,
   isOpen,
+  isRestaurantOpen,
   initialStep = 'info',
   onClose,
   onAddedToCart,
@@ -39,7 +41,11 @@ export function FoodDetailDrawer({
         }}
       >
         <DrawerContent className="bg-background/95 border-muted/40 mx-auto max-w-md overflow-hidden rounded-t-3xl border-t backdrop-blur-xl outline-none">
-          <FoodDetailInfo item={item} onProceed={() => setStep('variant')} />
+          <FoodDetailInfo
+            item={item}
+            isOpen={isRestaurantOpen}
+            onProceed={() => setStep('variant')}
+          />
         </DrawerContent>
       </Drawer>
 
@@ -55,6 +61,7 @@ export function FoodDetailDrawer({
           <FoodVariantForm
             item={item}
             initialCartItem={initialCartItem}
+            isOpen={isRestaurantOpen}
             onBack={() => setStep('info')}
             onClose={onClose}
             onAddedToCart={onAddedToCart}

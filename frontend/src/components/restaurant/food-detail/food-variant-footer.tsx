@@ -11,6 +11,7 @@ interface FoodVariantFooterProps {
   onIncrement: () => void
   onDecrement: () => void
   onAddToCart: () => void
+  disabled?: boolean
 }
 
 export function FoodVariantFooter({
@@ -19,6 +20,7 @@ export function FoodVariantFooter({
   onIncrement,
   onDecrement,
   onAddToCart,
+  disabled,
 }: FoodVariantFooterProps) {
   return (
     <div className="border-muted/30 mt-6 flex flex-col gap-4 border-t pt-4">
@@ -43,13 +45,18 @@ export function FoodVariantFooter({
         </div>
       </div>
 
-      <motion.div whileTap={{ scale: 0.98 }} className="w-full">
+      <motion.div whileTap={disabled ? undefined : { scale: 0.98 }} className="w-full">
         <Button
           onClick={onAddToCart}
-          className="bg-primary text-primary-foreground shadow-primary/20 hover:bg-primary/95 hover:shadow-primary/30 flex h-11 w-full items-center justify-center gap-2 rounded-2xl text-xs font-semibold shadow-lg"
+          disabled={disabled}
+          className="bg-primary text-primary-foreground shadow-primary/20 hover:bg-primary/95 hover:shadow-primary/30 flex h-11 w-full items-center justify-center gap-2 rounded-2xl text-xs font-semibold shadow-lg disabled:pointer-events-auto disabled:cursor-not-allowed disabled:opacity-40"
         >
           <ShoppingBag className="size-4" />
-          <span>Masukkan • Rp {totalPrice.toLocaleString('id-ID')}</span>
+          <span>
+            {disabled
+              ? 'Restoran Sedang Tutup'
+              : `Masukkan • Rp ${totalPrice.toLocaleString('id-ID')}`}
+          </span>
         </Button>
       </motion.div>
     </div>

@@ -10,12 +10,14 @@ import { MenuItem } from '@/services/restaurant/restaurant.types'
 interface RestaurantMenuListProps {
   groupedMenus: Record<string, MenuItem[]>
   searchQuery: string
+  isOpen: boolean
   onFoodClick: (item: MenuItem, step?: 'info' | 'variant') => void
 }
 
 export function RestaurantMenuList({
   groupedMenus,
   searchQuery,
+  isOpen,
   onFoodClick,
 }: RestaurantMenuListProps) {
   if (Object.keys(groupedMenus).length === 0) {
@@ -90,10 +92,15 @@ export function RestaurantMenuList({
                     </div>
                     <div
                       onClick={(e) => {
+                        if (!isOpen) return
                         e.stopPropagation()
                         onFoodClick(item, 'variant')
                       }}
-                      className="bg-primary text-primary-foreground hover:bg-primary/90 flex size-7 shrink-0 items-center justify-center rounded-lg transition-all"
+                      className={`flex size-7 shrink-0 items-center justify-center rounded-lg transition-all ${
+                        isOpen
+                          ? 'bg-primary text-primary-foreground hover:bg-primary/90 cursor-pointer'
+                          : 'bg-muted text-muted-foreground/40 cursor-not-allowed'
+                      }`}
                     >
                       <Plus className="size-4 stroke-[3]" />
                     </div>
