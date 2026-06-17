@@ -37,7 +37,8 @@ public class RestaurantResponse {
     @JsonProperty("cheapest_price")
     private Double cheapestPrice;
 
-    public static RestaurantResponse from(Restaurant restaurant, Double rating, Integer ratingCount) {
+    public static RestaurantResponse from(Restaurant restaurant, Double rating, Integer ratingCount,
+                                            boolean isOpen) {
         return RestaurantResponse.builder()
                 .id(restaurant.getId())
                 .name(restaurant.getName())
@@ -46,7 +47,7 @@ public class RestaurantResponse {
                 .rating(rating != null ? Math.round(rating * 10.0) / 10.0 : null)
                 .ratingCount(ratingCount)
                 .reviewsCount(ratingCount)
-                .isOpen(restaurant.getIsOpen())
+                .isOpen(isOpen)
                 .imageUrl(restaurant.getImageUrl())
                 .locationId(restaurant.getLocation() != null ? restaurant.getLocation().getId() : null)
                 .cheapestPrice(restaurant.getCheapestPrice())

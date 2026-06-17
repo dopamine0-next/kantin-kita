@@ -50,7 +50,7 @@ public class RestaurantDetailResponse {
     private List<MenuItemResponse> menus;
 
     public static RestaurantDetailResponse from(Restaurant restaurant, List<MenuItemResponse> menuResponses,
-                                                  Double rating, Integer ratingCount) {
+                                                  Double rating, Integer ratingCount, boolean isOpen) {
         List<String> categories = menuResponses.stream()
                 .map(MenuItemResponse::getCategory)
                 .distinct()
@@ -65,7 +65,7 @@ public class RestaurantDetailResponse {
                 .rating(rating != null ? Math.round(rating * 10.0) / 10.0 : null)
                 .ratingCount(ratingCount)
                 .reviewsCount(ratingCount)
-                .isOpen(restaurant.getIsOpen())
+                .isOpen(isOpen)
                 .imageUrl(restaurant.getImageUrl())
                 .locationId(restaurant.getLocation() != null ? restaurant.getLocation().getId() : null)
                 .cheapestPrice(restaurant.getCheapestPrice())

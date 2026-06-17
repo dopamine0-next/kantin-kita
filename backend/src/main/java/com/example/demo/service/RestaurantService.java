@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -44,7 +47,8 @@ public class RestaurantService {
                 .map(r -> {
                     Double rating = restaurantReviewRepository.averageRatingByRestaurantId(r.getId());
                     Integer count = restaurantReviewRepository.countByRestaurantId(r.getId());
-                    return RestaurantResponse.from(r, rating, count);
+                    boolean isOpen = isOpenNow(r.getOperationalHours());
+                    return RestaurantResponse.from(r, rating, count, isOpen);
                 })
                 .toList();
     }
@@ -71,6 +75,25 @@ public class RestaurantService {
         Double rating = restaurantReviewRepository.averageRatingByRestaurantId(id);
         Integer count = restaurantReviewRepository.countByRestaurantId(id);
 
-        return RestaurantDetailResponse.from(restaurant, menuResponses, rating, count);
+        boolean isOpen = isOpenNow(restaurant.getOperationalHours());
+        return RestaurantDetailResponse.from(restaurant, menuResponses, rating, count, isOpen);
+    }
+
+    private boolean isOpenNow(String operationalHours) {
+        if (operationalHours == null || operationalHours.isBlank()) return false;
+        String[] parts = operationalHours.split("\\s*-\\s*");
+        if (parts.length != 2) return false;
+        try {
+            LocalTime open = LocalTime.parse(parts[0].trim());
+            LocalTime close = LocalTime.parse(parts[1].trim());
+            LocalTime now = LocalTime.now(ZoneId.of("Asia/Jakarta"));
+            if (close.isAfter(open)) {
+                return !now.isBefore(open) && !now.isAfter(close);
+            } else {
+                return !now.isBefore(open) || !now.isAfter(close);
+            }
+        } catch (DateTimeParseException e) {
+            return false;
+        }
     }
 }
