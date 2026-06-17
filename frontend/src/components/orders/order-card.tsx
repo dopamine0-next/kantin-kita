@@ -23,7 +23,7 @@ export interface OrderCardProps {
 export function OrderCard({ order, index = 0 }: OrderCardProps) {
   const router = useRouter()
 
-  const dateStr = new Date(order.created_at).toLocaleDateString('id-ID', {
+  const dateStr = new Date(order.created_at + 'Z').toLocaleDateString('id-ID', {
     day: 'numeric',
     month: 'short',
     year: 'numeric',

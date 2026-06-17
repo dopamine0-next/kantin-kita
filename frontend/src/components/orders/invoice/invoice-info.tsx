@@ -13,7 +13,7 @@ export function InvoiceInfo({
   locationBlock = 'Kantin Kita - Blok A',
   createdAt,
 }: InvoiceInfoProps) {
-  const formattedDate = new Date(createdAt).toLocaleDateString('id-ID', {
+  const formattedDate = new Date(createdAt + 'Z').toLocaleDateString('id-ID', {
     day: 'numeric',
     month: 'short',
     hour: '2-digit',

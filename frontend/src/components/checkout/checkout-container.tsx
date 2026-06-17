@@ -58,6 +58,11 @@ export default function CheckoutContainer() {
   const [selectedMenuItem, setSelectedMenuItem] = useState<MenuItem | null>(null)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
 
+  const editRestaurantId = selectedMenuItem?.restaurantId
+  const isRestaurantOpen = editRestaurantId
+    ? (mockRestaurantsDetails?.[editRestaurantId]?.isOpen ?? true)
+    : true
+
   // Calculations
   const subtotal = useMemo(() => {
     return items.reduce((sum, item) => sum + item.price * item.qty, 0)
@@ -196,6 +201,7 @@ export default function CheckoutContainer() {
         item={selectedMenuItem}
         initialCartItem={selectedCartItem || undefined}
         isOpen={isEditModalOpen}
+        isRestaurantOpen={isRestaurantOpen}
         initialStep="variant"
         onClose={() => setIsEditModalOpen(false)}
         onAddedToCart={handleItemUpdated}
