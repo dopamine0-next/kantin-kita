@@ -8,16 +8,16 @@ echo ========================================
 echo.
 
 echo Starting Backend (Spring Boot)...
-start "Kantin-Backend" /min cmd /c "cd /d "%~dp0backend" && .\mvnw spring-boot:run"
+start "Kantin-Backend" cmd /c "cd /d "%~dp0backend" && .\mvnw spring-boot:run"
 
 echo Starting Frontend Web (Next.js)...
-start "Kantin-Frontend" /min cmd /c "cd /d "%~dp0frontend" && npm run dev"
+start "Kantin-Frontend" cmd /c "cd /d "%~dp0frontend" && npm run dev"
 
 echo Starting Frontend Admin (Java Swing)...
-start "Kantin-Admin" /min cmd /c "cd /d "%~dp0frontend-admin" && mvn exec:java"
+start "Kantin-Admin" cmd /c "cd /d "%~dp0frontend-admin" && mvn exec:java"
 
 echo Starting Frontend Kantin (Java Swing)...
-start "Kantin-Kantin" /min cmd /c "cd /d "%~dp0frontend-kantin" && mvn exec:java"
+start "Kantin-Kantin" cmd /c "cd /d "%~dp0frontend-kantin" && mvn exec:java"
 
 echo.
 echo All services started in separate windows.
