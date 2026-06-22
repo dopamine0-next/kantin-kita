@@ -5,16 +5,13 @@ import com.example.demo.entity.enums.*;
 import com.example.demo.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.datafaker.Faker;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
 
 @Component
 @RequiredArgsConstructor
@@ -42,90 +39,7 @@ public class DataSeeder implements CommandLineRunner {
     private final MenuItemReviewRepository menuItemReviewRepository;
     private final PasswordEncoder passwordEncoder;
 
-    private final Faker faker = new Faker(new Locale("id", "ID"));
-    private final Random rand = ThreadLocalRandom.current();
-
-    private static final List<String> RESTAURANT_NAMES = List.of(
-            "Warung Bu Ani", "Ayam Geprek Bensu", "Kopi Kenangan",
-            "Mie Aceh Jaya", "Sate Pak Haji", "Bakso Mas Giri",
-            "Pecel Ayu", "Seblak Mang Udin", "Soto Cak Har",
-            "Ikan Bakar Sambal"
-    );
-
-    private static final List<String> RESTAURANT_CATEGORIES = List.of(
-            "Masakan Rumah", "Ayam", "Kopi & Minuman", "Mie",
-            "Sate", "Bakso", "Pecel", "Seblak", "Soto", "Ikan Bakar"
-    );
-
-    private static final String[] FOOD_NAMES = {
-            "Nasi Goreng Spesial", "Ayam Bakar Madu", "Es Teh Manis",
-            "Pisang Goreng", "Ayam Geprek Level 5", "Paket Geprek Komplit",
-            "Es Jeruk", "Kopi Susu Mantan", "Matcha Latte",
-            "Croissant Coklat", "Mie Aceh Original", "Mie Aceh Seafood",
-            "Mie Aceh Goreng", "Es Kelapa Muda", "Sate Ayam",
-            "Bakso Malang", "Soto Ayam", "Rawon",
-            "Pecel Lele", "Ikan Bakar", "Tahu Gejrot",
-            "Seblak", "Cilok", "Batagor",
-            "Siomay", "Gudeg", "Rendang",
-            "Capcay", "Ayam Penyet", "Tempe Orek",
-            "Perkedel Jagung", "Sop Iga", "Tongseng",
-            "Nasi Uduk", "Nasi Kuning", "Bubur Ayam"
-    };
-
-    private static final List<String> CATEGORIES = List.of(
-            "Nasi", "Mie", "Ayam", "Minuman", "Camilan", "Seafood", "Manis"
-    );
-
-    private static final List<String> VARIANTS = List.of(
-            "Original", "Level 1", "Level 2", "Level 3",
-            "Level 4", "Level 5", "Paha", "Dada",
-            "Iced", "Hot", "Kecil", "Besar"
-    );
-
-    private static final String[] RESTAURANT_IMAGES = {
-            "https://images.unsplash.com/photo-1541832676-9b763b0239ab?auto=format&fit=crop&w=400&q=80",
-            "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=400&q=80",
-            "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80",
-            "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=400&q=80",
-            "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=400&q=80",
-            "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?auto=format&fit=crop&w=400&q=80",
-            "https://images.unsplash.com/photo-1604503468506-a8da13d82791?auto=format&fit=crop&w=400&q=80",
-            "https://images.unsplash.com/photo-1621263764928-df1444c5e859?auto=format&fit=crop&w=400&q=80",
-            "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
-            "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=400&q=80"
-    };
-
-    private static final String[] BANNER_IMAGES = {
-            "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=80",
-            "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=80",
-            "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80",
-            "https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=1200&q=80",
-            "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1200&q=80",
-            "https://images.unsplash.com/photo-1612929633738-8fe03f7d0b9c?auto=format&fit=crop&w=1200&q=80"
-    };
-
-    private static final String[] FOOD_IMAGES = {
-            "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?auto=format&fit=crop&w=400&q=80",
-            "https://images.unsplash.com/photo-1598103442097-8b74f2e94f0d?auto=format&fit=crop&w=400&q=80",
-            "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=400&q=80",
-            "https://images.unsplash.com/photo-1615361200141-f45040f367be?auto=format&fit=crop&w=400&q=80",
-            "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=400&q=80",
-            "https://images.unsplash.com/photo-1604503468506-a8da13d82791?auto=format&fit=crop&w=400&q=80",
-            "https://images.unsplash.com/photo-1621263764928-df1444c5e859?auto=format&fit=crop&w=400&q=80",
-            "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80",
-            "https://images.unsplash.com/photo-1571934811356-5cc061b6821f?auto=format&fit=crop&w=400&q=80",
-            "https://images.unsplash.com/photo-1555507036-ab1f4038028a?auto=format&fit=crop&w=400&q=80",
-            "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=400&q=80",
-            "https://images.unsplash.com/photo-1552611052-33e04de1b100?auto=format&fit=crop&w=400&q=80",
-            "https://images.unsplash.com/photo-1585032226651-759b368d7246?auto=format&fit=crop&w=400&q=80",
-            "https://images.unsplash.com/photo-1527661591475-527312dd65f5?auto=format&fit=crop&w=400&q=80",
-            "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=400&q=80",
-            "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
-            "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=400&q=80",
-            "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=400&q=80",
-            "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=400&q=80",
-            "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?auto=format&fit=crop&w=400&q=80"
-    };
+    private static final String IMG = "/api/v1/uploads/images/";
 
     @Override
     @Transactional
@@ -162,49 +76,30 @@ public class DataSeeder implements CommandLineRunner {
     }
 
     private void seedAdmins() {
-        String[][] data = {
-                {"Admin Utama", "admin@kantin.id"},
-                {"Admin Operasional", "ops@kantin.id"},
-        };
-
-        List<Admin> list = new ArrayList<>();
-        for (String[] d : data) {
-            list.add(adminRepository.save(Admin.builder()
-                    .name(d[0])
-                    .email(d[1])
-                    .password(passwordEncoder.encode("password"))
-                    .build()));
-        }
-        log.info("Seeded {} admins", list.size());
+        adminRepository.save(Admin.builder()
+                .name("Admin Utama")
+                .email("admin@kantin.id")
+                .password(passwordEncoder.encode("password"))
+                .build());
+        log.info("Seeded admin");
     }
 
     private List<Vendor> seedVendors() {
-        String[][] data = {
-                {"Budi Santoso", "budi@kantin.id", "081234567890"},
-                {"Siti Rahayu", "siti@kantin.id", "081234567891"},
-                {"Agus Wijaya", "agus@kantin.id", "081234567892"},
-        };
-
-        List<Vendor> list = new ArrayList<>();
-        for (String[] d : data) {
-            list.add(vendorRepository.save(Vendor.builder()
-                    .name(d[0])
-                    .email(d[1])
-                    .phone(d[2])
-                    .password(passwordEncoder.encode("password"))
-                    .build()));
-        }
-        log.info("Seeded {} vendors", list.size());
-        return list;
+        Vendor vendor = vendorRepository.save(Vendor.builder()
+                .name("Vendor Utama")
+                .email("vendor@kantin.id")
+                .phone("081234567890")
+                .password(passwordEncoder.encode("password"))
+                .build());
+        log.info("Seeded 1 vendor");
+        return List.of(vendor);
     }
 
     private List<Location> seedLocations() {
         String[][] data = {
-                {"Kantin Pusat", "Gedung Utama Lt. 1", "-6.2088", "106.8456"},
-                {"Kantin Teknik", "Gedung Teknik Lt. Dasar", "-6.2100", "106.8480"},
-                {"Kantin Ekonomi", "Gedung Ekonomi Lt. 2", "-6.2075", "106.8430"},
-                {"Kantin Kedokteran", "Gedung FK Lt. 1", "-6.2110", "106.8410"},
-                {"Kantin FISIP", "Gedung FISIP Lt. Ground", "-6.2065", "106.8465"}
+                {"Kantin Viktor", "Gedung Viktor Lt. 1", "-6.2088", "106.8456"},
+                {"Kantin Pusat", "Gedung Utama Lt. 1", "-6.2100", "106.8480"},
+                {"Kantin Witana", "Gedung Witana Lt. Dasar", "-6.2075", "106.8430"}
         };
 
         List<Location> list = new ArrayList<>();
@@ -221,231 +116,167 @@ public class DataSeeder implements CommandLineRunner {
     }
 
     private List<RestaurantCategory> seedRestaurantCategories() {
+        List<String> names = List.of("Masakan Rumah", "Kopi & Minuman", "Mie");
         List<RestaurantCategory> list = new ArrayList<>();
-        for (String name : RESTAURANT_CATEGORIES) {
-            list.add(restaurantCategoryRepository.save(RestaurantCategory.builder()
-                    .name(name)
-                    .build()));
+        for (String name : names) {
+            list.add(restaurantCategoryRepository.save(RestaurantCategory.builder().name(name).build()));
         }
-        log.info("Seeded {} restaurant categories", RESTAURANT_CATEGORIES.size());
+        log.info("Seeded {} restaurant categories", list.size());
         return list;
     }
 
     private List<MenuCategory> seedMenuCategories() {
+        String[][] data = {{"Makanan", "1"}, {"Minuman", "2"}};
         List<MenuCategory> list = new ArrayList<>();
-        for (int i = 0; i < CATEGORIES.size(); i++) {
+        for (String[] d : data) {
             list.add(menuCategoryRepository.save(MenuCategory.builder()
-                    .name(CATEGORIES.get(i))
-                    .priority(i + 1)
-                    .build()));
+                    .name(d[0]).priority(Integer.parseInt(d[1])).build()));
         }
-        log.info("Seeded {} menu categories", CATEGORIES.size());
+        log.info("Seeded {} menu categories", list.size());
         return list;
     }
 
     private void seedMarqueeNodes() {
-        String[][] data = {
-                {"Promo spesial setiap hari! Diskon s.d 50%"},
-                {"Gratis ongkir untuk area kantin!"},
-                {"Ayam Geprek Bensu lagi viral! Coba sekarang"},
-                {"Kopi Kenangan buy 1 get 1 setiap jam 10 pagi"},
-                {"Pesan sekarang, bayar nanti pake Xendit"}
-        };
-
-        for (String[] d : data) {
-            marqueeNodeRepository.save(MarqueeNode.builder()
-                    .text(d[0])
-                    .isActive(true)
-                    .build());
-        }
-        log.info("Seeded {} marquee nodes", data.length);
+        List.of(
+                "Promo spesial setiap hari! Diskon s.d 50%",
+                "Gratis ongkir untuk area kampus!"
+        ).forEach(text -> marqueeNodeRepository.save(
+                MarqueeNode.builder().text(text).isActive(true).build()));
+        log.info("Seeded marquee nodes");
     }
 
     private void seedFAQs() {
         String[][] data = {
                 {"Bagaimana cara memesan makanan di Kantin Kita?",
-                        "Anda dapat memilih stan makanan di halaman utama, memilih menu yang diinginkan, menambahkannya ke keranjang, dan melakukan checkout."},
+                        "Pilih stan makanan di halaman utama, pilih menu, tambah ke keranjang, lalu checkout."},
                 {"Metode pembayaran apa saja yang tersedia?",
-                        "Saat ini kami mendukung pembayaran melalui Xendit (Virtual Account, E-Wallet, QRIS, dan metode lainnya)."},
-                {"Berapa lama waktu penyiapan makanan?",
-                        "Waktu penyiapan bervariasi antara 10-20 menit tergantung pada antrean di stan makanan."},
-                {"Apakah saya bisa membatalkan pesanan?",
-                        "Pesanan hanya dapat dibatalkan sebelum stan makanan mulai menyiapkan pesanan Anda. Silakan hubungi stan terkait segera."}
+                        "Kami mendukung pembayaran melalui Virtual Account, E-Wallet, QRIS, dan lainnya."}
         };
-
         for (String[] d : data) {
-            faqRepository.save(FAQ.builder()
-                    .question(d[0])
-                    .answer(d[1])
-                    .build());
+            faqRepository.save(FAQ.builder().question(d[0]).answer(d[1]).build());
         }
         log.info("Seeded {} FAQs", data.length);
     }
 
     private void seedTerms() {
-        String content = "# Ketentuan Layanan\n\n"
-                + "Selamat datang di **Kantin Kita**. Dengan menggunakan aplikasi ini, Anda setuju untuk mematuhi ketentuan berikut:\n\n"
-                + "## 1. Penggunaan Layanan\n"
-                + "Aplikasi ini hanya dapat digunakan untuk memesan makanan di lingkungan kantin perusahaan.\n\n"
-                + "## 2. Pemesanan dan Pembayaran\n"
-                + "- Seluruh harga sudah termasuk pajak layanan.\n"
-                + "- Kesalahan pemilihan menu setelah diproses oleh stan tidak dapat dibatalkan.\n"
-                + "- Pembayaran dilakukan melalui Xendit dan wajib diselesaikan dalam waktu 24 jam.\n\n"
-                + "## 3. Kebijakan Privasi\n"
-                + "Kami menjaga kerahasiaan data pesanan Anda dan hanya menggunakannya untuk keperluan transaksi.\n\n"
-                + "## 4. Perubahan Ketentuan\n"
-                + "Kami berhak mengubah ketentuan ini sewaktu-waktu tanpa pemberitahuan sebelumnya.";
-
-        termRepository.save(Term.builder().content(content).build());
+        termRepository.save(Term.builder().content(
+                "# Ketentuan Layanan\n\n" +
+                "Dengan menggunakan aplikasi Kantin Kita, Anda setuju dengan ketentuan yang berlaku.\n\n" +
+                "## Pemesanan & Pembayaran\n" +
+                "Harga sudah termasuk pajak. Pembayaran dilakukan melalui Xendit.\n\n" +
+                "## Privasi\n" +
+                "Data pesanan Anda hanya digunakan untuk keperluan transaksi."
+        ).build());
         log.info("Seeded terms");
     }
 
     private void seedVouchers() {
         String[][] data = {
-                {"HEMAT20", "20", "Diskon 20% khusus makanan favoritmu (Maks. Rp 15.000)", "15000"},
-                {"DISKON10", "10", "Potongan harga langsung 10% tanpa min. belanja (Maks. Rp 5.000)", "5000"},
-                {"DINEIN30", "30", "Hemat 30% khusus Makan di Tempat (Maks. Rp 20.000)", "20000"}
+                {"HEMAT20", "20", "Diskon 20% (Maks. Rp 15.000)", "15000"},
+                {"DISKON10", "10", "Diskon 10% (Maks. Rp 5.000)", "5000"}
         };
-
         for (String[] d : data) {
             voucherRepository.save(Voucher.builder()
-                    .code(d[0])
-                    .value(Double.parseDouble(d[1]))
-                    .description(d[2])
-                    .maxDiscount(Double.parseDouble(d[3]))
-                    .isActive(true)
-                    .build());
+                    .code(d[0]).value(Double.parseDouble(d[1]))
+                    .description(d[2]).maxDiscount(Double.parseDouble(d[3]))
+                    .isActive(true).build());
         }
         log.info("Seeded {} vouchers", data.length);
     }
 
-    private List<Restaurant> seedRestaurants(List<Location> locations, List<Vendor> vendors, List<RestaurantCategory> restaurantCategories) {
+    private List<Restaurant> seedRestaurants(List<Location> locations, List<Vendor> vendors, List<RestaurantCategory> categories) {
+        Vendor vendor = vendors.getFirst();
+
+        String[][] data = {
+                {"Warung Bu Ani", "0", "0", IMG + "warung-bu-ani.png", "Kantin Viktor Blok A", "07:00 - 17:00", "15000"},
+                {"Kopi Kenangan", "1", "1", IMG + "kopi-kenangan.png", "Kantin Pusat Blok B", "08:00 - 20:00", "8000"},
+                {"Mie Aceh Jaya", "2", "2", IMG + "mie-aceh-jaya.png", "Kantin Witana Blok C", "09:00 - 18:00", "20000"}
+        };
+
         List<Restaurant> list = new ArrayList<>();
+        for (String[] d : data) {
+            Location loc = locations.get(Integer.parseInt(d[1]));
+            RestaurantCategory cat = categories.get(Integer.parseInt(d[2]));
 
-        for (int i = 0; i < 6; i++) {
-            Location loc = locations.get(rand.nextInt(locations.size()));
-
-            Restaurant restaurant = Restaurant.builder()
-                    .name(RESTAURANT_NAMES.get(i))
-                    .restaurantCategory(restaurantCategories.get(i))
+            list.add(restaurantRepository.save(Restaurant.builder()
+                    .name(d[0])
+                    .restaurantCategory(cat)
                     .isOpen(true)
-                    .imageUrl(RESTAURANT_IMAGES[i])
-                    .bannerImageUrl(BANNER_IMAGES[rand.nextInt(BANNER_IMAGES.length)])
-                    .address("Kantin " + loc.getName() + " Blok " + ((char) ('A' + rand.nextInt(4))))
-                    .operationalHours("0" + rand.nextInt(7, 9) + ":00 - " + (rand.nextBoolean() ? "17:00" : "20:00"))
+                    .imageUrl(d[3])
+                    .bannerImageUrl(IMG + "banner-promo.png")
+                    .address(d[4])
+                    .operationalHours(d[5])
                     .location(loc)
-                    .cheapestPrice(rand.nextDouble() * 20000 + 5000)
-                    .vendor(vendors.get(i % vendors.size()))
-                    .build();
-
-            list.add(restaurantRepository.save(restaurant));
+                    .cheapestPrice(Double.parseDouble(d[6]))
+                    .vendor(vendor)
+                    .build()));
         }
-
         log.info("Seeded {} restaurants", list.size());
         return list;
     }
 
     private void seedMenuItems(List<Restaurant> restaurants, List<MenuCategory> categories) {
+        MenuCategory makanan = categories.get(0);
+        MenuCategory minuman = categories.get(1);
+
+        Object[][] menuData = {
+                // {restaurantIndex, name, price, image, category, isPopular, variants[]...}
+                {0, "Nasi Goreng Spesial", 15000.0, "nasi-goreng.png", makanan, true,
+                        new String[][]{{"Original", "0"}, {"Level 1", "0"}, {"Level 3", "0"}, {"Level 5", "0"}}},
+                {0, "Ayam Bakar Madu", 18000.0, "ayam-bakar.png", makanan, true,
+                        new String[][]{{"Paha", "0"}, {"Dada", "0"}}},
+                {1, "Es Teh Manis", 5000.0, "es-teh.png", minuman, false,
+                        new String[][]{{"Kecil", "0"}, {"Besar", "2000"}}},
+                {1, "Kopi Susu Mantan", 12000.0, "kopi-susu.png", minuman, true,
+                        new String[][]{{"Iced", "0"}, {"Hot", "0"}}},
+                {2, "Mie Aceh Original", 20000.0, "mie-original.png", makanan, true,
+                        new String[][]{{"Level 1", "0"}, {"Level 3", "0"}, {"Level 5", "0"}}},
+                {2, "Mie Aceh Goreng", 22000.0, "mie-goreng.png", makanan, true,
+                        new String[][]{{"+Telur", "3000"}, {"+Tahu", "2000"}, {"+Telur+Tahu", "5000"}}}
+        };
+
         int count = 0;
+        for (Object[] md : menuData) {
+            int restIdx = (int) md[0];
+            String name = (String) md[1];
+            double price = (double) md[2];
+            String image = (String) md[3];
+            MenuCategory cat = (MenuCategory) md[4];
+            boolean isPopular = (boolean) md[5];
+            String[][] variantData = (String[][]) md[6];
 
-        for (Restaurant restaurant : restaurants) {
-            int itemCount = rand.nextInt(3, 6);
-            List<String> usedNames = new ArrayList<>();
+            MenuItem item = MenuItem.builder()
+                    .restaurant(restaurants.get(restIdx))
+                    .name(name)
+                    .description(name + " enak dan murah, cocok untuk makan siang.")
+                    .price(price)
+                    .imageUrl(IMG + image)
+                    .category(cat)
+                    .isPopular(isPopular)
+                    .build();
 
-            for (int j = 0; j < itemCount; j++) {
-                String name;
-                do {
-                    name = FOOD_NAMES[rand.nextInt(FOOD_NAMES.length)];
-                } while (usedNames.contains(name));
-                usedNames.add(name);
-
-                double price = (rand.nextInt(5, 50)) * 1000.0;
-                boolean hasDiscount = rand.nextInt(5) == 0;
-
-                MenuCategory category = categories.get(rand.nextInt(1, categories.size()));
-
-                List<String> variantNames = new ArrayList<>();
-                if (rand.nextBoolean()) {
-                    variantNames.add(VARIANTS.get(rand.nextInt(VARIANTS.size())));
-                    if (rand.nextBoolean()) {
-                        variantNames.add(VARIANTS.get(rand.nextInt(VARIANTS.size())));
-                    }
-                }
-
-                MenuItem item = MenuItem.builder()
-                        .restaurant(restaurant)
-                        .name(name)
-                        .description(faker.lorem().sentence(rand.nextInt(5, 15)))
-                        .price(price)
-                        .originalPrice(hasDiscount ? price * (1 + rand.nextDouble() * 0.3 + 0.1) : null)
-                        .imageUrl(FOOD_IMAGES[rand.nextInt(FOOD_IMAGES.length)])
-                        .category(category)
-                        .isPopular(rand.nextBoolean())
+            if (variantData.length > 0) {
+                MenuCustomization variantCust = MenuCustomization.builder()
+                        .menuItem(item)
+                        .title("Variant")
+                        .type(CustomizationType.CHOICE)
+                        .isRequired(true)
                         .build();
 
-                if (!variantNames.isEmpty()) {
-                    MenuCustomization variantCust = MenuCustomization.builder()
-                            .menuItem(item)
-                            .title("Variant")
-                            .type(CustomizationType.CHOICE)
-                            .isRequired(true)
-                            .build();
-                    List<CustomizationOption> variantOpts = variantNames.stream()
-                            .map(v -> CustomizationOption.builder()
-                                    .customization(variantCust)
-                                    .label(v)
-                                    .price(0.0)
-                                    .build())
-                            .toList();
-                    variantCust.setOptions(variantOpts);
-                    item.getCustomizations().add(variantCust);
+                List<CustomizationOption> opts = new ArrayList<>();
+                for (String[] v : variantData) {
+                    opts.add(CustomizationOption.builder()
+                            .customization(variantCust)
+                            .label(v[0])
+                            .price(Double.parseDouble(v[1]))
+                            .build());
                 }
-
-                if (rand.nextBoolean()) {
-                    MenuCustomization spicy = MenuCustomization.builder()
-                            .menuItem(item)
-                            .title("Level Pedas")
-                            .type(CustomizationType.CHOICE)
-                            .isRequired(true)
-                            .build();
-
-                    String[] levels = {"Tidak Pedas", "Level 1", "Level 2", "Level 3"};
-                    List<CustomizationOption> spicyOpts = new ArrayList<>();
-                    for (String level : levels) {
-                        spicyOpts.add(CustomizationOption.builder()
-                                .customization(spicy)
-                                .label(level)
-                                .price(level.contains("Level 2") || level.contains("Level 3") ? (double) rand.nextInt(1, 3) * 1000 : 0.0)
-                                .build());
-                    }
-                    spicy.setOptions(spicyOpts);
-                    item.getCustomizations().add(spicy);
-
-                    if (rand.nextBoolean()) {
-                        MenuCustomization topping = MenuCustomization.builder()
-                                .menuItem(item)
-                                .title("Topping")
-                                .type(CustomizationType.CHOICE)
-                                .isRequired(false)
-                                .build();
-
-                        String[][] toppings = {{"Telur", "3000"}, {"Tahu", "2000"}, {"Tempe", "2000"}};
-                        List<CustomizationOption> topOpts = new ArrayList<>();
-                        for (String[] t : toppings) {
-                            topOpts.add(CustomizationOption.builder()
-                                    .customization(topping)
-                                    .label(t[0])
-                                    .price(Double.parseDouble(t[1]))
-                                    .build());
-                        }
-                        topping.setOptions(topOpts);
-                        item.getCustomizations().add(topping);
-                    }
-                }
-
-                menuItemRepository.save(item);
-                count++;
+                variantCust.setOptions(opts);
+                item.getCustomizations().add(variantCust);
             }
+
+            menuItemRepository.save(item);
+            count++;
         }
 
         log.info("Seeded {} menu items", count);
@@ -454,66 +285,44 @@ public class DataSeeder implements CommandLineRunner {
     private void seedBanners(List<Location> locations) {
         String[][] data = {
                 {"Promo Akhir Bulan!", "/promo", "0"},
-                {"Makan Siang Hemat", "/promo", "0"},
-                {"Menu Baru! Ayam Geprek Bensu", "/restaurant/rst_002", "1"},
-                {"Kopi Spesial Hari Ini", "/restaurant/rst_003", "0"},
-                {"Diskon 50% Mie Aceh", "/restaurant/rst_004", "2"},
-                {"Sate Pak Haji Promo", "/promo", "3"}
+                {"Kopi Spesial Hari Ini", "/promo", "1"},
+                {"Diskon Mie Aceh", "/promo", "2"}
         };
 
-        for (int i = 0; i < data.length; i++) {
+        for (String[] d : data) {
             bannerRepository.save(Banner.builder()
-                    .imageUrl(BANNER_IMAGES[i % BANNER_IMAGES.length])
-                    .title(data[i][0])
-                    .linkUrl(data[i][1])
+                    .imageUrl(IMG + "banner-promo.png")
+                    .title(d[0])
+                    .linkUrl(d[1])
                     .isActive(true)
-                    .location(locations.get(Integer.parseInt(data[i][2])))
+                    .location(locations.get(Integer.parseInt(d[2])))
                     .build());
         }
         log.info("Seeded {} banners", data.length);
     }
 
     private List<User> seedUsers(List<Location> locations) {
-        String[] names = {
-                "Ahmad Fauzi", "Siti Nurhaliza", "Budi Santoso",
-                "Dewi Lestari", "Rudi Hartono", "Rina Wijaya",
-                "Andi Pratama", "Mega Utami", "Doni Kusuma",
-                "Indah Permata", "Rizky Ardiansyah", "Citra Dewi"
-        };
-
-        List<User> list = new ArrayList<>();
-        for (int i = 0; i < names.length; i++) {
-            String nim = String.format("%010d", rand.nextInt(1000000000));
-            int semester = rand.nextInt(1, 9);
-
-            list.add(userRepository.save(User.builder()
-                    .name(names[i])
-                    .nim(nim)
-                    .password(passwordEncoder.encode("password"))
-                    .semester(semester)
-                    .location(locations.get(rand.nextInt(locations.size())))
-                    .build()));
-        }
-        log.info("Seeded {} users", list.size());
-        return list;
+        User user = userRepository.save(User.builder()
+                .name("admin")
+                .nim("241011401771")
+                .password(passwordEncoder.encode("password"))
+                .semester(5)
+                .location(locations.get(0))
+                .build());
+        log.info("Seeded 1 user");
+        return List.of(user);
     }
 
     private Map<String, List<Order>> seedOrders(List<User> users, List<Restaurant> restaurants) {
-        OrderStatus[] statuses = {
-                OrderStatus.COMPLETED, OrderStatus.COMPLETED, OrderStatus.COMPLETED,
-                OrderStatus.PROCESSING, OrderStatus.PROCESSING,
-                OrderStatus.READY,
-                OrderStatus.PENDING,
-                OrderStatus.CANCELLED
-        };
-
         List<MenuItem> allMenuItems = menuItemRepository.findAll();
         Map<String, List<Order>> ordersByUser = new HashMap<>();
         int orderCount = 0;
 
+        OrderStatus[] statuses = {OrderStatus.COMPLETED, OrderStatus.PROCESSING, OrderStatus.PENDING};
+
         for (int i = 0; i < statuses.length; i++) {
-            User user = users.get(rand.nextInt(users.size()));
-            Restaurant restaurant = restaurants.get(rand.nextInt(restaurants.size()));
+            User user = users.getFirst();
+            Restaurant restaurant = restaurants.get(i);
             OrderStatus status = statuses[i];
 
             List<MenuItem> restaurantMenus = allMenuItems.stream()
@@ -522,50 +331,44 @@ public class DataSeeder implements CommandLineRunner {
 
             if (restaurantMenus.isEmpty()) continue;
 
-            int itemCount = rand.nextInt(1, 4);
             List<OrderItem> orderItems = new ArrayList<>();
             double subtotal = 0;
 
-            for (int j = 0; j < itemCount; j++) {
-                MenuItem menuItem = restaurantMenus.get(rand.nextInt(restaurantMenus.size()));
+            for (int j = 0; j < restaurantMenus.size(); j++) {
+                MenuItem menuItem = restaurantMenus.get(j);
+                int qty = 1;
+                double itemTotal = menuItem.getPrice() * qty;
 
-                double itemTotal = menuItem.getPrice();
-
-                OrderItem orderItem = OrderItem.builder()
+                orderItems.add(OrderItem.builder()
                         .menuItem(menuItem)
                         .name(menuItem.getName())
-                        .quantity(rand.nextInt(1, 3))
+                        .quantity(qty)
                         .price(menuItem.getPrice())
                         .imageUrl(menuItem.getImageUrl())
                         .variantName(null)
-                        .build();
+                        .build());
 
-                orderItems.add(orderItem);
-                subtotal += itemTotal * orderItem.getQuantity();
+                subtotal += itemTotal;
             }
 
-            double discount = status == OrderStatus.COMPLETED && rand.nextBoolean()
-                    ? subtotal * rand.nextDouble() * 0.3 : 0;
-            double appFee = subtotal > 0 ? 2000 : 0;
-            double total = Math.max(0, subtotal - discount + appFee);
+            double appFee = 2000;
+            double total = subtotal + appFee;
 
             Order order = Order.builder()
                     .user(user)
                     .restaurant(restaurant)
                     .status(status)
                     .paymentStatus(status == OrderStatus.PENDING ? PaymentStatus.UNPAID
-                            : status == OrderStatus.CANCELLED ? PaymentStatus.FAILED : PaymentStatus.PAID)
+                            : status == OrderStatus.COMPLETED ? PaymentStatus.PAID : PaymentStatus.PAID)
                     .paymentUrl("https://checkout.xendit.co/mock/" + orderCount)
-                    .mode(rand.nextBoolean() ? OrderMode.DINE_IN : OrderMode.PICKUP)
+                    .mode(OrderMode.DINE_IN)
                     .subtotal(Math.round(subtotal * 100.0) / 100.0)
-                    .discountAmount(discount > 0 ? Math.round(discount * 100.0) / 100.0 : null)
                     .appFee(appFee)
                     .totalAmount(Math.round(total * 100.0) / 100.0)
                     .items(orderItems)
                     .build();
 
             orderItems.forEach(oi -> oi.setOrder(order));
-
             Order savedOrder = orderRepository.save(order);
             orderCount++;
 
@@ -581,9 +384,7 @@ public class DataSeeder implements CommandLineRunner {
         int itemReviewCount = 0;
 
         for (var entry : ordersByUser.entrySet()) {
-            String userId = entry.getKey();
-            User user = users.stream().filter(u -> u.getId().equals(userId)).findFirst().orElse(null);
-            if (user == null) continue;
+            User user = users.getFirst();
 
             for (Order order : entry.getValue()) {
                 if (order.getStatus() != OrderStatus.COMPLETED) continue;
@@ -592,18 +393,17 @@ public class DataSeeder implements CommandLineRunner {
                         .user(user)
                         .order(order)
                         .restaurant(order.getRestaurant())
-                        .rating(rand.nextInt(3, 6))
+                        .rating(5)
                         .build());
                 restReviewCount++;
 
                 for (OrderItem item : order.getItems()) {
                     if (item.getMenuItem() == null) continue;
-
                     menuItemReviewRepository.save(MenuItemReview.builder()
                             .user(user)
                             .order(order)
                             .menuItem(item.getMenuItem())
-                            .rating(rand.nextInt(3, 6))
+                            .rating(5)
                             .build());
                     itemReviewCount++;
                 }
