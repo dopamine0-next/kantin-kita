@@ -1,0 +1,189 @@
+'use client'
+
+import { useEffect, useState } from 'react'
+
+import { ChevronLeft, ShoppingBag } from 'lucide-react'
+
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogMedia,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog'
+import { DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { Textarea } from '@/components/ui/textarea'
+import { ChoiceOption, MenuItem } from '@/services/restaurant/restaurant.types'
+import { CartItem, useCartStore } from '@/store/useCartStore'
+
+import { CustomizationOptions } from './customization-options'
+import { FoodVariantFooter } from './food-variant-footer'
+
+interface FoodVariantFormProps {
+  item: MenuItem
+  initialCartItem?: CartItem
+  isOpen: boolean
+  onBack: () => void
+  onClose: () => void
+  onAddedToCart: (message: string) => void
+}
+
+export function FoodVariantForm({
+  item,
+  initialCartItem,
+  isOpen,
+  onBack,
+  onClose,
+  onAddedToCart,
+}: FoodVariantFormProps) {
+  const addToCart = useCartStore((state) => state.addToCart)
+  const removeItem = useCartStore((state) => state.removeItem)
+  const clearCart = useCartStore((state) => state.clearCart)
+
+  const [qty, setQty] = useState(initialCartItem?.qty || 1)
+  const [selectedChoices, setSelectedChoices] = useState<Record<string, string>>({})
+  const [note, setNote] = useState(initialCartItem?.note || '')
+  const [showRestoConflict, setShowRestoConflict] = useState(false)
+
+  useEffect(() => {
+    if (!initialCartItem) {
+      setQty(1)
+      setNote('')
+    }
+
+    const initialChoices: Record<string, string> = {}
+    item.customizations?.forEach((cust) => {
+      const savedChoice = initialCartItem?.level
+      initialChoices[cust.title] = savedChoice || (cust.options[0] as ChoiceOption).label
+    })
+    setSelectedChoices(initialChoices)
+  }, [item, initialCartItem])
+
+  const handleIncrement = () => setQty((prev) => prev + 1)
+  const handleDecrement = () => setQty((prev) => (prev > 1 ? prev - 1 : 1))
+
+  const handleSelectChoice = (custTitle: string, label: string) => {
+    setSelectedChoices((prev) => ({ ...prev, [custTitle]: label }))
+  }
+
+  // Calculate prices
+  const choicesPrice = Object.entries(selectedChoices).reduce((sum, [title, label]) => {
+    const cust = item.customizations?.find((c) => c.title === title)
+    const option = cust?.options.find((o) => (o as ChoiceOption).label === label) as ChoiceOption
+    return sum + (option?.price || 0)
+  }, 0)
+
+  const singleItemPrice = item.price + choicesPrice
+  const totalPrice = singleItemPrice * qty
+
+  const executeAddToCart = () => {
+    if (initialCartItem) {
+      removeItem(initialCartItem.id)
+    }
+
+    addToCart({
+      foodId: item.id,
+      name: item.name,
+      price: singleItemPrice,
+      image: item.image,
+      restaurantId: item.restaurantId,
+      level: Object.values(selectedChoices)[0],
+      levelPrice: choicesPrice,
+      note: note.trim() || undefined,
+      qty,
+    })
+
+    const details: string[] = []
+    Object.values(selectedChoices).forEach((c) => details.push(c))
+
+    const detailsStr = details.length > 0 ? ` (${details.join(', ')})` : ''
+    const actionText = initialCartItem ? 'diperbarui' : 'ditambahkan ke keranjang'
+    onAddedToCart(`✓ ${qty}x ${item.name}${detailsStr} ${actionText}!`)
+    onClose()
+  }
+
+  const handleAddToCart = () => {
+    const cartItems = useCartStore.getState().items
+    const cartRestoId = cartItems[0]?.restaurantId
+
+    if (cartItems.length > 0 && cartRestoId && cartRestoId !== item.restaurantId) {
+      setShowRestoConflict(true)
+      return
+    }
+
+    executeAddToCart()
+  }
+
+  const handleConfirmSwitchResto = () => {
+    clearCart()
+    setShowRestoConflict(false)
+    executeAddToCart()
+  }
+
+  return (
+    <div className="no-scrollbar max-h-[85vh] overflow-y-auto px-5 pt-6 pb-8">
+      <DialogHeader className="flex flex-row items-center gap-3 space-y-0 px-0 pt-0 text-left">
+        <button
+          onClick={onBack}
+          className="bg-card text-muted-foreground border-muted/30 flex size-8 shrink-0 items-center justify-center rounded-full border shadow-sm"
+        >
+          <ChevronLeft className="size-4" />
+        </button>
+        <DialogTitle className="text-foreground text-lg leading-tight font-semibold">
+          Pilihan Varian
+        </DialogTitle>
+      </DialogHeader>
+
+      <CustomizationOptions
+        customizations={item.customizations || []}
+        selectedChoices={selectedChoices}
+        onSelectChoice={handleSelectChoice}
+      />
+
+      <div className="mt-6">
+        <h4 className="text-foreground mb-2 text-xs font-semibold">Catatan Khusus</h4>
+        <Textarea
+          placeholder="Contoh: Kuah dipisah, tidak pakai bawang..."
+          value={note}
+          onChange={(e) => setNote(e.target.value)}
+          className="bg-card/40 border-muted/30 focus-visible:ring-primary focus-visible:border-primary placeholder:text-muted-foreground/45 min-h-15 resize-none rounded-xl text-xs"
+          maxLength={100}
+        />
+      </div>
+
+      <FoodVariantFooter
+        qty={qty}
+        totalPrice={totalPrice}
+        onIncrement={handleIncrement}
+        onDecrement={handleDecrement}
+        onAddToCart={handleAddToCart}
+        disabled={!isOpen}
+      />
+
+      <AlertDialog open={showRestoConflict} onOpenChange={setShowRestoConflict}>
+        <AlertDialogContent size="sm">
+          <AlertDialogHeader>
+            <AlertDialogMedia>
+              <ShoppingBag className="size-8" />
+            </AlertDialogMedia>
+            <AlertDialogTitle>Pindah Restoran?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Keranjangmu berisi pesanan dari restoran lain. Ingin menghapus dan pindah ke restoran
+              ini?
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Tidak</AlertDialogCancel>
+            <AlertDialogAction onClick={handleConfirmSwitchResto}>
+              Ya, Hapus & Pindah
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </div>
+  )
+}

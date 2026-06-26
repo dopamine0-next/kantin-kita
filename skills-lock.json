@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "creating-mermaid-diagrams": {
+      "source": "Agents365-ai/365-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/mermaid/skills/mermaid-skill/SKILL.md",
+      "computedHash": "e83ca03c06ff40176fe78e75216637bc272d1497007cc1a97fb9d1b11b9cddf9"
+    }
+  }
+}

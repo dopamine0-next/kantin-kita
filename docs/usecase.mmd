@@ -1,0 +1,40 @@
+flowchart TD
+  User((User / Mahasiswa))
+  Vendor((Vendor))
+  Admin((Admin))
+
+  subgraph UCUser["Use Cases - User"]
+    U1[Register / Login]
+    U2[Browse Restaurants]
+    U3[Search Menu Items]
+    U4[View Menu Detail]
+    U5[Add to Cart]
+    U6[Checkout & Pay]
+    U7[View Order History]
+    U8[Rate & Review]
+  end
+
+  subgraph UCVendor["Use Cases - Vendor"]
+    V1[Login as Vendor]
+    V2[Manage Restaurant Profile]
+    V3[Manage Menu Items]
+    V4[Manage Customizations]
+    V5[View & Update Orders]
+    V6[View Analytics]
+    V7[View Reviews]
+  end
+
+  subgraph UCAdmin["Use Cases - Admin"]
+    A1[Login as Admin]
+    A2[Manage Restaurants]
+    A3[Manage Vendors]
+    A4[Manage Categories]
+    A5[Manage Locations]
+    A6[Manage Banners]
+    A7[Manage Vouchers]
+    A8[View Dashboard]
+  end
+
+  User --> UCUser
+  Vendor --> UCVendor
+  Admin --> UCAdmin

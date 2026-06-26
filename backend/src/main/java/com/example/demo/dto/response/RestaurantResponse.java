@@ -1,0 +1,56 @@
+package com.example.demo.dto.response;
+
+import com.example.demo.entity.Restaurant;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class RestaurantResponse {
+
+    private String id;
+    private String name;
+    @JsonProperty("restaurant_category")
+    private RestaurantCategoryResponse restaurantCategory;
+    private Double rating;
+
+    @JsonProperty("rating_count")
+    private Integer ratingCount;
+
+    @JsonProperty("reviews_count")
+    private Integer reviewsCount;
+
+    @JsonProperty("is_open")
+    private Boolean isOpen;
+
+    @JsonProperty("image_url")
+    private String imageUrl;
+
+    @JsonProperty("location_id")
+    private String locationId;
+
+    @JsonProperty("cheapest_price")
+    private Double cheapestPrice;
+
+    public static RestaurantResponse from(Restaurant restaurant, Double rating, Integer ratingCount,
+                                            boolean isOpen) {
+        return RestaurantResponse.builder()
+                .id(restaurant.getId())
+                .name(restaurant.getName())
+                .restaurantCategory(restaurant.getRestaurantCategory() != null
+                        ? RestaurantCategoryResponse.from(restaurant.getRestaurantCategory()) : null)
+                .rating(rating != null ? Math.round(rating * 10.0) / 10.0 : null)
+                .ratingCount(ratingCount)
+                .reviewsCount(ratingCount)
+                .isOpen(isOpen)
+                .imageUrl(restaurant.getImageUrl())
+                .locationId(restaurant.getLocation() != null ? restaurant.getLocation().getId() : null)
+                .cheapestPrice(restaurant.getCheapestPrice())
+                .build();
+    }
+}

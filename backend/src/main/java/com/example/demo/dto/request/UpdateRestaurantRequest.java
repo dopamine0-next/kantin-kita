@@ -1,0 +1,16 @@
+package com.example.demo.dto.request;
+
+import lombok.*;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class UpdateRestaurantRequest {
+
+    private String name;
+    private String restaurantCategoryId;
+    private String imageUrl;
+    private String bannerImageUrl;
+    private String address;
+}
